@@ -1,0 +1,52 @@
+{
+  "as_of": "2026-07-29",
+  "contract_version": "1.0",
+  "core": "super-library-compact.md",
+  "corpus_version": "0.1.0",
+  "data_license": "CC0-1.0",
+  "index": "index.json",
+  "packs": {
+    "embodied_ai": "packs/embodied_ai.md",
+    "general": "packs/general.md",
+    "reinforcement_learning": "packs/reinforcement_learning.md",
+    "robot_learning": "packs/robot_learning.md",
+    "world_models": "packs/world_models.md"
+  },
+  "raw_urls": {
+    "core": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md",
+    "index": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/index.json",
+    "packs": {
+      "embodied_ai": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/embodied_ai.md",
+      "general": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/general.md",
+      "reinforcement_learning": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/reinforcement_learning.md",
+      "robot_learning": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/robot_learning.md",
+      "world_models": "https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/world_models.md"
+    }
+  },
+  "release_tag": "v0.1.0",
+  "schema_version": "1.0",
+  "sha256": {
+    "index.json": "0557ed7619ef6efa0cd07cdabb7138449cf5328d22b7034f5050ff1dfb382eef",
+    "packs/embodied_ai.md": "c604308f26b06d665ad0572dade2c136d12331a2144dbedba8b747076a681ba3",
+    "packs/general.md": "413579e81381b7bc2f8e806438b5c719fbafd424cc8e06acf06f245590aa8815",
+    "packs/reinforcement_learning.md": "5be57a2413434e60837f6ca47f0c5f60bc4379c8dce365bd2830ee92199ca0f4",
+    "packs/robot_learning.md": "e10895eb4aa90d0f9cdacf8c22a7fede799f3fb4604adc5cb2ff24c9b50e3622",
+    "packs/world_models.md": "9ffa8aedbaccb2014a0a12e056cbf0cef777c3beabbebed6dbb937d746b5e84e",
+    "stats.json": "d3f3cc8da0073ecb350d40a638b5f9f295e111272caff875796034abaeb738a8",
+    "super-library-compact.md": "bc006f326bdeb7fa827f299b8ee5856fc2b7983de7da2b943177e2a994eea89a"
+  },
+  "source_of_truth": [
+    "library/entries/attested_phrases.jsonl",
+    "library/entries/embodied_ai.jsonl",
+    "library/entries/general.jsonl",
+    "library/entries/reinforcement_learning.jsonl",
+    "library/entries/world_models.jsonl",
+    "library/sources.jsonl",
+    "library/taxonomy.json",
+    "library/aliases.json",
+    "library/compact_ids.json",
+    "library/watchlist.json",
+    "schemas/entry.schema.json",
+    "schemas/source.schema.json"
+  ]
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "paper-related-work-world-model",
+    "mode": "paper",
+    "request": "Write one compact Related Work paragraph that positions an action-conditioned latent world model.",
+    "facts": [
+      "The proposed method predicts latent transitions conditioned on actions.",
+      "It is evaluated for planning, not for open-loop video generation.",
+      "Use only citations that the writer verifies from the supplied source links."
+    ],
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.position.001",
+      "wm.term.latent-dynamics.001",
+      "wm.usage-note.planning-vs-policy.001"
+    ],
+    "invariants": [
+      "Organize prior work by technical axes rather than a paper list.",
+      "Distinguish planning models from open-loop visual prediction.",
+      "Do not invent a citation or empirical result."
+    ]
+  },
+  {
+    "id": "rebuttal-existing-evidence",
+    "mode": "rebuttal",
+    "request": "Answer a reviewer who asks whether the gains are robust across random seeds.",
+    "facts": [
+      "Table 4 reports five seeds.",
+      "The mean improvement is 3.2 points.",
+      "No statistical significance test was run.",
+      "No additional experiment may be claimed."
+    ],
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.rebuttal-answer.001",
+      "general.sentence-pattern.rebuttal-evidence.001",
+      "general.usage-note.significant.001"
+    ],
+    "invariants": [
+      "Lead with a direct answer.",
+      "Preserve five seeds and 3.2 points.",
+      "Do not call the result statistically significant.",
+      "Do not invent a new experiment."
+    ]
+  },
+  {
+    "id": "translation-modality-and-scope",
+    "mode": "translation",
+    "request": "Translate: 该方法在5个随机种子中的3个上有所提升，可能缓解模型误差累积，但差异不具有统计显著性；其对未见过的机器人形态的泛化能力仍有待验证。",
+    "facts": [],
+    "expected_retrieval_ids": [
+      "general.usage-note.modality.001",
+      "general.usage-note.significant.001",
+      "wm.term.compounding-model-error.001",
+      "emb.definition.cross-embodiment.001"
+    ],
+    "invariants": [
+      "Preserve three of five seeds.",
+      "Preserve possibility rather than assert causality.",
+      "Preserve the lack of statistical significance.",
+      "Do not claim demonstrated generalization to unseen embodiments."
+    ]
+  }
+]

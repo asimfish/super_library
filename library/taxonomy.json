@@ -1,0 +1,111 @@
+{
+  "schema_version": "1.0",
+  "corpus_version": "0.1.0",
+  "contract_version": "1.0",
+  "as_of": "2026-07-29",
+  "release_tag": "v0.1.0",
+  "domains": [
+    "general",
+    "world_models",
+    "reinforcement_learning",
+    "embodied_ai",
+    "robot_learning"
+  ],
+  "sections": [
+    "title",
+    "abstract",
+    "introduction",
+    "related_work",
+    "method",
+    "experiments",
+    "limitations",
+    "conclusion",
+    "rebuttal",
+    "translation"
+  ],
+  "intents": [
+    "acknowledge",
+    "causal_caution",
+    "clarify",
+    "compare",
+    "concede",
+    "contrast",
+    "define",
+    "describe",
+    "evidence",
+    "gap",
+    "limit",
+    "motivate",
+    "position",
+    "quantify",
+    "respond",
+    "scope",
+    "transition"
+  ],
+  "kinds": [
+    "term",
+    "definition",
+    "phrase",
+    "sentence_pattern",
+    "usage_note",
+    "anti_pattern"
+  ],
+  "venues": [
+    "ICLR",
+    "ICML",
+    "NeurIPS",
+    "CVPR",
+    "ECCV",
+    "ICCV",
+    "RSS",
+    "ICRA",
+    "IROS",
+    "TPAMI",
+    "AAAI",
+    "CoRL",
+    "Nature",
+    "JMLR",
+    "arXiv"
+  ],
+  "quality_tiers": ["gold", "silver", "bronze"],
+  "review_statuses": ["reviewed", "source_checked", "candidate"],
+  "provenance_types": [
+    "original_pattern",
+    "attested_collocation",
+    "terminology",
+    "paraphrased_synthesis"
+  ],
+  "filter_aliases": {
+    "domain": {
+      "world-models": "world_models",
+      "world model": "world_models",
+      "世界模型": "world_models",
+      "rl": "reinforcement_learning",
+      "强化学习": "reinforcement_learning",
+      "embodied-ai": "embodied_ai",
+      "具身智能": "embodied_ai",
+      "robotics": "robot_learning",
+      "机器人学习": "robot_learning"
+    },
+    "section": {
+      "related-work": "related_work",
+      "相关工作": "related_work",
+      "实验": "experiments",
+      "回复": "rebuttal",
+      "翻译": "translation"
+    },
+    "intent": {
+      "definition": "define",
+      "定义": "define",
+      "对比": "contrast",
+      "回应": "respond",
+      "澄清": "clarify"
+    },
+    "venue": {
+      "nips": "NeurIPS",
+      "NIPS": "NeurIPS",
+      "neurips": "NeurIPS",
+      "tpami": "TPAMI"
+    }
+  }
+}

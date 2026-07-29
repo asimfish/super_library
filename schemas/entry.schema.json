@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/entry.schema.json",
+  "title": "Super Library entry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "domains",
+    "sections",
+    "intents",
+    "expression",
+    "meaning",
+    "guidance",
+    "avoid",
+    "examples",
+    "source_ids",
+    "tags",
+    "provenance",
+    "quality"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+    },
+    "kind": {
+      "enum": ["term", "definition", "phrase", "sentence_pattern", "usage_note", "anti_pattern"]
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "intents": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "expression": {"type": "string", "minLength": 2, "maxLength": 240},
+    "meaning": {"type": "string", "minLength": 8, "maxLength": 600},
+    "guidance": {"type": "string", "minLength": 8, "maxLength": 800},
+    "avoid": {"type": "string", "minLength": 2, "maxLength": 500},
+    "examples": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 8, "maxLength": 600}
+    },
+    "source_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "attestations": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "locator"],
+        "properties": {
+          "source_id": {"type": "string"},
+          "locator": {"type": "string", "minLength": 3}
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "note"],
+      "properties": {
+        "type": {
+          "enum": ["original_pattern", "attested_collocation", "terminology", "paraphrased_synthesis"]
+        },
+        "note": {"type": "string", "minLength": 4}
+      }
+    },
+    "quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tier", "status", "last_reviewed"],
+      "properties": {
+        "tier": {"enum": ["gold", "silver", "bronze"]},
+        "status": {"enum": ["reviewed", "source_checked", "candidate"]},
+        "last_reviewed": {
+          "type": "string",
+          "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5719 @@
+{
+  "aliases": {
+    "世界模型": [
+      "world model",
+      "learned dynamics model"
+    ],
+    "以语言为条件": [
+      "language-conditioned policy"
+    ],
+    "价值函数": [
+      "value function"
+    ],
+    "价值高估": [
+      "value overestimation"
+    ],
+    "仿真到现实": [
+      "sim-to-real transfer",
+      "reality gap"
+    ],
+    "具身智能": [
+      "embodied AI",
+      "embodied agent"
+    ],
+    "分布偏移": [
+      "distribution shift"
+    ],
+    "动作价值函数": [
+      "action-value function",
+      "Q-function"
+    ],
+    "回复审稿人": [
+      "rebuttal",
+      "respond to the concern"
+    ],
+    "回报": [
+      "return",
+      "discounted return"
+    ],
+    "域随机化": [
+      "domain randomization"
+    ],
+    "审稿人": [
+      "reviewer"
+    ],
+    "局限性": [
+      "limitation",
+      "scope"
+    ],
+    "强化学习": [
+      "reinforcement learning"
+    ],
+    "想象轨迹": [
+      "imagined trajectory",
+      "latent imagination"
+    ],
+    "扩散策略": [
+      "diffusion policy"
+    ],
+    "显著提升": [
+      "statistically significant versus substantial improvement"
+    ],
+    "本体感觉": [
+      "proprioception",
+      "proprioceptive observation"
+    ],
+    "样本效率": [
+      "sample efficiency",
+      "data efficiency"
+    ],
+    "模仿学习": [
+      "imitation learning",
+      "behavior cloning"
+    ],
+    "模型误差": [
+      "model error",
+      "compounding model error"
+    ],
+    "模型预测控制": [
+      "model predictive control",
+      "receding-horizon planning"
+    ],
+    "消融实验": [
+      "ablation study",
+      "ablation"
+    ],
+    "潜在动力学": [
+      "latent dynamics",
+      "latent dynamics model"
+    ],
+    "相关工作": [
+      "related work",
+      "position prior methods"
+    ],
+    "离线强化学习": [
+      "offline reinforcement learning",
+      "offline RL"
+    ],
+    "策略": [
+      "policy"
+    ],
+    "视觉运动策略": [
+      "visuomotor policy"
+    ],
+    "长时程": [
+      "long-horizon"
+    ]
+  },
+  "entries": [
+    {
+      "avoid": "Do not call ordinary data augmentation active perception.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The task requires active perception because the agent must move to reveal {occluded or unobserved information}.",
+        "Actions affect both {task progress} and the observations available for future decisions."
+      ],
+      "expression": "active perception",
+      "guidance": "Describe the action-dependent sensing process and whether actions are chosen explicitly for information gain or jointly for task reward.",
+      "id": "emb.definition.active-perception.001",
+      "intents": [
+        "define",
+        "motivate"
+      ],
+      "kind": "definition",
+      "meaning": "Perception in which an agent's actions influence which observations become available, coupling information acquisition with control.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "xia2018gibson",
+        "savva2019habitat"
+      ],
+      "tags": [
+        "interactive perception",
+        "information gathering",
+        "closed loop",
+        "embodied sensing"
+      ]
+    },
+    {
+      "avoid": "Do not claim cross-embodiment generalization when every evaluated robot appears in training under the same interface.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "We evaluate cross-embodiment transfer by adapting the pretrained policy to {held-out robot} with {amount of data}.",
+        "The embodiments differ in {morphology, camera setup, and action space}."
+      ],
+      "expression": "cross-embodiment transfer",
+      "guidance": "State whether transfer is zero-shot, requires fine-tuning, or only shares pretraining. Reserve 'generalization' for a held-out evaluation that directly supports it.",
+      "id": "emb.definition.cross-embodiment.001",
+      "intents": [
+        "define",
+        "scope",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "The application or adaptation of learned knowledge across robots or agents with different morphologies, sensors, action spaces, or control interfaces.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "ghosh2024octo"
+      ],
+      "tags": [
+        "robot transfer",
+        "morphology transfer",
+        "new action space",
+        "embodiment",
+        "cross-embodiment adaptation"
+      ]
+    },
+    {
+      "avoid": "Do not describe any stochastic policy as a diffusion policy.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "The diffusion policy generates an action sequence conditioned on {observation history}.",
+        "At inference, we execute {action horizon} actions from each denoised sequence before replanning."
+      ],
+      "expression": "diffusion policy / action diffusion",
+      "guidance": "Specify the predicted horizon, conditioning observations, diffusion parameterization, sampling steps, and how generated actions are executed.",
+      "id": "emb.definition.diffusion-policy.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A policy that represents a conditional distribution over actions or action sequences through a denoising diffusion process.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "action diffusion",
+        "conditional denoising",
+        "action sequence",
+        "score function",
+        "扩散策略"
+      ]
+    },
+    {
+      "avoid": "Do not use domain randomization as a generic label for ordinary image augmentation or claim coverage of the real domain without evaluation.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "During simulation training, we randomize {textures, lighting, camera, dynamics, or latency} over {specified ranges}.",
+        "Domain randomization exposes the policy to {variation} before real-world deployment."
+      ],
+      "expression": "domain randomization",
+      "guidance": "List randomized parameters and distributions, and separate visual randomization from dynamics randomization. Whether the real domain lies within effective support is an empirical question.",
+      "id": "emb.definition.domain-randomization.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "Training over deliberately varied simulation parameters to make a model robust across a distribution intended to cover or bracket variability encountered in the real system.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "tobin2017domainrandomization"
+      ],
+      "tags": [
+        "sim-to-real",
+        "randomized simulation",
+        "visual randomization",
+        "dynamics randomization",
+        "域随机化"
+      ]
+    },
+    {
+      "avoid": "Do not use 'embodied' for a passive model that only processes a fixed image or text dataset without an interaction formulation.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We study embodied AI agents that perceive {sensory inputs} and act through {action space} in {environment}.",
+        "The agent's observations depend on its previous actions, creating a closed perception–action loop."
+      ],
+      "expression": "embodied AI",
+      "guidance": "Specify the body, sensors, action space, environment, and task. For simulated agents, state which physical or interaction constraints are modeled.",
+      "id": "emb.definition.embodied-ai.001",
+      "intents": [
+        "define",
+        "scope"
+      ],
+      "kind": "definition",
+      "meaning": "The study of agents that perceive and act within an environment, where their observations, actions, and learning are shaped by embodiment and closed-loop interaction.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "xia2018gibson",
+        "savva2019habitat"
+      ],
+      "tags": [
+        "embodied agent",
+        "interaction",
+        "perception-action loop",
+        "具身智能"
+      ]
+    },
+    {
+      "avoid": "Do not call a policy generalist solely because one architecture is reused across several separately trained tasks.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "We train a generalist robot policy on {tasks, environments, and embodiments}.",
+        "We separately evaluate in-distribution multi-task performance and transfer to {new setting}."
+      ],
+      "expression": "generalist robot policy",
+      "guidance": "State the diversity actually represented in training and evaluation. Distinguish multi-task performance, zero-shot generalization, and fine-tuning ability.",
+      "id": "emb.definition.generalist-policy.001",
+      "intents": [
+        "define",
+        "scope",
+        "position"
+      ],
+      "kind": "definition",
+      "meaning": "A policy trained across diverse tasks, environments, or robot data with the aim of supporting multiple behaviors and transfer beyond a single narrowly trained task.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "brohan2023rt1",
+        "ghosh2024octo",
+        "khazatsky2024droid"
+      ],
+      "tags": [
+        "general-purpose robot policy",
+        "multi-task policy",
+        "robot foundation model",
+        "scaling"
+      ]
+    },
+    {
+      "avoid": "Do not claim grounding when language is used only as an opaque class label.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The agent grounds {instruction phrase} in {visual entities and state changes} before selecting actions.",
+        "We learn grounded instruction following from {demonstrations or interaction feedback}."
+      ],
+      "expression": "grounded instruction following",
+      "guidance": "State the grounding modalities and whether supervision includes demonstrations, symbolic plans, object annotations, or only task success.",
+      "id": "emb.definition.grounded-instruction.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "Mapping linguistic instructions to actions by relating language to perceived entities, spatial relations, state changes, and interaction possibilities in the environment.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "anderson2018vln",
+        "shridhar2020alfred"
+      ],
+      "tags": [
+        "language grounding",
+        "instruction following",
+        "language-conditioned control",
+        "household tasks"
+      ]
+    },
+    {
+      "avoid": "Do not use multimodal to describe multiple views from the same modality without clarification.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The agent fuses {vision} and {audio} to localize {target} from egocentric observations.",
+        "We align {language} with {visual and proprioceptive representations} before action prediction."
+      ],
+      "expression": "multimodal embodied perception",
+      "guidance": "Name the modalities and distinguish representation, alignment, fusion, translation, and co-learning. Explain which signals are available during training and deployment.",
+      "id": "emb.definition.multimodal-perception.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "Perception that integrates information from distinct sensory modalities, such as vision, audio, touch, language, or proprioception, for embodied decision making.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chen2020soundspaces",
+        "baltrusaitis2019multimodal"
+      ],
+      "tags": [
+        "sensor fusion",
+        "audio-visual",
+        "vision-language",
+        "touch",
+        "multimodal learning"
+      ]
+    },
+    {
+      "avoid": "Do not call ordinary recurrent inference adaptation unless the changing context and adaptation mechanism are made explicit.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The adaptation module infers {environment context} from a recent history of {states and actions}.",
+        "The base policy responds to changing {terrain or dynamics} without gradient updates at deployment."
+      ],
+      "expression": "rapid online adaptation",
+      "guidance": "Specify what adapts, whether policy parameters change, the adaptation window, supervision, and latency.",
+      "id": "emb.definition.rapid-adaptation.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "Updating an internal estimate, context, or behavior during deployment from a short history of recent interaction so the policy can respond to changing dynamics or conditions.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2021rma"
+      ],
+      "tags": [
+        "RMA",
+        "online adaptation",
+        "context inference",
+        "legged locomotion"
+      ]
+    },
+    {
+      "avoid": "Do not claim zero-shot sim-to-real if any real-world fine-tuning or calibration materially updates the policy.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We evaluate zero-shot sim-to-real transfer by deploying the simulation-trained policy without {real-world policy updates}.",
+        "The transfer gap arises from mismatches in {appearance, dynamics, sensing, or actuation}."
+      ],
+      "expression": "simulation-to-real (sim-to-real) transfer",
+      "guidance": "Name what transfers, what is randomized or adapted, the real-world evaluation, and whether real data is used before deployment.",
+      "id": "emb.definition.sim-to-real.001",
+      "intents": [
+        "define",
+        "gap",
+        "scope"
+      ],
+      "kind": "definition",
+      "meaning": "Training or developing a model in simulation and deploying or adapting it to a physical system whose observations or dynamics differ from the simulator.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "tobin2017domainrandomization",
+        "kumar2021rma"
+      ],
+      "tags": [
+        "sim2real",
+        "reality gap",
+        "transfer",
+        "domain shift",
+        "仿真到现实"
+      ]
+    },
+    {
+      "avoid": "Do not call a pipeline visuomotor if vision only labels a dataset and is unavailable to the deployed controller.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "The visuomotor policy maps {image history and proprioception} to {action chunk}.",
+        "We train the policy end to end from {visual input} to {robot command}."
+      ],
+      "expression": "visuomotor policy",
+      "guidance": "Specify visual inputs, auxiliary conditioning, action representation, control frequency, and whether perception and control are trained end to end.",
+      "id": "emb.definition.visuomotor-policy.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A policy that maps visual observations, often together with proprioception or goals, to motor actions or action sequences.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chi2023diffusionpolicy",
+        "gu2017asynchronous"
+      ],
+      "tags": [
+        "vision-based control",
+        "robot policy",
+        "sensorimotor",
+        "视觉运动策略"
+      ]
+    },
+    {
+      "avoid": "Do not conflate VLN with object-goal navigation that has no free-form instruction.",
+      "domains": [
+        "embodied_ai"
+      ],
+      "examples": [
+        "In VLN, the agent maps a route instruction and a sequence of egocentric observations to navigation actions.",
+        "We evaluate generalization to {unseen environments or instructions}."
+      ],
+      "expression": "vision-and-language navigation (VLN)",
+      "guidance": "Specify environment type, action space, instruction source, navigation graph or continuous control, and generalization split.",
+      "id": "emb.definition.vln.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A task in which an embodied agent follows a natural-language route instruction by grounding it in visual observations and selecting navigation actions.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "anderson2018vln"
+      ],
+      "tags": [
+        "instruction following",
+        "visual grounding",
+        "R2R",
+        "navigation"
+      ]
+    },
+    {
+      "avoid": "Do not group methods only by architecture when their data and deployment assumptions dominate the comparison.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We organize prior work by its supervision signal, whether training uses online interaction, and the sensory information available at deployment.",
+        "Unlike methods trained on {data regime}, our approach assumes {different verified regime}."
+      ],
+      "expression": "Embodied methods should be positioned by supervision, interaction regime, and deployment assumptions.",
+      "guidance": "Use concrete axes such as demonstrations versus rewards, simulation versus real data, online versus offline collection, and privileged versus deployable observations.",
+      "id": "emb.sentence-pattern.related-work.001",
+      "intents": [
+        "position",
+        "compare",
+        "transition"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Structures embodied-AI related work around how data is obtained, whether learning is interactive, and what information or hardware is available at deployment.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; example wording is original.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [
+        "xia2018gibson",
+        "chi2023diffusionpolicy",
+        "khazatsky2024droid",
+        "gu2017asynchronous"
+      ],
+      "tags": [
+        "related work",
+        "robot learning taxonomy",
+        "data regime",
+        "deployment assumptions"
+      ]
+    },
+    {
+      "avoid": "Do not describe a third-person camera or global map as egocentric.",
+      "domains": [
+        "embodied_ai"
+      ],
+      "examples": [
+        "At each step, the agent receives an egocentric {RGB, depth, or audio-visual} observation.",
+        "The policy does not access {global map or privileged state}."
+      ],
+      "expression": "egocentric observation",
+      "guidance": "Name the modality and field of view, and distinguish current observations from accumulated maps or privileged simulator state.",
+      "id": "emb.term.egocentric-observation.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "Sensory input represented from the agent's current first-person viewpoint rather than from a fixed external or global viewpoint.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "anderson2018vln",
+        "shridhar2020alfred",
+        "chen2020soundspaces"
+      ],
+      "tags": [
+        "first-person observation",
+        "agent-centric",
+        "RGB-D",
+        "navigation",
+        "自我中心观测"
+      ]
+    },
+    {
+      "avoid": "Do not use embodiment as a synonym for environment or task.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The policy is evaluated on embodiments that differ in {morphology, sensors, or action space}.",
+        "We encode embodiment-specific {proprioceptive or action information}."
+      ],
+      "expression": "embodiment",
+      "guidance": "Name the aspects that differ across embodiments—camera placement, morphology, control frequency, action coordinates, or dynamics—rather than using the term abstractly.",
+      "id": "emb.term.embodiment.001",
+      "intents": [
+        "define",
+        "clarify"
+      ],
+      "kind": "term",
+      "meaning": "The agent-specific physical or simulated form that determines its sensing, actuation, kinematics, and interaction constraints.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "savva2019habitat",
+        "brohan2023rt1",
+        "hansen2024tdmpc2"
+      ],
+      "tags": [
+        "morphology",
+        "sensors",
+        "actuation",
+        "robot platform",
+        "cross-embodiment"
+      ]
+    },
+    {
+      "avoid": "Do not call an image-plane grasp rectangle a full 6-DoF grasp pose.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The network predicts 6-DoF grasp poses from {RGB-D image or point cloud}.",
+        "We transform each grasp pose from {camera frame} to {robot base frame}."
+      ],
+      "expression": "6-DoF grasp pose",
+      "guidance": "Define the coordinate frame, gripper model, collision checks, and evaluation criterion. Separate pose proposal quality from executed grasp success.",
+      "id": "emb.term.grasp-pose.001",
+      "intents": [
+        "define",
+        "describe",
+        "quantify"
+      ],
+      "kind": "term",
+      "meaning": "A candidate gripper pose in three-dimensional space parameterized by three translational and three rotational degrees of freedom.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "fang2020graspnet"
+      ],
+      "tags": [
+        "robot grasping",
+        "SE(3) pose",
+        "point cloud",
+        "gripper"
+      ]
+    },
+    {
+      "avoid": "Do not use the term for synthetic variation or a single staged room.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The dataset contains in-the-wild robot data collected across {sites, scenes, and tasks}.",
+        "We evaluate whether collection diversity improves robustness to {held-out environment variation}."
+      ],
+      "expression": "in-the-wild robot data",
+      "guidance": "Quantify collectors, sites, scenes, robots, tasks, and collection protocol. 'In the wild' describes collection diversity, not unrestricted deployment.",
+      "id": "emb.term.in-the-wild-data.001",
+      "intents": [
+        "define",
+        "scope",
+        "motivate"
+      ],
+      "kind": "term",
+      "meaning": "Robot interaction data collected across naturally varied real-world scenes, tasks, operators, or institutions rather than within one tightly controlled laboratory setup.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "khazatsky2024droid"
+      ],
+      "tags": [
+        "distributed data collection",
+        "real-world dataset",
+        "scene diversity",
+        "DROID"
+      ]
+    },
+    {
+      "avoid": "Do not call a task long-horizon solely because episodes have a large maximum length.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The task requires long-horizon interaction across {number} dependent subgoals.",
+        "Early execution errors can alter the states available to later subgoals."
+      ],
+      "expression": "long-horizon interaction",
+      "guidance": "Quantify horizon in steps, subgoals, elapsed time, or state changes, and explain what makes dependencies consequential.",
+      "id": "emb.term.long-horizon-interaction.001",
+      "intents": [
+        "define",
+        "gap",
+        "scope"
+      ],
+      "kind": "term",
+      "meaning": "A task requiring a temporally extended sequence of dependent decisions, often with delayed outcomes and opportunities for errors to accumulate.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "shridhar2020alfred",
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "long-horizon task",
+        "sequential decisions",
+        "subgoals",
+        "compounding errors",
+        "长时程"
+      ]
+    },
+    {
+      "avoid": "Do not use multimodal to mean that the input has multiple sensor modalities.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The policy must represent a multimodal action distribution because {multiple strategies} are valid for the same observation.",
+        "We visualize samples corresponding to {distinct action modes}."
+      ],
+      "expression": "multimodal action distribution",
+      "guidance": "Explain the source of multimodality and evaluate mode coverage or task success; multiple samples do not by themselves establish meaningful modes.",
+      "id": "emb.term.multimodal-action.001",
+      "intents": [
+        "define",
+        "motivate",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "An action distribution with multiple distinct high-probability behaviors, such as different valid trajectories for accomplishing the same task.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "multi-modal behavior",
+        "action distribution",
+        "generative policy",
+        "multiple solutions"
+      ]
+    },
+    {
+      "avoid": "Do not treat pushing as a failed grasp; it can be an intentional non-prehensile action.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The policy coordinates prehensile grasping with non-prehensile pushing to {task objective}.",
+        "Pushing changes the scene configuration before a grasp is attempted."
+      ],
+      "expression": "prehensile and non-prehensile manipulation",
+      "guidance": "Use the distinction to describe action primitives or coordination between them. Name the actual contact modes studied.",
+      "id": "emb.term.prehensile-nonprehensile.001",
+      "intents": [
+        "define",
+        "compare"
+      ],
+      "kind": "term",
+      "meaning": "Prehensile manipulation secures an object with a grasp, whereas non-prehensile manipulation changes object state through actions such as pushing without maintaining a grasp.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "zeng2018pushgrasp"
+      ],
+      "tags": [
+        "pushing",
+        "grasping",
+        "manipulation",
+        "action primitive"
+      ]
+    },
+    {
+      "avoid": "Do not include external camera observations under proprioception.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "The policy conditions on visual features and proprioceptive observations comprising {signals}.",
+        "We synchronize proprioception with {camera frames} at {rate}."
+      ],
+      "expression": "proprioceptive observation",
+      "guidance": "List the included signals, normalization, sampling rate, and temporal alignment with exteroceptive observations.",
+      "id": "emb.term.proprioception.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "Internal measurements of the agent's body state, such as joint positions, velocities, actuator states, or inertial readings.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2021rma",
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "proprioception",
+        "joint state",
+        "body state",
+        "internal sensing",
+        "本体感觉"
+      ]
+    },
+    {
+      "avoid": "Do not attribute every real-world failure to the reality gap without diagnosis.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We study the visual component of the reality gap while holding {controller or dynamics} fixed.",
+        "Residual failures are associated with mismatches in {specific factor}."
+      ],
+      "expression": "reality gap",
+      "guidance": "Identify the relevant mismatch instead of treating the gap as a single scalar phenomenon.",
+      "id": "emb.term.reality-gap.001",
+      "intents": [
+        "define",
+        "gap",
+        "limit"
+      ],
+      "kind": "term",
+      "meaning": "The discrepancy between simulated and physical observations, dynamics, contacts, sensors, or actuation that can degrade real-world deployment.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "tobin2017domainrandomization",
+        "xia2018gibson"
+      ],
+      "tags": [
+        "simulation gap",
+        "sim-to-real",
+        "domain shift",
+        "rendering mismatch"
+      ]
+    },
+    {
+      "avoid": "Do not treat 'task-agnostic' as a universally standardized term or imply absence of task conditioning merely because parameters are shared.",
+      "domains": [
+        "robot_learning"
+      ],
+      "examples": [
+        "The model uses joint multi-task training with shared parameters and conditions on {task instruction}.",
+        "Following {source}, we use 'task-agnostic training' to mean {paper-specific definition}."
+      ],
+      "expression": "task-agnostic training (paper-specific usage)",
+      "guidance": "Prefer the more explicit phrase 'joint multi-task training with shared parameters' unless discussing the cited paper's terminology. Explain what task information remains available, such as language commands.",
+      "id": "emb.term.task-agnostic-training.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "usage_note",
+      "meaning": "In RT-1, this label describes joint training with shared parameters across a broad task collection rather than separate task-specific models.",
+      "provenance": {
+        "note": "Paper-specific term indexed from the linked primary source; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "brohan2023rt1"
+      ],
+      "tags": [
+        "multi-task training",
+        "shared policy",
+        "scaling",
+        "task conditioning"
+      ]
+    },
+    {
+      "avoid": "Do not use the two terms as universally interchangeable when the algorithm is not direct supervised cloning.",
+      "domains": [
+        "robot_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "We use behavioral cloning to fit the policy to demonstration state–action pairs.",
+        "The method belongs to imitation learning but differs from behavioral cloning in {interactive or distributional mechanism}."
+      ],
+      "expression": "imitation learning versus behavioral cloning",
+      "guidance": "Use behavioral cloning for the supervised objective and imitation learning for the wider family, which may include interactive data collection, occupancy matching, or other objectives.",
+      "id": "emb.usage-note.imitation-bc.001",
+      "intents": [
+        "define",
+        "clarify",
+        "compare"
+      ],
+      "kind": "usage_note",
+      "meaning": "Imitation learning is the broader problem of learning behavior from demonstrations, while behavioral cloning usually denotes direct supervised prediction of expert actions from observations.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "ho2016gail",
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "behavior cloning",
+        "demonstrations",
+        "expert policy",
+        "IL",
+        "模仿学习"
+      ]
+    },
+    {
+      "avoid": "Do not intensify inherently comparative or absolute adjectives.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{method} outperforms {baseline} on {metric} in {setting}."
+      ],
+      "expression": "more superior / more optimal",
+      "guidance": "Use 'outperforms' for a verified metric comparison, 'is more effective' with a criterion, or simply report the numbers.",
+      "id": "general.anti-pattern.more-superior.001",
+      "intents": [
+        "compare"
+      ],
+      "kind": "anti_pattern",
+      "meaning": "Redundant comparative forms that obscure the actual comparison dimension.",
+      "provenance": {
+        "note": "Original anti-pattern guidance authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "comparative",
+        "translation",
+        "superior",
+        "optimal"
+      ]
+    },
+    {
+      "avoid": "Avoid 'perform good', 'gets a good result', and comparison without a metric or baseline.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{method} achieves higher {metric} than {baseline} under {protocol}."
+      ],
+      "expression": "perform good / get better performance",
+      "guidance": "Use 'performs well' only for an informal summary; in papers, prefer 'achieves higher {metric}' or a quantified comparison.",
+      "id": "general.anti-pattern.perform-good.001",
+      "intents": [
+        "describe",
+        "evidence"
+      ],
+      "kind": "anti_pattern",
+      "meaning": "Non-idiomatic or underspecified performance wording often produced by literal translation.",
+      "provenance": {
+        "note": "Original anti-pattern guidance authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "Chinglish",
+        "performance",
+        "translation",
+        "metric"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Section 6, experiments",
+          "source_id": "kumar2020cql"
+        },
+        {
+          "locator": "Section 6, experiments",
+          "source_id": "haarnoja2018sac"
+        },
+        {
+          "locator": "Section 5 and appendix",
+          "source_id": "hansen2022tdmpc"
+        }
+      ],
+      "avoid": "Do not use a direct comparison frame when data, compute, split, or evaluation protocol is materially incompatible without a caveat.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We compare {method} to {baseline set} at a matched {data or interaction budget}."
+      ],
+      "expression": "We compare {method} to {baselines}.",
+      "guidance": "Name baselines and disclose protocol mismatches. 'Compare with' is also grammatical, but use one form consistently.",
+      "id": "general.phrase.compare-to.001",
+      "intents": [
+        "compare",
+        "evidence"
+      ],
+      "kind": "phrase",
+      "meaning": "Introduces a direct comparison set.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "related_work",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "haarnoja2018sac",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "baseline comparison",
+        "compare with",
+        "fair evaluation"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "haarnoja2018sac"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "khazatsky2024droid"
+        }
+      ],
+      "avoid": "Do not use this phrase for an aspiration, untested mechanism, or causal conclusion unsupported by the experiment.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We demonstrate that {method} {measured behavior} across {evaluated scope}."
+      ],
+      "expression": "We demonstrate that {empirical finding}.",
+      "guidance": "Use only for evidence actually reported in the paper, and bind the statement to its setting. Prefer 'show' or 'find' if 'demonstrate' would overstate the design.",
+      "id": "general.phrase.demonstrate.001",
+      "intents": [
+        "evidence"
+      ],
+      "kind": "phrase",
+      "meaning": "States a finding supported by the paper's experiments or analysis.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "khazatsky2024droid"
+      ],
+      "tags": [
+        "empirical evidence",
+        "finding",
+        "demonstrate"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Section 5, experiments",
+          "source_id": "hafner2019planet"
+        },
+        {
+          "locator": "Introduction and Section 5",
+          "source_id": "hansen2022tdmpc"
+        },
+        {
+          "locator": "Section 6, experiments",
+          "source_id": "kumar2020cql"
+        }
+      ],
+      "avoid": "Do not imply broad evaluation with an unspecified 'various datasets.'",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We evaluate {method} on {number} {tasks or benchmarks} spanning {scope}."
+      ],
+      "expression": "We evaluate {method} on {benchmarks or tasks}.",
+      "guidance": "Name representative benchmarks, tasks, environments, or datasets and then state metrics and protocols. Use 'across' when emphasizing coverage over multiple groups.",
+      "id": "general.phrase.evaluate-on.001",
+      "intents": [
+        "evidence",
+        "scope"
+      ],
+      "kind": "phrase",
+      "meaning": "Introduces the empirical evaluation scope.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hansen2022tdmpc",
+        "kumar2020cql"
+      ],
+      "tags": [
+        "evaluation scope",
+        "benchmarks",
+        "tasks",
+        "experiments"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Introduction and Section V",
+          "source_id": "khazatsky2024droid"
+        },
+        {
+          "locator": "Section 4, experiments",
+          "source_id": "savva2019habitat"
+        },
+        {
+          "locator": "Introduction and conclusion",
+          "source_id": "haarnoja2018sac"
+        }
+      ],
+      "avoid": "Do not substitute 'we find that' for the actual result or omit exceptions.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Across {evaluation units}, we find that {observed pattern}."
+      ],
+      "expression": "We find that {observed pattern}.",
+      "guidance": "Use for a result discovered through analysis or experiments. Follow with the measurement and avoid implying a mechanism that was not isolated.",
+      "id": "general.phrase.find-that.001",
+      "intents": [
+        "evidence",
+        "causal_caution"
+      ],
+      "kind": "phrase",
+      "meaning": "Reports an observed empirical pattern in a measured, comparatively neutral voice.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "khazatsky2024droid",
+        "savva2019habitat",
+        "haarnoja2018sac"
+      ],
+      "tags": [
+        "finding",
+        "observed pattern",
+        "experiments"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "haarnoja2018sac"
+        },
+        {
+          "locator": "Introduction",
+          "source_id": "hansen2022tdmpc"
+        }
+      ],
+      "avoid": "Do not contrast one method's best property with another method's unrelated weakness.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "In contrast to {method family}, our approach {difference on the same technical axis}."
+      ],
+      "expression": "In contrast to {comparison class}, {difference}.",
+      "guidance": "Keep the comparison axis parallel and support the characterization of the cited class. Use 'whereas' when contrasting two clauses is more concise.",
+      "id": "general.phrase.in-contrast.001",
+      "intents": [
+        "contrast",
+        "compare"
+      ],
+      "kind": "phrase",
+      "meaning": "Marks a technically relevant contrast with a named method family, assumption, or setting.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "contrast",
+        "difference",
+        "related work",
+        "comparison"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "chen2020soundspaces"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "khazatsky2024droid"
+        },
+        {
+          "locator": "Introduction, first paragraph",
+          "source_id": "shridhar2020alfred"
+        }
+      ],
+      "avoid": "Do not use 'introduce' when merely reviewing an existing concept.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We introduce {name}, a {resource type} designed to {purpose}."
+      ],
+      "expression": "We introduce {concept or resource}.",
+      "guidance": "Follow with an appositive definition or operational description. Prefer this over decorative novelty claims.",
+      "id": "general.phrase.introduce.001",
+      "intents": [
+        "describe"
+      ],
+      "kind": "phrase",
+      "meaning": "Announces a newly defined task, concept, dataset, or resource.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "translation"
+      ],
+      "source_ids": [
+        "chen2020soundspaces",
+        "khazatsky2024droid",
+        "shridhar2020alfred"
+      ],
+      "tags": [
+        "new task",
+        "dataset",
+        "resource",
+        "introduce"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "shridhar2020alfred"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "savva2019habitat"
+        }
+      ],
+      "avoid": "Do not leave the object vague, as in 'we present a new solution,' without specifying what it is.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We present {artifact}, a {type} for {purpose}."
+      ],
+      "expression": "We present {artifact or framework}.",
+      "guidance": "Name the artifact and its role. This concise opening is useful when 'propose' would be unnatural for a benchmark or platform.",
+      "id": "general.phrase.present.001",
+      "intents": [
+        "describe"
+      ],
+      "kind": "phrase",
+      "meaning": "Introduces a method, platform, dataset, benchmark, or analysis without asserting novelty through an adjective.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "translation"
+      ],
+      "source_ids": [
+        "shridhar2020alfred",
+        "savva2019habitat"
+      ],
+      "tags": [
+        "introduce artifact",
+        "benchmark",
+        "platform",
+        "method"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "hafner2019planet"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "haarnoja2018sac"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "kumar2020cql"
+        }
+      ],
+      "avoid": "Do not repeat this stock opening for every contribution or use 'propose' for an analysis that has already been established elsewhere.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "In this paper, we propose {method}, which {core mechanism or capability}."
+      ],
+      "expression": "In this paper, we propose {method}.",
+      "guidance": "Use once near the first precise method statement. Replace 'paper' with 'work' only for local style consistency; explain the method immediately after naming it.",
+      "id": "general.phrase.propose.001",
+      "intents": [
+        "describe"
+      ],
+      "kind": "phrase",
+      "meaning": "Introduces the paper's proposed method or formulation directly.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "haarnoja2018sac",
+        "kumar2020cql"
+      ],
+      "tags": [
+        "introduce method",
+        "proposal",
+        "paper contribution"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Conclusion",
+          "source_id": "haarnoja2018sac"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "zhu2025unifiedworld"
+        }
+      ],
+      "avoid": "Do not use 'suggest' to hide a result that is null, inconsistent, or unsupported.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our results suggest that {mechanism or design choice} may improve {measured capability} in {setting}."
+      ],
+      "expression": "Our results suggest that {bounded interpretation}.",
+      "guidance": "Use when evidence supports an interpretation but does not fully establish it. State the evaluated regime and relevant uncertainty.",
+      "id": "general.phrase.results-suggest.001",
+      "intents": [
+        "evidence",
+        "causal_caution",
+        "scope"
+      ],
+      "kind": "phrase",
+      "meaning": "Offers a cautious interpretation supported by results without claiming definitive proof.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "conclusion",
+        "limitations",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "zhu2025unifiedworld"
+      ],
+      "tags": [
+        "cautious interpretation",
+        "results suggest",
+        "hedging",
+        "evidence"
+      ]
+    },
+    {
+      "attestations": [
+        {
+          "locator": "Abstract",
+          "source_id": "kumar2020cql"
+        },
+        {
+          "locator": "Abstract",
+          "source_id": "shridhar2020alfred"
+        }
+      ],
+      "avoid": "Do not let 'show' silently upgrade correlation to causation or a finite benchmark result to universal validity.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We show that {method} improves {metric} on {benchmark} under {protocol}."
+      ],
+      "expression": "We show that {result}.",
+      "guidance": "State the evidence boundary in the same sentence or nearby. For empirical work, include the task, benchmark, or protocol; for theory, name the assumptions.",
+      "id": "general.phrase.show.001",
+      "intents": [
+        "evidence"
+      ],
+      "kind": "phrase",
+      "meaning": "Reports a result established within the stated theoretical or empirical scope.",
+      "provenance": {
+        "note": "Short collocation independently attested in the linked primary papers; example is original.",
+        "type": "attested_collocation"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "shridhar2020alfred"
+      ],
+      "tags": [
+        "show result",
+        "evidence",
+        "claim scope"
+      ]
+    },
+    {
+      "avoid": "Do not conclude that a component is necessary in every setting from one ablation.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Removing {component} reduces {metric} from {a} to {b}, indicating that it contributes to {capability} in {setting}."
+      ],
+      "expression": "Removing {component} reduces {metric}, indicating that {bounded interpretation}.",
+      "guidance": "Report the size and uncertainty where possible. 'Indicating' should introduce a bounded interpretation rather than a causal universal.",
+      "id": "general.sentence-pattern.ablation.001",
+      "intents": [
+        "evidence",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Connects an ablation result to a component-level interpretation.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "ablation",
+        "component",
+        "interpretation",
+        "evidence"
+      ]
+    },
+    {
+      "avoid": "Do not write 'the gains are due to' without an identifying intervention.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "These results are consistent with the hypothesis that {component or inductive bias} improves {measured behavior}."
+      ],
+      "expression": "These results are consistent with the hypothesis that {mechanism}.",
+      "guidance": "Use when evidence supports but does not isolate the proposed explanation. Follow with an ablation or limitation if available.",
+      "id": "general.sentence-pattern.causal-caution.001",
+      "intents": [
+        "causal_caution",
+        "evidence"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Links observations to a mechanism without claiming that the experiment identifies causality.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "limitations",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "causal caution",
+        "hypothesis",
+        "interpretation",
+        "evidence"
+      ]
+    },
+    {
+      "avoid": "Do not compare your full method with one isolated weakness of a baseline.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Unlike {method family}, which relies on {assumption}, our approach {mechanism without that assumption}."
+      ],
+      "expression": "Unlike {comparison class}, which {defining behavior}, our approach {distinct behavior}.",
+      "guidance": "Keep the grammatical comparison parallel and verify that the characterization holds for the cited comparison class.",
+      "id": "general.sentence-pattern.contrast.001",
+      "intents": [
+        "contrast",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Contrasts two methods on one explicit mechanism or assumption.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method"
+      ],
+      "source_ids": [],
+      "tags": [
+        "contrast",
+        "unlike",
+        "mechanism",
+        "fair comparison"
+      ]
+    },
+    {
+      "avoid": "Do not use 'novel' as a substitute for explaining what is contributed.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our main contribution is {method or analysis} that {capability} under {evaluated conditions}."
+      ],
+      "expression": "Our main contribution is {artifact or insight} that {verified capability}.",
+      "guidance": "Name a method, analysis, dataset, benchmark, or finding. Bind the capability to the evaluated scope.",
+      "id": "general.sentence-pattern.contribution.001",
+      "intents": [
+        "describe",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States the central contribution and its demonstrated capability in one sentence.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "conclusion"
+      ],
+      "source_ids": [],
+      "tags": [
+        "contribution",
+        "main contribution",
+        "scope",
+        "claim"
+      ]
+    },
+    {
+      "avoid": "Do not imply that a local convention is the field's only accepted definition.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We use {term} to denote {entity or process satisfying explicit conditions}."
+      ],
+      "expression": "We use {term} to denote {operational meaning}.",
+      "guidance": "Use when the paper needs a definition whose scope is specific to the present formulation. State the defining property, not a circular synonym.",
+      "id": "general.sentence-pattern.define.001",
+      "intents": [
+        "define"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Introduces a local, operational meaning for a term.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "definition",
+        "terminology",
+        "denote",
+        "operational definition"
+      ]
+    },
+    {
+      "avoid": "Do not use this frame to silently redefine a standard term for rhetorical convenience.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "In this work, {term} refers specifically to {property within the studied setting}."
+      ],
+      "expression": "In this work, {term} refers to {scope-bounded definition}.",
+      "guidance": "Use when community usage is broader than the aspect studied in the paper. Follow with inclusions or exclusions if ambiguity remains.",
+      "id": "general.sentence-pattern.define.002",
+      "intents": [
+        "define",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Defines a term while making the scope of the definition explicit.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "definition",
+        "scope",
+        "refers to",
+        "terminology"
+      ]
+    },
+    {
+      "avoid": "Do not call a comparison controlled when data, compute, architecture, or tuning differs materially.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "For a controlled comparison, we hold {data and compute budget} fixed and vary only {model component}."
+      ],
+      "expression": "For a controlled comparison, we hold {factor} fixed and vary only {factor}.",
+      "guidance": "Use only when the protocol truly controls the named factor; list remaining mismatches if they affect interpretation.",
+      "id": "general.sentence-pattern.fair-comparison.001",
+      "intents": [
+        "compare",
+        "clarify",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Explains how an experiment isolates a comparison dimension.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "fair comparison",
+        "controlled comparison",
+        "protocol",
+        "baseline"
+      ]
+    },
+    {
+      "avoid": "Do not erase the contribution of the foundational method.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our formulation builds on {named framework} and extends it to {setting} by {technical modification}."
+      ],
+      "expression": "Our formulation builds on {foundation} and extends it to {new setting or capability}.",
+      "guidance": "Cite the foundation and explain what changes in the new formulation. Use 'extends' only when the technical relationship is real.",
+      "id": "general.sentence-pattern.foundation.001",
+      "intents": [
+        "position",
+        "describe"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States intellectual continuity and the precise extension contributed by the paper.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method"
+      ],
+      "source_ids": [],
+      "tags": [
+        "builds on",
+        "extends",
+        "foundation",
+        "attribution"
+      ]
+    },
+    {
+      "avoid": "Do not write as though the proposed future experiment has already succeeded.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "An important next step is to evaluate {capability} under {distribution shift or deployment condition}."
+      ],
+      "expression": "An important next step is to evaluate {capability} under {condition}.",
+      "guidance": "Use for work not completed in the current paper. Prefer a falsifiable next step over generic aspirations.",
+      "id": "general.sentence-pattern.future.001",
+      "intents": [
+        "limit",
+        "motivate"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Identifies a concrete unresolved evaluation or research direction.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "limitations",
+        "conclusion"
+      ],
+      "source_ids": [],
+      "tags": [
+        "future work",
+        "next step",
+        "evaluation",
+        "open question"
+      ]
+    },
+    {
+      "avoid": "Do not claim that all existing methods fail when only a subset was examined.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Despite progress in {capability}, existing methods remain limited by {assumption or failure mode} in {setting}."
+      ],
+      "expression": "Despite progress in {area}, existing methods remain limited by {specific limitation}.",
+      "guidance": "The limitation must be supported and relevant to the proposed contribution. Specify the affected regime, assumption, or metric.",
+      "id": "general.sentence-pattern.gap.001",
+      "intents": [
+        "gap",
+        "contrast"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Identifies a research gap without dismissing prior progress.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "research gap",
+        "limitation",
+        "despite progress",
+        "prior work"
+      ]
+    },
+    {
+      "avoid": "Do not turn a limitation into an unsupported claim that future work will certainly solve it.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our evaluation is limited to {tasks or environments}; robustness to {shift} remains to be established."
+      ],
+      "expression": "Our evaluation is limited to {scope}; performance under {unseen condition} remains to be established.",
+      "guidance": "Name the missing population, environment, scale, horizon, embodiment, or distribution. Do not bury a material limitation.",
+      "id": "general.sentence-pattern.limitation.001",
+      "intents": [
+        "limit",
+        "scope",
+        "acknowledge"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States an evaluation boundary and separates tested from untested conditions.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "limitations",
+        "conclusion",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "limitation",
+        "evaluation scope",
+        "unseen condition",
+        "future work"
+      ]
+    },
+    {
+      "avoid": "Avoid an empty claim such as 'This is a very challenging problem.'",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "A central challenge is to {achieve capability} while {respecting data, compute, safety, or deployment constraint}."
+      ],
+      "expression": "A central challenge is to {objective} while {constraint}.",
+      "guidance": "Name both the desired capability and the condition that makes it difficult. Prefer measurable constraints over adjectives such as challenging or complex.",
+      "id": "general.sentence-pattern.motivate.001",
+      "intents": [
+        "motivate"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Motivates a problem through a concrete objective–constraint tension.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "motivation",
+        "challenge",
+        "objective",
+        "constraint"
+      ]
+    },
+    {
+      "avoid": "Do not invent a taxonomy whose categories overlap without explanation.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Prior approaches differ primarily in how they {technical axis one} and whether they {technical axis two}."
+      ],
+      "expression": "Prior approaches differ primarily in {axis one} and {axis two}.",
+      "guidance": "Choose axes that expose meaningful assumptions or design choices, then place representative methods along them with citations.",
+      "id": "general.sentence-pattern.position.001",
+      "intents": [
+        "position",
+        "compare"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Organizes related work by technical comparison axes instead of paper-by-paper chronology.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "related work",
+        "taxonomy",
+        "comparison axis",
+        "positioning"
+      ]
+    },
+    {
+      "avoid": "Avoid claiming complete novelty merely because the exact combination has not appeared.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our setting is most closely related to {method family}, but differs in its assumption of {assumption} and its objective of {objective}."
+      ],
+      "expression": "Our setting is most closely related to {family}, but differs in {assumption or objective}.",
+      "guidance": "Name the closest family before the distinction. The difference should be technically consequential, not cosmetic.",
+      "id": "general.sentence-pattern.position.002",
+      "intents": [
+        "position",
+        "contrast"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Positions the present work relative to the nearest literature family.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "related work",
+        "nearest work",
+        "difference",
+        "positioning"
+      ]
+    },
+    {
+      "avoid": "Avoid 'significant' unless statistical significance was actually tested.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{method} improves mean {metric} by {absolute or relative value} over {baseline} under the {protocol} protocol."
+      ],
+      "expression": "{method} improves {metric} by {value} relative to {baseline} under {protocol}.",
+      "guidance": "State whether the value is absolute or relative, and match the aggregation and uncertainty used in the table.",
+      "id": "general.sentence-pattern.quantify.001",
+      "intents": [
+        "quantify",
+        "evidence",
+        "compare"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Reports a quantified comparison with its baseline and protocol.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "result",
+        "improvement",
+        "metric",
+        "baseline",
+        "quantification"
+      ]
+    },
+    {
+      "avoid": "Do not say 'we agree' and then dismiss the concern without engaging it.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We agree that {evaluation dimension} is important; our current evidence addresses {specific subset}, while {uncovered condition} remains outside scope."
+      ],
+      "expression": "We agree that {concern} is important; our current evidence addresses {covered scope}.",
+      "guidance": "Use when the concern is valid but broader than the submitted evidence. State the uncovered portion explicitly if space permits.",
+      "id": "general.sentence-pattern.rebuttal-acknowledge.001",
+      "intents": [
+        "acknowledge",
+        "respond"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Acknowledges a valid concern while delimiting what the current paper can support.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "acknowledge",
+        "scope",
+        "concern"
+      ]
+    },
+    {
+      "avoid": "Do not begin with a long thank-you paragraph that delays the answer.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Yes. {claim bounded to the question}; the supporting evidence is reported in {table, figure, section, or verified result}."
+      ],
+      "expression": "Yes. {direct answer}; the supporting evidence is {evidence pointer}.",
+      "guidance": "Use when the answer is genuinely yes. Replace the first token with 'No' or a qualified answer when appropriate; never force agreement.",
+      "id": "general.sentence-pattern.rebuttal-answer.001",
+      "intents": [
+        "respond",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Answers a reviewer question immediately and then points to evidence.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "direct answer",
+        "reviewer",
+        "evidence"
+      ]
+    },
+    {
+      "avoid": "Do not blame the reviewer for a misunderstanding caused by unclear writing.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We apologize for the ambiguity: {term or claim} refers to {precise scope}, not {plausible alternative reading}."
+      ],
+      "expression": "We apologize for the ambiguity: {precise clarification}.",
+      "guidance": "Use only when the manuscript wording could reasonably cause the misunderstanding. Follow with the exact revision.",
+      "id": "general.sentence-pattern.rebuttal-clarify.001",
+      "intents": [
+        "respond",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Acknowledges unclear presentation and states the intended meaning directly.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "ambiguity",
+        "clarification",
+        "misunderstanding"
+      ]
+    },
+    {
+      "avoid": "Do not minimize a limitation that invalidates the main claim.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "This is a limitation of the current study, but it does not affect our conclusion about {claim within tested scope} because {reason}."
+      ],
+      "expression": "This is a limitation of the current study, but it does not affect {narrower conclusion}.",
+      "guidance": "Use only when the narrower conclusion truly survives the limitation. Explain why with evidence or logic.",
+      "id": "general.sentence-pattern.rebuttal-concede.001",
+      "intents": [
+        "concede",
+        "limit",
+        "respond"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Makes a bounded concession while preserving a conclusion supported by existing evidence.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "bounded concession",
+        "limitation",
+        "conclusion"
+      ]
+    },
+    {
+      "avoid": "Do not invent a table location or imply that an indirect analysis answers the request.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "The requested comparison is already included in {Table or Appendix}, where {method} achieves {verified metric} under {protocol}."
+      ],
+      "expression": "The requested comparison is already included in {location}, where {verified result}.",
+      "guidance": "Give an exact manuscript location and reproduce numbers faithfully. If absent, use a revision or limitation frame instead.",
+      "id": "general.sentence-pattern.rebuttal-evidence.001",
+      "intents": [
+        "respond",
+        "evidence",
+        "quantify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Points a reviewer to existing evidence and summarizes only the relevant result.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "existing evidence",
+        "table",
+        "comparison"
+      ]
+    },
+    {
+      "avoid": "Avoid vague promises such as 'we will improve the paper.'",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We will revise {Section or caption} to make {assumption, protocol, or limitation} explicit."
+      ],
+      "expression": "We will revise {location} to make {point} explicit.",
+      "guidance": "Name the section, statement, figure, caption, or experimental detail and the information to add. Do not promise a new result unless it exists.",
+      "id": "general.sentence-pattern.rebuttal-revision.001",
+      "intents": [
+        "respond",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Commits to a concrete presentation change in response to feedback.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "rebuttal",
+        "revision",
+        "camera ready",
+        "clarity"
+      ]
+    },
+    {
+      "avoid": "Do not label directly competing methods as merely complementary to evade comparison.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "A complementary line of work studies {adjacent problem}, sharing our interest in {common element} but targeting {different objective}."
+      ],
+      "expression": "A complementary line of work studies {adjacent problem}.",
+      "guidance": "Explain the relationship after the topic sentence: shared tool, assumption, representation, or evaluation setting.",
+      "id": "general.sentence-pattern.related-family.001",
+      "intents": [
+        "position",
+        "transition"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Introduces adjacent literature that informs but does not directly solve the same problem.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [],
+      "tags": [
+        "related work",
+        "complementary",
+        "adjacent literature",
+        "transition"
+      ]
+    },
+    {
+      "avoid": "Do not generalize beyond the evaluated settings or omit exceptions.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Across {tasks or datasets}, {method} consistently improves {metric} over {named comparison set}."
+      ],
+      "expression": "Under {evaluated setting}, {method} consistently {measured outcome}.",
+      "guidance": "Use 'consistently' only when the pattern holds across the stated units. Name seeds, tasks, datasets, or metrics as appropriate.",
+      "id": "general.sentence-pattern.scope.001",
+      "intents": [
+        "scope",
+        "evidence"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Reports a recurring empirical pattern with an explicit evaluation boundary.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "experiments",
+        "conclusion",
+        "rebuttal"
+      ],
+      "source_ids": [],
+      "tags": [
+        "empirical scope",
+        "consistent",
+        "evaluation",
+        "result"
+      ]
+    },
+    {
+      "avoid": "Avoid a transition that merely repeats the distinction.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "This distinction matters because it determines whether {downstream consequence}."
+      ],
+      "expression": "This distinction matters because {consequence}.",
+      "guidance": "Use after defining two concepts or settings. The consequence should be explicit and locally relevant.",
+      "id": "general.sentence-pattern.transition.001",
+      "intents": [
+        "transition",
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Connects a technical distinction to its consequence for the argument or evaluation.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "experiments"
+      ],
+      "source_ids": [],
+      "tags": [
+        "transition",
+        "distinction",
+        "consequence",
+        "coherence"
+      ]
+    },
+    {
+      "avoid": "Do not upgrade a qualified Chinese claim into an unconditional English conclusion.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Although {method} improves {metric} on {subset}, the difference is not statistically significant across {units}."
+      ],
+      "expression": "Although {qualified premise}, {bounded conclusion}.",
+      "guidance": "Keep negation, modality, comparison direction, quantities, and citations attached to the same propositions as in the source.",
+      "id": "general.sentence-pattern.translation-preserve.001",
+      "intents": [
+        "clarify",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Preserves a concession and its qualification during Chinese-to-English reconstruction.",
+      "provenance": {
+        "note": "Original reusable pattern authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "translation",
+        "although",
+        "qualification",
+        "fidelity"
+      ]
+    },
+    {
+      "avoid": "Do not translate 可能 or 表明 into an unqualified 'proves', or assume that any two evidential verbs have a context-free ordering.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "The results suggest that {hypothesis}, but do not establish {stronger causal claim}."
+      ],
+      "expression": "Distinguish possibility, interpretation, empirical evidence, and formal proof.",
+      "guidance": "Use 'may/might' for possibility, 'suggests/supports' for a tentative interpretation or evidence relation, 'shows/demonstrates' for a result established within the study design, and 'proves' only for a formal proof under stated assumptions.",
+      "id": "general.usage-note.modality.001",
+      "intents": [
+        "scope",
+        "causal_caution"
+      ],
+      "kind": "usage_note",
+      "meaning": "Modal verbs and evidential verbs serve different functions rather than forming one universal strength ordering.",
+      "provenance": {
+        "note": "Original usage guidance authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "limitations",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "translation",
+        "modality",
+        "hedging",
+        "claim strength",
+        "may",
+        "suggest"
+      ]
+    },
+    {
+      "avoid": "Do not infer statistical significance from a visibly larger mean, non-overlapping point estimates, or the Chinese adjective 显著 alone.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{method} yields a {value}-point improvement, but the difference is not statistically significant under {test}.",
+        "The improvement is substantial relative to {reference scale}, with an effect size of {value}."
+      ],
+      "expression": "statistically significant versus substantial improvement",
+      "guidance": "Translate 显著 according to evidence: use 'statistically significant' only when a specified statistical analysis supports it; otherwise report the effect size or use a magnitude term justified by context.",
+      "id": "general.usage-note.significant.001",
+      "intents": [
+        "quantify",
+        "scope",
+        "clarify"
+      ],
+      "kind": "usage_note",
+      "meaning": "Statistical significance refers to an inferential test or interval criterion, whereas substantial, marked, or large describes effect magnitude and requires a stated scale.",
+      "provenance": {
+        "note": "Original usage guidance authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "significance wording",
+        "显著提升",
+        "effect size",
+        "statistical test",
+        "translation"
+      ]
+    },
+    {
+      "avoid": "Never use 'state-of-the-art' as a general adjective for the method or as a synonym for strong.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Under the {protocol} protocol, {method} achieves the best reported {metric} among {comparison set}."
+      ],
+      "expression": "state-of-the-art performance on {benchmark} under {protocol}",
+      "guidance": "Use only after checking the benchmark, metric, split, protocol, contemporaneous comparison set, and direction of improvement. Prefer the exact result when the scope is narrow.",
+      "id": "general.usage-note.state-of-the-art.001",
+      "intents": [
+        "compare",
+        "scope",
+        "quantify"
+      ],
+      "kind": "usage_note",
+      "meaning": "A scoped claim that a verified result is best within a defined comparison set.",
+      "provenance": {
+        "note": "Original usage guidance authored for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "experiments",
+        "conclusion",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "SOTA",
+        "state of the art",
+        "benchmark",
+        "overclaim"
+      ]
+    },
+    {
+      "avoid": "Do not call every two-network method actor–critic; the functional roles matter.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The actor parameterizes {policy}, while the critic estimates {value quantity} for policy improvement.",
+        "We train the actor and critic from {real or imagined transitions}."
+      ],
+      "expression": "actor–critic method",
+      "guidance": "State which value quantity the critic estimates, how the actor uses it, and whether updates are on-policy, off-policy, stochastic, or deterministic.",
+      "id": "rl.definition.actor-critic.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A reinforcement-learning method with an actor that represents or updates the policy and a critic that estimates a value-related signal used to guide the actor.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "hafner2020dreamer"
+      ],
+      "tags": [
+        "actor",
+        "critic",
+        "policy gradient",
+        "value function"
+      ]
+    },
+    {
+      "avoid": "Do not claim that every pessimistic penalty provides a valid lower bound.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The objective regularizes Q-values for out-of-distribution actions while fitting Bellman targets on dataset transitions.",
+        "Conservative value estimation mitigates {specified offline optimization failure}."
+      ],
+      "expression": "conservative Q-function learning",
+      "guidance": "Describe the exact regularizer and theoretical or empirical property established by the cited method; conservative bias can trade off underestimation and robustness.",
+      "id": "rl.definition.conservative-q.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "Learning value estimates with an objective that penalizes overly high Q-values, especially for actions not supported by the offline dataset.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql"
+      ],
+      "tags": [
+        "CQL",
+        "pessimism",
+        "offline RL",
+        "Q regularization",
+        "lower bound"
+      ]
+    },
+    {
+      "avoid": "Do not equate a global team reward with solved credit assignment.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "A counterfactual baseline improves credit assignment by comparing an agent's chosen action with {alternative actions} while holding {other agents} fixed.",
+        "The shared reward provides weak agent-specific credit in {setting}."
+      ],
+      "expression": "multi-agent credit assignment",
+      "guidance": "State whether credit is temporal, agent-specific, or both. Explain the baseline or decomposition used to isolate an agent's contribution.",
+      "id": "rl.definition.credit-assignment.001",
+      "intents": [
+        "define",
+        "gap"
+      ],
+      "kind": "definition",
+      "meaning": "The problem of determining how individual agents' actions contribute to a shared outcome so that each policy receives an informative learning signal.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "foerster2018coma"
+      ],
+      "tags": [
+        "counterfactual baseline",
+        "MARL",
+        "team reward",
+        "agent contribution"
+      ]
+    },
+    {
+      "avoid": "Do not describe entropy regularization as random action noise; it is part of the policy objective.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We optimize a maximum-entropy objective that combines expected return with {temperature}-weighted policy entropy.",
+        "The temperature controls the reward–entropy trade-off."
+      ],
+      "expression": "maximum-entropy reinforcement learning",
+      "guidance": "Define the sign, temperature, and whether the target entropy or temperature is learned. Avoid vague claims that entropy always improves exploration.",
+      "id": "rl.definition.maximum-entropy.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A reinforcement-learning formulation that augments expected reward with a policy-entropy term, trading off task return and stochasticity according to a temperature parameter.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac"
+      ],
+      "tags": [
+        "entropy regularization",
+        "SAC",
+        "stochastic policy",
+        "temperature"
+      ]
+    },
+    {
+      "avoid": "Do not assert the Markov property for raw observations when the agent only has partial information.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We model the task as an MDP {tuple}, where {symbol definitions}.",
+        "Because observations are partial, the policy conditions on {history or belief representation}."
+      ],
+      "expression": "Markov decision process (MDP)",
+      "guidance": "List the tuple used in the paper and define any departure, such as partial observability, finite horizon, goal conditioning, or multiple agents.",
+      "id": "rl.definition.mdp.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A formal sequential decision process defined by states, actions, transition dynamics, and rewards, together with a discount factor or finite horizon when required by the formulation; the next-state distribution depends on the current state and action.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "schulman2015trpo",
+        "haarnoja2018sac"
+      ],
+      "tags": [
+        "MDP",
+        "state",
+        "action",
+        "transition",
+        "reward",
+        "Markov property"
+      ]
+    },
+    {
+      "avoid": "Do not use 'distribution shift' without naming the two distributions being compared.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "Offline policy optimization can induce distribution shift by assigning probability to actions poorly covered by the dataset.",
+        "We regularize {policy or value estimate} toward the support of the behavior data."
+      ],
+      "expression": "distribution shift in offline RL",
+      "guidance": "Specify whether the shift concerns states, actions, transitions, tasks, or observations. Connect the failure mode to bootstrapping or policy optimization when applicable.",
+      "id": "rl.definition.offline-distribution-shift.001",
+      "intents": [
+        "define",
+        "gap",
+        "limit"
+      ],
+      "kind": "definition",
+      "meaning": "A mismatch between state–action distributions represented in a fixed dataset and those induced by the learned policy, which makes value estimates for unsupported actions unreliable.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "OOD actions",
+        "dataset support",
+        "extrapolation error",
+        "offline RL",
+        "分布偏移"
+      ]
+    },
+    {
+      "avoid": "Do not call training from a continually growing replay buffer offline RL.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "We consider the offline RL setting, where the agent learns from a fixed dataset {D} and cannot collect additional transitions.",
+        "The dataset contains trajectories generated by {behavior policy mixture}."
+      ],
+      "expression": "offline reinforcement learning",
+      "guidance": "Describe dataset coverage, behavior policies if known, reward availability, and evaluation protocol. Distinguish offline RL from off-policy online learning and imitation learning.",
+      "id": "rl.definition.offline-rl.001",
+      "intents": [
+        "define",
+        "gap"
+      ],
+      "kind": "definition",
+      "meaning": "Reinforcement learning from a fixed dataset of previously collected transitions, without additional environment interaction during training.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "batch RL",
+        "fixed dataset",
+        "offline learning",
+        "离线强化学习"
+      ]
+    },
+    {
+      "avoid": "Do not describe supervised imitation from a fixed dataset as reinforcement learning unless a reward-based objective or RL update is used.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We formulate {task} as reinforcement learning, where the agent observes {observation}, selects {action}, and receives {reward}.",
+        "The objective is to maximize the expected discounted return under {environment distribution}."
+      ],
+      "expression": "reinforcement learning (RL)",
+      "guidance": "Specify observation/state, action, reward, horizon or discount, and whether training is online or offline when these choices matter.",
+      "id": "rl.definition.reinforcement-learning.001",
+      "intents": [
+        "define",
+        "scope"
+      ],
+      "kind": "definition",
+      "meaning": "A decision-making framework in which an agent interacts with an environment and learns behavior to maximize expected cumulative reward.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "schulman2015trpo",
+        "haarnoja2018sac"
+      ],
+      "tags": [
+        "RL",
+        "agent",
+        "environment",
+        "reward maximization",
+        "强化学习"
+      ]
+    },
+    {
+      "avoid": "Do not describe a return-conditioned model as optimizing return through online RL unless it actually performs such updates.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The policy predicts the next action conditioned on {return-to-go} and {trajectory context}.",
+        "At inference, we condition the sequence model on {target return}."
+      ],
+      "expression": "return-conditioned sequence modeling",
+      "guidance": "Specify tokenization, context, conditioning signal, and how desired returns are chosen at inference. Do not assume conditioning guarantees achievement of the requested return.",
+      "id": "rl.definition.return-conditioned-sequence.001",
+      "intents": [
+        "define",
+        "position"
+      ],
+      "kind": "definition",
+      "meaning": "Modeling actions as a sequence prediction problem conditioned on a desired return together with past states and actions.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chen2021decisiontransformer"
+      ],
+      "tags": [
+        "Decision Transformer",
+        "return-to-go",
+        "offline trajectories",
+        "sequence modeling"
+      ]
+    },
+    {
+      "avoid": "Do not use reward and return interchangeably: reward is typically per transition, whereas return aggregates rewards over time.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The objective maximizes the expected discounted return {equation}.",
+        "We report undiscounted episode return while using {discount} for training."
+      ],
+      "expression": "discounted return",
+      "guidance": "Define horizon, discount convention, termination handling, and whether reported return is undiscounted even if training uses discounting.",
+      "id": "rl.definition.return.001",
+      "intents": [
+        "define",
+        "quantify"
+      ],
+      "kind": "definition",
+      "meaning": "The cumulative sum of future rewards, commonly weighting a reward received k steps later by a discount factor raised to k.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "schulman2015trpo",
+        "haarnoja2018sac"
+      ],
+      "tags": [
+        "cumulative reward",
+        "expected return",
+        "discount factor",
+        "reward-to-go",
+        "回报"
+      ]
+    },
+    {
+      "avoid": "Do not describe Q(s,a) as immediate reward or as a transition probability.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The critic estimates the action-value function {Q symbol} under the current policy.",
+        "The state-value function provides {bootstrap or baseline role}."
+      ],
+      "expression": "state-value and action-value functions",
+      "guidance": "Define the policy and return convention under which the expectation is taken. Use Q-function as the standard short form for an action-value function.",
+      "id": "rl.definition.value-functions.001",
+      "intents": [
+        "define",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A state-value function estimates expected future return from a state under a policy, whereas an action-value function additionally conditions on the current action.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "kumar2020cql"
+      ],
+      "tags": [
+        "V-function",
+        "Q-function",
+        "critic",
+        "value estimation",
+        "价值函数",
+        "动作价值函数"
+      ]
+    },
+    {
+      "avoid": "Do not compare results taken from incompatible protocols without a caveat.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We compare methods at matched environment-interaction budgets and report performance over {number} seeds using {aggregation}.",
+        "Because {prior result} uses a different data budget, we report it separately rather than treating it as a controlled baseline."
+      ],
+      "expression": "RL methods should be compared at matched interaction, data, and evaluation budgets.",
+      "guidance": "Report environment steps, dataset size, number of seeds, evaluation episodes, compute where relevant, and tuning access. Separate final performance from sample efficiency.",
+      "id": "rl.sentence-pattern.related-work.001",
+      "intents": [
+        "position",
+        "compare",
+        "transition"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Frames a fair reinforcement-learning comparison around the budgets that determine efficiency and performance.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; example wording is original.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "hessel2018rainbow",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "fair comparison",
+        "sample efficiency",
+        "evaluation protocol",
+        "related work"
+      ]
+    },
+    {
+      "avoid": "Do not describe it as ordinary behavior cloning when weights materially change the data contribution.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The policy is trained by advantage-weighted behavioral cloning over actions in the offline dataset.",
+        "Weights are computed from {advantage estimate} with temperature {beta}."
+      ],
+      "expression": "advantage-weighted behavioral cloning",
+      "guidance": "State the weighting function, temperature or clipping, and the source of advantage estimates. It remains constrained to observed actions at training time.",
+      "id": "rl.term.advantage-weighted-bc.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A policy-learning objective that imitates dataset actions with weights increasing with an estimated advantage, favoring actions judged better than the state-dependent baseline.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "weighted behavior cloning",
+        "IQL",
+        "policy extraction",
+        "offline RL"
+      ]
+    },
+    {
+      "avoid": "Do not use behavior policy as a synonym for learned target policy.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The offline dataset was collected by an unknown mixture of behavior policies.",
+        "The target policy may select actions outside the support of the behavior data."
+      ],
+      "expression": "behavior policy",
+      "guidance": "Use when data provenance matters. If the dataset combines multiple or unknown collectors, state that rather than implying a single known policy.",
+      "id": "rl.term.behavior-policy.001",
+      "intents": [
+        "define",
+        "clarify"
+      ],
+      "kind": "term",
+      "meaning": "The policy or mixture of policies that generated the data used for learning, which may differ from the policy being evaluated or optimized.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "data-generating policy",
+        "target policy",
+        "dataset support",
+        "off-policy"
+      ]
+    },
+    {
+      "avoid": "Do not call execution decentralized if agents require unavailable global information at test time.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We adopt CTDE: the centralized critic conditions on {joint information}, whereas each actor observes only {local information}.",
+        "At execution time, agents act without {training-only signal}."
+      ],
+      "expression": "centralized training with decentralized execution (CTDE)",
+      "guidance": "Specify what is centralized—critic, value, state, communication, or data—and what each deployed policy observes.",
+      "id": "rl.term.ctde.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A multi-agent learning paradigm that permits access to joint or global information during training while each agent acts from locally available information at execution time.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "foerster2018coma"
+      ],
+      "tags": [
+        "multi-agent RL",
+        "centralized critic",
+        "decentralized policy",
+        "MARL"
+      ]
+    },
+    {
+      "avoid": "Do not claim that an upper expectile is the maximum unless limiting conditions are established.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The value function is fitted by expectile regression to emphasize high-valued actions present in the dataset.",
+        "We set the expectile parameter to {tau}."
+      ],
+      "expression": "expectile value regression",
+      "guidance": "Define the expectile parameter and targets. Do not describe expectiles as quantiles; they use asymmetric squared rather than absolute loss.",
+      "id": "rl.term.expectile-regression.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "An asymmetric squared-loss regression objective whose expectile parameter emphasizes different portions of the target distribution; in IQL it is used to fit an upper expectile of in-dataset action values.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "IQL",
+        "upper expectile",
+        "asymmetric squared loss",
+        "offline RL"
+      ]
+    },
+    {
+      "avoid": "Do not call a value function or open-loop action sequence a policy.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "The stochastic policy {symbol} maps {observation or state} to a distribution over {actions}.",
+        "We condition the policy on {goal specification} in addition to {observation}."
+      ],
+      "expression": "policy",
+      "guidance": "Use π(a|s) for a stochastic policy and state whether conditioning is on state, observation, goal, language, or history.",
+      "id": "rl.term.policy.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A rule or conditional distribution that maps an agent's information state, such as an observation or history, to actions.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "schulman2015trpo",
+        "haarnoja2018sac",
+        "brohan2023rt1"
+      ],
+      "tags": [
+        "actor",
+        "controller",
+        "action distribution",
+        "策略"
+      ]
+    },
+    {
+      "avoid": "Do not infer sample efficiency from wall-clock speed or final performance alone.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "We evaluate sample efficiency by comparing {metric} after {matched number} environment steps.",
+        "The method reaches {performance threshold} using {data amount}."
+      ],
+      "expression": "sample efficiency / data efficiency",
+      "guidance": "Name the sample unit—steps, episodes, demonstrations, images, or hours—and compare learning curves or performance at matched data budgets.",
+      "id": "rl.term.sample-efficiency.001",
+      "intents": [
+        "define",
+        "compare",
+        "quantify"
+      ],
+      "kind": "term",
+      "meaning": "The amount of environment interaction or training data required to reach a specified level of performance.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "experiments",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "hafner2019planet",
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "data efficiency",
+        "environment interactions",
+        "learning curve",
+        "样本效率"
+      ]
+    },
+    {
+      "avoid": "Do not claim monotonic improvement for a practical approximation unless its assumptions and guarantee apply.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The policy update is restricted by a KL-divergence constraint between {old and new policies}.",
+        "A trust region limits the step size in policy space."
+      ],
+      "expression": "trust-region policy update",
+      "guidance": "Specify whether the constraint is hard, approximate, or implemented through a penalty or clipped surrogate. Do not transfer theoretical guarantees across variants.",
+      "id": "rl.term.trust-region.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A policy update constrained to keep the new policy sufficiently close to the old policy, commonly measured by KL divergence, to improve optimization stability.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "schulman2015trpo"
+      ],
+      "tags": [
+        "TRPO",
+        "KL divergence",
+        "policy optimization",
+        "monotonic improvement"
+      ]
+    },
+    {
+      "avoid": "Do not infer overestimation solely because a policy performs poorly.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The critic overestimates values for actions outside the dataset support.",
+        "We measure value overestimation by comparing {predicted quantity} with {reference return}."
+      ],
+      "expression": "value overestimation",
+      "guidance": "Identify the estimator and distribution on which overestimation is measured. In offline RL, relate it to actions not well supported by data when justified.",
+      "id": "rl.term.value-overestimation.001",
+      "intents": [
+        "define",
+        "gap",
+        "evidence"
+      ],
+      "kind": "term",
+      "meaning": "Systematic upward bias in estimated values, often amplified when optimization selects actions whose estimates are erroneously high.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "kumar2020cql",
+        "hessel2018rainbow"
+      ],
+      "tags": [
+        "overestimated Q values",
+        "extrapolation error",
+        "optimism",
+        "价值高估"
+      ]
+    },
+    {
+      "avoid": "Do not equate off-policy with offline: off-policy training may still collect new environment data.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The algorithm is off-policy and reuses transitions from {replay buffer or fixed dataset}.",
+        "Unlike on-policy updates, the critic can learn from data collected by {behavior policy}."
+      ],
+      "expression": "on-policy versus off-policy learning",
+      "guidance": "Describe the actual behavior and target policies, correction mechanism, and data reuse. Finite policy lag is an implementation approximation whose effect depends on the algorithm; recency alone does not make data on-policy.",
+      "id": "rl.usage-note.on-off-policy.001",
+      "intents": [
+        "compare",
+        "clarify"
+      ],
+      "kind": "usage_note",
+      "meaning": "On-policy updates estimate or optimize the target policy using data generated by that same policy, whereas off-policy methods can learn about a target policy from data generated by a different behavior policy.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "haarnoja2018sac",
+        "gu2017asynchronous",
+        "kostrikov2022iql"
+      ],
+      "tags": [
+        "off-policy",
+        "on-policy",
+        "behavior policy",
+        "target policy",
+        "replay buffer"
+      ]
+    },
+    {
+      "avoid": "Do not infer physical consistency, controllability, or policy utility solely from visually plausible generated video.",
+      "domains": [
+        "world_models",
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We use an embodied world model to predict {future sensory or geometric state} conditioned on {robot action sequence}.",
+        "The model supports {planning or policy learning} by coupling {environment prediction} with {action representation}."
+      ],
+      "expression": "embodied world model",
+      "guidance": "Specify the predicted modalities and geometry, action conditioning, temporal horizon, and downstream decision use. Contemporary methods differ substantially, so treat this as an umbrella term rather than a fixed architecture.",
+      "id": "wm.definition.embodied-world-model.001",
+      "intents": [
+        "define",
+        "position"
+      ],
+      "kind": "definition",
+      "meaning": "An action-aware predictive model of how an embodied environment evolves in space and time, designed to support capabilities such as planning, policy learning, or interaction prediction.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "zhen2025embodiedworld",
+        "zhu2025unifiedworld",
+        "koh2021pathdreamer"
+      ],
+      "tags": [
+        "robot world model",
+        "4D world model",
+        "video-action model",
+        "embodied prediction"
+      ]
+    },
+    {
+      "avoid": "Do not interchange inverse dynamics with model inversion unless the mapping and objective are actually equivalent.",
+      "domains": [
+        "world_models",
+        "robot_learning"
+      ],
+      "examples": [
+        "The forward model predicts {next state} from {state and action}, while the inverse model predicts {action} from {state pair or goal}.",
+        "Joint training couples action prediction with {video or latent dynamics prediction}."
+      ],
+      "expression": "forward and inverse dynamics",
+      "guidance": "Define the conditioning variables precisely; inverse dynamics may be ambiguous when multiple actions can produce similar transitions.",
+      "id": "wm.definition.forward-inverse-dynamics.001",
+      "intents": [
+        "define",
+        "clarify",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "Forward dynamics predicts a future state or observation from a current state and action, whereas inverse dynamics infers an action from a state transition or desired outcome.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "zhu2025unifiedworld",
+        "zhen2025embodiedworld"
+      ],
+      "tags": [
+        "forward model",
+        "inverse model",
+        "action prediction",
+        "dynamics"
+      ]
+    },
+    {
+      "avoid": "Do not call an arbitrary feature vector a state without explaining its temporal role.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The latent state summarizes {observation history} for predicting {future quantity}.",
+        "We infer {latent state} from {observation and previous state}."
+      ],
+      "expression": "latent state",
+      "guidance": "Explain whether the state is Markovian by assumption or approximation, how it is inferred, and which downstream quantities depend on it. State separately when task objectives make the representation task-oriented.",
+      "id": "wm.definition.latent-state.001",
+      "intents": [
+        "define",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A learned representation intended to retain information relevant to the modeled or predicted quantities while abstracting away some details of raw observations.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hafner2020dreamer"
+      ],
+      "tags": [
+        "state representation",
+        "belief state",
+        "representation",
+        "Markov state"
+      ]
+    },
+    {
+      "avoid": "Do not conflate model-based RL with supervised next-step prediction that never affects decisions.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The method is model-based because the learned dynamics model is used to {plan actions or optimize the policy}.",
+        "Model-based reinforcement learning can use predicted transitions for {downstream decision process}."
+      ],
+      "expression": "model-based reinforcement learning",
+      "guidance": "Explain the role of the model rather than applying the label solely because the architecture contains a predictor.",
+      "id": "wm.definition.model-based-rl.001",
+      "intents": [
+        "define",
+        "position"
+      ],
+      "kind": "definition",
+      "meaning": "Reinforcement learning that uses a model of environment dynamics, learned or known, to improve decision making through planning, synthetic experience, value estimation, or policy optimization.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hafner2020dreamer",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "MBRL",
+        "planning",
+        "synthetic experience",
+        "world model"
+      ]
+    },
+    {
+      "avoid": "Do not treat 'task-oriented' and 'implicit' as general synonyms, or claim that reconstruction is unnecessary for every task family.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We learn a task-oriented latent dynamics model using {reward, value, and consistency objectives} rather than pixel reconstruction.",
+        "The model predicts {decision-relevant quantities} in latent space."
+      ],
+      "expression": "task-oriented latent dynamics model",
+      "guidance": "Name the task signals, such as reward, value, or latent consistency, that shape the representation. Use 'implicit world model' only when a cited paper defines that label for its own model.",
+      "id": "wm.definition.task-oriented-model.001",
+      "intents": [
+        "define",
+        "contrast"
+      ],
+      "kind": "definition",
+      "meaning": "A latent dynamics model trained to preserve decision-relevant predictive structure without necessarily reconstructing raw observations.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method"
+      ],
+      "source_ids": [
+        "hansen2022tdmpc",
+        "hansen2024tdmpc2"
+      ],
+      "tags": [
+        "decoder-free world model",
+        "representation",
+        "reward prediction",
+        "latent consistency"
+      ]
+    },
+    {
+      "avoid": "Do not infer physical consistency or control utility from visual realism alone.",
+      "domains": [
+        "world_models",
+        "embodied_ai"
+      ],
+      "examples": [
+        "The visual world model predicts {RGB, depth, or semantics} at {future viewpoints} conditioned on {agent path or actions}.",
+        "We evaluate whether predicted observations support {navigation or manipulation decision}."
+      ],
+      "expression": "visual world model for embodied agents",
+      "guidance": "Specify predicted modalities, spatial frame, action or path conditioning, and whether the output is used by the agent. Separate plausible generation from geometrically accurate prediction.",
+      "id": "wm.definition.visual-world-model.001",
+      "intents": [
+        "define",
+        "position"
+      ],
+      "kind": "definition",
+      "meaning": "A predictive model that represents how an embodied agent's visual environment may evolve, often conditioned on motion or actions and used for navigation, planning, or policy learning.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "koh2021pathdreamer",
+        "zhen2025embodiedworld"
+      ],
+      "tags": [
+        "embodied world model",
+        "visual prediction",
+        "navigation",
+        "future observation"
+      ]
+    },
+    {
+      "avoid": "Do not treat every video generator or static scene representation as a world model without an action, temporal, or decision-making connection.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We use a world model to predict {future latent states or observations} conditioned on {current state and action sequence}.",
+        "Here, world model refers to {learned transition components} used for {planning or policy optimization}."
+      ],
+      "expression": "world model",
+      "guidance": "State what variables the model predicts, whether prediction occurs in observation or latent space, and how the model is used downstream. Community usage is broad, so define the paper's operational scope.",
+      "id": "wm.definition.world-model.001",
+      "intents": [
+        "define",
+        "scope"
+      ],
+      "kind": "definition",
+      "meaning": "A learned predictive model of how an environment evolves, typically conditioned on the agent's actions and used to support prediction, planning, or policy learning.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "ha2018worldmodels",
+        "hafner2019planet",
+        "hafner2020dreamer"
+      ],
+      "tags": [
+        "latent dynamics",
+        "environment model",
+        "predictive model",
+        "action-conditioned prediction",
+        "世界模型"
+      ]
+    },
+    {
+      "avoid": "Do not force methods into mutually exclusive categories when they combine mechanisms.",
+      "domains": [
+        "world_models"
+      ],
+      "examples": [
+        "World-model methods can be organized by the space in which they predict, the objectives used to learn the representation, and whether decisions arise from online planning or policy learning in imagination."
+      ],
+      "expression": "World-model methods can be organized by {representation}, {training objective}, and {decision mechanism}.",
+      "guidance": "Instantiate each axis with verified method families: observation-space versus latent prediction, reconstruction versus task-oriented objectives, and online planning versus imagined policy learning.",
+      "id": "wm.sentence-pattern.related-work.001",
+      "intents": [
+        "position",
+        "compare",
+        "transition"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Provides a technical-axis structure for a world-model related-work paragraph.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; example wording is original.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hafner2020dreamer",
+        "hansen2022tdmpc",
+        "hansen2024tdmpc2"
+      ],
+      "tags": [
+        "related work",
+        "taxonomy",
+        "world model families",
+        "comparison axes"
+      ]
+    },
+    {
+      "avoid": "Do not infer controllability from temporal prediction alone or relabel viewpoint conditioning as action conditioning.",
+      "domains": [
+        "world_models",
+        "robot_learning"
+      ],
+      "examples": [
+        "The model learns action-conditioned dynamics over {latent state or sensory representation}.",
+        "Conditioning on actions allows the model to evaluate {candidate action sequences}."
+      ],
+      "expression": "action-conditioned dynamics",
+      "guidance": "Use to distinguish controllable prediction from passive video prediction. Specify action representation, temporal alignment, and prediction target. Use 'path-conditioned' or 'viewpoint-conditioned' when a model conditions on a planned path rather than low-level actions.",
+      "id": "wm.term.action-conditioned-dynamics.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "Predictive dynamics in which future states or observations depend explicitly on the agent's action sequence.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "zhen2025embodiedworld"
+      ],
+      "tags": [
+        "controllable prediction",
+        "forward dynamics",
+        "video prediction",
+        "actions"
+      ]
+    },
+    {
+      "avoid": "Do not write 'errors exponentially explode' without a bound or measurement supporting that rate.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "Long model rollouts are susceptible to compounding model error as predictions feed into subsequent transitions.",
+        "We limit the rollout horizon to {H} to reduce error accumulation."
+      ],
+      "expression": "compounding model error",
+      "guidance": "Tie the claim to rollout horizon, distribution shift, and the evaluated quantity. Distinguish accumulation from a formally exponential error rate unless proven.",
+      "id": "wm.term.compounding-model-error.001",
+      "intents": [
+        "define",
+        "gap",
+        "limit"
+      ],
+      "kind": "term",
+      "meaning": "Prediction errors that accumulate as a learned model is recursively unrolled, potentially moving rollouts away from states represented in the training data.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "experiments",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "error accumulation",
+        "long-horizon prediction",
+        "distribution shift",
+        "model bias",
+        "模型误差"
+      ]
+    },
+    {
+      "avoid": "Do not equate discreteness with symbolic or interpretable representation.",
+      "domains": [
+        "world_models"
+      ],
+      "examples": [
+        "The world model encodes observations into a discrete latent representation parameterized by {categorical structure}."
+      ],
+      "expression": "discrete latent representation",
+      "guidance": "Describe the parameterization and estimator used for learning. Attribute benefits such as optimization stability or expressivity only to verified experiments.",
+      "id": "wm.term.discrete-latent.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A latent representation whose stochastic variables take values from discrete categories rather than a continuous distribution.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2021dreamerv2"
+      ],
+      "tags": [
+        "categorical latent",
+        "discrete world model",
+        "representation"
+      ]
+    },
+    {
+      "avoid": "Do not call logged or simulator-generated trajectories imagined merely because they are off-policy.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We generate imagined trajectories of length {H} from latent states inferred from the replay buffer.",
+        "Model rollouts provide {training targets} for {policy or value function}."
+      ],
+      "expression": "imagined trajectories / model rollouts",
+      "guidance": "Use 'imagined trajectories' for Dreamer-style latent rollouts and 'model rollouts' as the broader term. Report rollout horizon and starting-state distribution.",
+      "id": "wm.term.imagined-trajectories.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "Sequences of predicted states, rewards, or observations generated by repeatedly applying a learned model under a chosen action sequence or policy.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2020dreamer",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "rollout",
+        "latent rollout",
+        "synthetic trajectory",
+        "imagination"
+      ]
+    },
+    {
+      "avoid": "Do not imply that operating in latent space automatically yields accurate long-horizon predictions.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We learn a latent dynamics model that maps {latent state, action} to {next latent state distribution}.",
+        "Planning is performed by unrolling the latent dynamics model over {horizon} steps."
+      ],
+      "expression": "latent dynamics model",
+      "guidance": "Specify the latent state, deterministic and stochastic components if relevant, and the training signals that make it useful for the downstream task.",
+      "id": "wm.term.latent-dynamics.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A transition model that predicts the evolution of a learned latent state rather than directly predicting raw observations.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hafner2020dreamer",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "latent transition",
+        "state-space model",
+        "representation learning",
+        "latent rollouts",
+        "潜在动力学"
+      ]
+    },
+    {
+      "avoid": "Do not anthropomorphize the model or imply physical execution.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The actor and critic are optimized on trajectories generated through latent imagination.",
+        "Latent imagination enables {policy update} without additional environment interaction."
+      ],
+      "expression": "latent imagination",
+      "guidance": "Use for model-generated trajectories rather than replayed environment trajectories. State how imagined data trains or evaluates the policy/value function.",
+      "id": "wm.term.latent-imagination.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "The generation of hypothetical future state sequences by unrolling a learned dynamics model in latent space.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2020dreamer",
+        "hafner2021dreamerv2"
+      ],
+      "tags": [
+        "imagination",
+        "imagined rollout",
+        "model rollout",
+        "dreaming",
+        "想象轨迹"
+      ]
+    },
+    {
+      "avoid": "Do not use 'dynamic model' when referring to environment dynamics; that phrase can mean a model that changes over time.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The learned dynamics model predicts {next representation} from {current representation} and {action}."
+      ],
+      "expression": "learned dynamics model",
+      "guidance": "Use 'dynamics model' for the transition component; use 'world model' when the broader system may also include representation, observation, reward, continuation, or uncertainty components.",
+      "id": "wm.term.learned-dynamics.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A model fitted from data to predict state or latent-state transitions under actions.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "transition model",
+        "environment dynamics",
+        "forward model",
+        "model-based RL"
+      ]
+    },
+    {
+      "avoid": "Do not use MPC as a synonym for any policy that consumes model predictions.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "At each environment step, MPC optimizes {candidate action sequences} over a horizon of {H} and executes {first action or action chunk}.",
+        "We augment the finite-horizon objective with {terminal value estimate}."
+      ],
+      "expression": "model predictive control (MPC)",
+      "guidance": "State the planning horizon, optimizer, objective, terminal value, and how many actions are executed before replanning.",
+      "id": "wm.term.model-predictive-control.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A control strategy that repeatedly optimizes a finite-horizon action sequence using a model, executes an initial portion, and replans from the new state.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "MPC",
+        "online planning",
+        "trajectory optimization",
+        "receding horizon",
+        "模型预测控制"
+      ]
+    },
+    {
+      "avoid": "Do not refer to a transition model as a decoder.",
+      "domains": [
+        "world_models"
+      ],
+      "examples": [
+        "An observation model decodes the latent state into {pixels, depth, or other sensory prediction}.",
+        "Our task-oriented model omits an observation decoder and is trained with {predictive objective}."
+      ],
+      "expression": "observation model (decoder)",
+      "guidance": "Use 'decoder' when emphasizing architecture and 'observation model' when emphasizing the probabilistic generative role. Some task-oriented world models intentionally omit it.",
+      "id": "wm.term.observation-model.001",
+      "intents": [
+        "define",
+        "describe",
+        "contrast"
+      ],
+      "kind": "term",
+      "meaning": "A component that maps a latent state to a distribution over observations or reconstructs observation-space outputs.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hansen2024tdmpc2"
+      ],
+      "tags": [
+        "decoder",
+        "reconstruction",
+        "generative model",
+        "observation prediction"
+      ]
+    },
+    {
+      "avoid": "Do not call a single open-loop plan receding-horizon control.",
+      "domains": [
+        "world_models",
+        "robot_learning"
+      ],
+      "examples": [
+        "We use receding-horizon planning to reoptimize the action sequence every {k} steps."
+      ],
+      "expression": "receding-horizon planning",
+      "guidance": "Use when replanning closes the loop. Distinguish action horizon from prediction horizon and note whether an action chunk rather than one action is executed.",
+      "id": "wm.term.receding-horizon.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "Planning in which a finite-horizon solution is repeatedly recomputed as new observations become available.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "related_work",
+        "translation"
+      ],
+      "source_ids": [
+        "hansen2022tdmpc",
+        "chi2023diffusionpolicy"
+      ],
+      "tags": [
+        "closed-loop planning",
+        "MPC",
+        "replanning",
+        "action horizon"
+      ]
+    },
+    {
+      "avoid": "Do not claim that stochastic latents capture calibrated uncertainty unless calibration is evaluated.",
+      "domains": [
+        "world_models"
+      ],
+      "examples": [
+        "The model samples a stochastic latent state from {posterior or prior distribution} at each step."
+      ],
+      "expression": "stochastic latent state",
+      "guidance": "Distinguish stochasticity in the latent transition from randomness in policy actions or observation noise. Name the distributional parameterization when relevant.",
+      "id": "wm.term.stochastic-latent-state.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "term",
+      "meaning": "A latent state represented by a distribution or sampled variable to capture uncertainty or multiple possible futures.",
+      "provenance": {
+        "note": "Canonical term indexed from linked primary papers; examples are original.",
+        "type": "terminology"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "hafner2021dreamerv2"
+      ],
+      "tags": [
+        "stochastic state-space model",
+        "uncertainty",
+        "discrete latent",
+        "multiple futures"
+      ]
+    },
+    {
+      "avoid": "Do not use low one-step loss as the sole evidence that a model supports long-horizon planning.",
+      "domains": [
+        "world_models"
+      ],
+      "examples": [
+        "Although the model achieves low one-step error, we separately evaluate rollout fidelity over {horizon}.",
+        "One-step prediction accuracy does not by itself establish decision-relevant long-horizon fidelity."
+      ],
+      "expression": "one-step accuracy does not by itself establish long-horizon fidelity",
+      "guidance": "Report multi-step or task-level metrics when the downstream method unrolls the model. Specify open-loop versus closed-loop evaluation.",
+      "id": "wm.usage-note.one-vs-multistep.001",
+      "intents": [
+        "compare",
+        "clarify",
+        "scope"
+      ],
+      "kind": "usage_note",
+      "meaning": "Accurate next-step prediction and stable recursive rollout are related but distinct evaluation properties.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "experiments",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2019planet",
+        "koh2021pathdreamer"
+      ],
+      "tags": [
+        "multi-step prediction",
+        "rollout evaluation",
+        "long horizon",
+        "fidelity"
+      ]
+    },
+    {
+      "avoid": "Do not classify all world-model methods as planners.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "Whereas {method family} performs online planning in the learned model, {method family} trains a policy on imagined trajectories.",
+        "Our method combines {online trajectory optimization} with {learned value or policy prior}."
+      ],
+      "expression": "online planning versus policy learning in imagination",
+      "guidance": "State when computation occurs and whether the deployed controller replans. This is a useful axis for organizing related work.",
+      "id": "wm.usage-note.planning-vs-policy.001",
+      "intents": [
+        "compare",
+        "clarify",
+        "position"
+      ],
+      "kind": "usage_note",
+      "meaning": "World models may support decisions by optimizing actions at test time, by training an amortized policy on imagined experience, or by combining both.",
+      "provenance": {
+        "note": "Independent synthesis of linked primary sources; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-07-29",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hafner2020dreamer",
+        "hansen2022tdmpc"
+      ],
+      "tags": [
+        "planning",
+        "policy learning",
+        "amortized control",
+        "related work axis"
+      ]
+    }
+  ],
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "authors": [
+        "Peter Anderson",
+        "Qi Wu",
+        "Damien Teney",
+        "Jake Bruce",
+        "Mark Johnson",
+        "Niko Sünderhauf",
+        "Ian Reid",
+        "Stephen Gould",
+        "Anton van den Hengel"
+      ],
+      "id": "anderson2018vln",
+      "identifiers": {
+        "arxiv": "1711.07280"
+      },
+      "publication_status": "published",
+      "title": "Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments",
+      "topics": [
+        "embodied_ai",
+        "vision_language_navigation",
+        "instruction_following"
+      ],
+      "url": "https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html",
+      "venue": "CVPR",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Tadas Baltrušaitis",
+        "Chaitanya Ahuja",
+        "Louis-Philippe Morency"
+      ],
+      "id": "baltrusaitis2019multimodal",
+      "identifiers": {
+        "arxiv": "1705.09406",
+        "doi": "10.1109/TPAMI.2018.2798607"
+      },
+      "publication_status": "published",
+      "title": "Multimodal Machine Learning: A Survey and Taxonomy",
+      "topics": [
+        "multimodal_learning",
+        "taxonomy",
+        "representation"
+      ],
+      "url": "https://ieeexplore.ieee.org/document/8269806/",
+      "venue": "TPAMI",
+      "verified_at": "2026-07-29",
+      "year": 2019
+    },
+    {
+      "authors": [
+        "Anthony Brohan"
+      ],
+      "authors_truncated": true,
+      "id": "brohan2023rt1",
+      "identifiers": {
+        "arxiv": "2212.06817",
+        "doi": "10.15607/RSS.2023.XIX.025"
+      },
+      "publication_status": "published",
+      "title": "RT-1: Robotics Transformer for Real-World Control at Scale",
+      "topics": [
+        "robot_learning",
+        "generalist_policy",
+        "scaling"
+      ],
+      "url": "https://roboticsproceedings.org/rss19/p025.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2023
+    },
+    {
+      "authors": [
+        "Changan Chen",
+        "Unnat Jain",
+        "Carl Schissler",
+        "Sebastia V. Amengual Gari",
+        "Ziad Al-Halah",
+        "Vamsi Krishna Ithapu",
+        "Philip Robinson",
+        "Kristen Grauman"
+      ],
+      "id": "chen2020soundspaces",
+      "identifiers": {
+        "arxiv": "1912.11474"
+      },
+      "publication_status": "published",
+      "title": "SoundSpaces: Audio-Visual Navigation in 3D Environments",
+      "topics": [
+        "embodied_ai",
+        "audio_visual_navigation",
+        "multimodal_perception"
+      ],
+      "url": "https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123510018.pdf",
+      "venue": "ECCV",
+      "verified_at": "2026-07-29",
+      "year": 2020
+    },
+    {
+      "authors": [
+        "Lili Chen",
+        "Kevin Lu",
+        "Aravind Rajeswaran",
+        "Kimin Lee",
+        "Aditya Grover",
+        "Michael Laskin",
+        "Pieter Abbeel",
+        "Aravind Srinivas",
+        "Igor Mordatch"
+      ],
+      "id": "chen2021decisiontransformer",
+      "identifiers": {
+        "arxiv": "2106.01345"
+      },
+      "publication_status": "published",
+      "title": "Decision Transformer: Reinforcement Learning via Sequence Modeling",
+      "topics": [
+        "reinforcement_learning",
+        "sequence_modeling",
+        "return_conditioning"
+      ],
+      "url": "https://papers.nips.cc/paper_files/paper/2021/hash/7f489f642a0ddb10272b5c31057f0663-Abstract.html",
+      "venue": "NeurIPS",
+      "verified_at": "2026-07-29",
+      "year": 2021
+    },
+    {
+      "authors": [
+        "Cheng Chi",
+        "Siyuan Feng",
+        "Yilun Du",
+        "Zhenjia Xu",
+        "Eric Cousineau",
+        "Benjamin Burchfiel",
+        "Shuran Song"
+      ],
+      "id": "chi2023diffusionpolicy",
+      "identifiers": {
+        "arxiv": "2303.04137",
+        "doi": "10.15607/RSS.2023.XIX.026"
+      },
+      "publication_status": "published",
+      "title": "Diffusion Policy: Visuomotor Policy Learning via Action Diffusion",
+      "topics": [
+        "robot_learning",
+        "diffusion_policy",
+        "visuomotor_control"
+      ],
+      "url": "https://roboticsproceedings.org/rss19/p026.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2023
+    },
+    {
+      "authors": [
+        "Hao-Shu Fang",
+        "Chenxi Wang",
+        "Minghao Gou",
+        "Cewu Lu"
+      ],
+      "id": "fang2020graspnet",
+      "identifiers": {},
+      "publication_status": "published",
+      "title": "GraspNet-1Billion: A Large-Scale Benchmark for General Object Grasping",
+      "topics": [
+        "robot_learning",
+        "grasping",
+        "benchmark"
+      ],
+      "url": "https://openaccess.thecvf.com/content_CVPR_2020/html/Fang_GraspNet-1Billion_A_Large-Scale_Benchmark_for_General_Object_Grasping_CVPR_2020_paper.html",
+      "venue": "CVPR",
+      "verified_at": "2026-07-29",
+      "version_note": "Use the CVPR camera-ready for dataset statistics; the earlier arXiv version has a different title and scale.",
+      "year": 2020
+    },
+    {
+      "authors": [
+        "Jakob N. Foerster",
+        "Gregory Farquhar",
+        "Triantafyllos Afouras",
+        "Nantas Nardelli",
+        "Shimon Whiteson"
+      ],
+      "id": "foerster2018coma",
+      "identifiers": {
+        "arxiv": "1705.08926",
+        "doi": "10.1609/aaai.v32i1.11794"
+      },
+      "publication_status": "published",
+      "title": "Counterfactual Multi-Agent Policy Gradients",
+      "topics": [
+        "reinforcement_learning",
+        "multi_agent_rl",
+        "credit_assignment"
+      ],
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/11794",
+      "venue": "AAAI",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Dibya Ghosh",
+        "Homer Rich Walke",
+        "Karl Pertsch",
+        "Kevin Black",
+        "Oier Mees",
+        "Sudeep Dasari",
+        "Joey Hejna",
+        "Tobias Kreiman",
+        "Charles Xu",
+        "Jianlan Luo",
+        "You Liang Tan",
+        "Lawrence Yunliang Chen",
+        "Quan Vuong",
+        "Ted Xiao",
+        "Pannag R. Sanketi",
+        "Dorsa Sadigh",
+        "Chelsea Finn",
+        "Sergey Levine"
+      ],
+      "id": "ghosh2024octo",
+      "identifiers": {
+        "arxiv": "2405.12213",
+        "doi": "10.15607/RSS.2024.XX.090"
+      },
+      "publication_status": "published",
+      "title": "Octo: An Open-Source Generalist Robot Policy",
+      "topics": [
+        "robot_learning",
+        "generalist_policy",
+        "cross_embodiment_adaptation"
+      ],
+      "url": "https://www.roboticsproceedings.org/rss20/p090.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2024
+    },
+    {
+      "authors": [
+        "Shixiang Gu",
+        "Ethan Holly",
+        "Timothy Lillicrap",
+        "Sergey Levine"
+      ],
+      "id": "gu2017asynchronous",
+      "identifiers": {
+        "arxiv": "1610.00633",
+        "doi": "10.1109/ICRA.2017.7989385"
+      },
+      "publication_status": "published",
+      "title": "Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates",
+      "topics": [
+        "robot_learning",
+        "deep_rl",
+        "distributed_training"
+      ],
+      "url": "https://ieeexplore.ieee.org/document/7989385",
+      "venue": "ICRA",
+      "verified_at": "2026-07-29",
+      "year": 2017
+    },
+    {
+      "authors": [
+        "David Ha",
+        "Jürgen Schmidhuber"
+      ],
+      "id": "ha2018worldmodels",
+      "identifiers": {
+        "arxiv": "1803.10122"
+      },
+      "publication_status": "published",
+      "title": "Recurrent World Models Facilitate Policy Evolution",
+      "topics": [
+        "world_models",
+        "latent_dynamics",
+        "imagination"
+      ],
+      "url": "https://papers.nips.cc/paper/2018/hash/2de5d16682c3c35007e4e92982f1a2ba-Abstract.html",
+      "venue": "NeurIPS",
+      "verified_at": "2026-07-29",
+      "version_note": "The arXiv version is titled 'World Models'; use the proceedings title and venue for citation metadata.",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Tuomas Haarnoja",
+        "Aurick Zhou",
+        "Pieter Abbeel",
+        "Sergey Levine"
+      ],
+      "id": "haarnoja2018sac",
+      "identifiers": {
+        "arxiv": "1801.01290",
+        "pmlr": "v80/haarnoja18b"
+      },
+      "publication_status": "published",
+      "title": "Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor",
+      "topics": [
+        "reinforcement_learning",
+        "maximum_entropy",
+        "actor_critic"
+      ],
+      "url": "https://proceedings.mlr.press/v80/haarnoja18b.html",
+      "venue": "ICML",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Danijar Hafner",
+        "Timothy Lillicrap",
+        "Ian Fischer",
+        "Ruben Villegas",
+        "David Ha",
+        "Honglak Lee",
+        "James Davidson"
+      ],
+      "id": "hafner2019planet",
+      "identifiers": {
+        "pmlr": "v97/hafner19a"
+      },
+      "publication_status": "published",
+      "title": "Learning Latent Dynamics for Planning from Pixels",
+      "topics": [
+        "world_models",
+        "latent_dynamics",
+        "planning"
+      ],
+      "url": "https://proceedings.mlr.press/v97/hafner19a.html",
+      "venue": "ICML",
+      "verified_at": "2026-07-29",
+      "year": 2019
+    },
+    {
+      "authors": [
+        "Danijar Hafner",
+        "Timothy Lillicrap",
+        "Jimmy Ba",
+        "Mohammad Norouzi"
+      ],
+      "id": "hafner2020dreamer",
+      "identifiers": {
+        "arxiv": "1912.01603",
+        "openreview": "S1lOTC4tDS"
+      },
+      "publication_status": "published",
+      "title": "Dream to Control: Learning Behaviors by Latent Imagination",
+      "topics": [
+        "world_models",
+        "latent_imagination",
+        "actor_critic"
+      ],
+      "url": "https://openreview.net/forum?id=S1lOTC4tDS",
+      "venue": "ICLR",
+      "verified_at": "2026-07-29",
+      "year": 2020
+    },
+    {
+      "authors": [
+        "Danijar Hafner",
+        "Timothy Lillicrap",
+        "Mohammad Norouzi",
+        "Jimmy Ba"
+      ],
+      "id": "hafner2021dreamerv2",
+      "identifiers": {
+        "arxiv": "2010.02193",
+        "openreview": "0oabwyZbOu"
+      },
+      "publication_status": "published",
+      "title": "Mastering Atari with Discrete World Models",
+      "topics": [
+        "world_models",
+        "discrete_latents",
+        "atari"
+      ],
+      "url": "https://openreview.net/forum?id=0oabwyZbOu",
+      "venue": "ICLR",
+      "verified_at": "2026-07-29",
+      "year": 2021
+    },
+    {
+      "authors": [
+        "Nicklas A. Hansen",
+        "Hao Su",
+        "Xiaolong Wang"
+      ],
+      "id": "hansen2022tdmpc",
+      "identifiers": {
+        "arxiv": "2203.04955",
+        "pmlr": "v162/hansen22a"
+      },
+      "publication_status": "published",
+      "title": "Temporal Difference Learning for Model Predictive Control",
+      "topics": [
+        "world_models",
+        "model_predictive_control",
+        "temporal_difference_learning"
+      ],
+      "url": "https://proceedings.mlr.press/v162/hansen22a.html",
+      "venue": "ICML",
+      "verified_at": "2026-07-29",
+      "year": 2022
+    },
+    {
+      "authors": [
+        "Nicklas Hansen",
+        "Hao Su",
+        "Xiaolong Wang"
+      ],
+      "id": "hansen2024tdmpc2",
+      "identifiers": {
+        "arxiv": "2310.16828",
+        "openreview": "Oxh5CstDJU"
+      },
+      "publication_status": "published",
+      "title": "TD-MPC2: Scalable, Robust World Models for Continuous Control",
+      "topics": [
+        "world_models",
+        "continuous_control",
+        "multi_task_learning"
+      ],
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/cf73d57b6dcda32b293df7c2d5341f49-Abstract-Conference.html",
+      "venue": "ICLR",
+      "verified_at": "2026-07-29",
+      "year": 2024
+    },
+    {
+      "authors": [
+        "Matteo Hessel",
+        "Joseph Modayil",
+        "Hado van Hasselt",
+        "Tom Schaul",
+        "Georg Ostrovski",
+        "Will Dabney",
+        "Dan Horgan",
+        "Bilal Piot",
+        "Mohammad Azar",
+        "David Silver"
+      ],
+      "id": "hessel2018rainbow",
+      "identifiers": {
+        "arxiv": "1710.02298",
+        "doi": "10.1609/aaai.v32i1.11796"
+      },
+      "publication_status": "published",
+      "title": "Rainbow: Combining Improvements in Deep Reinforcement Learning",
+      "topics": [
+        "reinforcement_learning",
+        "value_based_rl",
+        "ablation"
+      ],
+      "url": "https://ojs.aaai.org/index.php/AAAI/article/view/11796",
+      "venue": "AAAI",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Jonathan Ho",
+        "Stefano Ermon"
+      ],
+      "id": "ho2016gail",
+      "identifiers": {
+        "arxiv": "1606.03476"
+      },
+      "publication_status": "published",
+      "title": "Generative Adversarial Imitation Learning",
+      "topics": [
+        "imitation_learning",
+        "occupancy_matching",
+        "behavioral_cloning"
+      ],
+      "url": "https://papers.nips.cc/paper/2016/hash/cc7e2b878868cbae992d1fb743995d8f-Abstract.html",
+      "venue": "NeurIPS",
+      "verified_at": "2026-07-29",
+      "year": 2016
+    },
+    {
+      "authors": [
+        "Alexander Khazatsky"
+      ],
+      "authors_truncated": true,
+      "id": "khazatsky2024droid",
+      "identifiers": {
+        "arxiv": "2403.12945",
+        "doi": "10.15607/RSS.2024.XX.120"
+      },
+      "publication_status": "published",
+      "title": "DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset",
+      "topics": [
+        "robot_learning",
+        "robot_dataset",
+        "in_the_wild"
+      ],
+      "url": "https://roboticsproceedings.org/rss20/p120.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2024
+    },
+    {
+      "authors": [
+        "Jing Yu Koh",
+        "Honglak Lee",
+        "Yinfei Yang",
+        "Jason Baldridge",
+        "Peter Anderson"
+      ],
+      "id": "koh2021pathdreamer",
+      "identifiers": {
+        "arxiv": "2105.08756",
+        "doi": "10.1109/ICCV48922.2021.01447"
+      },
+      "publication_status": "published",
+      "title": "Pathdreamer: A World Model for Indoor Navigation",
+      "topics": [
+        "world_models",
+        "embodied_navigation",
+        "visual_prediction"
+      ],
+      "url": "https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html",
+      "venue": "ICCV",
+      "verified_at": "2026-07-29",
+      "year": 2021
+    },
+    {
+      "authors": [
+        "Ilya Kostrikov",
+        "Ashvin Nair",
+        "Sergey Levine"
+      ],
+      "id": "kostrikov2022iql",
+      "identifiers": {
+        "arxiv": "2110.06169",
+        "openreview": "68n2s9ZJWF8"
+      },
+      "publication_status": "published",
+      "title": "Offline Reinforcement Learning with Implicit Q-Learning",
+      "topics": [
+        "reinforcement_learning",
+        "offline_rl",
+        "expectile_regression"
+      ],
+      "url": "https://openreview.net/forum?id=68n2s9ZJWF8",
+      "venue": "ICLR",
+      "verified_at": "2026-07-29",
+      "year": 2022
+    },
+    {
+      "authors": [
+        "Aviral Kumar",
+        "Aurick Zhou",
+        "George Tucker",
+        "Sergey Levine"
+      ],
+      "id": "kumar2020cql",
+      "identifiers": {
+        "arxiv": "2006.04779"
+      },
+      "publication_status": "published",
+      "title": "Conservative Q-Learning for Offline Reinforcement Learning",
+      "topics": [
+        "reinforcement_learning",
+        "offline_rl",
+        "conservative_learning"
+      ],
+      "url": "https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html",
+      "venue": "NeurIPS",
+      "verified_at": "2026-07-29",
+      "year": 2020
+    },
+    {
+      "authors": [
+        "Ashish Kumar",
+        "Zipeng Fu",
+        "Deepak Pathak",
+        "Jitendra Malik"
+      ],
+      "id": "kumar2021rma",
+      "identifiers": {
+        "arxiv": "2107.04034",
+        "doi": "10.15607/RSS.2021.XVII.011"
+      },
+      "publication_status": "published",
+      "title": "RMA: Rapid Motor Adaptation for Legged Robots",
+      "topics": [
+        "robot_learning",
+        "locomotion",
+        "online_adaptation"
+      ],
+      "url": "https://roboticsproceedings.org/rss17/p011.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2021
+    },
+    {
+      "authors": [
+        "Manolis Savva",
+        "Abhishek Kadian",
+        "Oleksandr Maksymets",
+        "Yili Zhao",
+        "Erik Wijmans",
+        "Bhavana Jain",
+        "Julian Straub",
+        "Jia Liu",
+        "Vladlen Koltun",
+        "Jitendra Malik",
+        "Devi Parikh",
+        "Dhruv Batra"
+      ],
+      "id": "savva2019habitat",
+      "identifiers": {
+        "arxiv": "1904.01201"
+      },
+      "publication_status": "published",
+      "title": "Habitat: A Platform for Embodied AI Research",
+      "topics": [
+        "embodied_ai",
+        "simulation",
+        "navigation"
+      ],
+      "url": "https://openaccess.thecvf.com/content_ICCV_2019/html/Savva_Habitat_A_Platform_for_Embodied_AI_Research_ICCV_2019_paper.html",
+      "venue": "ICCV",
+      "verified_at": "2026-07-29",
+      "year": 2019
+    },
+    {
+      "authors": [
+        "John Schulman",
+        "Sergey Levine",
+        "Pieter Abbeel",
+        "Michael Jordan",
+        "Philipp Moritz"
+      ],
+      "id": "schulman2015trpo",
+      "identifiers": {
+        "arxiv": "1502.05477",
+        "pmlr": "v37/schulman15"
+      },
+      "publication_status": "published",
+      "title": "Trust Region Policy Optimization",
+      "topics": [
+        "reinforcement_learning",
+        "policy_optimization",
+        "trust_region"
+      ],
+      "url": "https://proceedings.mlr.press/v37/schulman15.html",
+      "venue": "ICML",
+      "verified_at": "2026-07-29",
+      "year": 2015
+    },
+    {
+      "authors": [
+        "Mohit Shridhar",
+        "Jesse Thomason",
+        "Daniel Gordon",
+        "Yonatan Bisk",
+        "Winson Han",
+        "Roozbeh Mottaghi",
+        "Luke Zettlemoyer",
+        "Dieter Fox"
+      ],
+      "id": "shridhar2020alfred",
+      "identifiers": {
+        "arxiv": "1912.01734"
+      },
+      "publication_status": "published",
+      "title": "ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks",
+      "topics": [
+        "embodied_ai",
+        "grounded_instruction_following",
+        "long_horizon_tasks"
+      ],
+      "url": "https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html",
+      "venue": "CVPR",
+      "verified_at": "2026-07-29",
+      "year": 2020
+    },
+    {
+      "authors": [
+        "Josh Tobin",
+        "Rachel Fong",
+        "Alex Ray",
+        "Jonas Schneider",
+        "Wojciech Zaremba",
+        "Pieter Abbeel"
+      ],
+      "id": "tobin2017domainrandomization",
+      "identifiers": {
+        "arxiv": "1703.06907",
+        "doi": "10.1109/IROS.2017.8202133"
+      },
+      "publication_status": "published",
+      "title": "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World",
+      "topics": [
+        "robot_learning",
+        "domain_randomization",
+        "sim_to_real"
+      ],
+      "url": "https://ieeexplore.ieee.org/document/8202133/",
+      "venue": "IROS",
+      "verified_at": "2026-07-29",
+      "year": 2017
+    },
+    {
+      "authors": [
+        "Fei Xia",
+        "Amir R. Zamir",
+        "Zhiyang He",
+        "Alexander Sax",
+        "Jitendra Malik",
+        "Silvio Savarese"
+      ],
+      "id": "xia2018gibson",
+      "identifiers": {
+        "arxiv": "1808.10654"
+      },
+      "publication_status": "published",
+      "title": "Gibson Env: Real-World Perception for Embodied Agents",
+      "topics": [
+        "embodied_ai",
+        "simulation",
+        "active_perception"
+      ],
+      "url": "https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html",
+      "venue": "CVPR",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Andy Zeng",
+        "Shuran Song",
+        "Stefan Welker",
+        "Johnny Lee",
+        "Alberto Rodriguez",
+        "Thomas Funkhouser"
+      ],
+      "id": "zeng2018pushgrasp",
+      "identifiers": {
+        "arxiv": "1803.09956",
+        "doi": "10.1109/IROS.2018.8593986"
+      },
+      "publication_status": "published",
+      "title": "Learning Synergies Between Pushing and Grasping with Self-Supervised Deep Reinforcement Learning",
+      "topics": [
+        "robot_learning",
+        "manipulation",
+        "self_supervised_rl"
+      ],
+      "url": "https://ieeexplore.ieee.org/document/8593986/",
+      "venue": "IROS",
+      "verified_at": "2026-07-29",
+      "year": 2018
+    },
+    {
+      "authors": [
+        "Haoyu Zhen",
+        "Qiao Sun",
+        "Hongxin Zhang",
+        "Junyan Li",
+        "Siyuan Zhou",
+        "Yilun Du",
+        "Chuang Gan"
+      ],
+      "id": "zhen2025embodiedworld",
+      "identifiers": {
+        "arxiv": "2504.20995"
+      },
+      "publication_status": "published",
+      "title": "Learning 4D Embodied World Models",
+      "topics": [
+        "world_models",
+        "embodied_ai",
+        "four_dimensional_prediction"
+      ],
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/html/Zhen_Learning_4D_Embodied_World_Models_ICCV_2025_paper.html",
+      "venue": "ICCV",
+      "verified_at": "2026-07-29",
+      "version_note": "The arXiv version includes the prefix 'TesserAct:'; use the ICCV camera-ready title for venue citation metadata.",
+      "year": 2025
+    },
+    {
+      "authors": [
+        "Chuning Zhu",
+        "Raymond Yu",
+        "Siyuan Feng",
+        "Benjamin Burchfiel",
+        "Paarth Shah",
+        "Abhishek Gupta"
+      ],
+      "id": "zhu2025unifiedworld",
+      "identifiers": {
+        "arxiv": "2504.02792",
+        "doi": "10.15607/RSS.2025.XXI.015"
+      },
+      "publication_status": "published",
+      "title": "Unified World Models: Coupling Video and Action Diffusion for Pretraining on Large Robotic Datasets",
+      "topics": [
+        "world_models",
+        "robot_learning",
+        "video_action_diffusion"
+      ],
+      "url": "https://www.roboticsproceedings.org/rss21/p015.html",
+      "venue": "RSS",
+      "verified_at": "2026-07-29",
+      "year": 2025
+    }
+  ],
+  "taxonomy": {
+    "as_of": "2026-07-29",
+    "contract_version": "1.0",
+    "corpus_version": "0.1.0",
+    "domains": [
+      "general",
+      "world_models",
+      "reinforcement_learning",
+      "embodied_ai",
+      "robot_learning"
+    ],
+    "filter_aliases": {
+      "domain": {
+        "embodied-ai": "embodied_ai",
+        "rl": "reinforcement_learning",
+        "robotics": "robot_learning",
+        "world model": "world_models",
+        "world-models": "world_models",
+        "世界模型": "world_models",
+        "具身智能": "embodied_ai",
+        "强化学习": "reinforcement_learning",
+        "机器人学习": "robot_learning"
+      },
+      "intent": {
+        "definition": "define",
+        "回应": "respond",
+        "定义": "define",
+        "对比": "contrast",
+        "澄清": "clarify"
+      },
+      "section": {
+        "related-work": "related_work",
+        "回复": "rebuttal",
+        "实验": "experiments",
+        "相关工作": "related_work",
+        "翻译": "translation"
+      },
+      "venue": {
+        "NIPS": "NeurIPS",
+        "neurips": "NeurIPS",
+        "nips": "NeurIPS",
+        "tpami": "TPAMI"
+      }
+    },
+    "intents": [
+      "acknowledge",
+      "causal_caution",
+      "clarify",
+      "compare",
+      "concede",
+      "contrast",
+      "define",
+      "describe",
+      "evidence",
+      "gap",
+      "limit",
+      "motivate",
+      "position",
+      "quantify",
+      "respond",
+      "scope",
+      "transition"
+    ],
+    "kinds": [
+      "term",
+      "definition",
+      "phrase",
+      "sentence_pattern",
+      "usage_note",
+      "anti_pattern"
+    ],
+    "provenance_types": [
+      "original_pattern",
+      "attested_collocation",
+      "terminology",
+      "paraphrased_synthesis"
+    ],
+    "quality_tiers": [
+      "gold",
+      "silver",
+      "bronze"
+    ],
+    "release_tag": "v0.1.0",
+    "review_statuses": [
+      "reviewed",
+      "source_checked",
+      "candidate"
+    ],
+    "schema_version": "1.0",
+    "sections": [
+      "title",
+      "abstract",
+      "introduction",
+      "related_work",
+      "method",
+      "experiments",
+      "limitations",
+      "conclusion",
+      "rebuttal",
+      "translation"
+    ],
+    "venues": [
+      "ICLR",
+      "ICML",
+      "NeurIPS",
+      "CVPR",
+      "ECCV",
+      "ICCV",
+      "RSS",
+      "ICRA",
+      "IROS",
+      "TPAMI",
+      "AAAI",
+      "CoRL",
+      "Nature",
+      "JMLR",
+      "arXiv"
+    ]
+  }
+}

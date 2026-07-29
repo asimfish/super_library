@@ -1,0 +1,4 @@
+interface:
+  display_name: "Super Library Academic Writing"
+  short_description: "Ground AI paper writing in curated venue-aware language"
+  default_prompt: "Use $super-library to revise this passage in precise top-tier AI conference style."

@@ -1,0 +1,46 @@
+{
+  "entries": 106,
+  "sources": 32,
+  "by_domain": {
+    "embodied_ai": 20,
+    "general": 40,
+    "reinforcement_learning": 32,
+    "robot_learning": 30,
+    "world_models": 21
+  },
+  "by_kind": {
+    "anti_pattern": 2,
+    "definition": 30,
+    "phrase": 10,
+    "sentence_pattern": 28,
+    "term": 28,
+    "usage_note": 8
+  },
+  "by_section": {
+    "abstract": 32,
+    "conclusion": 12,
+    "experiments": 29,
+    "introduction": 59,
+    "limitations": 9,
+    "method": 52,
+    "rebuttal": 24,
+    "related_work": 74,
+    "translation": 79
+  },
+  "by_tier": {
+    "gold": 106
+  },
+  "sources_by_venue": {
+    "AAAI": 2,
+    "CVPR": 4,
+    "ECCV": 1,
+    "ICCV": 3,
+    "ICLR": 4,
+    "ICML": 4,
+    "ICRA": 1,
+    "IROS": 2,
+    "NeurIPS": 4,
+    "RSS": 6,
+    "TPAMI": 1
+  }
+}

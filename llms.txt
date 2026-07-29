@@ -1,0 +1,35 @@
+# Super Library
+
+Purpose: source-traceable English language retrieval for AI papers, rebuttals,
+related work, and technical translation.
+
+Pinned snapshot: v0.1.0 (2026-07-29)
+
+Agent workflow:
+1. If this repository is cloned, read AGENTS.md and use scripts/superlib.py.
+2. Otherwise, load the self-contained compact context:
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md
+3. For broader focused coverage, use the general pack plus exactly one technical
+   domain pack instead of the compact context:
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/general.md
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/world_models.md
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/reinforcement_learning.md
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/embodied_ai.md
+   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/robot_learning.md
+4. Retrieve rhetoric and technical concepts separately. Preserve facts, numbers,
+   negation, modality, citations, and user constraints.
+5. Verify primary links before writing definitions or literature claims. The
+   corpus is a language and discovery aid, not scientific evidence.
+6. If local tools are available, run the limited wording lint. Otherwise manually
+   check overclaim, unresolved placeholders, terminology, claim scope, citations,
+   and translation fidelity.
+7. If no corpus file can be loaded, state that Super Library was not used.
+
+Machine-readable release files:
+- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/manifest.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/index.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/stats.json
+
+This snapshot contains paraphrases, field-standard terminology, short
+multi-source-attested collocations, and original templates—not paper quotations.
+A static snapshot cannot establish what is currently latest or state of the art.

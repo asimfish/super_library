@@ -1,0 +1,77 @@
+[
+  {
+    "id": "overclaim-prove",
+    "pattern": "\\b(?:prove|proves|proved|proving) that\\b",
+    "message": "Use 'show' or 'demonstrate' for empirical evidence; reserve 'prove' for a proof."
+  },
+  {
+    "id": "unsupported-sota",
+    "pattern": "\\bstate[- ]of[- ]the[- ]art\\b|\\bSOTA\\b",
+    "message": "Name the benchmark, metric, comparison set, and verified result."
+  },
+  {
+    "id": "obvious",
+    "pattern": "\\b(?:obviously|clearly|undoubtedly)\\b",
+    "message": "State the evidence or reasoning instead of asserting obviousness."
+  },
+  {
+    "id": "vague-amount",
+    "pattern": "\\b(?:a lot of|lots of|very many)\\b",
+    "message": "Quantify the amount or use a scoped term such as 'many prior methods'."
+  },
+  {
+    "id": "novel-new",
+    "pattern": "\\bnovel new\\b",
+    "message": "'Novel' and 'new' are redundant; usually omit both and state the contribution."
+  },
+  {
+    "id": "dramatic",
+    "pattern": "\\b(?:dramatically|extremely|tremendously|remarkably)\\b",
+    "message": "Report the measured effect and uncertainty instead of an intensifier."
+  },
+  {
+    "id": "outperform-unspecified",
+    "pattern": "\\boutperform(?:s|ed|ing)? (?:the )?(?:baseline|baselines|prior work|existing methods)\\b",
+    "message": "Specify which methods, metric, setting, and statistical aggregation."
+  },
+  {
+    "id": "due-to-causal",
+    "pattern": "\\b(?:is|are|was|were) due to\\b",
+    "message": "Use causal wording only when the design identifies causality; otherwise use 'is associated with' or 'we attribute'."
+  },
+  {
+    "id": "can-be-able",
+    "pattern": "\\bcan be able to\\b",
+    "message": "Use either 'can' or 'is able to', usually 'can'."
+  },
+  {
+    "id": "more-better",
+    "pattern": "\\bmore better\\b",
+    "message": "Use 'better' and name the comparison dimension."
+  },
+  {
+    "id": "historical-nips",
+    "pattern": "\\bNIPS\\b",
+    "message": "Use the current venue name 'NeurIPS' except in an exact historical title."
+  },
+  {
+    "id": "different-with",
+    "pattern": "\\b(?:different|differs?) with\\b",
+    "message": "Use 'different from' or 'differs from'."
+  },
+  {
+    "id": "vague-works-well",
+    "pattern": "\\b(?:works|performs) (?:very )?well\\b",
+    "message": "Name the measured capability, metric, and evaluation scope."
+  },
+  {
+    "id": "llm-delve",
+    "pattern": "\\bdelv(?:e|es|ed|ing) into\\b",
+    "message": "State the concrete analysis or investigation instead of using a generic LLM-style flourish."
+  },
+  {
+    "id": "groundbreaking",
+    "pattern": "\\b(?:groundbreaking|revolutionary|game-changing)\\b",
+    "message": "Describe the technical contribution and evidence without promotional language."
+  }
+]
