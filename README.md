@@ -9,6 +9,10 @@ AI**, and **robot learning**, with source coverage across ICLR, ICML, NeurIPS,
 CVPR, ECCV, ICCV, RSS, ICRA, IROS, TPAMI, and AAAI. Venue is source metadata,
 not a claim that this seed corpus models a venue-specific house style.
 
+Version 0.2 adds vision-language-action models, action chunking, cross-robot data
+mixtures, probabilistic dynamics, model bias, distributional RL, and common
+Chinese–English research-writing failure modes.
+
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
 > 声称、直译腔和不专业表达。
@@ -22,23 +26,25 @@ this repository tree; a sibling clone is not automatically in scope.
 ```bash
 git clone https://github.com/asimfish/super_library.git
 cd super_library
-python3 scripts/superlib.py search "introduce a world model" \
-  --domain world_models --section related_work
+python3 scripts/superlib.py bundle \
+  --rhetoric-query "position prior world-model methods" \
+  --technical-query "probabilistic latent dynamics and model bias" \
+  --domain world_models --section related_work --intent position
 ```
 
 If an agent can only open a URL, give it this repository URL and ask it to read
-`llms.txt`, or link directly to the
-[immutable v0.1.0 compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md).
-Use the [`main` compact pack](https://raw.githubusercontent.com/asimfish/super_library/main/dist/super-library-compact.md)
-only when you deliberately want the latest unreleased revision.
+`llms.txt`, or link directly to the small
+[immutable v0.2.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md).
+The index routes the Agent to one universal core, at most two thin catalogs, and
+only 3–8 full entry cards.
 
 Suggested prompt:
 
 ```text
-Use https://github.com/asimfish/super_library as the language authority for this
-task. Follow its AGENTS.md workflow: retrieve relevant entries before drafting,
-preserve my scientific claims, and audit the final text. Verify primary papers
-before making literature claims.
+Use https://github.com/asimfish/super_library as the language authority. Read
+llms.txt and use the v0.2 selective-loading workflow: core once, relevant
+section/domain catalogs, then only 3–8 cards. Preserve my claims and verify
+primary papers before making literature statements.
 ```
 
 No repository can force an arbitrary agent to browse a link. The contract above
@@ -51,22 +57,29 @@ mkdir -p ~/.codex/skills
 cp -R skills/super-library ~/.codex/skills/super-library
 ```
 
-The installed skill contains a bundled compact snapshot. Keep the full checkout
-when you also want local CLI search, source metadata, and domain packs. In another
-paper repository, explicitly invoke the `super-library` skill or add a short
-pointer to this repository in that project's `AGENTS.md`.
+The installed skill contains a small core plus a machine index. Its bundled
+lookup script returns only the requested records, so the large JSON index never
+needs to enter model context. Keep the full checkout when you also want context
+bundles, linting, source maintenance, and deterministic builds.
 
 ## Quick start
 
 The tools use only the Python standard library (Python 3.9+).
 
 ```bash
-# Search by meaning and context
-python3 scripts/superlib.py search "limitation compounding errors" \
-  --domain embodied_ai --section related_work --limit 6
+# Get a tiny load plan and direct card links
+python3 scripts/superlib.py route "action chunking feedback" \
+  --domain robot_learning --section method
 
-# Return machine-readable results
-python3 scripts/superlib.py search "latent dynamics" --format json
+# Build a bounded two-pass context for one writing task
+python3 scripts/superlib.py bundle \
+  --rhetoric-query "acknowledge a limitation without overclaiming" \
+  --technical-query "action chunking closed-loop feedback" \
+  --domain robot_learning --section rebuttal --intent respond \
+  --limit 4 --max-chars 24000
+
+# Search or return IDs only
+python3 scripts/superlib.py search "latent dynamics" --format ids
 
 # Limited wording/placeholder/BibTeX-key lint; --strict makes findings fail CI
 python3 scripts/superlib.py lint --text-file paper/intro.txt \
@@ -89,17 +102,39 @@ moves, then query technical terms/definitions by `domain` without a section
 filter. The search is deterministic lexical ranking with alias expansion—not a
 semantic embedding model.
 
+## Progressive-loading architecture
+
+```text
+llms.txt
+└── dist/agent-index.md                 # routing only
+    ├── dist/core.md                    # universal evidence/writing guardrails
+    ├── dist/catalogs/sections/*.md     # thin rhetorical indexes
+    ├── dist/catalogs/domains/*.md      # thin technical indexes
+    └── dist/cards/<domain>/<id>.md     # one complete entry at a time
+
+library/                                # canonical hand-reviewed source data
+scripts/superlib.py                     # route/search/bundle/build/lint
+skills/super-library/                   # standalone selective-lookup skill
+dist/packs/ and legacy compact          # exhaustive compatibility artifacts
+```
+
+The generated `router.json` records byte budgets and every route. `catalog.jsonl`
+is a thin machine catalog; `index.json` is the complete offline index and should
+be queried by a script, not pasted into an Agent.
+
 ## What is stored
 
 - `library/entries/`: curated JSONL records. Definitions are paraphrases; example
   sentences are original templates.
 - `library/sources.jsonl`: primary-paper metadata and stable links.
 - `library/taxonomy.json`: controlled domains, sections, intents, venues, and kinds.
+- `library/core_ids.json`: the deliberately small universal-core selection.
 - `schemas/`: machine-readable data contracts.
-- `dist/super-library-compact.md`: generated core context for link-only agents.
-- `dist/packs/`: complete generated domain packs for focused link-only loading.
-- `skills/super-library/`: a self-contained Codex skill with bundled core context.
-- `scripts/superlib.py`: search, validation, build, statistics, and wording audit.
+- `dist/agent-index.md`, `core.md`, `catalogs/`, and `cards/`: progressive Agent
+  retrieval layers.
+- `skills/super-library/`: a self-contained skill with a bounded lookup script.
+- `scripts/superlib.py`: routing, bundle generation, search, validation, build,
+  statistics, and wording lint.
 - `evals/`: fresh-Agent behavioral smoke cases for paper, rebuttal, and translation.
 
 Each entry distinguishes:
@@ -113,9 +148,9 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The initial reviewed snapshot contains **106 gold entries** and **32 verified
-primary sources**. It is deliberately small enough to audit and designed to grow
-through reviewed contributions rather than automatic PDF scraping.
+The v0.2 reviewed snapshot contains **153 gold entries** and **41 verified primary
+sources**. It is designed to grow through reviewed contributions rather than
+automatic PDF scraping.
 
 Ten short collocations carry locators to at least two independent papers.
 Original sentence frames are explicitly labeled as structural guardrails; they
@@ -137,7 +172,9 @@ where a venue has few seed papers.
    only sound academic.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the review checklist and
-[docs/DATA_MODEL.md](docs/DATA_MODEL.md) for the schema.
+[docs/DATA_MODEL.md](docs/DATA_MODEL.md) for the schema. The complete loading
+design and context invariants are in
+[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Licensing
 

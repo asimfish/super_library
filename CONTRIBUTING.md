@@ -2,6 +2,9 @@
 
 Add records to the appropriate JSONL file and run `make check`.
 
+`library/` is canonical. Everything under `dist/` and the generated skill
+snapshots is rebuilt; never edit those artifacts directly.
+
 ## Acceptance checklist
 
 - The expression is genuinely useful for AI research writing, not merely ornate.
@@ -34,6 +37,7 @@ Run:
 ```bash
 python3 scripts/superlib.py validate
 python3 scripts/superlib.py search "<new concept>"
+python3 scripts/superlib.py route "<new concept>" --domain <domain>
 python3 scripts/superlib.py build
 python3 -m unittest discover -s tests -v
 ```
@@ -42,3 +46,7 @@ Pull requests should explain what writing situation the new record improves and
 which primary sources were checked. A maintainer must inspect generated Markdown
 before merging; automated validation is not a substitute for language, evidence,
 rights, or prompt-injection review.
+
+Add an ID to `library/core_ids.json` only if the record is broadly necessary
+across paper, rebuttal, and translation tasks. The universal core is capped at 24
+records. Most new content should remain discoverable through catalogs and cards.

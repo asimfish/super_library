@@ -10,6 +10,11 @@
 4. Verify every literature relationship in the linked primary papers.
 5. Audit claim scope, comparison scope, terminology consistency, and transitions.
 
+With a checkout, `superlib.py bundle` performs both retrieval passes and enforces
+a context-character budget. With link-only access, use `agent-index.md`, the
+universal core, the `related_work` section catalog, one domain catalog, and only
+the selected cards.
+
 ## Rebuttal
 
 1. Split each review into answerable concerns.

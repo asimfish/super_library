@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/catalog.schema.json",
+  "title": "Super Library thin catalog record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "expression",
+    "kind",
+    "domains",
+    "sections",
+    "intents",
+    "tags",
+    "provenance",
+    "card"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+    },
+    "expression": {"type": "string", "minLength": 2, "maxLength": 240},
+    "kind": {
+      "enum": ["term", "definition", "phrase", "sentence_pattern", "usage_note", "anti_pattern"]
+    },
+    "domains": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "intents": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "tags": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "enum": ["original_pattern", "attested_collocation", "terminology", "paraphrased_synthesis"]
+    },
+    "card": {
+      "type": "string",
+      "pattern": "^cards/[a-z0-9_]+/[a-z0-9._-]+\\.md$"
+    }
+  }
+}

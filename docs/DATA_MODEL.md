@@ -52,14 +52,23 @@ The repository intentionally has no `quote` provenance type.
 
 `python3 scripts/superlib.py build` deterministically creates:
 
-- `dist/super-library-compact.md`: selected core records grouped for Agent context.
-- `dist/packs/<domain>.md`: complete reviewed records for one domain.
-- `dist/index.json`: compact machine-readable search index.
+- `dist/agent-index.md`: smallest link-only route table and loading contract.
+- `dist/core.md`: universal high-risk writing and evidence rules.
+- `dist/catalogs/sections/*.md`: thin rhetoric catalogs.
+- `dist/catalogs/domains/*.md`: thin technical-concept catalogs.
+- `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
+- `dist/router.json` and `dist/catalog.jsonl`: machine-readable routing metadata.
+- `dist/index.json`: complete machine index for scripts; do not paste it into an
+  Agent context.
+- `dist/super-library-compact.md` and `dist/packs/<domain>.md`: exhaustive
+  compatibility artifacts, not default Agent entrypoints.
 - `dist/stats.json`: coverage counts.
 - `dist/manifest.json`: release metadata, immutable URLs, source-of-truth files,
   and SHA-256 hashes for generated artifacts.
-- `skills/super-library/references/compact.md`: the same core context bundled with
-  the standalone skill.
+- `skills/super-library/references/{agent-index.md,core.md,index.json,router.json}`:
+  the standalone skill snapshot. Its lookup script queries `index.json` without
+  loading that file into model context.
 
-Selection for the core bundle is controlled by `library/compact_ids.json`. Never
-edit `dist/` by hand.
+Selection for the universal core is controlled by `library/core_ids.json`;
+`library/compact_ids.json` controls only the legacy compatibility pack. Never edit
+`dist/` or generated skill snapshots by hand.

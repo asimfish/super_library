@@ -12,6 +12,7 @@ from scripts import superlib
 
 ROOT = Path(__file__).resolve().parents[1]
 CLI = ROOT / "scripts" / "superlib.py"
+SKILL_LOOKUP = ROOT / "skills" / "super-library" / "scripts" / "lookup.py"
 
 
 def run_cli(*args):
@@ -182,7 +183,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli(
             "audit",
             "--text",
-            "Our {method} can get better performance and is more superior.",
+            "Our {method} can get better performance, is more superior, and "
+            "proves the effectiveness while achieving better performances.",
             "--format",
             "json",
             "--strict",
@@ -192,6 +194,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("unresolved-placeholder", rules)
         self.assertIn("corpus:general.anti-pattern.perform-good.001", rules)
         self.assertIn("corpus:general.anti-pattern.more-superior.001", rules)
+        self.assertIn("prove-effectiveness", rules)
+        self.assertIn("plural-performance", rules)
 
     def test_audit_checks_bib_keys_when_requested(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -220,6 +224,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         first = run_cli("build")
         self.assertEqual(first.returncode, 0, first.stderr)
         paths = [
+            ROOT / "dist" / "agent-index.md",
+            ROOT / "dist" / "core.md",
+            ROOT / "dist" / "router.json",
+            ROOT / "dist" / "catalog.jsonl",
             ROOT / "dist" / "super-library-compact.md",
             ROOT / "dist" / "index.json",
             ROOT / "dist" / "stats.json",
@@ -227,7 +235,20 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "packs" / "world_models.md",
             ROOT / "dist" / "packs" / "reinforcement_learning.md",
             ROOT / "dist" / "packs" / "embodied_ai.md",
-            ROOT / "skills" / "super-library" / "references" / "compact.md",
+            ROOT
+            / "dist"
+            / "cards"
+            / "world_models"
+            / "wm.definition.world-model.001.md",
+            ROOT
+            / "dist"
+            / "catalogs"
+            / "sections"
+            / "rebuttal.md",
+            ROOT / "skills" / "super-library" / "references" / "agent-index.md",
+            ROOT / "skills" / "super-library" / "references" / "core.md",
+            ROOT / "skills" / "super-library" / "references" / "index.json",
+            ROOT / "skills" / "super-library" / "references" / "router.json",
         ]
         before = [path.read_bytes() for path in paths]
         second = run_cli("build")
@@ -239,25 +260,169 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         manifest = json.loads((ROOT / "dist" / "manifest.json").read_text())
-        self.assertEqual(manifest["corpus_version"], "0.1.0")
-        self.assertEqual(manifest["release_tag"], "v0.1.0")
+        self.assertEqual(manifest["corpus_version"], "0.2.0")
+        self.assertEqual(manifest["release_tag"], "v0.2.0")
         self.assertEqual(manifest["data_license"], "CC0-1.0")
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
                 (ROOT / "dist" / relative_path).read_bytes()
             ).hexdigest()
             self.assertEqual(actual, expected)
-        core = (ROOT / "dist" / "super-library-compact.md").read_bytes()
-        bundled = (
-            ROOT / "skills" / "super-library" / "references" / "compact.md"
-        ).read_bytes()
-        self.assertEqual(core, bundled)
+        for name in ("agent-index.md", "core.md", "index.json", "router.json"):
+            generated = (ROOT / "dist" / name).read_bytes()
+            bundled = (
+                ROOT / "skills" / "super-library" / "references" / name
+            ).read_bytes()
+            self.assertEqual(generated, bundled)
 
-    def test_compact_pack_stays_within_context_budget(self):
+    def test_progressive_context_artifacts_stay_within_budgets(self):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
+        agent_index = ROOT / "dist" / "agent-index.md"
+        core = ROOT / "dist" / "core.md"
+        self.assertLess(agent_index.stat().st_size, 8_000)
+        self.assertLess(core.stat().st_size, 13_000)
+        catalogs = list((ROOT / "dist" / "catalogs").rglob("*.md"))
+        self.assertTrue(catalogs)
+        self.assertLess(max(path.stat().st_size for path in catalogs), 20_000)
+        cards = list((ROOT / "dist" / "cards").rglob("*.md"))
+        _, _, entries = superlib.load_corpus()
+        self.assertEqual(len(cards), len(entries))
+        self.assertLess(max(path.stat().st_size for path in cards), 6_000)
         compact = ROOT / "dist" / "super-library-compact.md"
         self.assertLess(compact.stat().st_size, 60_000)
+
+    def test_route_preserves_two_pass_technical_retrieval(self):
+        result = run_cli(
+            "route",
+            "latent dynamics",
+            "--domain",
+            "world_models",
+            "--section",
+            "rebuttal",
+            "--intent",
+            "clarify",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        recommendations = payload["load_order"]["recommended_cards"]
+        self.assertTrue(
+            any(item["id"] == "wm.term.latent-dynamics.001" for item in recommendations)
+        )
+        self.assertTrue(
+            any(item["retrieval_pass"] == "technical" for item in recommendations)
+        )
+
+    def test_route_enforces_one_section_and_one_domain_catalog(self):
+        result = run_cli(
+            "route",
+            "model error",
+            "--domain",
+            "world_models",
+            "--domain",
+            "reinforcement_learning",
+        )
+        self.assertEqual(result.returncode, 2)
+        self.assertIn("at most one --domain catalog", result.stderr)
+
+    def test_bundle_is_bounded_and_contains_both_passes(self):
+        result = run_cli(
+            "bundle",
+            "--rhetoric-query",
+            "answer reviewer concern",
+            "--technical-query",
+            "probabilistic dynamics uncertainty",
+            "--domain",
+            "world_models",
+            "--section",
+            "rebuttal",
+            "--intent",
+            "respond",
+            "--limit",
+            "3",
+            "--max-chars",
+            "12000",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        passes = {entry["retrieval_pass"] for entry in payload["entries"]}
+        self.assertEqual(passes, {"rhetoric", "technical"})
+        self.assertLessEqual(len(payload["entries"]), 6)
+        self.assertTrue(
+            any(
+                entry["id"] == "wm.definition.probabilistic-dynamics.001"
+                for entry in payload["entries"]
+            )
+        )
+
+    def test_markdown_bundle_respects_hard_character_budget(self):
+        result = run_cli(
+            "bundle",
+            "--rhetoric-query",
+            "answer reviewer concern",
+            "--technical-query",
+            "probabilistic dynamics uncertainty",
+            "--domain",
+            "world_models",
+            "--section",
+            "rebuttal",
+            "--intent",
+            "respond",
+            "--limit",
+            "4",
+            "--max-chars",
+            "6000",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertLessEqual(len(result.stdout), 6000)
+
+    def test_catalogs_are_thin_and_cards_are_complete(self):
+        result = run_cli("build")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        catalog = (
+            ROOT / "dist" / "catalogs" / "domains" / "world_models.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("wm.definition.world-model.001", catalog)
+        self.assertNotIn("**Use:**", catalog)
+        card = (
+            ROOT
+            / "dist"
+            / "cards"
+            / "world_models"
+            / "wm.definition.world-model.001.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("**Use:**", card)
+        self.assertIn("**Avoid:**", card)
+        self.assertIn("Verify in primary sources", card)
+
+    def test_standalone_skill_lookup_is_bounded(self):
+        result = subprocess.run(
+            [
+                sys.executable,
+                str(SKILL_LOOKUP),
+                "动作分块",
+                "--domain",
+                "具身智能",
+                "--limit",
+                "3",
+                "--format",
+                "json",
+            ],
+            cwd=ROOT,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertLessEqual(len(payload), 3)
+        self.assertTrue(
+            any(entry["id"] == "emb.definition.action-chunking.001" for entry in payload)
+        )
 
     def test_target_venue_coverage(self):
         result = run_cli("stats")
@@ -284,6 +449,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         self.assertNotIn("TODO", skill)
         self.assertIn("name: super-library", skill)
+        self.assertNotIn("references/compact.md", skill)
+        self.assertIn("scripts/lookup.py", skill)
 
     def test_schema_and_business_rules_are_both_enforced(self):
         taxonomy, sources, entries = superlib.load_corpus()

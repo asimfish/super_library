@@ -6,22 +6,21 @@ translation, rebuttal, terminology, definitions, or related work.
 ## Required workflow
 
 1. Read `skills/super-library/SKILL.md`.
-2. Classify the task by `domain`, `section`, and communicative `intent` using
-   `library/taxonomy.json`.
-3. Retrieve before drafting. Use two focused passes when the task needs both
-   rhetoric and technical content:
+2. Classify the task by `domain`, `section`, communicative `intent`, and evidence
+   boundary using `library/taxonomy.json`.
+3. Retrieve before drafting. Prefer one bounded two-pass bundle:
 
    ```bash
-   # Rhetorical move: keep section and intent.
-   python3 scripts/superlib.py search "<communicative need>" \
-     --domain <domain> --section <section> --intent <intent> --limit 6
-
-   # Terminology/concept: omit section and intent so a rebuttal can still find terms.
-   python3 scripts/superlib.py search "<technical concept>" \
-     --domain <domain> --kind term --limit 6
+   python3 scripts/superlib.py bundle \
+     --rhetoric-query "<communicative need>" \
+     --technical-query "<technical concept>" \
+     --domain <domain> --section <section> --intent <intent> \
+     --limit 4 --max-chars 24000
    ```
 
-4. Draft with retrieved terminology and sentence patterns. Prefer attested
+   Use `route` for a small URL/path plan and `show` for one known entry. Do not
+   read `dist/index.json`, every card, the legacy compact pack, or full packs.
+4. Draft with the retrieved terminology and sentence patterns. Prefer attested
    collocations when relevant; treat original patterns as structural guardrails.
    Adapt patterns to the
    scientific facts; never copy placeholders or stitch unrelated phrases together.
@@ -38,8 +37,8 @@ translation, rebuttal, terminology, definitions, or related work.
    primary papers listed in `source_ids`. Library entries are navigation aids,
    not evidence. Never invent a citation, result, comparison, or venue.
 
-If the CLI is unavailable, read `dist/super-library-compact.md`. For a focused
-task, prefer CLI retrieval over loading the full bundle.
+If the CLI is unavailable, read `dist/agent-index.md`, then `dist/core.md`, at
+most one section catalog and one domain catalog, and 3–8 selected cards.
 
 ## Writing constraints
 

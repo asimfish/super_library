@@ -3,6 +3,9 @@
   "潜在动力学": ["latent dynamics", "latent dynamics model"],
   "想象轨迹": ["imagined trajectory", "latent imagination"],
   "模型误差": ["model error", "compounding model error"],
+  "模型偏差": ["model bias"],
+  "概率动力学": ["probabilistic dynamics model"],
+  "不确定性传播": ["uncertainty propagation", "trajectory sampling"],
   "模型预测控制": ["model predictive control", "receding-horizon planning"],
   "强化学习": ["reinforcement learning"],
   "策略": ["policy"],
@@ -17,6 +20,13 @@
   "视觉运动策略": ["visuomotor policy"],
   "模仿学习": ["imitation learning", "behavior cloning"],
   "扩散策略": ["diffusion policy"],
+  "动作分块": ["action chunking"],
+  "动作序列": ["action sequence", "action chunk"],
+  "视觉语言动作": ["vision-language-action model", "VLA model"],
+  "多模态提示": ["multimodal prompt"],
+  "双臂操作": ["bimanual manipulation"],
+  "遥操作示范": ["teleoperated robot demonstration"],
+  "跨机器人数据": ["cross-robot data mixture", "cross-embodiment dataset"],
   "仿真到现实": ["sim-to-real transfer", "reality gap"],
   "域随机化": ["domain randomization"],
   "以语言为条件": ["language-conditioned policy"],
@@ -27,5 +37,8 @@
   "审稿人": ["reviewer"],
   "消融实验": ["ablation study", "ablation"],
   "局限性": ["limitation", "scope"],
-  "显著提升": ["statistically significant versus substantial improvement"]
+  "显著提升": ["statistically significant versus substantial improvement"],
+  "实验结果": ["experimental results"],
+  "泛化能力": ["generalization to unseen conditions", "generalization axis"],
+  "鲁棒能力": ["robustness to perturbations"]
 }

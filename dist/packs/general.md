@@ -1,10 +1,27 @@
 # Super Library pack: general
 
-Corpus `0.1.0` · snapshot `2026-07-29`.
+Corpus `0.2.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [self-contained mini contract](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md) before using this pack directly.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+
+### generalization ability / robustness ability
+
+`general.anti-pattern.ability-noun.001` · anti_pattern · general · abstract, introduction, experiments, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+These noun stacks often conceal the evaluated shift or perturbation and can sound like literal translations rather than operational claims.
+
+**Use:** Prefer 'generalization to {held-out condition}', 'robustness to {perturbation}', or the exact measured outcome. 'Capability' is acceptable only when its scope is stated.
+
+**Avoid:** Do not replace the phrase with an equally vague adjective such as 'strong generalizability.'
+
+**Patterns:**
+
+- We evaluate generalization to unseen {objects} and robustness to {perturbation}.
+- The policy succeeds under {specified shift} in {fraction} of trials.
 
 ### more superior / more optimal
 
@@ -612,6 +629,23 @@ Makes a bounded concession while preserving a conclusion supported by existing e
 
 - This is a limitation of the current study, but it does not affect our conclusion about {claim within tested scope} because {reason}.
 
+### The reviewer is correct that {specific statement}; we will correct {location} accordingly.
+
+`general.sentence-pattern.rebuttal-correct.001` · sentence_pattern · general · rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Accepts a concrete factual or presentation error without conceding claims that are unaffected by it.
+
+**Use:** Name the exact error, give the corrected statement, and reassess any downstream conclusion that depends on it.
+
+**Avoid:** Do not use a cosmetic correction frame when the issue invalidates the main analysis.
+
+**Patterns:**
+
+- The reviewer is correct that {quantity or label} was stated incorrectly; we will replace it with {correct value} in {location}.
+- The reviewer is correct that our wording implied {overbroad claim}; we will narrow it to {supported scope}.
+
 ### The requested comparison is already included in {location}, where {verified result}.
 
 `general.sentence-pattern.rebuttal-evidence.001` · sentence_pattern · general · rebuttal
@@ -627,6 +661,40 @@ Points a reviewer to existing evidence and summarizes only the relevant result.
 **Patterns:**
 
 - The requested comparison is already included in {Table or Appendix}, where {method} achieves {verified metric} under {protocol}.
+
+### At a matched {budget}, {method} yields {verified comparison}.
+
+`general.sentence-pattern.rebuttal-matched-budget.001` · sentence_pattern · general · experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Frames a comparison under an explicitly controlled data, interaction, parameter, compute, or tuning budget.
+
+**Use:** Name the matched resource and disclose other material differences. Report the exact statistic and uncertainty used in the manuscript.
+
+**Avoid:** Do not call a comparison budget-matched when only one of several dominant resources is controlled.
+
+**Patterns:**
+
+- At a matched interaction budget of {value}, {method} obtains {metric}, compared with {baseline result}.
+- When parameter count is matched, the difference in {metric} is {value}.
+
+### We do not currently have evidence for {broader claim}; we will restrict the manuscript to {supported claim}.
+
+`general.sentence-pattern.rebuttal-no-evidence.001` · sentence_pattern · general · rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Responds to a request that cannot be supported with existing results by narrowing the claim instead of inventing evidence.
+
+**Use:** Use when the requested experiment was not run or the available analysis is insufficient. Explain what existing evidence still supports.
+
+**Avoid:** Do not imply that an unrun experiment produced a favorable result or promise a result whose outcome is unknown.
+
+**Patterns:**
+
+- We do not currently have evidence for robustness under {shift}; we will restrict the manuscript to the evaluated {scope}.
+- The requested comparison is not available in the current submission, so we will remove the corresponding general claim.
 
 ### We will revise {location} to make {point} explicit.
 
@@ -659,6 +727,40 @@ Introduces adjacent literature that informs but does not directly solve the same
 **Patterns:**
 
 - A complementary line of work studies {adjacent problem}, sharing our interest in {common element} but targeting {different objective}.
+
+### These approaches share {common objective}, but differ in {technical axes}.
+
+`general.sentence-pattern.related-synthesis.001` · sentence_pattern · general · related_work
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Synthesizes a family of papers through one commonality and one or more technically relevant differences.
+
+**Use:** Support the shared property and each difference with verified citations. Select axes that connect directly to the present method.
+
+**Avoid:** Do not force heterogeneous work into one family merely because papers use similar architectures.
+
+**Patterns:**
+
+- These approaches share the objective of {objective}, but differ in their assumptions about {axis one} and {axis two}.
+- While both families address {problem}, they obtain supervision from {different sources}.
+
+### Unless otherwise specified, we use {default configuration} in all experiments.
+
+`general.sentence-pattern.reproducibility-default.001` · sentence_pattern · general · method, experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Declares a shared experimental default while allowing explicitly identified exceptions.
+
+**Use:** State the actual default and enumerate consequential exceptions where they occur. Do not use the frame to hide benchmark-specific tuning.
+
+**Avoid:** Avoid a global default statement when several experiments use materially different protocols.
+
+**Patterns:**
+
+- Unless otherwise specified, we report the mean over {number} seeds and use {aggregation rule}.
+- Unless otherwise specified, all methods use the same {data, compute, or interaction budget}.
 
 ### Under {evaluated setting}, {method} consistently {measured outcome}.
 
@@ -708,6 +810,40 @@ Preserves a concession and its qualification during Chinese-to-English reconstru
 
 - Although {method} improves {metric} on {subset}, the difference is not statistically significant across {units}.
 
+### replace vague effectiveness claims with the observed outcome
+
+`general.usage-note.effectiveness.001` · usage_note · general · abstract, experiments, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+An effectiveness claim is informative only when it names the intervention, comparison, metric, and evaluated setting.
+
+**Use:** Write the measured change directly. Use 'supports the effectiveness of' only when several results jointly justify the scoped judgment; use 'proves' only for a formal result.
+
+**Avoid:** Avoid 'the experiments prove the effectiveness and superiority of our method.'
+
+**Patterns:**
+
+- Across {tasks}, {method} improves {metric} over {baselines} under a matched {budget}.
+- The ablation supports the contribution of {component} to {measured outcome} in {setting}.
+
+### name the generalization axis and held-out unit
+
+`general.usage-note.generalization-axis.001` · usage_note · general, embodied_ai, robot_learning · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Generalization is always relative to a specified shift, such as unseen objects, tasks, environments, users, embodiments, or combinations.
+
+**Use:** State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.'
+
+**Avoid:** Do not infer broad out-of-distribution generalization from a random train–test split over nearly identical samples.
+
+**Patterns:**
+
+- We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
+- The current study does not establish transfer across unseen {embodiments or environments}.
+
 ### Distinguish possibility, interpretation, empirical evidence, and formal proof.
 
 `general.usage-note.modality.001` · usage_note · general · abstract, introduction, related_work, experiments, limitations, rebuttal, translation
@@ -723,6 +859,40 @@ Modal verbs and evidential verbs serve different functions rather than forming o
 **Patterns:**
 
 - The results suggest that {hypothesis}, but do not establish {stronger causal claim}.
+
+### performance is usually a mass noun when reporting an aggregate result
+
+`general.usage-note.performance.001` · usage_note · general · abstract, experiments, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+In empirical writing, 'performance' usually denotes aggregate measured behavior, whereas plural 'performances' is reserved for genuinely distinct acts or types of performance.
+
+**Use:** Prefer 'improves performance,' 'achieves higher task success,' or the exact metric. Use a plural only when the sentence explicitly distinguishes multiple kinds of performance.
+
+**Avoid:** Avoid mechanically translating 性能 into 'performances' or writing 'achieve better performances' without a metric.
+
+**Patterns:**
+
+- {method} improves performance on {benchmark}, as measured by {metric}.
+- The methods exhibit different performance profiles across {task groups}.
+
+### respectively requires an unambiguous one-to-one ordering
+
+`general.usage-note.respectively.001` · usage_note · general · method, experiments, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Respectively maps two or more ordered lists element by element and should be used only when both lists have matching cardinality and a clear order.
+
+**Use:** Place 'respectively' close to the second list. If the mapping could be misread, split the sentence or state each pairing explicitly.
+
+**Avoid:** Avoid using 'respectively' when one item maps to several values or when the antecedent order is unclear.
+
+**Patterns:**
+
+- The {first method} and {second method} obtain {first value} and {second value}, respectively.
+- We use {value one} for {setting one} and {value two} for {setting two}.
 
 ### statistically significant versus substantial improvement
 

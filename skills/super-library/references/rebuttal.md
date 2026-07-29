@@ -12,7 +12,8 @@ For each concern:
 4. State a concrete revision or a bounded limitation.
 
 Retrieve `section=rebuttal` with one of `respond`, `clarify`, `acknowledge`,
-`concede`, `evidence`, or `scope`.
+`concede`, `evidence`, or `scope`. Retrieve the technical concept in a second
+domain-only pass without `section=rebuttal`.
 
 Constraints:
 

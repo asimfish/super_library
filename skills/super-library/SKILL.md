@@ -8,50 +8,67 @@ description: Retrieve source-traceable terminology, definitions, sentence patter
 Use the corpus to constrain terminology and rhetorical choices while producing
 original prose. Treat it as a language and paper-discovery aid, never as evidence.
 
-## Workflow
+## Select the lowest-cost retrieval path
 
-1. Determine:
-   - mode: `paper`, `rebuttal`, or `translation`;
-   - domain from `library/taxonomy.json` when the full checkout is available,
-     otherwise from the focused domains described in the bundled compact context;
-   - target section and communicative intent;
-   - evidence boundary: facts, citations, numbers, and claims supplied or verified.
-2. From the repository root, retrieve before drafting. Run separate rhetorical
-   and technical queries when both are needed:
+First classify mode (`paper`, `rebuttal`, or `translation`), technical domain,
+target section, communicative intent, and evidence boundary.
+
+### Full repository checkout
+
+Generate one bounded context bundle. Keep rhetoric and terminology as separate
+queries:
+
+```bash
+python3 scripts/superlib.py bundle \
+  --rhetoric-query "<communicative need>" \
+  --technical-query "<technical concept or Chinese term>" \
+  --domain <domain> --section <section> --intent <intent> \
+  --limit 4 --max-chars 24000
+```
+
+Use `route "<query>" --domain <domain> --section <section>` when card URLs or
+catalog routes are needed. Use `show <entry-id>` for one complete record.
+
+### Installed standalone skill
+
+Read `references/core.md` once. Do not read `references/index.json`; query it with
+the bundled script so only a few records enter context. Run these commands from
+the installed skill directory:
+
+```bash
+python3 scripts/lookup.py "<rhetorical need>" \
+  --domain <domain> --section <section> --intent <intent> --limit 4
+python3 scripts/lookup.py "<technical concept or Chinese term>" \
+  --domain <domain> --kind term --limit 4
+```
+
+Omit `--kind` for a mix of terms and definitions. Use `--id <entry-id>` to load
+one known record.
+
+### Link-only access
+
+Open the immutable
+[`agent-index.md`](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md).
+Follow its order: universal core, at most two thin catalogs, then 3–8 cards.
+Do not load `index.json`, the legacy compact pack, or full domain packs by default.
+If neither local retrieval nor the index can be loaded, state that Super Library
+was not used.
+
+## Draft and verify
+
+1. Draft from the user's scientific propositions. Prefer attested collocations;
+   use original patterns as structural guardrails. Adapt all placeholders.
+2. For definitions, mechanisms, history, comparisons, or Related Work, reopen the
+   primary links and verify each claim. Insert
+   `[CITATION NEEDED: <source-id>]` rather than inventing a citation.
+3. In a full checkout, run the limited wording lint:
 
    ```bash
-   python3 scripts/superlib.py search "<rhetorical need>" \
-     --domain <domain> --section <section> --intent <intent> --limit 6
-   python3 scripts/superlib.py search "<technical concept or Chinese term>" \
-     --domain <domain> --kind term --limit 6
+   python3 scripts/superlib.py lint --text-file <draft> --bib <refs.bib>
    ```
 
-   Omit `--kind` for a mix of terms and definitions. Run multiple focused queries
-   when the task contains distinct concepts. Use
-   `show <entry-id>` to inspect one record and its sources.
-3. Draft from the user's scientific propositions. Prefer relevant
-   `attested_collocation` records; use `original_pattern` records as structural
-   guardrails. Adapt slot-based examples; never concatenate examples into a
-   paragraph.
-4. For definitions, method descriptions, historical statements, comparisons, or
-   Related Work, open the primary links returned by the CLI and verify each claim.
-   Insert `[CITATION NEEDED: <source-id>]` rather than inventing a citation.
-5. Run the limited wording lint:
-
-   ```bash
-   python3 scripts/superlib.py audit --text-file <draft>
-   ```
-
-   It checks risky wording, corpus anti-patterns, unresolved placeholders, and
-   optional BibTeX keys. Manually check terminology consistency, scientific claim
-   scope, source overlap, numbers, negation, modality, comparison fairness,
-   citation coverage, and translation fidelity.
-
-If repository scripts are unavailable, first read the bundled
-`references/compact.md`. If it is absent, read the immutable raw compact pack at
-`https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md`.
-If neither the CLI nor compact pack can be loaded, say that the library was not
-loaded; do not claim to have used it.
+   Manually check terminology, claim scope, source overlap, numbers, negation,
+   modality, comparison fairness, citation coverage, and translation fidelity.
 
 ## Route by task
 

@@ -4,8 +4,9 @@
    connectives, comparison direction, numbers, citations, negation, and modality.
 2. Build a terminology table by querying Chinese terms; use one canonical English
    term consistently unless the distinction requires two.
-3. Reconstruct each proposition in natural English using patterns for the target
-   paper section. Do not preserve Chinese word order.
+3. Retrieve section-specific rhetoric separately from domain terminology, then
+   reconstruct each proposition in natural English. Do not preserve Chinese word
+   order.
 4. Check epistemic strength:
    - `可能` usually maps to `may`, `might`, or `can`, depending on meaning;
    - `表明` may be `suggests`, `shows`, or `indicates`, depending on evidence;

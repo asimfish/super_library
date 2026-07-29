@@ -1,10 +1,10 @@
 # Super Library pack: reinforcement_learning
 
-Corpus `0.1.0` · snapshot `2026-07-29`.
+Corpus `0.2.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [self-contained mini contract](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md) before using this pack directly.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
 
 ### actor–critic method
 
@@ -27,6 +27,28 @@ A reinforcement-learning method with an actor that represents or updates the pol
 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
+
+### advantage function
+
+`rl.definition.advantage-function.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The difference between the action value and the state value under a policy, measuring how an action compares with the policy's average action at that state.
+
+**Use:** Specify the policy and estimator. When using generalized advantage estimation or another approximation, name its bias–variance parameters.
+
+**Avoid:** Do not interpret a positive estimated advantage as a universal guarantee that the action is optimal.
+
+**Patterns:**
+
+- We estimate $A^\pi(s,a)=Q^\pi(s,a)-V^\pi(s)$ and use it to weight the policy update.
+- Positive estimated advantages increase the relative likelihood of the sampled actions.
+
+**Verify in primary sources:**
+
+- `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
 ### conservative Q-function learning
 
@@ -69,6 +91,51 @@ The problem of determining how individual agents' actions contribute to a shared
 **Verify in primary sources:**
 
 - `foerster2018coma` — [Counterfactual Multi-Agent Policy Gradients](https://ojs.aaai.org/index.php/AAAI/article/view/11794) (AAAI 2018)
+
+### distributional reinforcement learning
+
+`rl.definition.distributional-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A value-based perspective that models a probability distribution over random returns rather than only their expected value.
+
+**Use:** Specify the distributional parameterization, projection or regression objective, and how action selection reduces the distribution to a decision criterion.
+
+**Avoid:** Do not equate a return distribution with epistemic uncertainty about the value estimate.
+
+**Patterns:**
+
+- The critic approximates the distribution of discounted returns with {atoms or quantiles}.
+- Actions are selected by the expectation of the learned return distribution.
+
+**Verify in primary sources:**
+
+- `bellemare2017distributional` — [A Distributional Perspective on Reinforcement Learning](https://proceedings.mlr.press/v70/bellemare17a.html) (ICML 2017)
+- `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
+### experience replay / replay buffer
+
+`rl.definition.experience-replay.001` · definition · reinforcement_learning, robot_learning · related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A mechanism that stores previously collected transitions or trajectories and resamples them for subsequent learning updates.
+
+**Use:** Report capacity, sampling distribution, sequence length, prioritization, and the ratio of updates to newly collected data when these affect results.
+
+**Avoid:** Do not assume replayed data are on-policy or independent and identically distributed.
+
+**Patterns:**
+
+- Transitions are stored in a replay buffer of capacity {size} and sampled uniformly for critic updates.
+- We sample length-{k} sequences from replay to train the recurrent world model.
+
+**Verify in primary sources:**
+
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+- `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+- `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
 ### maximum-entropy reinforcement learning
 
@@ -222,6 +289,29 @@ The cumulative sum of future rewards, commonly weighting a reward received k ste
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
+### temporal-difference (TD) learning
+
+`rl.definition.temporal-difference.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Learning a value-related prediction by moving it toward a target that combines an observed reward with a bootstrapped estimate of subsequent value.
+
+**Use:** State the exact target, discount, update horizon, target network or stop-gradient treatment, and whether the estimate is on-policy or off-policy.
+
+**Avoid:** Do not describe every loss across adjacent time steps as temporal-difference learning.
+
+**Patterns:**
+
+- We minimize a temporal-difference error against $r_t+\gamma V_{\bar\theta}(s_{t+1})$.
+- The latent value is trained with an $n$-step TD target.
+
+**Verify in primary sources:**
+
+- `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+- `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
 ### state-value and action-value functions
 
 `rl.definition.value-functions.001` · definition · reinforcement_learning · related_work, method, translation
@@ -243,6 +333,27 @@ A state-value function estimates expected future return from a state under a pol
 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
+
+### short branched model rollout
+
+`wm.definition.branched-rollout.001` · definition · world_models, reinforcement_learning · related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A finite learned-model rollout initialized from a state sampled from real experience, used to generate synthetic transitions without simulating an entire episode from the initial-state distribution.
+
+**Use:** Report the branch-state distribution, rollout length, policy used inside the model, and how synthetic and real transitions enter learning.
+
+**Avoid:** Do not call a full model-generated episode or an arbitrary imagined trajectory a branched rollout without specifying the real-data branch point.
+
+**Patterns:**
+
+- We start $k$-step model rollouts from states in the replay buffer and add the synthetic transitions to {training buffer}.
+- Each branched rollout follows the current policy for {length} learned transitions.
+
+**Verify in primary sources:**
+
+- `janner2019mbpo` — [When to Trust Your Model: Model-Based Policy Optimization](https://proceedings.neurips.cc/paper_files/paper/2019/hash/5faf461eff3099671ad63c6f3f094f7f-Abstract.html) (NeurIPS 2019)
 
 ### latent state
 
@@ -289,6 +400,28 @@ Reinforcement learning that uses a model of environment dynamics, learned or kno
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### probabilistic dynamics model
+
+`wm.definition.probabilistic-dynamics.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dynamics model that represents a conditional distribution over future states or latent states rather than returning only one point prediction.
+
+**Use:** State what is random, how the distribution is parameterized, and whether it is intended to model environment stochasticity, model uncertainty, or both.
+
+**Avoid:** Do not assume that any predicted variance is calibrated or that it cleanly separates aleatoric and epistemic uncertainty.
+
+**Patterns:**
+
+- We learn a probabilistic dynamics model $p_\theta(s_{t+1}\mid s_t,a_t)$ and propagate multiple particles during planning.
+- The latent transition predicts a distribution over {next latent variable} conditioned on {state and action}.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+- `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
+
 ### task-oriented latent dynamics model
 
 `wm.definition.task-oriented-model.001` · definition · world_models, reinforcement_learning · introduction, related_work, method
@@ -310,6 +443,27 @@ A latent dynamics model trained to preserve decision-relevant predictive structu
 
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `hansen2024tdmpc2` — [TD-MPC2: Scalable, Robust World Models for Continuous Control](https://proceedings.iclr.cc/paper_files/paper/2024/hash/cf73d57b6dcda32b293df7c2d5341f49-Abstract-Conference.html) (ICLR 2024)
+
+### uncertainty-aware model-based planning
+
+`wm.definition.uncertainty-aware-planning.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Planning that represents or uses uncertainty in learned dynamics when evaluating candidate action sequences, rather than optimizing only a single deterministic forecast.
+
+**Use:** State whether uncertainty is marginalized, sampled, penalized, or used as a constraint. Distinguish predictive uncertainty from risk preference.
+
+**Avoid:** Do not imply safety or robustness solely because the planner propagates a distribution.
+
+**Patterns:**
+
+- The planner samples predictive dynamics and optimizes expected return under the resulting trajectory distribution.
+- We penalize candidate plans with high {validated uncertainty statistic}.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 
 ### world model
 
@@ -400,6 +554,29 @@ The policy or mixture of policies that generated the data used for learning, whi
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
 
+### bootstrapped target
+
+`rl.term.bootstrapped-target.001` · term · reinforcement_learning, world_models · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A learning target that contains a prediction produced by the current model or a target model for a later state, rather than relying entirely on observed outcomes.
+
+**Use:** Name the prediction being reused and where gradients are stopped. Distinguish RL bootstrapping from statistical bootstrap resampling.
+
+**Avoid:** Do not imply that a bootstrapped target is unbiased or independent of the network being trained.
+
+**Patterns:**
+
+- The critic is updated toward a bootstrapped target computed with the target value network.
+- We stop gradients through the $n$-step return target.
+
+**Verify in primary sources:**
+
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+- `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+- `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
 ### centralized training with decentralized execution (CTDE)
 
 `rl.term.ctde.001` · term · reinforcement_learning · abstract, introduction, related_work, method, translation
@@ -421,6 +598,27 @@ A multi-agent learning paradigm that permits access to joint or global informati
 
 - `foerster2018coma` — [Counterfactual Multi-Agent Policy Gradients](https://ojs.aaai.org/index.php/AAAI/article/view/11794) (AAAI 2018)
 
+### entropy regularization / entropy-augmented objective
+
+`rl.term.entropy-regularization.001` · term · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+An objective term that rewards policy entropy in addition to task return, encouraging stochasticity according to a specified temperature or coefficient.
+
+**Use:** State the entropy convention, coefficient or temperature, and whether it is fixed or adapted. Distinguish action entropy from state-distribution diversity.
+
+**Avoid:** Do not claim that entropy regularization necessarily improves exploration or robustness in every environment.
+
+**Patterns:**
+
+- The actor maximizes expected return and policy entropy with temperature $\alpha$.
+- We adapt the entropy temperature toward a target entropy of {value}.
+
+**Verify in primary sources:**
+
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
 ### expectile value regression
 
 `rl.term.expectile-regression.001` · term · reinforcement_learning · related_work, method, translation
@@ -441,6 +639,51 @@ An asymmetric squared-loss regression objective whose expectile parameter emphas
 **Verify in primary sources:**
 
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+
+### state–action coverage of the offline dataset
+
+`rl.term.offline-dataset-coverage.001` · term · reinforcement_learning, robot_learning · introduction, related_work, method, experiments, limitations, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The range and frequency of states and actions represented by a fixed dataset relative to those needed by a candidate policy or evaluation task.
+
+**Use:** Operationalize coverage with dataset statistics, support assumptions, distances, or task-specific diagnostics; it is not captured by dataset size alone.
+
+**Avoid:** Do not describe a dataset as diverse or well-covered solely because it contains many transitions.
+
+**Patterns:**
+
+- Performance degrades when the learned policy selects actions poorly represented in the offline dataset.
+- We report coverage across {tasks, states, actions, or embodiments} in addition to trajectory count.
+
+**Verify in primary sources:**
+
+- `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
+- `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+
+### policy-gradient estimator
+
+`rl.term.policy-gradient-estimator.001` · term · reinforcement_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A sample-based estimate of the gradient of an expected-return objective with respect to policy parameters.
+
+**Use:** State the objective, sampling policy, advantage or return estimator, importance weights, and variance-reduction method.
+
+**Avoid:** Do not call an arbitrary gradient through a policy network a policy-gradient estimator when it optimizes a supervised or model-predictive loss.
+
+**Patterns:**
+
+- We form the policy-gradient estimator with generalized advantage estimates from on-policy trajectories.
+- Importance weights correct the estimator for the difference between {behavior policy} and {target policy}.
+
+**Verify in primary sources:**
+
+- `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
 ### policy
 
@@ -464,6 +707,27 @@ A rule or conditional distribution that maps an agent's information state, such 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `brohan2023rt1` — [RT-1: Robotics Transformer for Real-World Control at Scale](https://roboticsproceedings.org/rss19/p025.html) (RSS 2023)
+
+### return distribution / value distribution
+
+`rl.term.return-distribution.001` · term · reinforcement_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The probability distribution of cumulative discounted reward induced by environment randomness and policy actions from a specified state or state–action pair.
+
+**Use:** Condition the distribution explicitly and distinguish its expectation from the full random-return law.
+
+**Avoid:** Do not call a collection of value-network predictions a return distribution unless the learning formulation models random returns.
+
+**Patterns:**
+
+- We approximate the state–action return distribution $Z^\pi(s,a)$ with {representation}.
+- The expected value is recovered by taking the mean of the learned return distribution.
+
+**Verify in primary sources:**
+
+- `bellemare2017distributional` — [A Distributional Perspective on Reinforcement Learning](https://proceedings.mlr.press/v70/bellemare17a.html) (ICML 2017)
 
 ### sample efficiency / data efficiency
 
@@ -553,6 +817,28 @@ Prediction errors that accumulate as a learned model is recursively unrolled, po
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### ensemble dynamics model / probabilistic ensemble
+
+`wm.term.dynamics-ensemble.001` · term · world_models, reinforcement_learning · related_work, method, experiments, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A collection of separately fitted dynamics predictors whose aggregate predictions can improve robustness and provide a practical disagreement signal.
+
+**Use:** Describe initialization, data resampling, ensemble size, and how predictions are combined or sampled. Call disagreement a heuristic for epistemic uncertainty unless a stronger interpretation is justified.
+
+**Avoid:** Do not present an ensemble as an exact Bayesian posterior or treat members trained identically as independent evidence.
+
+**Patterns:**
+
+- We fit an ensemble of {number} dynamics models and sample a member when propagating each particle.
+- Planning penalizes action sequences with high ensemble disagreement.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+- `janner2019mbpo` — [When to Trust Your Model: Model-Based Policy Optimization](https://proceedings.neurips.cc/paper_files/paper/2019/hash/5faf461eff3099671ad63c6f3f094f7f-Abstract.html) (NeurIPS 2019)
+
 ### imagined trajectories / model rollouts
 
 `wm.term.imagined-trajectories.001` · term · world_models, reinforcement_learning · related_work, method, experiments, translation
@@ -641,6 +927,73 @@ A model fitted from data to predict state or latent-state transitions under acti
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### learned reward model
+
+`wm.term.learned-reward-model.001` · term · world_models, reinforcement_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A component that predicts task reward from modeled states, latent states, actions, or transitions when reward is included in the learned world-model objective.
+
+**Use:** Specify its inputs, target, loss, and whether the environment reward function is otherwise available at planning time.
+
+**Avoid:** Do not conflate a learned reward predictor with human preference modeling or with the complete world model.
+
+**Patterns:**
+
+- The latent model jointly predicts rewards and observations from the recurrent state.
+- Planning evaluates imagined trajectories with a learned reward predictor $r_\theta(z_t,a_t)$.
+
+**Verify in primary sources:**
+
+- `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
+- `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
+- `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### model bias in model-based reinforcement learning
+
+`wm.term.model-bias.001` · term · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+Distortion in policy learning or planning caused by systematic discrepancies between learned model transitions and the environment transitions relevant to the evaluated policy.
+
+**Use:** Identify the state–action distribution and downstream quantity affected. Separate model bias from finite-sample variance and generic policy-estimation error.
+
+**Avoid:** Do not equate low average one-step validation loss with negligible policy-relevant model bias.
+
+**Patterns:**
+
+- Long synthetic rollouts can amplify model bias when the policy visits state–action pairs poorly covered by real data.
+- We evaluate model error under the current policy distribution rather than only on the training split.
+
+**Verify in primary sources:**
+
+- `janner2019mbpo` — [When to Trust Your Model: Model-Based Policy Optimization](https://proceedings.neurips.cc/paper_files/paper/2019/hash/5faf461eff3099671ad63c6f3f094f7f-Abstract.html) (NeurIPS 2019)
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+
+### exploitation of model errors
+
+`wm.term.model-exploitation.001` · term · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A failure mode in which optimization selects actions that look favorable under an inaccurate learned model but do not yield the predicted outcomes in the real environment.
+
+**Use:** Use the term when the optimizer or policy actively seeks regions where model errors are favorable. Support the diagnosis with real-environment evaluation or an appropriate uncertainty/error analysis.
+
+**Avoid:** Do not label every performance gap as model exploitation without showing that optimization interacts with model error.
+
+**Patterns:**
+
+- The policy may exploit optimistic model errors outside the support of the collected transitions.
+- Constraining planning to {supported region} reduces opportunities for model exploitation.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+- `janner2019mbpo` — [When to Trust Your Model: Model-Based Policy Optimization](https://proceedings.neurips.cc/paper_files/paper/2019/hash/5faf461eff3099671ad63c6f3f094f7f-Abstract.html) (NeurIPS 2019)
+
 ### model predictive control (MPC)
 
 `wm.term.model-predictive-control.001` · term · world_models, reinforcement_learning, robot_learning · introduction, related_work, method, translation
@@ -662,6 +1015,27 @@ A control strategy that repeatedly optimizes a finite-horizon action sequence us
 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### trajectory sampling for uncertainty propagation
+
+`wm.term.trajectory-sampling.001` · term · world_models, reinforcement_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A sampling procedure that propagates multiple hypothetical trajectories through a probabilistic dynamics model to approximate distributions over future outcomes.
+
+**Use:** Specify the particle count, how ensemble members are selected across time, and how predicted returns are aggregated for action selection.
+
+**Avoid:** Do not use the term as a synonym for collecting real environment trajectories or for generic Monte Carlo evaluation without a learned model.
+
+**Patterns:**
+
+- We propagate {number} particles through the probabilistic ensemble and rank candidate action sequences by their predicted returns.
+- Each particle samples {model or transition noise} according to {sampling rule}.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 
 ### on-policy versus off-policy learning
 
@@ -686,6 +1060,71 @@ On-policy updates estimate or optimize the target policy using data generated by
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
 
+### policy evaluation versus control
+
+`rl.usage-note.policy-evaluation-control.001` · usage_note · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Policy evaluation estimates returns for a fixed policy, whereas control additionally seeks or improves a policy to obtain higher return.
+
+**Use:** State whether a theoretical property or operator applies only under a fixed policy or also under policy improvement and maximization.
+
+**Avoid:** Do not transfer a convergence or contraction statement from policy evaluation to control without checking the additional assumptions.
+
+**Patterns:**
+
+- The distributional operator is analyzed separately for fixed-policy evaluation and control.
+- Our theorem concerns policy evaluation; the control variant is assessed empirically.
+
+**Verify in primary sources:**
+
+- `bellemare2017distributional` — [A Distributional Perspective on Reinforcement Learning](https://proceedings.mlr.press/v70/bellemare17a.html) (ICML 2017)
+- `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
+
+### distinguish interpolation within dataset support from extrapolation beyond it
+
+`rl.usage-note.support-generalization.001` · usage_note · reinforcement_learning, robot_learning · related_work, experiments, limitations, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Good performance on held-out samples drawn from familiar coverage does not by itself establish reliable action selection in unsupported regions.
+
+**Use:** Describe how evaluation differs from the behavior-data distribution and whether the policy is constrained or regularized near dataset support.
+
+**Avoid:** Do not call a random trajectory split out-of-distribution evaluation without demonstrating a meaningful shift.
+
+**Patterns:**
+
+- The test tasks use held-out trajectories but remain within the dataset's object and action coverage.
+- Generalization beyond the behavior-policy support remains to be established.
+
+**Verify in primary sources:**
+
+- `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
+- `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+
+### aleatoric versus epistemic uncertainty in learned dynamics
+
+`wm.usage-note.aleatoric-epistemic.001` · usage_note · world_models, reinforcement_learning · related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Aleatoric uncertainty describes conditional variability that remains even with complete knowledge, whereas epistemic uncertainty reflects limited knowledge about the predictive model and may shrink with informative data.
+
+**Use:** Explain which modeling component is intended to represent each uncertainty and validate the interpretation when it matters to planning or risk.
+
+**Avoid:** Do not claim perfect decomposition merely because a network predicts a variance and an ensemble produces disagreement.
+
+**Patterns:**
+
+- The output distribution represents conditional stochasticity, while ensemble disagreement serves as a practical proxy for model uncertainty.
+- We do not assume that the two uncertainty sources are perfectly identifiable from the available transitions.
+
+**Verify in primary sources:**
+
+- `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+
 ### online planning versus policy learning in imagination
 
 `wm.usage-note.planning-vs-policy.001` · usage_note · world_models, reinforcement_learning · related_work, method, translation
@@ -707,3 +1146,25 @@ World models may support decisions by optimizing actions at test time, by traini
 
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### model rollout horizon trades synthetic coverage against accumulated error
+
+`wm.usage-note.rollout-horizon.001` · usage_note · world_models, reinforcement_learning · method, experiments, limitations, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Increasing the number of learned transitions can provide more synthetic experience but also exposes training or planning to errors that compound under the rollout distribution.
+
+**Use:** Treat rollout length as an algorithmic choice tied to model accuracy and policy shift. Report its schedule and include a sensitivity study when central to the claim.
+
+**Avoid:** Do not state that shorter or longer model rollouts are universally better across data regimes and tasks.
+
+**Patterns:**
+
+- We use a rollout horizon of {k}; longer rollouts degrade {metric} as prediction errors accumulate.
+- The rollout horizon increases from {a} to {b} as the model is trained on more real data.
+
+**Verify in primary sources:**
+
+- `janner2019mbpo` — [When to Trust Your Model: Model-Based Policy Optimization](https://proceedings.neurips.cc/paper_files/paper/2019/hash/5faf461eff3099671ad63c6f3f094f7f-Abstract.html) (NeurIPS 2019)
+- `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)

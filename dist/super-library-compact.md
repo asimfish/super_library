@@ -1,6 +1,9 @@
-# Super Library compact agent pack
+# Super Library legacy compact agent pack
 
-Corpus `0.1.0` · contract `1.0` · snapshot `2026-07-29`.
+Corpus `0.2.0` · contract `2.0` · snapshot `2026-07-30`.
+
+Prefer the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md). This larger
+single-file pack remains only for clients that cannot follow card links.
 
 ## Mini contract
 
@@ -31,14 +34,14 @@ citable evidence.
 If this pack cannot be loaded, state that Super Library was not used. A static
 snapshot cannot establish what is currently latest or state of the art.
 
-Core coverage: 64 entries; 32 primary sources.
-Use this core by itself, or load `general` plus one focused domain pack:
+Legacy coverage: 64 entries; 41 primary sources.
+Use this pack by itself; loading a full domain pack as well duplicates context:
 
-- [general](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/general.md)
-- [world_models](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/world_models.md)
-- [reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/reinforcement_learning.md)
-- [embodied_ai](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/embodied_ai.md)
-- [robot_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/robot_learning.md)
+- [general](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/packs/general.md)
+- [world_models](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/packs/world_models.md)
+- [reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/packs/reinforcement_learning.md)
+- [embodied_ai](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/packs/embodied_ai.md)
+- [robot_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/packs/robot_learning.md)
 
 ## Core records
 

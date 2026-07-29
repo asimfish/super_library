@@ -58,5 +58,26 @@
       "Preserve the lack of statistical significance.",
       "Do not claim demonstrated generalization to unseen embodiments."
     ]
+  },
+  {
+    "id": "paper-method-action-chunking",
+    "mode": "paper",
+    "request": "Define the action interface of a language-conditioned robot policy without implying that chunk prediction is fully open-loop.",
+    "facts": [
+      "The policy predicts 16 future actions.",
+      "It executes four actions before observing again and replanning.",
+      "The language instruction and two camera views condition every policy query."
+    ],
+    "expected_retrieval_ids": [
+      "emb.definition.action-chunking.001",
+      "emb.usage-note.chunking-feedback.001",
+      "emb.term.language-conditioned-policy.001"
+    ],
+    "invariants": [
+      "Preserve a prediction horizon of 16 and an execution horizon of four.",
+      "Describe the controller as closed-loop at the replanning interval.",
+      "Do not claim open-loop execution of the entire chunk.",
+      "Name language and both camera views as conditioning inputs."
+    ]
   }
 ]

@@ -73,5 +73,15 @@
     "id": "groundbreaking",
     "pattern": "\\b(?:groundbreaking|revolutionary|game-changing)\\b",
     "message": "Describe the technical contribution and evidence without promotional language."
+  },
+  {
+    "id": "prove-effectiveness",
+    "pattern": "\\b(?:prove|proves|proved|proving) (?:the )?effectiveness\\b",
+    "message": "Report the observed metric and scope; empirical results rarely prove general effectiveness."
+  },
+  {
+    "id": "plural-performance",
+    "pattern": "\\b(?:achiev(?:e|es|ed|ing)|obtain(?:s|ed|ing)?|deliver(?:s|ed|ing)?) (?:better|higher|superior) performances\\b",
+    "message": "Use aggregate 'performance' or, preferably, name the exact improved metric."
   }
 ]

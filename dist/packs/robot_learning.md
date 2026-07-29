@@ -1,10 +1,53 @@
 # Super Library pack: robot_learning
 
-Corpus `0.1.0` · snapshot `2026-07-29`.
+Corpus `0.2.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [self-contained mini contract](https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md) before using this pack directly.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+
+### 3D vision-language-action generative world model (paper-specific usage)
+
+`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models · related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+In 3D-VLA, a model that uses 3D scene information and language-conditioned representations to generate future scene or action-related predictions for embodied manipulation.
+
+**Use:** Attribute this formulation to the specific paper and describe its generated variables. Do not present the phrase as a universally standardized VLA architecture.
+
+**Avoid:** Do not infer that every 3D-grounded VLA is a world model or that every world model predicts robot actions.
+
+**Patterns:**
+
+- Following {source}, we use '3D VLA world model' for a model that predicts {paper-specific outputs}.
+- Our system differs because it predicts {actions only or future observations only}.
+
+**Verify in primary sources:**
+
+- `zhen2024vla` — [3D-VLA: A 3D Vision-Language-Action Generative World Model](https://proceedings.mlr.press/v235/zhen24a.html) (ICML 2024)
+
+### action chunking
+
+`emb.definition.action-chunking.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Predicting a block of consecutive future actions in one policy inference step rather than predicting only the next action.
+
+**Use:** Report chunk length, execution or replanning frequency, overlap between chunks, and whether observations are incorporated again before the entire chunk is executed.
+
+**Avoid:** Do not equate action chunking with open-loop execution; implementations may replan or aggregate overlapping chunks.
+
+**Patterns:**
+
+- The policy predicts a chunk of {k} future actions from the current observations.
+- We replan every {n} control steps and combine overlapping action chunks with {aggregation rule}.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+- `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
 
 ### active perception
 
@@ -28,6 +71,27 @@ Perception in which an agent's actions influence which observations become avail
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
 - `savva2019habitat` — [Habitat: A Platform for Embodied AI Research](https://openaccess.thecvf.com/content_ICCV_2019/html/Savva_Habitat_A_Platform_for_Embodied_AI_Research_ICCV_2019_paper.html) (ICCV 2019)
 
+### bimanual robotic manipulation
+
+`emb.definition.bimanual-manipulation.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Manipulation in which two robot arms or end effectors must act in a coordinated manner to accomplish a task.
+
+**Use:** Specify whether coordination is symmetric or asymmetric, the control space for each arm, sensing, synchronization, and the task phase requiring coordination.
+
+**Avoid:** Do not call independent single-arm subtasks bimanual coordination unless their actions are coupled by the object or objective.
+
+**Patterns:**
+
+- The benchmark contains contact-rich bimanual tasks that require coordinated motion of both end effectors.
+- The policy jointly predicts left- and right-arm actions at {frequency} Hz.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+
 ### cross-embodiment transfer
 
 `emb.definition.cross-embodiment.001` · definition · robot_learning, embodied_ai · abstract, introduction, related_work, experiments, translation
@@ -48,6 +112,29 @@ The application or adaptation of learned knowledge across robots or agents with 
 **Verify in primary sources:**
 
 - `ghosh2024octo` — [Octo: An Open-Source Generalist Robot Policy](https://www.roboticsproceedings.org/rss20/p090.html) (RSS 2024)
+
+### cross-robot data mixture
+
+`emb.definition.cross-robot-data-mixture.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training collection that combines trajectories from multiple robot platforms, embodiments, institutions, tasks, or data-generation pipelines.
+
+**Use:** Report contributing datasets, sampling weights, action and observation normalization, license or availability constraints, and the target platforms used for evaluation.
+
+**Avoid:** Do not equate a large aggregate trajectory count with balanced coverage across robots or tasks.
+
+**Patterns:**
+
+- We pretrain on a cross-robot mixture and fine-tune on demonstrations from the target embodiment.
+- The mixture sampling weights are chosen by {rule} rather than in proportion to raw dataset size.
+
+**Verify in primary sources:**
+
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+- `ghosh2024octo` — [Octo: An Open-Source Generalist Robot Policy](https://www.roboticsproceedings.org/rss20/p090.html) (RSS 2024)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
 
 ### diffusion policy / action diffusion
 
@@ -112,6 +199,27 @@ The study of agents that perceive and act within an environment, where their obs
 
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
 - `savva2019habitat` — [Habitat: A Platform for Embodied AI Research](https://openaccess.thecvf.com/content_ICCV_2019/html/Savva_Habitat_A_Platform_for_Embodied_AI_Research_ICCV_2019_paper.html) (ICCV 2019)
+
+### embodied multimodal language model
+
+`emb.definition.embodied-language-model.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A language-model-based system that directly incorporates continuous or encoded sensor modalities to support reasoning or prediction grounded in an embodied environment.
+
+**Use:** Specify the sensor encoders, how their outputs enter the language model, the training tasks, and whether the system predicts language, plans, values, or executable actions.
+
+**Avoid:** Do not assume that multimodal grounding alone makes the model a closed-loop robot controller.
+
+**Patterns:**
+
+- The embodied language model interleaves visual and state-estimation embeddings with text tokens.
+- The model supports {planning or question answering}, while a separate controller executes robot actions.
+
+**Verify in primary sources:**
+
+- `driess2023palme` — [PaLM-E: An Embodied Multimodal Language Model](https://proceedings.mlr.press/v202/driess23a.html) (ICML 2023)
 
 ### generalist robot policy
 
@@ -180,6 +288,27 @@ Perception that integrates information from distinct sensory modalities, such as
 - `chen2020soundspaces` — [SoundSpaces: Audio-Visual Navigation in 3D Environments](https://www.ecva.net/papers/eccv_2020/papers_ECCV/papers/123510018.pdf) (ECCV 2020)
 - `baltrusaitis2019multimodal` — [Multimodal Machine Learning: A Survey and Taxonomy](https://ieeexplore.ieee.org/document/8269806/) (TPAMI 2019)
 
+### multimodal task prompt
+
+`emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A task specification composed of more than one modality, such as interleaved text, images, object crops, goals, or demonstrations.
+
+**Use:** List the modalities, tokenization, temporal order, and information available at test time. Distinguish a prompt that specifies a task from observations generated while executing it.
+
+**Avoid:** Do not call ordinary multimodal observations a task prompt unless they communicate the intended task or goal.
+
+**Patterns:**
+
+- The prompt interleaves a language instruction with images of the target objects.
+- We evaluate novel compositions of visual and textual prompt elements.
+
+**Verify in primary sources:**
+
+- `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
 ### rapid online adaptation
 
 `emb.definition.rapid-adaptation.001` · definition · robot_learning · abstract, introduction, related_work, method, translation
@@ -243,6 +372,52 @@ A policy that maps visual observations, often together with proprioception or go
 **Verify in primary sources:**
 
 - `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
+- `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
+
+### vision-language-action (VLA) model
+
+`emb.definition.vla.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A model or policy that conditions on visual observations and language and produces robot actions or an action representation for embodied control.
+
+**Use:** Specify all inputs, the action space, control frequency, training data, and whether actions are generated directly, discretized as tokens, or decoded by a separate head.
+
+**Avoid:** Do not call a vision-language model a VLA merely because its textual output can be interpreted by an external planner.
+
+**Patterns:**
+
+- The VLA policy maps camera observations and a language instruction to a sequence of robot actions.
+- We fine-tune the pretrained VLA on {number} demonstrations from {target embodiment}.
+
+**Verify in primary sources:**
+
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+- `zhen2024vla` — [3D-VLA: A 3D Vision-Language-Action Generative World Model](https://proceedings.mlr.press/v235/zhen24a.html) (ICML 2024)
+
+### experience replay / replay buffer
+
+`rl.definition.experience-replay.001` · definition · reinforcement_learning, robot_learning · related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A mechanism that stores previously collected transitions or trajectories and resamples them for subsequent learning updates.
+
+**Use:** Report capacity, sampling distribution, sequence length, prioritization, and the ratio of updates to newly collected data when these affect results.
+
+**Avoid:** Do not assume replayed data are on-policy or independent and identically distributed.
+
+**Patterns:**
+
+- Transitions are stored in a replay buffer of capacity {size} and sampled uniformly for critic updates.
+- We sample length-{k} sequences from replay to train the recurrent world model.
+
+**Verify in primary sources:**
+
+- `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+- `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
 ### offline reinforcement learning
@@ -336,6 +511,28 @@ Structures embodied-AI related work around how data is obtained, whether learnin
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### robot-action tokenization
+
+`emb.term.action-tokenization.001` · term · embodied_ai, robot_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A representation that maps continuous or structured robot controls into discrete tokens or token-like outputs for sequence-model prediction.
+
+**Use:** Describe discretization bins, dimensions, control semantics, decoding, clipping, and any embodiment-specific normalization.
+
+**Avoid:** Do not assume that language-token and action-token probabilities have the same semantics or that tokenization is lossless.
+
+**Patterns:**
+
+- Each action dimension is discretized into {number} bins and represented by a dedicated token range.
+- The predicted action tokens are decoded into {control command} at {frequency} Hz.
+
+**Verify in primary sources:**
+
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+
 ### embodiment
 
 `emb.term.embodiment.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
@@ -400,6 +597,29 @@ Robot interaction data collected across naturally varied real-world scenes, task
 **Verify in primary sources:**
 
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
+
+### language-conditioned visuomotor policy
+
+`emb.term.language-conditioned-policy.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A control policy whose action prediction depends jointly on sensory observations and a linguistic task specification or instruction.
+
+**Use:** State the language granularity, observation modalities, action horizon, and whether language changes the task, goal, or low-level behavior.
+
+**Avoid:** Do not imply compositional language understanding unless it is evaluated under an appropriate held-out split.
+
+**Patterns:**
+
+- The language-conditioned policy predicts actions from {camera views}, proprioception, and the instruction.
+- We evaluate whether the policy follows unseen combinations of familiar language concepts.
+
+**Verify in primary sources:**
+
+- `brohan2023rt1` — [RT-1: Robotics Transformer for Real-World Control at Scale](https://roboticsproceedings.org/rss19/p025.html) (RSS 2023)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+- `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
 
 ### long-horizon interaction
 
@@ -508,6 +728,95 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
+
+### task success rate
+
+`emb.term.task-success-rate.001` · term · embodied_ai, robot_learning · experiments, rebuttal, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The fraction or percentage of evaluation trials that satisfy a predefined task-completion criterion.
+
+**Use:** Define the success criterion, trial unit, number of trials, aggregation level, and treatment of partial completion and timeouts. Provide uncertainty where appropriate.
+
+**Avoid:** Do not compare success rates computed with different horizons, reset policies, human interventions, or success detectors without qualification.
+
+**Patterns:**
+
+- Task success rate is computed over {number} independent trials using {completion criterion}.
+- The policy succeeds in {count}/{total} trials, corresponding to {percentage}%.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+- `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
+### teleoperated robot demonstration
+
+`emb.term.teleoperation-demonstration.001` · term · embodied_ai, robot_learning · related_work, method, experiments, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A robot trajectory collected while a human operator controls the robot through a physical, graphical, wearable, or other remote interface.
+
+**Use:** Report the interface, observation available to the operator, control rate, filtering, intervention policy, and whether unsuccessful attempts are retained.
+
+**Avoid:** Do not use 'human demonstration' without distinguishing robot teleoperation from videos or state–action data generated outside the target robot.
+
+**Patterns:**
+
+- We collect {number} teleoperated demonstrations with a leader–follower interface.
+- The dataset retains both successful and unsuccessful teleoperation episodes.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+- `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
+
+### temporal ensembling of overlapping action predictions
+
+`emb.term.temporal-ensembling.001` · term · embodied_ai, robot_learning · related_work, method, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+Combining action predictions made at different policy-query times for the same future control step.
+
+**Use:** Describe the weighting function, overlap window, and whether aggregation occurs in action space or another representation. Mark ACT-specific weighting choices as implementation details rather than universal definitions.
+
+**Avoid:** Do not confuse temporal ensembling with an ensemble of independently trained policies.
+
+**Patterns:**
+
+- At each control step, we aggregate overlapping action predictions using exponentially decaying weights.
+- Temporal ensembling smooths predictions from successive action chunks.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+
+### state–action coverage of the offline dataset
+
+`rl.term.offline-dataset-coverage.001` · term · reinforcement_learning, robot_learning · introduction, related_work, method, experiments, limitations, translation
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The range and frequency of states and actions represented by a fixed dataset relative to those needed by a candidate policy or evaluation task.
+
+**Use:** Operationalize coverage with dataset statistics, support assumptions, distances, or task-specific diagnostics; it is not captured by dataset size alone.
+
+**Avoid:** Do not describe a dataset as diverse or well-covered solely because it contains many transitions.
+
+**Patterns:**
+
+- Performance degrades when the learned policy selects actions poorly represented in the offline dataset.
+- We report coverage across {tasks, states, actions, or embodiments} in addition to trajectory count.
+
+**Verify in primary sources:**
+
+- `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
+- `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
 
 ### policy
 
@@ -641,6 +950,50 @@ In RT-1, this label describes joint training with shared parameters across a bro
 
 - `brohan2023rt1` — [RT-1: Robotics Transformer for Real-World Control at Scale](https://roboticsproceedings.org/rss19/p025.html) (RSS 2023)
 
+### separate prediction horizon, execution horizon, and feedback frequency
+
+`emb.usage-note.chunking-feedback.001` · usage_note · embodied_ai, robot_learning · method, experiments, limitations, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A policy may predict many future actions while executing only part of them before receiving a new observation, so action horizon alone does not determine whether control is open-loop or closed-loop.
+
+**Use:** Report all three quantities and explain how overlapping predictions are combined. Use 'closed-loop' only when updated observations influence subsequent executed actions.
+
+**Avoid:** Do not infer the control-feedback structure solely from the number of actions output by the network.
+
+**Patterns:**
+
+- Although the policy predicts {k} actions, it replans after executing {n}, using a new observation.
+- The controller executes the entire chunk open-loop before the next policy query.
+
+**Verify in primary sources:**
+
+- `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
+- `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
+
+### heterogeneous robot action spaces require an explicit alignment strategy
+
+`emb.usage-note.heterogeneous-actions.001` · usage_note · embodied_ai, robot_learning · related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Different datasets and embodiments may use controls with different dimensions, frames, grippers, rates, and semantics, so joint training requires a documented representation or adapter.
+
+**Use:** Specify coordinate frames, normalization, missing dimensions, embodiment identifiers, and decoding into each robot's native controller.
+
+**Avoid:** Do not describe actions as standardized when only file formats are shared but control semantics remain different.
+
+**Patterns:**
+
+- We map each dataset's controls into a common {representation} and retain an embodiment-specific action mask.
+- Actions are normalized per embodiment before joint training and decoded with {adapter}.
+
+**Verify in primary sources:**
+
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+- `ghosh2024octo` — [Octo: An Open-Source Generalist Robot Policy](https://www.roboticsproceedings.org/rss20/p090.html) (RSS 2024)
+
 ### imitation learning versus behavioral cloning
 
 `emb.usage-note.imitation-bc.001` · usage_note · robot_learning, embodied_ai · introduction, related_work, method, translation
@@ -662,3 +1015,87 @@ Imitation learning is the broader problem of learning behavior from demonstratio
 
 - `ho2016gail` — [Generative Adversarial Imitation Learning](https://papers.nips.cc/paper/2016/hash/cc7e2b878868cbae992d1fb743995d8f-Abstract.html) (NeurIPS 2016)
 - `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
+
+### evaluate embodied generalization along separately controlled axes
+
+`emb.usage-note.systematic-generalization.001` · usage_note · embodied_ai, robot_learning · experiments, limitations, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Systematic evaluation varies identified factors—such as objects, placements, task templates, prompt compositions, environments, or embodiments—while documenting which combinations were withheld.
+
+**Use:** Define each split procedurally and report results by axis. Use 'zero-shot' only when the evaluated factor or combination was absent from training under the stated protocol.
+
+**Avoid:** Do not collapse all held-out conditions into one generalization score that hides qualitatively different shifts.
+
+**Patterns:**
+
+- We report separate results for unseen objects, unseen task compositions, and unseen embodiments.
+- The hardest split holds out both {factor one} and {factor two} during training.
+
+**Verify in primary sources:**
+
+- `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+- `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
+
+### distinguish VLA policies from embodied language models
+
+`emb.usage-note.vla-vs-elm.001` · usage_note · embodied_ai, robot_learning · related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A VLA label emphasizes action generation for control, whereas an embodied language model may use sensor inputs for reasoning or prediction without directly producing executable actions.
+
+**Use:** Classify a method by its actual output and control interface rather than model backbone. Some systems may satisfy both descriptions, but the overlap should be stated.
+
+**Avoid:** Do not use VLA, vision-language model, and embodied language model interchangeably.
+
+**Patterns:**
+
+- Unlike embodied language models evaluated on reasoning tasks, our VLA directly predicts {robot control representation}.
+- The model supplies high-level plans to a separate low-level policy and is therefore not evaluated as an end-to-end VLA controller.
+
+**Verify in primary sources:**
+
+- `driess2023palme` — [PaLM-E: An Embodied Multimodal Language Model](https://proceedings.mlr.press/v202/driess23a.html) (ICML 2023)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+
+### name the generalization axis and held-out unit
+
+`general.usage-note.generalization-axis.001` · usage_note · general, embodied_ai, robot_learning · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Generalization is always relative to a specified shift, such as unseen objects, tasks, environments, users, embodiments, or combinations.
+
+**Use:** State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.'
+
+**Avoid:** Do not infer broad out-of-distribution generalization from a random train–test split over nearly identical samples.
+
+**Patterns:**
+
+- We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
+- The current study does not establish transfer across unseen {embodiments or environments}.
+
+### distinguish interpolation within dataset support from extrapolation beyond it
+
+`rl.usage-note.support-generalization.001` · usage_note · reinforcement_learning, robot_learning · related_work, experiments, limitations, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Good performance on held-out samples drawn from familiar coverage does not by itself establish reliable action selection in unsupported regions.
+
+**Use:** Describe how evaluation differs from the behavior-data distribution and whether the policy is constrained or regularized near dataset support.
+
+**Avoid:** Do not call a random trajectory split out-of-distribution evaluation without demonstrating a meaningful shift.
+
+**Patterns:**
+
+- The test tasks use held-out trajectories but remain within the dataset's object and action coverage.
+- Generalization beyond the behavior-policy support remains to be established.
+
+**Verify in primary sources:**
+
+- `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
+- `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)

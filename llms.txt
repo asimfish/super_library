@@ -1,35 +1,37 @@
 # Super Library
 
-Purpose: source-traceable English language retrieval for AI papers, rebuttals,
-related work, and technical translation.
+Purpose: source-traceable English retrieval for AI papers, rebuttals, related
+work, and Chinese–English technical translation.
 
-Pinned snapshot: v0.1.0 (2026-07-29)
+Pinned snapshot: v0.2.0 (2026-07-30)
 
-Agent workflow:
-1. If this repository is cloned, read AGENTS.md and use scripts/superlib.py.
-2. Otherwise, load the self-contained compact context:
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/super-library-compact.md
-3. For broader focused coverage, use the general pack plus exactly one technical
-   domain pack instead of the compact context:
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/general.md
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/world_models.md
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/reinforcement_learning.md
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/embodied_ai.md
-   https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/packs/robot_learning.md
-4. Retrieve rhetoric and technical concepts separately. Preserve facts, numbers,
-   negation, modality, citations, and user constraints.
-5. Verify primary links before writing definitions or literature claims. The
-   corpus is a language and discovery aid, not scientific evidence.
-6. If local tools are available, run the limited wording lint. Otherwise manually
-   check overclaim, unresolved placeholders, terminology, claim scope, citations,
-   and translation fidelity.
-7. If no corpus file can be loaded, state that Super Library was not used.
+Default link-only entrypoint:
+https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md
 
-Machine-readable release files:
-- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/manifest.json
-- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/index.json
-- https://raw.githubusercontent.com/asimfish/super_library/v0.1.0/dist/stats.json
+Loading policy:
+1. Read agent-index.md.
+2. Read its universal core once.
+3. Read at most one relevant section catalog and one technical-domain catalog.
+4. Open only 3–8 selected entry cards. Do not open every catalog link.
+5. Do not load index.json, the legacy compact pack, or full domain packs unless
+   selective routing is unavailable.
+6. Retrieve rhetorical moves with section/intent and technical terminology with
+   domain/kind but without a section filter.
+7. Preserve facts, numbers, equations, negation, modality, citation placement,
+   comparison direction, and user constraints.
+8. Verify primary links before definitions or literature claims. The corpus is a
+   language and discovery aid, not scientific evidence.
+9. If no corpus entrypoint can be loaded, state that Super Library was not used.
 
-This snapshot contains paraphrases, field-standard terminology, short
-multi-source-attested collocations, and original templates—not paper quotations.
-A static snapshot cannot establish what is currently latest or state of the art.
+With a checkout, use:
+python3 scripts/superlib.py bundle --rhetoric-query "<need>" \
+  --technical-query "<concept>" --domain <domain> --section <section>
+
+Machine routes:
+- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/router.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalog.jsonl
+- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/manifest.json
+
+This release stores paraphrases, terminology, short multi-source-attested
+collocations, and original templates—not paper quotations. A static release
+cannot establish what is currently latest or state of the art.
