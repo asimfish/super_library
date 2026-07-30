@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/writing-guides.schema.json",
+  "title": "Super Library writing guides",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "study_id", "guides"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "study_id": {"type": "string"},
+    "guides": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "guide_type",
+          "section",
+          "label",
+          "purpose",
+          "aliases",
+          "use_when",
+          "inputs",
+          "moves",
+          "templates",
+          "verification",
+          "avoid",
+          "related_entry_ids"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+          },
+          "guide_type": {
+            "enum": ["section_protocol", "analysis_protocol", "table_protocol"]
+          },
+          "section": {"type": "string"},
+          "label": {"type": "string", "minLength": 3, "maxLength": 120},
+          "purpose": {"type": "string", "minLength": 12, "maxLength": 600},
+          "aliases": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 2}
+          },
+          "use_when": {"type": "string", "minLength": 12, "maxLength": 600},
+          "inputs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 4, "maxLength": 500}
+          },
+          "moves": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "label", "required", "checks"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+                },
+                "label": {"type": "string", "minLength": 3, "maxLength": 120},
+                "required": {"type": "boolean"},
+                "checks": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {"type": "string", "minLength": 4, "maxLength": 500}
+                }
+              }
+            }
+          },
+          "templates": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "name", "when", "sequence"],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"
+                },
+                "name": {"type": "string", "minLength": 3, "maxLength": 120},
+                "when": {"type": "string", "minLength": 4, "maxLength": 400},
+                "sequence": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {"type": "string", "minLength": 4, "maxLength": 500}
+                }
+              }
+            }
+          },
+          "verification": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 4, "maxLength": 500}
+          },
+          "avoid": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 4, "maxLength": 500}
+          },
+          "related_entry_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

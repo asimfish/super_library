@@ -553,6 +553,40 @@ Structures embodied-AI related work around how data is obtained, whether learnin
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### Latency is measured on {hardware} with {precision, batch, and timing boundary}.
+
+`general.sentence-pattern.latency-protocol.001` · sentence_pattern · general, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the hardware and measurement boundary required to interpret latency.
+
+**Use:** State warm-up, synchronization, repeats, input shape, preprocessing, action decoding, and whether the value is model-only or end to end.
+
+**Avoid:** Do not compare latency across hardware or confuse batched throughput with single-sample latency.
+
+**Patterns:**
+
+- Latency is measured on {hardware} at {precision} and batch size {value}, including {timing boundary}.
+- End-to-end control latency includes {components} and is averaged over {repetitions} after {warm-up}.
+
+### Each real-system condition is evaluated in {trials} trials, with success defined as {criterion}.
+
+`general.sentence-pattern.real-system-trials.001` · sentence_pattern · general, embodied_ai, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the trial count and success criterion for a physical or deployed-system evaluation.
+
+**Use:** Also state reset procedure, intervention policy, trial independence, task allocation, and the denominator used for success rate.
+
+**Avoid:** Do not report a success percentage without the number and composition of physical trials.
+
+**Patterns:**
+
+- Each real-robot task is evaluated in {trials} trials, with success defined as {terminal condition}.
+- We conduct {number} trials per {task and object} pair and count an intervention as {outcome}.
+
 ### robot-action tokenization
 
 `emb.term.action-tokenization.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, translation

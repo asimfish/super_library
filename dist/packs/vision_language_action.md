@@ -200,6 +200,40 @@ A policy output module that directly parameterizes continuous robot controls rat
 - `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
 - `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
 
+### Latency is measured on {hardware} with {precision, batch, and timing boundary}.
+
+`general.sentence-pattern.latency-protocol.001` · sentence_pattern · general, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the hardware and measurement boundary required to interpret latency.
+
+**Use:** State warm-up, synchronization, repeats, input shape, preprocessing, action decoding, and whether the value is model-only or end to end.
+
+**Avoid:** Do not compare latency across hardware or confuse batched throughput with single-sample latency.
+
+**Patterns:**
+
+- Latency is measured on {hardware} at {precision} and batch size {value}, including {timing boundary}.
+- End-to-end control latency includes {components} and is averaged over {repetitions} after {warm-up}.
+
+### Each real-system condition is evaluated in {trials} trials, with success defined as {criterion}.
+
+`general.sentence-pattern.real-system-trials.001` · sentence_pattern · general, embodied_ai, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the trial count and success criterion for a physical or deployed-system evaluation.
+
+**Use:** Also state reset procedure, intervention policy, trial independence, task allocation, and the denominator used for success rate.
+
+**Avoid:** Do not report a success percentage without the number and composition of physical trials.
+
+**Patterns:**
+
+- Each real-robot task is evaluated in {trials} trials, with success defined as {terminal condition}.
+- We conduct {number} trials per {task and object} pair and count an intervention as {outcome}.
+
 ### VLA systems should be compared by backbone adaptation, action representation, supervision, and feedback regime.
 
 `vla.sentence-pattern.related-work.001` · sentence_pattern · vision_language_action · related_work

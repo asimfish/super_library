@@ -83,5 +83,25 @@
     "id": "plural-performance",
     "pattern": "\\b(?:achiev(?:e|es|ed|ing)|obtain(?:s|ed|ing)?|deliver(?:s|ed|ing)?) (?:better|higher|superior) performances\\b",
     "message": "Use aggregate 'performance' or, preferably, name the exact improved metric."
+  },
+  {
+    "id": "extensive-experiments",
+    "pattern": "\\bextensive experiments (?:show|demonstrate|prove|validate|verify)\\b",
+    "message": "Name the evaluated questions, settings, metrics, and principal evidence instead of using experiment count as support."
+  },
+  {
+    "id": "unspecified-multiple-runs",
+    "pattern": "\\b(?:averaged|aggregated|reported) over (?:several|multiple) (?:independent )?(?:runs|seeds|trials)\\b",
+    "message": "State the number of independent runs or seeds, aggregation statistic, and uncertainty."
+  },
+  {
+    "id": "ambiguous-percent-improvement",
+    "pattern": "\\b(?:improv(?:e|es|ed|ing)|increase(?:s|d)?|decrease(?:s|d)?|reduc(?:e|es|ed|ing)) (?:\\w+ ){0,3}by [0-9]+(?:\\.[0-9]+)?%(?!\\w)",
+    "message": "Clarify whether the change is relative percent or percentage points and report the endpoint values when possible."
+  },
+  {
+    "id": "statistical-significance-needs-test",
+    "pattern": "\\bstatistically significant(?:ly)?\\b|\\bsignificantly (?:outperform|improv|increase|decrease|reduc)",
+    "message": "Name the statistical test or interval, comparison, sample unit, and correction policy when applicable; otherwise use descriptive wording."
   }
 ]

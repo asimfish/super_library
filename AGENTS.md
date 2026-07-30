@@ -7,9 +7,11 @@ translation, rebuttal, terminology, definitions, or related work.
 
 1. Read `skills/super-library/SKILL.md`.
 2. Classify the task by `domain`, optional `topic`, `section`, communicative
-   `intent`, and evidence boundary using `library/taxonomy.json` and
-   `library/topics.json`.
-3. Retrieve before drafting. Prefer one bounded two-pass bundle:
+   `intent`, evidence boundary, and—when drafting Abstract, Introduction, or
+   Experiments—one section protocol using `library/taxonomy.json`,
+   `library/topics.json`, and `library/writing_guides.json`.
+3. Retrieve before drafting. Prefer one bounded two-pass bundle. Add exactly one
+   `--guide` only when the task needs a section or table protocol:
 
    ```bash
    python3 scripts/superlib.py bundle \
@@ -19,12 +21,15 @@ translation, rebuttal, terminology, definitions, or related work.
      --limit 4 --max-chars 24000
    ```
 
-   Use `route` for a small URL/path plan and `show` for one known entry. Do not
-   read `dist/index.json`, every card, the legacy compact pack, or full packs.
+   For Abstract, Introduction, or Experiments, add `--guide <guide-id>`.
+   Use `route` for a small URL/path plan; it recommends one protocol from the
+   query. Use `guide --list`, `guide <guide-id>`, or `show <entry-id>` for a
+   known record. Do not read every guide, `dist/index.json`, every card, the
+   legacy compact pack, or full packs.
 4. Draft with the retrieved terminology and sentence patterns. Prefer attested
    collocations when relevant; treat original patterns as structural guardrails.
-   Adapt patterns to the
-   scientific facts; never copy placeholders or stitch unrelated phrases together.
+   Adapt patterns to the scientific facts; never copy placeholders or stitch
+   unrelated phrases together.
 5. Run the limited wording lint:
 
    ```bash
@@ -39,9 +44,9 @@ translation, rebuttal, terminology, definitions, or related work.
    not evidence. Never invent a citation, result, comparison, or venue.
 
 If the CLI is unavailable, read `dist/agent-index.md`, then `dist/core.md`, at
-most one section catalog, one domain hub, one topic catalog, and 3–8 selected
-cards. Do not load paper evidence maps unless a literature claim needs source
-verification.
+most one section protocol, one section catalog, one domain hub, one topic
+catalog, and 3–8 selected cards. Do not load every protocol or paper evidence
+map; open an evidence map only when a literature claim needs source verification.
 
 ## Writing constraints
 
@@ -53,6 +58,15 @@ verification.
 - Do not present a paraphrased definition as verbatim text.
 - Make comparison axes explicit: method, assumption, supervision, data, metric,
   compute, or deployment setting.
+- In experiments, map each claim to a research question, protocol, metric,
+  display, statistic, and allowed interpretation. Report metric direction,
+  units, denominator, independent runs or trials, uncertainty, selection
+  protocol, baseline provenance, and material resource differences.
+- Make table captions self-contained. Distinguish zero, missing, and not
+  applicable; do not use color as the only cue or rank incomparable protocols.
+- In result analysis, state verified evidence before interpretation and report
+  exceptions, trade-offs, null results, and failure boundaries that affect the
+  claim.
 - Use `state-of-the-art` only with a named benchmark, metric, comparison set, and
   verified result.
 - In rebuttals, lead with the answer, acknowledge valid concerns without

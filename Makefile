@@ -14,7 +14,8 @@ check: validate test build
 		skills/super-library/references/agent-index.md \
 		skills/super-library/references/core.md \
 		skills/super-library/references/index.json \
-		skills/super-library/references/router.json
+		skills/super-library/references/router.json \
+		skills/super-library/references/guides
 
 stats:
 	python3 scripts/superlib.py stats

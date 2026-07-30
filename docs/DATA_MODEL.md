@@ -55,6 +55,9 @@ The repository intentionally has no `quote` provenance type.
 
 - `dist/agent-index.md`: smallest link-only route table and loading contract.
 - `dist/core.md`: universal high-risk writing and evidence rules.
+- `dist/guides/index.md`: thin route table for section and table protocols.
+- `dist/guides/<guide-id>.md`: one bounded Abstract, Introduction, Experiments,
+  results-analysis, or table-construction protocol.
 - `dist/catalogs/sections/*.md`: thin rhetoric catalogs.
 - `dist/catalogs/domains/*.md`: small technical-domain hubs.
 - `dist/catalogs/topics/*.md`: bounded technical-concept catalogs.
@@ -71,6 +74,8 @@ The repository intentionally has no `quote` provenance type.
 - `skills/super-library/references/{agent-index.md,core.md,index.json,router.json}`:
   the standalone skill snapshot. Its lookup script queries `index.json` without
   loading that file into model context.
+- `skills/super-library/references/guides/*.md`: identical generated protocol
+  snapshots; an Agent reads at most one for the current task.
 
 Selection for the universal core is controlled by `library/core_ids.json`;
 `library/compact_ids.json` controls only the legacy compatibility pack. Never edit
@@ -92,3 +97,15 @@ or Related Work cards. This prevents repeated phrasing from bloating Agent conte
 `library/corpus_report.json` records collection verification and aggregate phrase
 analysis without retaining source abstracts. It makes partial analysis explicit
 instead of implying that every linked paper was text-mined.
+
+## Writing guides and section study
+
+`library/writing_guides.json` stores protocols separately from expression cards.
+Every guide has a stable ID, type, target section, required inputs, functional
+moves, internal template variants, verification checks, avoid rules, and links to
+related card IDs. Guides never supply scientific facts.
+
+`library/studies/section_writing_2026-07.json` records the source IDs and aggregate
+document-level observations for the 40-paper full-text calibration sample.
+Validation checks its source membership and domain, venue, and year counts. Raw
+PDF text and extracted sentences are not stored.

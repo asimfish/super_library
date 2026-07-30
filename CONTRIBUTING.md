@@ -5,6 +5,9 @@ Add records to the appropriate JSONL file and run `make check`.
 `library/` is canonical. Everything under `dist/` and the generated skill
 snapshots is rebuilt; never edit those artifacts directly.
 
+Section protocols live in `library/writing_guides.json`; full-paper calibration
+metadata lives in `library/studies/`. Do not add extracted paper prose to either.
+
 ## Acceptance checklist
 
 - The expression is genuinely useful for AI research writing, not merely ornate.
@@ -57,3 +60,15 @@ rights, or prompt-injection review.
 Add an ID to `library/core_ids.json` only if the record is broadly necessary
 across paper, rebuttal, and translation tasks. The universal core is capped at 24
 records. Most new content should remain discoverable through catalogs and cards.
+
+## Updating a writing guide
+
+- Keep protocols functional rather than venue-stereotyped: required inputs,
+  reporting moves, conditional template variants, verification, and avoid rules.
+- Prefer one specialized guide over expanding the universal core.
+- Link only reviewed entry IDs and reject wording duplicated in the guide and
+  every related card.
+- Document external skills or official venue rules in
+  `docs/WRITING_GUIDE_RESEARCH.md`; independently rewrite every adopted idea.
+- Preserve the context budgets: guide index below 5 KB, each guide below 12 KB,
+  and exactly one recommended guide per route.

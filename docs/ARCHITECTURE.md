@@ -16,6 +16,8 @@ library/
 ├── aliases.json          Chinese/common query expansion
 ├── core_ids.json         universal high-risk records
 ├── compact_ids.json      legacy single-file selection
+├── writing_guides.json   bounded section and table protocols
+├── studies/*.json        aggregate calibration audits; no paper prose
 └── watchlist.json        wording-lint rules
 ```
 
@@ -30,6 +32,8 @@ also validate the selective indexes during every build.
 | 0 | `llms.txt` | Find the pinned entrypoint | one tiny file |
 | 1 | `dist/agent-index.md` | Choose routes | one file |
 | 2 | `dist/core.md` | Load universal evidence and wording constraints | once |
+| protocol | `dist/guides/index.md` | Select a section/table protocol | one tiny index |
+| protocol | `dist/guides/<guide-id>.md` | Structure Abstract/Introduction/Experiments/table | at most one |
 | 3 | `dist/catalogs/sections/*.md` | Select rhetorical moves | at most one |
 | 3 | `dist/catalogs/domains/*.md` | Choose a technical topic | at most one small hub |
 | 4 | `dist/catalogs/topics/*.md` | Select technical concepts | at most one |
@@ -40,6 +44,10 @@ Catalogs contain labels and routing metadata, not complete guidance. Domain
 catalogs are small hubs whose size does not grow with every entry. Cards contain
 meaning, usage constraints, anti-patterns, examples, provenance, and sources.
 `dist/router.json` records paths and measured byte sizes for automated clients.
+Section protocols are separate from sentence cards: a protocol defines required
+inputs, functional moves, internal templates, and verification, while cards
+supply a few reusable expressions. This prevents ten structural guides from
+entering every writing context.
 
 The complete `dist/index.json`, legacy compact file, and full domain packs are
 compatibility or offline-machine artifacts. They are explicitly excluded from the
@@ -62,11 +70,15 @@ python3 scripts/superlib.py bundle \
   --domain <domain> [--topic <topic>] --section <section> --intent <intent>
 ```
 
+Append `--guide <guide-id>` for Abstract, Introduction, or Experiments.
 The two searches are intentionally different. Rhetorical filtering uses section
 and intent; technical filtering omits them so a rebuttal can still retrieve a
 method definition. `--max-chars` bounds the emitted Markdown.
 
 `route` returns URLs and recommended card IDs without loading the card bodies.
+For Abstract, Introduction, and Experiments it also recommends exactly one guide;
+experiment-table queries route to the matching specialized protocol. `guide`
+lists or renders one protocol without traversing all guide files.
 `search --format ids` is the smallest direct retrieval mode.
 
 ## Standalone skill
@@ -81,6 +93,7 @@ Tests enforce:
 
 - deterministic generated artifacts;
 - a small Agent index and universal core;
+- exactly one bounded protocol route and a separately bounded protocol index;
 - bounded catalog and card sizes;
 - exactly controlled collection membership, venue/year boundaries, and topic maps;
 - duplicate source titles, source URLs, and normalized expressions are rejected;

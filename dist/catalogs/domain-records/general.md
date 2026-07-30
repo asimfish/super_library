@@ -3,8 +3,9 @@
 Thin technical index for corpus `0.3.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) first.
 
-Entries: 7
+Entries: 8
 
+- [A dash denotes an unreported value, not a measured zero.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.missing-zero-na.001.md) — `general.usage-note.missing-zero-na.001` · usage_note · sections=experiments · tags=missing values,table dash
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.modality.001.md) — `general.usage-note.modality.001` · usage_note · sections=abstract,introduction,related_work,experiments,limitations,rebuttal,translation · tags=translation,modality
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — `general.usage-note.generalization-axis.001` · usage_note · sections=abstract,introduction,experiments,limitations,conclusion,rebuttal,translation · tags=generalization ability,held-out split
 - [performance is usually a mass noun when reporting an aggregate result](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.performance.001.md) — `general.usage-note.performance.001` · usage_note · sections=abstract,experiments,conclusion,rebuttal,translation · tags=performance,performances

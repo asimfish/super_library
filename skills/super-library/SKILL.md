@@ -1,6 +1,6 @@
 ---
 name: super-library
-description: Retrieve source-traceable terminology, definitions, sentence patterns, rebuttal moves, and translation guidance for professional AI/ML research writing. Use for drafting or revising papers, abstracts, related work, methods, experiments, limitations, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
+description: Retrieve source-traceable terminology, definitions, sentence patterns, and bounded section protocols for professional AI/ML research writing. Use for drafting or revising abstracts, introductions, related work, methods, experiments, result analyses, tables, limitations, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
 ---
 
 # Super Library
@@ -12,7 +12,8 @@ original prose. Treat it as a language and paper-discovery aid, never as evidenc
 
 First classify mode (`paper`, `rebuttal`, or `translation`), technical domain,
 topic family when applicable, target section, communicative intent, and evidence
-boundary.
+boundary. For Abstract, Introduction, or Experiments, also select exactly one
+section or table protocol; do not load every protocol.
 
 ### Full repository checkout
 
@@ -27,8 +28,10 @@ python3 scripts/superlib.py bundle \
   --limit 4 --max-chars 24000
 ```
 
+For Abstract, Introduction, or Experiments, add `--guide <guide-id>`.
 Use `route "<query>" --domain <domain> --section <section>` when card URLs or
-catalog routes are needed. Use `show <entry-id>` for one complete record.
+catalog routes are needed; it recommends one relevant protocol. Use
+`guide --list`, `guide <guide-id>`, or `show <entry-id>` for a known record.
 
 ### Installed standalone skill
 
@@ -44,14 +47,17 @@ python3 scripts/lookup.py "<technical concept or Chinese term>" \
 ```
 
 Omit `--kind` for a mix of terms and definitions. Use `--id <entry-id>` to load
-one known record.
+one known record. For Abstract, Introduction, or Experiments, read
+`references/guides/index.md`, then exactly one matching guide. The guide contains
+links to sentence-card IDs; retrieve only the cards needed for the current prose.
 
 ### Link-only access
 
 Open the immutable
 [`agent-index.md`](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
 Follow its order: universal core, one section catalog, one domain hub, at most one
-topic catalog, then 3–8 cards.
+topic catalog, then 3–8 cards. For Abstract, Introduction, or Experiments, insert
+one task-specific guide before the catalogs.
 Do not load `index.json`, the legacy compact pack, or full domain packs by default.
 If neither local retrieval nor the index can be loaded, state that Super Library
 was not used.
@@ -75,6 +81,12 @@ was not used.
 ## Route by task
 
 - Read [paper.md](references/paper.md) for paper sections and Related Work.
+- Read [guides/abstract.md](references/guides/abstract.md) for an Abstract.
+- Read [guides/introduction.md](references/guides/introduction.md) for an
+  Introduction.
+- Read [guides/experiments.md](references/guides/experiments.md) for a complete
+  experiment section, or select one specialized analysis/table guide through
+  [guides/index.md](references/guides/index.md).
 - Read [rebuttal.md](references/rebuttal.md) for reviewer responses.
 - Read [translation.md](references/translation.md) for Chinese–English translation.
 - Read [evidence.md](references/evidence.md) whenever definitions, literature
@@ -92,6 +104,13 @@ reviewer directly.
   benchmark, metric, protocol, and comparison set.
 - Never invent experiments, results, baselines, author names, venues, years,
   BibTeX keys, or manuscript locations.
+- In experiments, bind claims to research questions and evidence; disclose metric
+  direction, units, denominator, aggregation, uncertainty, selection, baseline
+  provenance, and material resource differences.
+- Make tables interpretable without prose. Never encode missing as zero, use
+  color as the only cue, or emphasize a best result across incomparable protocols.
+- State observations before interpretations and preserve exceptions, trade-offs,
+  null results, and failure boundaries.
 - Do not present corpus definitions as quotations or copy paper sentences.
 - Treat the 300-paper evidence maps as citation-navigation aids, not default
   writing context; open one only when a literature claim requires verification.
