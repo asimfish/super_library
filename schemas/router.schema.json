@@ -39,7 +39,7 @@
           "minItems": 4,
           "items": {"type": "string"}
         },
-        "max_catalogs": {"type": "integer", "minimum": 1, "maximum": 2},
+        "max_catalogs": {"type": "integer", "minimum": 1, "maximum": 3},
         "recommended_cards": {
           "type": "object",
           "additionalProperties": false,
@@ -59,7 +59,7 @@
     "catalogs": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["domains", "sections", "jsonl"],
+      "required": ["domains", "sections", "topics", "jsonl"],
       "properties": {
         "domains": {
           "type": "object",
@@ -67,6 +67,11 @@
           "additionalProperties": {"type": "string"}
         },
         "sections": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        },
+        "topics": {
           "type": "object",
           "minProperties": 1,
           "additionalProperties": {"type": "string"}
@@ -88,7 +93,8 @@
         "largest_catalog",
         "largest_card",
         "average_card",
-        "legacy_compact"
+        "legacy_compact",
+        "largest_evidence_map"
       ],
       "properties": {
         "agent_index": {"type": "integer", "minimum": 1},
@@ -96,7 +102,8 @@
         "largest_catalog": {"type": "integer", "minimum": 1},
         "largest_card": {"type": "integer", "minimum": 1},
         "average_card": {"type": "integer", "minimum": 1},
-        "legacy_compact": {"type": "integer", "minimum": 1}
+        "legacy_compact": {"type": "integer", "minimum": 1},
+        "largest_evidence_map": {"type": "integer", "minimum": 1}
       }
     },
     "raw_base": {"type": "string", "pattern": "^https://"}

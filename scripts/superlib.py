@@ -24,6 +24,9 @@ WATCHLIST_PATH = LIBRARY / "watchlist.json"
 ALIASES_PATH = LIBRARY / "aliases.json"
 COMPACT_IDS_PATH = LIBRARY / "compact_ids.json"
 CORE_IDS_PATH = LIBRARY / "core_ids.json"
+TOPICS_PATH = LIBRARY / "topics.json"
+COLLECTIONS_PATH = LIBRARY / "collections.json"
+CORPUS_REPORT_PATH = LIBRARY / "corpus_report.json"
 DIST_DIR = ROOT / "dist"
 ENTRY_SCHEMA_PATH = ROOT / "schemas" / "entry.schema.json"
 SOURCE_SCHEMA_PATH = ROOT / "schemas" / "source.schema.json"
@@ -220,8 +223,12 @@ def validate_corpus(
     source_allowed = source_required | {
         "authors_truncated",
         "version_note",
+        "domains",
+        "topic_families",
+        "collections",
         "_origin",
     }
+    entry_allowed |= {"topic_families"}
 
     controlled = {
         "kind": set(taxonomy.get("kinds", [])),
@@ -233,8 +240,35 @@ def validate_corpus(
     provenance_types = set(taxonomy.get("provenance_types", []))
     quality_tiers = set(taxonomy.get("quality_tiers", []))
     review_statuses = set(taxonomy.get("review_statuses", []))
+    try:
+        topic_config = read_json(TOPICS_PATH)
+        collection_config = read_json(COLLECTIONS_PATH)
+        corpus_report = read_json(CORPUS_REPORT_PATH)
+    except CorpusError as exc:
+        return [*errors, str(exc)]
+    topics = {
+        item.get("id"): item for item in topic_config.get("topics", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    collections = {
+        item.get("id"): item for item in collection_config.get("collections", [])
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    if set(taxonomy.get("topic_families", [])) != set(topics):
+        errors.append(
+            "library/taxonomy.json: topic_families must exactly match "
+            "library/topics.json"
+        )
+    for topic_id, topic in topics.items():
+        if topic.get("domain") not in controlled["domains"]:
+            errors.append(
+                f"library/topics.json: {topic_id}: unknown domain "
+                f"{topic.get('domain')!r}"
+            )
 
     source_ids: Dict[str, str] = {}
+    source_titles: Dict[str, str] = {}
+    source_urls: Dict[str, str] = {}
     for source in sources:
         origin = source.get("_origin", "source")
         for field_path, text in iter_strings(public_record(source)):
@@ -261,6 +295,21 @@ def validate_corpus(
             errors.append(f"{origin}: duplicate source id also at {source_ids[source_id]}")
         else:
             source_ids[source_id] = origin
+        title_key = normalize(str(source.get("title", "")))
+        if title_key in source_titles:
+            errors.append(
+                f"{origin}: duplicate normalized source title also at "
+                f"{source_titles[title_key]}"
+            )
+        else:
+            source_titles[title_key] = origin
+        source_url = source.get("url")
+        if isinstance(source_url, str) and source_url in source_urls:
+            errors.append(
+                f"{origin}: duplicate source URL also at {source_urls[source_url]}"
+            )
+        elif isinstance(source_url, str):
+            source_urls[source_url] = origin
         if source.get("venue") not in venues:
             errors.append(f"{origin}: unknown venue: {source.get('venue')!r}")
         year = source.get("year")
@@ -279,6 +328,32 @@ def validate_corpus(
                 isinstance(item, str) and item.strip() for item in value
             ):
                 errors.append(f"{origin}: {field} must be a non-empty string array")
+        for field in ("domains", "topic_families", "collections"):
+            value = source.get(field, [])
+            if not isinstance(value, list) or not all(
+                isinstance(item, str) and item.strip() for item in value
+            ):
+                errors.append(f"{origin}: {field} must be a string array when present")
+                continue
+            if len(value) != len(set(value)):
+                errors.append(f"{origin}: {field} contains duplicates")
+        unknown_domains = set(source.get("domains", [])) - controlled["domains"]
+        if unknown_domains:
+            errors.append(f"{origin}: unknown source domains: {sorted(unknown_domains)}")
+        unknown_topics = set(source.get("topic_families", [])) - set(topics)
+        if unknown_topics:
+            errors.append(
+                f"{origin}: unknown source topic_families: {sorted(unknown_topics)}"
+            )
+        unknown_collections = set(source.get("collections", [])) - set(collections)
+        if unknown_collections:
+            errors.append(
+                f"{origin}: unknown source collections: {sorted(unknown_collections)}"
+            )
+        if not set(source.get("topic_families", [])).issubset(
+            set(source.get("topics", []))
+        ):
+            errors.append(f"{origin}: topic_families must also appear in topics")
         verified_at = source.get("verified_at")
         if not valid_date(verified_at):
             errors.append(f"{origin}: invalid verified_at date: {verified_at!r}")
@@ -289,6 +364,8 @@ def validate_corpus(
             )
 
     entry_ids: Dict[str, str] = {}
+    expressions: Dict[str, str] = {}
+    expression_token_sets: List[Tuple[str, str, set]] = []
     for entry in entries:
         origin = entry.get("_origin", "entry")
         for field_path, text in iter_strings(public_record(entry)):
@@ -313,6 +390,21 @@ def validate_corpus(
             errors.append(f"{origin}: duplicate entry id also at {entry_ids[entry_id]}")
         else:
             entry_ids[entry_id] = origin
+        expression_key = normalize(str(entry.get("expression", "")))
+        if expression_key in expressions:
+            errors.append(
+                f"{origin}: duplicate normalized expression also at "
+                f"{expressions[expression_key]}"
+            )
+        else:
+            expressions[expression_key] = origin
+        expression_token_sets.append(
+            (
+                str(entry_id),
+                origin,
+                set(TOKEN_RE.findall(expression_key)),
+            )
+        )
 
         kind = entry.get("kind")
         if kind not in controlled["kind"]:
@@ -339,6 +431,17 @@ def validate_corpus(
                 continue
             if len(value) != len(set(value)):
                 errors.append(f"{origin}: {field} contains duplicates")
+        entry_topics = entry.get("topic_families", [])
+        if not isinstance(entry_topics, list) or not all(
+            isinstance(item, str) for item in entry_topics
+        ):
+            errors.append(f"{origin}: topic_families must be a string array")
+        else:
+            unknown_topics = set(entry_topics) - set(topics)
+            if unknown_topics:
+                errors.append(
+                    f"{origin}: unknown topic_families: {sorted(unknown_topics)}"
+                )
         if not entry.get("examples"):
             errors.append(f"{origin}: examples must contain at least one original template")
 
@@ -425,7 +528,79 @@ def validate_corpus(
                         f"{origin}: attestation sources must appear in source_ids"
                     )
 
+    for index, (left_id, left_origin, left_tokens) in enumerate(
+        expression_token_sets
+    ):
+        if len(left_tokens) < 3:
+            continue
+        for right_id, right_origin, right_tokens in expression_token_sets[index + 1 :]:
+            if len(right_tokens) < 3:
+                continue
+            similarity = len(left_tokens & right_tokens) / len(left_tokens | right_tokens)
+            if similarity >= 0.9:
+                errors.append(
+                    f"{right_origin}: near-duplicate expression ({similarity:.2f}) "
+                    f"with {left_id} at {left_origin}"
+                )
+
+    for collection_id, collection in collections.items():
+        members = [
+            source for source in sources
+            if collection_id in source.get("collections", [])
+        ]
+        minimum = collection.get("minimum_sources", 0)
+        if len(members) < minimum:
+            errors.append(
+                f"library/collections.json: {collection_id} has {len(members)} "
+                f"sources; minimum is {minimum}"
+            )
+        allowed_years = set(collection.get("years", []))
+        allowed_venues = set(collection.get("venues", []))
+        allowed_domains = set(collection.get("domains", []))
+        for source in members:
+            origin = source.get("_origin", "source")
+            if source.get("year") not in allowed_years:
+                errors.append(f"{origin}: year is outside collection {collection_id}")
+            if source.get("venue") not in allowed_venues:
+                errors.append(f"{origin}: venue is outside collection {collection_id}")
+            if not set(source.get("domains", [])).issubset(allowed_domains):
+                errors.append(f"{origin}: domain is outside collection {collection_id}")
+            if source.get("publication_status") != "published":
+                errors.append(f"{origin}: collection sources must be published")
+            if not source.get("topic_families"):
+                errors.append(f"{origin}: collection source requires a topic family")
+
     entries_by_id = {entry["id"]: entry for entry in entries}
+    reported_collection = corpus_report.get("collection")
+    reported_members = [
+        source for source in sources
+        if reported_collection in source.get("collections", [])
+    ]
+    if corpus_report.get("paper_metadata_records") != len(reported_members):
+        errors.append(
+            "library/corpus_report.json: paper_metadata_records does not match "
+            "collection membership"
+        )
+    if corpus_report.get("official_urls_reachable") != len(reported_members):
+        errors.append(
+            "library/corpus_report.json: official_urls_reachable does not match "
+            "collection membership"
+        )
+    analyzed = corpus_report.get("official_abstracts_analyzed", 0)
+    not_analyzed = corpus_report.get("abstracts_not_analyzed", {}).get("count", 0)
+    if analyzed + not_analyzed != len(reported_members):
+        errors.append(
+            "library/corpus_report.json: abstract analysis counts do not sum to "
+            "collection membership"
+        )
+    unknown_promoted = set(corpus_report.get("promoted_collocation_ids", [])) - set(
+        entries_by_id
+    )
+    if unknown_promoted:
+        errors.append(
+            "library/corpus_report.json: unknown promoted_collocation_ids: "
+            f"{sorted(unknown_promoted)}"
+        )
     for label, path in (
         ("compact_ids", COMPACT_IDS_PATH),
         ("core_ids", CORE_IDS_PATH),
@@ -517,7 +692,13 @@ def search_score(entry: Dict[str, Any], query: str) -> int:
     guidance = normalize(entry["guidance"])
     examples = normalize(" ".join(entry["examples"]))
     metadata = normalize(
-        " ".join(entry["domains"] + entry["sections"] + entry["intents"] + entry["tags"])
+        " ".join(
+            entry["domains"]
+            + entry["sections"]
+            + entry["intents"]
+            + entry["tags"]
+            + entry.get("topic_families", [])
+        )
     )
     score = 0
     if query_norm == expression:
@@ -580,6 +761,7 @@ def compact_catalog_record(entry: Dict[str, Any]) -> Dict[str, Any]:
         "sections": entry["sections"],
         "intents": entry["intents"],
         "tags": entry["tags"],
+        "topic_families": entry.get("topic_families", []),
         "provenance": entry["provenance"]["type"],
         "card": card_relative_path(entry),
     }
@@ -595,6 +777,7 @@ def filter_entries(
     venues: Sequence[str],
     tiers: Sequence[str],
     include_general: bool = True,
+    topics: Sequence[str] = (),
 ) -> Iterable[Dict[str, Any]]:
     for entry in entries:
         if domains:
@@ -605,6 +788,12 @@ def filter_entries(
                 continue
         if sections and not set(sections).intersection(entry["sections"]):
             continue
+        if topics:
+            if "general" in entry["domains"]:
+                if not include_general:
+                    continue
+            elif not set(topics).intersection(entry.get("topic_families", [])):
+                continue
         if intents and not set(intents).intersection(entry["intents"]):
             continue
         if kinds and entry["kind"] not in kinds:
@@ -638,6 +827,7 @@ def rank_entries(
     venues: Sequence[str] = (),
     tiers: Sequence[str] = ("gold",),
     include_general: bool = True,
+    topics: Sequence[str] = (),
 ) -> List[Tuple[int, Dict[str, Any]]]:
     candidates = filter_entries(
         entries,
@@ -649,6 +839,7 @@ def rank_entries(
         venues,
         tiers,
         include_general=include_general,
+        topics=topics,
     )
     query_variants = expand_query(query)
     ranked = [
@@ -745,6 +936,7 @@ def cmd_search(args: argparse.Namespace) -> int:
         args.kind,
         args.venue,
         tiers,
+        topics=args.topic,
     )
     selected = [entry for _, entry in ranked[: args.limit]]
     if not selected:
@@ -818,6 +1010,10 @@ def cmd_show(args: argparse.Namespace) -> int:
 def coverage_stats(
     sources: Sequence[Dict[str, Any]], entries: Sequence[Dict[str, Any]]
 ) -> Dict[str, Any]:
+    recent = [
+        source for source in sources
+        if "recent-five-year-core" in source.get("collections", [])
+    ]
     return {
         "entries": len(entries),
         "sources": len(sources),
@@ -852,6 +1048,15 @@ def coverage_stats(
                 ).items()
             )
         ),
+        "by_topic_family": dict(
+            sorted(
+                collections.Counter(
+                    topic
+                    for entry in entries
+                    for topic in entry.get("topic_families", [])
+                ).items()
+            )
+        ),
         "sources_by_venue": dict(
             sorted(collections.Counter(source["venue"] for source in sources).items())
         ),
@@ -860,6 +1065,42 @@ def coverage_stats(
                 collections.Counter(str(source["year"]) for source in sources).items()
             )
         ),
+        "sources_by_collection": dict(
+            sorted(
+                collections.Counter(
+                    collection
+                    for source in sources
+                    for collection in source.get("collections", [])
+                ).items()
+            )
+        ),
+        "recent_five_year_core": {
+            "sources": len(recent),
+            "by_venue": dict(
+                sorted(collections.Counter(source["venue"] for source in recent).items())
+            ),
+            "by_year": dict(
+                sorted(
+                    collections.Counter(str(source["year"]) for source in recent).items()
+                )
+            ),
+            "by_domain": dict(
+                sorted(
+                    collections.Counter(
+                        domain for source in recent for domain in source.get("domains", [])
+                    ).items()
+                )
+            ),
+            "by_topic_family": dict(
+                sorted(
+                    collections.Counter(
+                        topic
+                        for source in recent
+                        for topic in source.get("topic_families", [])
+                    ).items()
+                )
+            ),
+        },
     }
 
 
@@ -892,8 +1133,9 @@ def render_agent_index(
         "## Load order",
         "",
         f"1. Read the [universal core]({base}/core.md) once.",
-        "2. Read one section catalog for rhetorical needs and one domain catalog for",
-        "   technical terminology. Catalogs contain only labels and links.",
+        "2. Read one section catalog for rhetoric and one small domain hub for",
+        "   terminology; then follow at most one topic catalog. Indexes contain only",
+        "   labels and links.",
         "3. Open 3–8 entry cards that match the task. A card contains the full meaning,",
         "   use boundary, avoid note, patterns, and primary-source links.",
         "4. Draft, then audit facts, numbers, negation, modality, comparison scope,",
@@ -917,6 +1159,10 @@ def render_agent_index(
     lines.extend(
         [
             "",
+            "Domain pages are hubs. Follow one topic link instead of loading every",
+            "technical card in a domain. Paper evidence maps are outside the default",
+            "path and should be opened only to verify a literature claim.",
+            "",
             "## Machine and local routes",
             "",
             f"- [Machine router]({base}/router.json)",
@@ -935,7 +1181,8 @@ def render_agent_index(
             "  --domain world_models --section rebuttal --intent respond",
             "```",
             "",
-            f"Reviewed catalog: {len(published)} entries. The legacy "
+            f"Reviewed catalog: {len(published)} normalized entries backed by a "
+            "300-paper recent collection plus earlier canonical sources. The legacy "
             f"[single-file compact pack]({base}/super-library-compact.md) and full",
             "domain packs remain for compatibility, but they are not the default.",
             "A static release cannot establish what is currently latest or",
@@ -1027,6 +1274,12 @@ def render_catalog(
             if name in entry["domains"]
             and entry["kind"] in {"term", "definition", "usage_note"}
         ]
+    elif catalog_type == "topic":
+        selected = [
+            entry
+            for entry in selected
+            if name in entry.get("topic_families", [])
+        ]
     elif catalog_type == "section":
         selected = [
             entry
@@ -1042,7 +1295,7 @@ def render_catalog(
     lines = [
         f"# Super Library {catalog_type} catalog: {name}",
         "",
-        f"Thin {'technical' if catalog_type == 'domain' else 'rhetorical'} index "
+        f"Thin {'rhetorical' if catalog_type == 'section' else 'technical'} index "
         f"for corpus `{taxonomy['corpus_version']}`. Select 3–8 cards; do not open",
         "every link. Read the "
         f"[universal core]({base}/core.md) first.",
@@ -1050,16 +1303,98 @@ def render_catalog(
         f"Entries: {len(selected)}",
         "",
     ]
+    if catalog_type == "topic":
+        lines.extend(
+            [
+                f"Verify literature claims in the [paper evidence map]"
+                f"({base}/evidence/topics/{name}.md); it is not part of the default",
+                "writing context.",
+                "",
+            ]
+        )
     for entry in selected:
         card_url = f"{base}/{card_relative_path(entry)}"
         tag_text = ",".join(entry["tags"][:2])
-        if catalog_type == "domain":
+        if catalog_type in {"domain", "topic"}:
             route_metadata = f"sections={','.join(entry['sections'])}"
         else:
             route_metadata = f"domains={','.join(entry['domains'])}"
         lines.append(
             f"- [{entry['expression']}]({card_url}) — `{entry['id']}` · "
             f"{entry['kind']} · {route_metadata} · tags={tag_text}"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_domain_hub(
+    domain: str,
+    taxonomy: Dict[str, Any],
+    entries: Sequence[Dict[str, Any]],
+) -> str:
+    base = raw_dist_base(taxonomy)
+    topics = [
+        item for item in read_json(TOPICS_PATH)["topics"]
+        if item["domain"] == domain
+    ]
+    lines = [
+        f"# Super Library domain hub: {domain}",
+        "",
+        f"Small routing hub for corpus `{taxonomy['corpus_version']}`. Open at most",
+        "one topic catalog, then 3–8 cards. Use a section catalog separately for",
+        "rhetorical moves.",
+        "",
+        "## Topic routes",
+        "",
+    ]
+    for topic in topics:
+        count = sum(
+            is_published_entry(entry)
+            and topic["id"] in entry.get("topic_families", [])
+            for entry in entries
+        )
+        lines.append(
+            f"- [{topic['label']}]({base}/catalogs/topics/{topic['id']}.md) — "
+            f"`{topic['id']}` · {count} normalized entries"
+        )
+    if not topics:
+        lines.extend(
+            [
+                "This domain currently contains cross-cutting records only.",
+                "",
+                f"- [Direct technical catalog]({base}/catalogs/domain-records/{domain}.md)",
+            ]
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_topic_evidence(
+    topic: Dict[str, Any],
+    taxonomy: Dict[str, Any],
+    sources: Sequence[Dict[str, Any]],
+) -> str:
+    base = raw_dist_base(taxonomy)
+    selected = sorted(
+        (
+            source for source in sources
+            if "recent-five-year-core" in source.get("collections", [])
+            and topic["id"] in source.get("topic_families", [])
+        ),
+        key=lambda item: (-item["year"], item["venue"], item["title"]),
+    )
+    lines = [
+        f"# Evidence map: {topic['label']}",
+        "",
+        "Navigation aid only. Open the linked primary paper before making a",
+        "definition, historical statement, comparison, or Related Work claim.",
+        f"Return to the [topic catalog]({base}/catalogs/topics/{topic['id']}.md).",
+        "",
+        f"Papers in the audited 2021–2025 collection: {len(selected)}",
+        "",
+    ]
+    for source in selected:
+        lines.append(
+            f"- `{source['id']}` — [{source['title']}]({source['url']}) "
+            f"({source['venue']} {source['year']})"
         )
     return "\n".join(lines).rstrip() + "\n"
 
@@ -1090,6 +1425,10 @@ def render_card(
     lines.extend(
         f"- [section: {section}]({base}/catalogs/sections/{section}.md)"
         for section in entry["sections"]
+    )
+    lines.extend(
+        f"- [topic: {topic}]({base}/catalogs/topics/{topic}.md)"
+        for topic in entry.get("topic_families", [])
     )
     return "\n".join(lines).rstrip() + "\n"
 
@@ -1122,6 +1461,14 @@ def cmd_route(args: argparse.Namespace) -> int:
                 "url": f"{base}/catalogs/domains/{domain}.md",
             }
         )
+    for topic in args.topic:
+        catalogs.append(
+            {
+                "type": "topic",
+                "name": topic,
+                "url": f"{base}/catalogs/topics/{topic}.md",
+            }
+        )
     recommendations = []
     if args.query.strip():
         sources_by_id = {source["id"]: source for source in sources}
@@ -1149,6 +1496,7 @@ def cmd_route(args: argparse.Namespace) -> int:
                     args.intent,
                     rhetoric_kinds,
                     args.venue,
+                    topics=args.topic,
                 )
             )
         if technical_kinds and args.domain:
@@ -1164,6 +1512,7 @@ def cmd_route(args: argparse.Namespace) -> int:
                     technical_kinds,
                     args.venue,
                     include_general=False,
+                    topics=args.topic,
                 )
             )
         ranked_routes.sort(key=lambda item: (-item[1], item[2]["id"]))
@@ -1192,7 +1541,10 @@ def cmd_route(args: argparse.Namespace) -> int:
             "catalogs": catalogs,
             "recommended_cards": recommendations,
         },
-        "constraint": "Load the core once, then 1–2 catalogs and 3–8 cards.",
+        "constraint": (
+            "Load the core once, then at most one section catalog, one domain hub, "
+            "one topic catalog, and 3–8 cards."
+        ),
     }
     if args.format == "json":
         print(json.dumps(payload, ensure_ascii=False, indent=2))
@@ -1266,6 +1618,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             (),
             ("term", "definition", "usage_note"),
             include_general=False,
+            topics=args.topic,
         )
         selected_with_pass.extend(
             ("technical", score, entry) for score, entry in technical[: args.limit]
@@ -1490,13 +1843,17 @@ def cmd_build(_: argparse.Namespace) -> int:
     packs_dir = DIST_DIR / "packs"
     catalogs_dir = DIST_DIR / "catalogs"
     cards_dir = DIST_DIR / "cards"
-    for generated_dir in (catalogs_dir, cards_dir):
+    evidence_dir = DIST_DIR / "evidence"
+    for generated_dir in (catalogs_dir, cards_dir, evidence_dir):
         if generated_dir.exists():
             shutil.rmtree(generated_dir)
     packs_dir.mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domains").mkdir(parents=True, exist_ok=True)
+    (catalogs_dir / "domain-records").mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "sections").mkdir(parents=True, exist_ok=True)
+    (catalogs_dir / "topics").mkdir(parents=True, exist_ok=True)
     cards_dir.mkdir(parents=True, exist_ok=True)
+    (evidence_dir / "topics").mkdir(parents=True, exist_ok=True)
 
     published_entries = sorted(
         (entry for entry in entries if is_published_entry(entry)),
@@ -1518,10 +1875,17 @@ def cmd_build(_: argparse.Namespace) -> int:
     )
 
     domain_catalogs = {}
+    domain_record_catalogs = {}
     for domain in taxonomy["domains"]:
         relative = f"catalogs/domains/{domain}.md"
         domain_catalogs[domain] = relative
         (DIST_DIR / relative).write_text(
+            render_domain_hub(domain, taxonomy, published_entries),
+            encoding="utf-8",
+        )
+        records_relative = f"catalogs/domain-records/{domain}.md"
+        domain_record_catalogs[domain] = records_relative
+        (DIST_DIR / records_relative).write_text(
             render_catalog("domain", domain, taxonomy, published_entries),
             encoding="utf-8",
         )
@@ -1531,6 +1895,22 @@ def cmd_build(_: argparse.Namespace) -> int:
         section_catalogs[section] = relative
         (DIST_DIR / relative).write_text(
             render_catalog("section", section, taxonomy, published_entries),
+            encoding="utf-8",
+        )
+    topic_catalogs = {}
+    topic_evidence = {}
+    for topic in read_json(TOPICS_PATH)["topics"]:
+        topic_id = topic["id"]
+        relative = f"catalogs/topics/{topic_id}.md"
+        topic_catalogs[topic_id] = relative
+        (DIST_DIR / relative).write_text(
+            render_catalog("topic", topic_id, taxonomy, published_entries),
+            encoding="utf-8",
+        )
+        evidence_relative = f"evidence/topics/{topic_id}.md"
+        topic_evidence[topic_id] = evidence_relative
+        (DIST_DIR / evidence_relative).write_text(
+            render_topic_evidence(topic, taxonomy, sources),
             encoding="utf-8",
         )
 
@@ -1585,6 +1965,8 @@ def cmd_build(_: argparse.Namespace) -> int:
             public_record(source) for source in sorted(sources, key=lambda item: item["id"])
         ],
         "aliases": read_json(ALIASES_PATH),
+        "topics": read_json(TOPICS_PATH),
+        "collections": read_json(COLLECTIONS_PATH),
         "taxonomy": taxonomy,
     }
     index_path = DIST_DIR / "index.json"
@@ -1604,6 +1986,8 @@ def cmd_build(_: argparse.Namespace) -> int:
     catalog_sizes = [
         (DIST_DIR / relative).stat().st_size
         for relative in [*domain_catalogs.values(), *section_catalogs.values()]
+        + list(domain_record_catalogs.values())
+        + list(topic_catalogs.values())
     ]
     router = {
         "schema_version": "1.0",
@@ -1614,8 +1998,14 @@ def cmd_build(_: argparse.Namespace) -> int:
         "entrypoint": "agent-index.md",
         "core": "core.md",
         "load_policy": {
-            "order": ["agent-index.md", "core.md", "catalog", "3-8 cards"],
-            "max_catalogs": 2,
+            "order": [
+                "agent-index.md",
+                "core.md",
+                "section catalog + domain hub",
+                "at most 1 topic catalog",
+                "3-8 cards",
+            ],
+            "max_catalogs": 3,
             "recommended_cards": {"minimum": 3, "maximum": 8},
             "avoid_by_default": [
                 "super-library-compact.md",
@@ -1626,6 +2016,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "catalogs": {
             "domains": domain_catalogs,
             "sections": section_catalogs,
+            "topics": topic_catalogs,
             "jsonl": "catalog.jsonl",
         },
         "cards": card_paths,
@@ -1636,6 +2027,10 @@ def cmd_build(_: argparse.Namespace) -> int:
             "largest_card": max(card_sizes, default=0),
             "average_card": int(sum(card_sizes) / len(card_sizes)) if card_sizes else 0,
             "legacy_compact": legacy_compact_path.stat().st_size,
+            "largest_evidence_map": max(
+                ((DIST_DIR / relative).stat().st_size for relative in topic_evidence.values()),
+                default=0,
+            ),
         },
         "raw_base": raw_base,
     }
@@ -1678,6 +2073,9 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/core_ids.json",
         "library/compact_ids.json",
         "library/watchlist.json",
+        "library/topics.json",
+        "library/collections.json",
+        "library/corpus_report.json",
         "schemas/entry.schema.json",
         "schemas/source.schema.json",
         "schemas/catalog.schema.json",
@@ -1700,7 +2098,9 @@ def cmd_build(_: argparse.Namespace) -> int:
         "catalogs": {
             "domains": domain_catalogs,
             "sections": section_catalogs,
+            "topics": topic_catalogs,
         },
+        "evidence_maps": {"topics": topic_evidence},
         "packs": {
             domain: f"packs/{domain}.md" for domain in taxonomy["domains"]
         },
@@ -1720,6 +2120,16 @@ def cmd_build(_: argparse.Namespace) -> int:
                     name: f"{raw_base}/{relative}"
                     for name, relative in section_catalogs.items()
                 },
+                "topics": {
+                    name: f"{raw_base}/{relative}"
+                    for name, relative in topic_catalogs.items()
+                },
+            },
+            "evidence_maps": {
+                "topics": {
+                    name: f"{raw_base}/{relative}"
+                    for name, relative in topic_evidence.items()
+                }
             },
             "packs": {
                 domain: f"{raw_base}/packs/{domain}.md"
@@ -1739,7 +2149,8 @@ def cmd_build(_: argparse.Namespace) -> int:
     )
     print(
         f"Built selective index, {len(card_paths)} cards, "
-        f"{len(domain_catalogs) + len(section_catalogs)} catalogs, bounded core, "
+        f"{len(domain_catalogs) + len(section_catalogs) + len(topic_catalogs)} "
+        "routing catalogs, 23 paper evidence maps, bounded core, "
         f"machine index, and {len(taxonomy['domains'])} exhaustive packs."
     )
     return 0
@@ -1890,6 +2301,7 @@ def normalize_filters(
         "intent": "intents",
         "kind": "kinds",
         "venue": "venues",
+        "topic": "topic_families",
     }
     alias_groups = taxonomy.get("filter_aliases", {})
     for attr, taxonomy_key in fields.items():
@@ -1931,6 +2343,9 @@ def build_parser() -> argparse.ArgumentParser:
     add_multi_filter(search_parser, "section", taxonomy["sections"], "writing section")
     add_multi_filter(search_parser, "intent", taxonomy["intents"], "rhetorical intent")
     add_multi_filter(search_parser, "kind", taxonomy["kinds"], "record kind")
+    add_multi_filter(
+        search_parser, "topic", taxonomy["topic_families"], "technical topic family"
+    )
     search_parser.add_argument(
         "--source-venue",
         "--venue",
@@ -1970,6 +2385,9 @@ def build_parser() -> argparse.ArgumentParser:
     add_multi_filter(route_parser, "section", taxonomy["sections"], "writing section")
     add_multi_filter(route_parser, "intent", taxonomy["intents"], "rhetorical intent")
     add_multi_filter(route_parser, "kind", taxonomy["kinds"], "record kind")
+    add_multi_filter(
+        route_parser, "topic", taxonomy["topic_families"], "technical topic family"
+    )
     route_parser.add_argument(
         "--source-venue",
         "--venue",
@@ -1992,6 +2410,9 @@ def build_parser() -> argparse.ArgumentParser:
     add_multi_filter(bundle_parser, "domain", taxonomy["domains"], "technical domain")
     add_multi_filter(bundle_parser, "section", taxonomy["sections"], "writing section")
     add_multi_filter(bundle_parser, "intent", taxonomy["intents"], "rhetorical intent")
+    add_multi_filter(
+        bundle_parser, "topic", taxonomy["topic_families"], "technical topic family"
+    )
     bundle_parser.add_argument(
         "--limit", type=int, default=4, help="maximum records per retrieval pass"
     )
@@ -2049,6 +2470,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             parser.error("route accepts at most one --section catalog")
         if len(args.domain) > 1:
             parser.error("route accepts at most one --domain catalog")
+        if len(args.topic) > 1:
+            parser.error("route accepts at most one --topic catalog")
     if hasattr(args, "limit") and args.limit < 1:
         parser.error("--limit must be at least 1")
     if hasattr(args, "max_chars") and args.max_chars < 2_000:

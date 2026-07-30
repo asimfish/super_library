@@ -1,6 +1,6 @@
 # Super Library card: general.sentence-pattern.rebuttal-correct.001
 
-Corpus `0.2.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md)
+Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -23,5 +23,5 @@ Accepts a concrete factual or presentation error without conceding claims that a
 - The reviewer is correct that our wording implied {overbroad claim}; we will narrow it to {supported scope}.
 
 Catalog routes:
-- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/general.md)
-- [section: rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/rebuttal.md)
+- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/general.md)
+- [section: rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/rebuttal.md)

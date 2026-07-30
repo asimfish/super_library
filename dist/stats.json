@@ -1,54 +1,80 @@
 {
-  "entries": 153,
-  "sources": 41,
+  "entries": 191,
+  "sources": 331,
   "by_domain": {
-    "embodied_ai": 37,
-    "general": 50,
-    "reinforcement_learning": 53,
-    "robot_learning": 50,
-    "world_models": 34
+    "embodied_ai": 46,
+    "general": 54,
+    "reinforcement_learning": 63,
+    "robot_learning": 60,
+    "vision_language_action": 26,
+    "world_models": 43
   },
   "by_kind": {
     "anti_pattern": 3,
-    "definition": 44,
-    "phrase": 10,
-    "sentence_pattern": 33,
-    "term": 43,
-    "usage_note": 20
+    "definition": 57,
+    "phrase": 14,
+    "sentence_pattern": 37,
+    "term": 53,
+    "usage_note": 27
   },
   "by_section": {
-    "abstract": 36,
-    "conclusion": 16,
-    "experiments": 44,
-    "introduction": 78,
-    "limitations": 19,
-    "method": 88,
+    "abstract": 47,
+    "conclusion": 19,
+    "experiments": 58,
+    "introduction": 90,
+    "limitations": 25,
+    "method": 115,
     "rebuttal": 38,
-    "related_work": 108,
-    "translation": 121
+    "related_work": 140,
+    "translation": 125
   },
   "by_tier": {
-    "gold": 153
+    "gold": 191
   },
   "by_provenance": {
-    "attested_collocation": 10,
-    "original_pattern": 40,
-    "paraphrased_synthesis": 60,
-    "terminology": 43
+    "attested_collocation": 14,
+    "original_pattern": 44,
+    "paraphrased_synthesis": 84,
+    "terminology": 49
+  },
+  "by_topic_family": {
+    "action_representation": 9,
+    "dynamics_representation": 18,
+    "egocentric_3d_grounding": 11,
+    "embodied_navigation": 5,
+    "embodied_reasoning_agents": 15,
+    "exploration_skills_goals": 5,
+    "imitation_sequence": 2,
+    "language_conditioned_control": 5,
+    "locomotion_dexterity": 1,
+    "model_based_rl": 7,
+    "multi_agent_rl": 3,
+    "offline_rl": 11,
+    "planning_imagination": 16,
+    "policy_optimization": 8,
+    "rl_theory_evaluation": 8,
+    "robot_foundation": 6,
+    "robot_manipulation": 6,
+    "safe_robust_rl": 2,
+    "sim_to_real_robot_learning": 8,
+    "value_learning": 10,
+    "video_occupancy_world_models": 7,
+    "vla_models": 11,
+    "world_model_general": 35
   },
   "sources_by_venue": {
     "AAAI": 2,
-    "CVPR": 4,
+    "CVPR": 36,
     "CoRL": 1,
-    "ECCV": 1,
-    "ICCV": 3,
-    "ICLR": 4,
-    "ICML": 8,
+    "ECCV": 22,
+    "ICCV": 34,
+    "ICLR": 65,
+    "ICML": 71,
     "ICRA": 2,
     "IROS": 2,
-    "NeurIPS": 6,
+    "NeurIPS": 76,
     "RSS": 7,
-    "TPAMI": 1
+    "TPAMI": 13
   },
   "sources_by_year": {
     "2015": 1,
@@ -57,10 +83,63 @@
     "2018": 8,
     "2019": 4,
     "2020": 5,
-    "2021": 4,
-    "2022": 2,
-    "2023": 5,
-    "2024": 5,
-    "2025": 3
+    "2021": 46,
+    "2022": 50,
+    "2023": 63,
+    "2024": 73,
+    "2025": 77
+  },
+  "sources_by_collection": {
+    "recent-five-year-core": 300
+  },
+  "recent_five_year_core": {
+    "sources": 300,
+    "by_venue": {
+      "CVPR": 32,
+      "ECCV": 21,
+      "ICCV": 33,
+      "ICLR": 64,
+      "ICML": 67,
+      "NeurIPS": 71,
+      "TPAMI": 12
+    },
+    "by_year": {
+      "2021": 45,
+      "2022": 50,
+      "2023": 60,
+      "2024": 70,
+      "2025": 75
+    },
+    "by_domain": {
+      "embodied_ai": 90,
+      "reinforcement_learning": 125,
+      "vision_language_action": 30,
+      "world_models": 55
+    },
+    "by_topic_family": {
+      "action_representation": 6,
+      "dynamics_representation": 8,
+      "egocentric_3d_grounding": 16,
+      "embodied_navigation": 22,
+      "embodied_reasoning_agents": 24,
+      "exploration_skills_goals": 12,
+      "imitation_sequence": 11,
+      "language_conditioned_control": 7,
+      "locomotion_dexterity": 5,
+      "model_based_rl": 16,
+      "multi_agent_rl": 18,
+      "offline_rl": 22,
+      "planning_imagination": 10,
+      "policy_optimization": 13,
+      "rl_theory_evaluation": 24,
+      "robot_foundation": 3,
+      "robot_manipulation": 17,
+      "safe_robust_rl": 14,
+      "sim_to_real_robot_learning": 6,
+      "value_learning": 11,
+      "video_occupancy_world_models": 7,
+      "vla_models": 14,
+      "world_model_general": 14
+    }
   }
 }

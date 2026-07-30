@@ -10,6 +10,8 @@ more text.
 library/
 ├── entries/*.jsonl       reviewed language and concept records
 ├── sources.jsonl         primary-source metadata
+├── topics.json           controlled technical topic families
+├── collections.json      audited paper-collection contracts
 ├── taxonomy.json         versions and controlled vocabularies
 ├── aliases.json          Chinese/common query expansion
 ├── core_ids.json         universal high-risk records
@@ -29,16 +31,25 @@ also validate the selective indexes during every build.
 | 1 | `dist/agent-index.md` | Choose routes | one file |
 | 2 | `dist/core.md` | Load universal evidence and wording constraints | once |
 | 3 | `dist/catalogs/sections/*.md` | Select rhetorical moves | at most one |
-| 3 | `dist/catalogs/domains/*.md` | Select technical concepts | at most one |
-| 4 | `dist/cards/**/*.md` | Load complete records | 3–8 cards |
+| 3 | `dist/catalogs/domains/*.md` | Choose a technical topic | at most one small hub |
+| 4 | `dist/catalogs/topics/*.md` | Select technical concepts | at most one |
+| 5 | `dist/cards/**/*.md` | Load complete records | 3–8 cards |
+| evidence | `dist/evidence/topics/*.md` | Verify a literature claim in primary papers | only on demand |
 
-Catalogs contain labels and routing metadata, not complete guidance. Cards contain
+Catalogs contain labels and routing metadata, not complete guidance. Domain
+catalogs are small hubs whose size does not grow with every entry. Cards contain
 meaning, usage constraints, anti-patterns, examples, provenance, and sources.
 `dist/router.json` records paths and measured byte sizes for automated clients.
 
 The complete `dist/index.json`, legacy compact file, and full domain packs are
 compatibility or offline-machine artifacts. They are explicitly excluded from the
 default Agent route.
+
+The 300-paper recent collection is also excluded from default writing context.
+Each paper maps to one controlled topic family, and each topic has a separate
+evidence map. Multiple papers can support one normalized expression card; source
+coverage therefore grows without forcing the number of near-duplicate cards to
+grow linearly.
 
 ## Local retrieval
 
@@ -48,7 +59,7 @@ Local Agents should avoid Markdown traversal:
 python3 scripts/superlib.py bundle \
   --rhetoric-query "<rhetorical move>" \
   --technical-query "<concept>" \
-  --domain <domain> --section <section> --intent <intent>
+  --domain <domain> [--topic <topic>] --section <section> --intent <intent>
 ```
 
 The two searches are intentionally different. Rhetorical filtering uses section
@@ -71,6 +82,8 @@ Tests enforce:
 - deterministic generated artifacts;
 - a small Agent index and universal core;
 - bounded catalog and card sizes;
+- exactly controlled collection membership, venue/year boundaries, and topic maps;
+- duplicate source titles, source URLs, and normalized expressions are rejected;
 - one card for every published entry;
 - valid card links and manifest hashes;
 - two-pass retrieval even when the target section is `rebuttal`;

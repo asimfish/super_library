@@ -21,6 +21,7 @@ Required fields:
 | `examples` | Original templates; braces denote slots |
 | `source_ids` | Primary sources for terminology or concepts |
 | `tags` | Search aliases |
+| `topic_families` | Controlled technical clusters used for bounded routing |
 | `provenance` | Authorship/transformation classification |
 | `quality` | Review tier, status, and date |
 
@@ -55,7 +56,9 @@ The repository intentionally has no `quote` provenance type.
 - `dist/agent-index.md`: smallest link-only route table and loading contract.
 - `dist/core.md`: universal high-risk writing and evidence rules.
 - `dist/catalogs/sections/*.md`: thin rhetoric catalogs.
-- `dist/catalogs/domains/*.md`: thin technical-concept catalogs.
+- `dist/catalogs/domains/*.md`: small technical-domain hubs.
+- `dist/catalogs/topics/*.md`: bounded technical-concept catalogs.
+- `dist/evidence/topics/*.md`: on-demand maps from a topic to recent primary papers.
 - `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
 - `dist/router.json` and `dist/catalog.jsonl`: machine-readable routing metadata.
 - `dist/index.json`: complete machine index for scripts; do not paste it into an
@@ -72,3 +75,20 @@ The repository intentionally has no `quote` provenance type.
 Selection for the universal core is controlled by `library/core_ids.json`;
 `library/compact_ids.json` controls only the legacy compatibility pack. Never edit
 `dist/` or generated skill snapshots by hand.
+
+## Source collections
+
+`library/sources.jsonl` stores paper metadata once. Optional `domains`,
+`topic_families`, and `collections` fields provide controlled indexing.
+`library/collections.json` defines auditable boundaries such as allowed years,
+venues, domains, and minimum paper counts. For `recent-five-year-core`, validation
+requires published papers from 2021–2025, one of seven target venues, and at least
+one topic family.
+
+Paper records and expression records are intentionally many-to-many. A topic may
+contain dozens of papers but only a few normalized terminology, definition, usage,
+or Related Work cards. This prevents repeated phrasing from bloating Agent context.
+
+`library/corpus_report.json` records collection verification and aggregate phrase
+analysis without retaining source abstracts. It makes partial analysis explicit
+instead of implying that every linked paper was text-mined.

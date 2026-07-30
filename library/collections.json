@@ -1,0 +1,16 @@
+{
+  "schema_version": "1.0",
+  "collections": [
+    {
+      "id": "recent-five-year-core",
+      "label": "Recent five-year AI writing core",
+      "description": "A manually audited, title-deduplicated set of 300 formally published papers for terminology, concept, and literature-navigation coverage.",
+      "years": [2021, 2022, 2023, 2024, 2025],
+      "venues": ["CVPR", "ECCV", "ICCV", "NeurIPS", "ICLR", "ICML", "TPAMI"],
+      "domains": ["embodied_ai", "reinforcement_learning", "world_models", "vision_language_action"],
+      "minimum_sources": 300,
+      "selection_policy": "Main-conference or formal journal papers only; select for field relevance and topic diversity, then manually remove title-level false positives.",
+      "deduplication_policy": "Papers remain evidence records, while recurring terminology and rhetorical moves are normalized into reusable entries and topic clusters."
+    }
+  ]
+}

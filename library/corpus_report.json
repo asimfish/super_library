@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "collection": "recent-five-year-core",
+  "audited_at": "2026-07-30",
+  "paper_metadata_records": 300,
+  "official_urls_reachable": 300,
+  "official_abstracts_analyzed": 288,
+  "abstracts_not_analyzed": {
+    "count": 12,
+    "venue": "TPAMI",
+    "reason": "The DOI landing pages did not expose abstract text to the bounded HTML collector."
+  },
+  "analysis_policy": [
+    "Use official proceedings or conference HTML only.",
+    "Compute cross-document recurrence locally; do not retain or redistribute abstract text.",
+    "Manually reject proceedings boilerplate, repository links, decorative novelty claims, and near-duplicate formulations.",
+    "Promote only short collocations with at least two independent source attestations and an explicit usage boundary."
+  ],
+  "promoted_collocation_ids": [
+    "general.phrase.wide-spectrum.001",
+    "general.phrase.simulated-real-world.001",
+    "general.phrase.unseen-during-training.001",
+    "general.phrase.downstream-range.001"
+  ],
+  "deduplication": {
+    "paper_title_and_url_duplicates": 0,
+    "normalized_expression_duplicates": 0,
+    "near_duplicate_threshold": 0.9,
+    "policy": "Recurring concepts map to shared topic and expression records; paper count does not determine expression count."
+  }
+}

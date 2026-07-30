@@ -4,14 +4,16 @@ An agent-ready, source-traceable language library for writing AI papers,
 rebuttals, related work, and technical translations with field-standard
 terminology and disciplined research rhetoric.
 
-It focuses initially on **world models**, **reinforcement learning**, **embodied
-AI**, and **robot learning**, with source coverage across ICLR, ICML, NeurIPS,
+It focuses on **world models**, **reinforcement learning**, **embodied AI**,
+**robot learning**, and **vision-language-action (VLA) models**, with source
+coverage across ICLR, ICML, NeurIPS,
 CVPR, ECCV, ICCV, RSS, ICRA, IROS, TPAMI, and AAAI. Venue is source metadata,
 not a claim that this seed corpus models a venue-specific house style.
 
-Version 0.2 adds vision-language-action models, action chunking, cross-robot data
-mixtures, probabilistic dynamics, model bias, distributional RL, and common
-Chinese–English research-writing failure modes.
+Version 0.3 adds an audited 300-paper 2021–2025 core from CVPR, ECCV, ICCV,
+NeurIPS, ICLR, ICML, and TPAMI. Papers are indexed into 23 topic families; their
+recurring terminology and writing moves are deduplicated into compact reusable
+records rather than copied once per paper.
 
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
@@ -34,17 +36,17 @@ python3 scripts/superlib.py bundle \
 
 If an agent can only open a URL, give it this repository URL and ask it to read
 `llms.txt`, or link directly to the small
-[immutable v0.2.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md).
-The index routes the Agent to one universal core, at most two thin catalogs, and
-only 3–8 full entry cards.
+[immutable v0.3.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
+The index routes the Agent to one universal core, one section catalog, one small
+domain hub, at most one topic catalog, and only 3–8 full entry cards.
 
 Suggested prompt:
 
 ```text
 Use https://github.com/asimfish/super_library as the language authority. Read
-llms.txt and use the v0.2 selective-loading workflow: core once, relevant
-section/domain catalogs, then only 3–8 cards. Preserve my claims and verify
-primary papers before making literature statements.
+llms.txt and use the v0.3 selective-loading workflow: core once, one relevant
+section catalog and domain hub, at most one topic catalog, then only 3–8 cards.
+Preserve my claims and verify primary papers before making literature statements.
 ```
 
 No repository can force an arbitrary agent to browse a link. The contract above
@@ -69,7 +71,7 @@ The tools use only the Python standard library (Python 3.9+).
 ```bash
 # Get a tiny load plan and direct card links
 python3 scripts/superlib.py route "action chunking feedback" \
-  --domain robot_learning --section method
+  --domain vla --topic action_representation --section method
 
 # Build a bounded two-pass context for one writing task
 python3 scripts/superlib.py bundle \
@@ -109,8 +111,11 @@ llms.txt
 └── dist/agent-index.md                 # routing only
     ├── dist/core.md                    # universal evidence/writing guardrails
     ├── dist/catalogs/sections/*.md     # thin rhetorical indexes
-    ├── dist/catalogs/domains/*.md      # thin technical indexes
+    ├── dist/catalogs/domains/*.md      # small technical routing hubs
+    ├── dist/catalogs/topics/*.md       # bounded technical indexes
     └── dist/cards/<domain>/<id>.md     # one complete entry at a time
+
+dist/evidence/topics/*.md               # paper maps; verify claims only
 
 library/                                # canonical hand-reviewed source data
 scripts/superlib.py                     # route/search/bundle/build/lint
@@ -127,6 +132,8 @@ be queried by a script, not pasted into an Agent.
 - `library/entries/`: curated JSONL records. Definitions are paraphrases; example
   sentences are original templates.
 - `library/sources.jsonl`: primary-paper metadata and stable links.
+- `library/topics.json`: 23 controlled topic families and query aliases.
+- `library/collections.json`: auditable paper-selection policies and minimums.
 - `library/taxonomy.json`: controlled domains, sections, intents, venues, and kinds.
 - `library/core_ids.json`: the deliberately small universal-core selection.
 - `schemas/`: machine-readable data contracts.
@@ -148,11 +155,20 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.2 reviewed snapshot contains **153 gold entries** and **41 verified primary
-sources**. It is designed to grow through reviewed contributions rather than
-automatic PDF scraping.
+The v0.3 reviewed snapshot contains **191 gold entries** and **331 verified
+primary sources**. Exactly 300 sources form the recent five-year core: 125
+reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
+The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
+and 12 TPAMI papers. It is designed to grow through reviewed contributions rather
+than automatic PDF scraping.
 
-Ten short collocations carry locators to at least two independent papers.
+For recurring wording, 288 official conference abstracts were analyzed locally
+by document frequency; abstract text is not stored. Four cross-paper collocations
+survived manual screening and were promoted with source-level attestations. The
+remaining 12 TPAMI DOI pages are included in metadata/topic coverage but not in
+this abstract-level phrase analysis. See `library/corpus_report.json`.
+
+Fourteen short collocations carry locators to at least two independent papers.
 Original sentence frames are explicitly labeled as structural guardrails; they
 are not advertised as copied or statistically representative “top-conference
 sentences.” The current venue counts establish source coverage only, especially
@@ -170,6 +186,9 @@ where a venue has few seed papers.
    `NIPS` aliases are normalized.
 6. Reject decorative synonyms, inflated claims, vague comparison, and phrases that
    only sound academic.
+7. Keep paper coverage separate from expression count: many papers may support
+   one normalized term or comparison pattern. Reject near-duplicate cards and
+   route full paper lists through per-topic evidence maps outside default context.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the review checklist and
 [docs/DATA_MODEL.md](docs/DATA_MODEL.md) for the schema. The complete loading

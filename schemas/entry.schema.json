@@ -80,6 +80,11 @@
       "uniqueItems": true,
       "items": {"type": "string"}
     },
+    "topic_families": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
     "provenance": {
       "type": "object",
       "additionalProperties": false,

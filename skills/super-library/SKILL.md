@@ -1,6 +1,6 @@
 ---
 name: super-library
-description: Retrieve source-traceable terminology, definitions, sentence patterns, rebuttal moves, and translation guidance for professional AI/ML research writing. Use for drafting or revising papers, abstracts, related work, methods, experiments, limitations, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, and robot learning.
+description: Retrieve source-traceable terminology, definitions, sentence patterns, rebuttal moves, and translation guidance for professional AI/ML research writing. Use for drafting or revising papers, abstracts, related work, methods, experiments, limitations, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
 ---
 
 # Super Library
@@ -11,7 +11,8 @@ original prose. Treat it as a language and paper-discovery aid, never as evidenc
 ## Select the lowest-cost retrieval path
 
 First classify mode (`paper`, `rebuttal`, or `translation`), technical domain,
-target section, communicative intent, and evidence boundary.
+topic family when applicable, target section, communicative intent, and evidence
+boundary.
 
 ### Full repository checkout
 
@@ -22,7 +23,7 @@ queries:
 python3 scripts/superlib.py bundle \
   --rhetoric-query "<communicative need>" \
   --technical-query "<technical concept or Chinese term>" \
-  --domain <domain> --section <section> --intent <intent> \
+  --domain <domain> [--topic <topic>] --section <section> --intent <intent> \
   --limit 4 --max-chars 24000
 ```
 
@@ -39,7 +40,7 @@ the installed skill directory:
 python3 scripts/lookup.py "<rhetorical need>" \
   --domain <domain> --section <section> --intent <intent> --limit 4
 python3 scripts/lookup.py "<technical concept or Chinese term>" \
-  --domain <domain> --kind term --limit 4
+  --domain <domain> [--topic <topic>] --kind term --limit 4
 ```
 
 Omit `--kind` for a mix of terms and definitions. Use `--id <entry-id>` to load
@@ -48,8 +49,9 @@ one known record.
 ### Link-only access
 
 Open the immutable
-[`agent-index.md`](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md).
-Follow its order: universal core, at most two thin catalogs, then 3–8 cards.
+[`agent-index.md`](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
+Follow its order: universal core, one section catalog, one domain hub, at most one
+topic catalog, then 3–8 cards.
 Do not load `index.json`, the legacy compact pack, or full domain packs by default.
 If neither local retrieval nor the index can be loaded, state that Super Library
 was not used.
@@ -91,4 +93,6 @@ reviewer directly.
 - Never invent experiments, results, baselines, author names, venues, years,
   BibTeX keys, or manuscript locations.
 - Do not present corpus definitions as quotations or copy paper sentences.
+- Treat the 300-paper evidence maps as citation-navigation aids, not default
+  writing context; open one only when a literature claim requires verification.
 - Prefer an exact, modest claim over impressive but unsupported wording.

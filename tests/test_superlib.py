@@ -260,8 +260,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         manifest = json.loads((ROOT / "dist" / "manifest.json").read_text())
-        self.assertEqual(manifest["corpus_version"], "0.2.0")
-        self.assertEqual(manifest["release_tag"], "v0.2.0")
+        self.assertEqual(manifest["corpus_version"], "0.3.0")
+        self.assertEqual(manifest["release_tag"], "v0.3.0")
         self.assertEqual(manifest["data_license"], "CC0-1.0")
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
@@ -384,7 +384,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         catalog = (
-            ROOT / "dist" / "catalogs" / "domains" / "world_models.md"
+            ROOT / "dist" / "catalogs" / "topics" / "world_model_general.md"
         ).read_text(encoding="utf-8")
         self.assertIn("wm.definition.world-model.001", catalog)
         self.assertNotIn("**Use:**", catalog)
@@ -398,6 +398,40 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("**Use:**", card)
         self.assertIn("**Avoid:**", card)
         self.assertIn("Verify in primary sources", card)
+
+    def test_recent_five_year_collection_contract(self):
+        _, sources, _ = superlib.load_corpus()
+        recent = [
+            source
+            for source in sources
+            if "recent-five-year-core" in source.get("collections", [])
+        ]
+        self.assertEqual(len(recent), 300)
+        self.assertEqual({source["year"] for source in recent}, set(range(2021, 2026)))
+        self.assertEqual(
+            {source["venue"] for source in recent},
+            {"CVPR", "ECCV", "ICCV", "NeurIPS", "ICLR", "ICML", "TPAMI"},
+        )
+        self.assertTrue(all(source.get("topic_families") for source in recent))
+
+    def test_topic_route_is_bounded(self):
+        result = run_cli(
+            "route",
+            "action tokenization",
+            "--domain",
+            "vla",
+            "--topic",
+            "action_representation",
+            "--section",
+            "related_work",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        catalogs = payload["load_order"]["catalogs"]
+        self.assertEqual([item["type"] for item in catalogs], ["section", "domain", "topic"])
+        self.assertLessEqual(len(payload["load_order"]["recommended_cards"]), 8)
 
     def test_standalone_skill_lookup_is_bounded(self):
         result = subprocess.run(

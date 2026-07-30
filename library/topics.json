@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "topics": [
+    {"id": "action_representation", "domain": "vision_language_action", "label": "action representation and tokenization", "aliases": ["action tokens", "action tokenizer", "动作表征", "动作离散化"]},
+    {"id": "dynamics_representation", "domain": "world_models", "label": "dynamics and latent-state representation", "aliases": ["latent dynamics", "state representation", "潜在动力学"]},
+    {"id": "egocentric_3d_grounding", "domain": "embodied_ai", "label": "egocentric and 3D grounding", "aliases": ["3D grounding", "egocentric grounding", "三维具身定位"]},
+    {"id": "embodied_navigation", "domain": "embodied_ai", "label": "embodied navigation", "aliases": ["VLN", "object navigation", "具身导航"]},
+    {"id": "embodied_reasoning_agents", "domain": "embodied_ai", "label": "embodied reasoning and interactive agents", "aliases": ["embodied agents", "interactive reasoning", "具身推理"]},
+    {"id": "exploration_skills_goals", "domain": "reinforcement_learning", "label": "exploration, skills, and goal-conditioned learning", "aliases": ["unsupervised skills", "goal-conditioned RL", "探索"]},
+    {"id": "imitation_sequence", "domain": "reinforcement_learning", "label": "imitation and sequential decision modeling", "aliases": ["imitation learning", "decision transformer", "模仿学习"]},
+    {"id": "language_conditioned_control", "domain": "vision_language_action", "label": "language-conditioned control", "aliases": ["language-conditioned policy", "instruction-conditioned control", "语言条件控制"]},
+    {"id": "locomotion_dexterity", "domain": "embodied_ai", "label": "locomotion and dexterity", "aliases": ["legged locomotion", "dexterous control", "灵巧操作"]},
+    {"id": "model_based_rl", "domain": "world_models", "label": "model-based reinforcement learning", "aliases": ["MBRL", "model predictive control", "基于模型的强化学习"]},
+    {"id": "multi_agent_rl", "domain": "reinforcement_learning", "label": "multi-agent reinforcement learning", "aliases": ["MARL", "CTDE", "多智能体强化学习"]},
+    {"id": "offline_rl", "domain": "reinforcement_learning", "label": "offline reinforcement learning", "aliases": ["batch RL", "offline policy learning", "离线强化学习"]},
+    {"id": "planning_imagination", "domain": "world_models", "label": "planning and imagination", "aliases": ["latent imagination", "model rollout", "规划与想象"]},
+    {"id": "policy_optimization", "domain": "reinforcement_learning", "label": "policy optimization", "aliases": ["policy gradient", "actor critic", "策略优化"]},
+    {"id": "rl_theory_evaluation", "domain": "reinforcement_learning", "label": "RL theory, representation, and evaluation", "aliases": ["sample complexity", "RL evaluation", "强化学习理论"]},
+    {"id": "robot_foundation", "domain": "vision_language_action", "label": "robot foundation models and generalist policies", "aliases": ["generalist robot policy", "robot foundation model", "机器人基础模型"]},
+    {"id": "robot_manipulation", "domain": "embodied_ai", "label": "robot manipulation", "aliases": ["grasping", "manipulation policy", "机器人操作"]},
+    {"id": "safe_robust_rl", "domain": "reinforcement_learning", "label": "safe and robust reinforcement learning", "aliases": ["safe RL", "robust RL", "安全强化学习"]},
+    {"id": "sim_to_real_robot_learning", "domain": "embodied_ai", "label": "sim-to-real and robot learning", "aliases": ["sim2real", "domain randomization", "仿真到现实"]},
+    {"id": "value_learning", "domain": "reinforcement_learning", "label": "value learning", "aliases": ["Q-learning", "value estimation", "价值学习"]},
+    {"id": "video_occupancy_world_models", "domain": "world_models", "label": "video and occupancy world models", "aliases": ["video world model", "occupancy prediction", "视频世界模型"]},
+    {"id": "vla_models", "domain": "vision_language_action", "label": "vision-language-action models", "aliases": ["VLA model", "vision language action", "视觉语言动作模型"]},
+    {"id": "world_model_general", "domain": "world_models", "label": "world-model formulation and evaluation", "aliases": ["world model", "learned simulator", "世界模型"]}
+  ]
+}

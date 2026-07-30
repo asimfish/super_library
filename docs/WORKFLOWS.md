@@ -4,7 +4,8 @@
 
 1. Extract propositions, entities, comparison axes, and uncertainty from the notes.
 2. Retrieve rhetorical moves by section and intent, then retrieve technical terms
-   and definitions by domain without a section filter.
+   and definitions by domain and, when known, one topic family without a section
+   filter.
 3. Use definitions as semantic atoms; synthesize a new sentence for the local
    argument.
 4. Verify every literature relationship in the linked primary papers.
@@ -13,7 +14,8 @@
 With a checkout, `superlib.py bundle` performs both retrieval passes and enforces
 a context-character budget. With link-only access, use `agent-index.md`, the
 universal core, the `related_work` section catalog, one domain catalog, and only
-the selected cards.
+one topic catalog, and only the selected cards. Open the topic's paper evidence
+map only when a literature claim requires primary-source verification.
 
 ## Rebuttal
 

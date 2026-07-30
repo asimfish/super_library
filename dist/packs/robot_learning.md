@@ -1,14 +1,14 @@
 # Super Library pack: robot_learning
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### 3D vision-language-action generative world model (paper-specific usage)
 
-`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models · related_work, method, translation
+`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models, vision_language_action · related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -29,7 +29,7 @@ In 3D-VLA, a model that uses 3D scene information and language-conditioned repre
 
 ### action chunking
 
-`emb.definition.action-chunking.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.action-chunking.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -73,7 +73,7 @@ Perception in which an agent's actions influence which observations become avail
 
 ### bimanual robotic manipulation
 
-`emb.definition.bimanual-manipulation.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.bimanual-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -115,7 +115,7 @@ The application or adaptation of learned knowledge across robots or agents with 
 
 ### cross-robot data mixture
 
-`emb.definition.cross-robot-data-mixture.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.cross-robot-data-mixture.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -202,7 +202,7 @@ The study of agents that perceive and act within an environment, where their obs
 
 ### embodied multimodal language model
 
-`emb.definition.embodied-language-model.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.embodied-language-model.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -290,7 +290,7 @@ Perception that integrates information from distinct sensory modalities, such as
 
 ### multimodal task prompt
 
-`emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -308,6 +308,27 @@ A task specification composed of more than one modality, such as interleaved tex
 **Verify in primary sources:**
 
 - `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
+### open-vocabulary manipulation
+
+`emb.definition.open-vocabulary-manipulation.001` · definition · embodied_ai, robot_learning · introduction, related_work, experiments
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Manipulation conditioned on object or task descriptions whose evaluation vocabulary is not restricted to a fixed closed set used during task-specific training.
+
+**Use:** Define the held-out unit, language source, object and task splits, perception assumptions, and any foundation-model supervision.
+
+**Avoid:** Do not claim open-vocabulary generalization when test names are new strings for training-seen objects or skills.
+
+**Patterns:**
+
+- We evaluate open-vocabulary manipulation on held-out {objects, concepts, or instructions} while holding {other axis} fixed.
+
+**Verify in primary sources:**
+
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
+- `zhang2025-vlabench-large-scale-benchmark` — [VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.html) (ICCV 2025)
 
 ### rapid online adaptation
 
@@ -376,7 +397,7 @@ A policy that maps visual observations, often together with proprioception or go
 
 ### vision-language-action (VLA) model
 
-`emb.definition.vla.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.vla.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -441,6 +462,27 @@ Reinforcement learning from a fixed dataset of previously collected transitions,
 
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+
+### continuous action head
+
+`vla.definition.continuous-action-head.001` · definition · vision_language_action, robot_learning · method, related_work
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A policy output module that directly parameterizes continuous robot controls rather than representing every action dimension as a discrete language token.
+
+**Use:** Specify the distribution or regression objective, action parameterization, prediction horizon, and embodiment-specific output dimensions.
+
+**Avoid:** Do not use this term as a synonym for the entire policy or assume that a continuous head eliminates temporal discretization.
+
+**Patterns:**
+
+- The continuous action head maps {fused representation} to {horizon} steps of {action parameterization}.
+
+**Verify in primary sources:**
+
+- `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
 
 ### embodied world model
 
@@ -513,7 +555,7 @@ Structures embodied-AI related work around how data is obtained, whether learnin
 
 ### robot-action tokenization
 
-`emb.term.action-tokenization.001` · term · embodied_ai, robot_learning · related_work, method, translation
+`emb.term.action-tokenization.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -532,6 +574,27 @@ A representation that maps continuous or structured robot controls into discrete
 
 - `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
 - `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+
+### affordance grounding
+
+`emb.term.affordance-grounding.001` · term · embodied_ai, robot_learning · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The association of a task or action description with scene regions, objects, poses, or interactions that support the action.
+
+**Use:** Name the affordance representation, grounding target, supervision source, and whether feasibility is verified by execution.
+
+**Avoid:** Do not call semantic relevance an affordance unless it expresses an action possibility or interaction relation.
+
+**Patterns:**
+
+- The model grounds {instruction or action} to {object, region, or pose} that affords {interaction}.
+
+**Verify in primary sources:**
+
+- `wu2025-garmentpile-point-level-visual` — [GarmentPile: Point-Level Visual Affordance Guided Retrieval and Adaptation for Cluttered Garments Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_GarmentPile_Point-Level_Visual_Affordance_Guided_Retrieval_and_Adaptation_for_Cluttered_CVPR_2025_paper.html) (CVPR 2025)
+- `li2025-coa-vla-improving-vision` — [CoA-VLA: Improving Vision-Language-Action Models via Visual-Text Chain-of-Affordance](https://openaccess.thecvf.com/content/ICCV2025/html/Li_CoA-VLA_Improving_Vision-Language-Action_Models_via_Visual-Text_Chain-of-Affordance_ICCV_2025_paper.html) (ICCV 2025)
 
 ### embodiment
 
@@ -600,7 +663,7 @@ Robot interaction data collected across naturally varied real-world scenes, task
 
 ### language-conditioned visuomotor policy
 
-`emb.term.language-conditioned-policy.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.term.language-conditioned-policy.001` · term · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -731,7 +794,7 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 
 ### task success rate
 
-`emb.term.task-success-rate.001` · term · embodied_ai, robot_learning · experiments, rebuttal, translation
+`emb.term.task-success-rate.001` · term · embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -754,7 +817,7 @@ The fraction or percentage of evaluation trials that satisfy a predefined task-c
 
 ### teleoperated robot demonstration
 
-`emb.term.teleoperation-demonstration.001` · term · embodied_ai, robot_learning · related_work, method, experiments, translation
+`emb.term.teleoperation-demonstration.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, experiments, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -776,7 +839,7 @@ A robot trajectory collected while a human operator controls the robot through a
 
 ### temporal ensembling of overlapping action predictions
 
-`emb.term.temporal-ensembling.001` · term · embodied_ai, robot_learning · related_work, method, translation
+`emb.term.temporal-ensembling.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -863,6 +926,89 @@ The amount of environment interaction or training data required to reach a speci
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
+
+### action expert
+
+`vla.term.action-expert.001` · term · vision_language_action, robot_learning · abstract, introduction, method, related_work
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A specialized policy component that converts multimodal representations into robot actions, often alongside a pretrained vision-language backbone.
+
+**Use:** Describe which parameters are specialized, how information is exchanged with the backbone, and whether the expert is autoregressive, diffusion-based, or otherwise structured.
+
+**Avoid:** Do not imply a standardized architecture; action expert is an architectural role whose realization varies by paper.
+
+**Patterns:**
+
+- An action expert conditions on {backbone features} and predicts {action representation} for {robot embodiment}.
+
+**Verify in primary sources:**
+
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
+- `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
+
+### action vocabulary / action-token vocabulary
+
+`vla.term.action-vocabulary.001` · term · vision_language_action, robot_learning · abstract, introduction, related_work, method
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The discrete set of symbols used to encode robot actions when a policy casts action prediction as token generation.
+
+**Use:** State how continuous controls are quantized, which action dimensions are covered, and whether the vocabulary is shared across embodiments.
+
+**Avoid:** Do not imply that discretization is inherent to all VLA models; many policies retain continuous action heads.
+
+**Patterns:**
+
+- We quantize {action dimensions} into an action vocabulary of {size} tokens and decode each predicted token into {control command}.
+
+**Verify in primary sources:**
+
+- `wang2025-vq-vla-improving-vision` — [VQ-VLA: Improving Vision-Language-Action Models via Scaling Vector-Quantized Action Tokenizers](https://openaccess.thecvf.com/content/ICCV2025/html/Wang_VQ-VLA_Improving_Vision-Language-Action_Models_via_Scaling_Vector-Quantized_Action_Tokenizers_ICCV_2025_paper.html) (ICCV 2025)
+- `chen2025-moto-latent-motion-token` — [Moto: Latent Motion Token as the Bridging Language for Learning Robot Manipulation from Videos](https://openaccess.thecvf.com/content/ICCV2025/html/Chen_Moto_Latent_Motion_Token_as_the_Bridging_Language_for_Learning_ICCV_2025_paper.html) (ICCV 2025)
+
+### embodiment-specific action decoder
+
+`vla.term.embodiment-specific-decoder.001` · term · vision_language_action, robot_learning · method, related_work
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A decoder specialized to the action space or control interface of one robot embodiment while upstream representations may be shared.
+
+**Use:** Name the shared representation, embodiment identifier, action dimensions, and which decoder parameters remain robot-specific.
+
+**Avoid:** Do not claim cross-embodiment transfer from a shared backbone alone; establish what transfers and what is retrained.
+
+**Patterns:**
+
+- We share {representation} across robots and use an embodiment-specific decoder for {action space}.
+
+**Verify in primary sources:**
+
+- `yuan2025-cross-embodiment-dexterous-grasping` — [Cross-Embodiment Dexterous Grasping with Reinforcement Learning](https://iclr.cc/virtual/2025/poster/28010) (ICLR 2025)
+- `miao2025-fedvla-federated-vision-language` — [FedVLA: Federated Vision-Language-Action Learning with Dual Gating Mixture-of-Experts for Robotic Manipulation](https://openaccess.thecvf.com/content/ICCV2025/html/Miao_FedVLA_Federated_Vision-Language-Action_Learning_with_Dual_Gating_Mixture-of-Experts_for_Robotic_ICCV_2025_paper.html) (ICCV 2025)
+
+### visual trace prompting
+
+`vla.term.visual-trace-prompting.001` · term · vision_language_action, robot_learning · related_work, method
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A prompting mechanism that augments visual input with spatial or temporal traces intended to expose task-relevant motion structure to a policy.
+
+**Use:** Identify how traces are produced, whether they are available at training and inference time, and what spatial-temporal information they encode.
+
+**Avoid:** Do not generalize the mechanism beyond the paper-specific trace construction without evidence.
+
+**Patterns:**
+
+- Visual trace prompting supplies {trace type} to highlight {spatial-temporal relation} before action prediction.
+
+**Verify in primary sources:**
+
+- `zheng2025-tracevla-visual-trace-prompting` — [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies](https://iclr.cc/virtual/2025/poster/29130) (ICLR 2025)
 
 ### action-conditioned dynamics
 
@@ -952,7 +1098,7 @@ In RT-1, this label describes joint training with shared parameters across a bro
 
 ### separate prediction horizon, execution horizon, and feedback frequency
 
-`emb.usage-note.chunking-feedback.001` · usage_note · embodied_ai, robot_learning · method, experiments, limitations, rebuttal, translation
+`emb.usage-note.chunking-feedback.001` · usage_note · embodied_ai, robot_learning, vision_language_action · method, experiments, limitations, rebuttal, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -974,7 +1120,7 @@ A policy may predict many future actions while executing only part of them befor
 
 ### heterogeneous robot action spaces require an explicit alignment strategy
 
-`emb.usage-note.heterogeneous-actions.001` · usage_note · embodied_ai, robot_learning · related_work, method, limitations, translation
+`emb.usage-note.heterogeneous-actions.001` · usage_note · embodied_ai, robot_learning, vision_language_action · related_work, method, limitations, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -1018,7 +1164,7 @@ Imitation learning is the broader problem of learning behavior from demonstratio
 
 ### evaluate embodied generalization along separately controlled axes
 
-`emb.usage-note.systematic-generalization.001` · usage_note · embodied_ai, robot_learning · experiments, limitations, rebuttal, translation
+`emb.usage-note.systematic-generalization.001` · usage_note · embodied_ai, robot_learning, vision_language_action · experiments, limitations, rebuttal, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -1041,7 +1187,7 @@ Systematic evaluation varies identified factors—such as objects, placements, t
 
 ### distinguish VLA policies from embodied language models
 
-`emb.usage-note.vla-vs-elm.001` · usage_note · embodied_ai, robot_learning · related_work, method, translation
+`emb.usage-note.vla-vs-elm.001` · usage_note · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -1099,3 +1245,66 @@ Good performance on held-out samples drawn from familiar coverage does not by it
 
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+
+### policy inference latency and control frequency
+
+`vla.usage-note.control-latency.001` · usage_note · vision_language_action, robot_learning · experiments, limitations, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Inference latency measures computation time per policy update, while control frequency describes how often commands are issued; chunking and asynchronous execution can make them differ.
+
+**Use:** Report hardware, batch size, observation resolution, action horizon, synchronization policy, latency statistic, and achieved control rate.
+
+**Avoid:** Do not infer deployability from model size or nominal frequency alone.
+
+**Patterns:**
+
+- On {hardware}, the policy requires {latency statistic} per update and sustains {frequency} Hz with {execution scheme}.
+
+**Verify in primary sources:**
+
+- `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
+- `zheng2025-tracevla-visual-trace-prompting` — [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies](https://iclr.cc/virtual/2025/poster/29130) (ICLR 2025)
+
+### open-loop action prediction versus closed-loop execution
+
+`vla.usage-note.open-closed-loop.001` · usage_note · vision_language_action, robot_learning · method, experiments, related_work, limitations
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Open-loop prediction generates an action sequence without incorporating intermediate observations, whereas closed-loop execution refreshes observations and may replan during the sequence.
+
+**Use:** Report prediction horizon, executed chunk length, observation refresh rate, and replanning frequency separately.
+
+**Avoid:** Do not call a chunked policy fully closed-loop merely because a new chunk is eventually predicted.
+
+**Patterns:**
+
+- The policy predicts {prediction horizon} actions, executes {execution horizon}, and replans after receiving a new observation.
+
+**Verify in primary sources:**
+
+- `li2025-reinforcement-learning-action-chunking` — [Reinforcement Learning with Action Chunking](https://proceedings.neurips.cc/paper_files/paper/2025/hash/50348e8f9aef984abe0ea1ec2a326f78-Abstract-Conference.html) (NeurIPS 2025)
+- `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
+
+### separate multimodal pretraining from robot-policy fine-tuning
+
+`vla.usage-note.pretrain-finetune.001` · usage_note · vision_language_action, robot_learning · method, experiments, related_work
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Multimodal representation learning and action-policy optimization use different data, objectives, and sometimes different parameter subsets.
+
+**Use:** Report each stage's data sources, objective, trainable parameters, robot supervision, and evaluation role.
+
+**Avoid:** Do not describe all prior training as robot pretraining when much of it contains no robot actions.
+
+**Patterns:**
+
+- We first pretrain {modules} on {data and objective}, then fine-tune {parameters} on {robot demonstrations} for action prediction.
+
+**Verify in primary sources:**
+
+- `li2024-mastering-robot-manipulation-multimodal` — [Mastering Robot Manipulation with Multimodal Prompts through Pretraining and Multi-task Fine-tuning](https://proceedings.mlr.press/v235/li24x.html) (ICML 2024)
+- `li2025-llara-supercharging-robot-learning` — [LLaRA: Supercharging Robot Learning Data for Vision-Language Policy](https://iclr.cc/virtual/2025/poster/28695) (ICLR 2025)

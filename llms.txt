@@ -3,16 +3,17 @@
 Purpose: source-traceable English retrieval for AI papers, rebuttals, related
 work, and Chinese–English technical translation.
 
-Pinned snapshot: v0.2.0 (2026-07-30)
+Pinned snapshot: v0.3.0 (2026-07-30)
 
 Default link-only entrypoint:
-https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md
+https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md
 
 Loading policy:
 1. Read agent-index.md.
 2. Read its universal core once.
-3. Read at most one relevant section catalog and one technical-domain catalog.
-4. Open only 3–8 selected entry cards. Do not open every catalog link.
+3. Read at most one relevant section catalog, one small domain hub, and one topic
+   catalog.
+4. Open only 3–8 selected entry cards. Do not open every catalog or evidence link.
 5. Do not load index.json, the legacy compact pack, or full domain packs unless
    selective routing is unavailable.
 6. Retrieve rhetorical moves with section/intent and technical terminology with
@@ -28,9 +29,9 @@ python3 scripts/superlib.py bundle --rhetoric-query "<need>" \
   --technical-query "<concept>" --domain <domain> --section <section>
 
 Machine routes:
-- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/router.json
-- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalog.jsonl
-- https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/manifest.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/router.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalog.jsonl
+- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/manifest.json
 
 This release stores paraphrases, terminology, short multi-source-attested
 collocations, and original templates—not paper quotations. A static release

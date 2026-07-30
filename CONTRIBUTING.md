@@ -19,6 +19,8 @@ snapshots is rebuilt; never edit those artifacts directly.
 - Record text contains no HTML, hidden instructions, or directives aimed at an
   Agent. Corpus fields are reference data, not executable prompts.
 - Gold records have been reviewed for both language and technical meaning.
+- The expression is not a normalized duplicate of an existing card. Prefer adding
+  another source or topic mapping to creating a synonymous record.
 
 ## Adding a source
 
@@ -28,6 +30,11 @@ Do not use a search-result, blog, or citation-aggregator URL.
 
 Source IDs use `<first-author><year><short-title>` in lowercase ASCII. Venue names
 must match `library/taxonomy.json`.
+
+For a collection paper, also assign controlled `domains`, `topic_families`, and
+`collections`. Collection boundaries in `library/collections.json` are validated;
+do not add a workshop, preprint, out-of-window year, or off-topic title merely to
+raise a count.
 
 ## Adding an entry
 

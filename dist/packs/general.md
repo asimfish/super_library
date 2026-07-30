@@ -1,10 +1,10 @@
 # Super Library pack: general
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### generalization ability / robustness ability
 
@@ -108,6 +108,34 @@ States a finding supported by the paper's experiments or analysis.
 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
+
+### a range of downstream tasks
+
+`general.phrase.downstream-range.001` · phrase · general · abstract, introduction, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Refers to several named applications used to test whether a learned representation, model, or policy transfers beyond its training objective.
+
+**Use:** Name the downstream tasks and state whether evaluation uses frozen features, prompting, fine-tuning, planning, or policy learning.
+
+**Avoid:** Do not use range to conceal a small or homogeneous evaluation set, and do not imply zero-shot transfer when adaptation is used.
+
+**Patterns:**
+
+- We assess {representation or model} on a range of downstream tasks under {adaptation protocol}: {named tasks}.
+
+**Usage attestations:**
+
+- `wu2024-ivideogpt-interactive-videogpts-scalable` — Official abstract
+- `hao2025-neural-motion-simulator-pushing` — Official abstract
+- `wang2025-vq-vla-improving-vision` — Official abstract
+
+**Verify in primary sources:**
+
+- `wu2024-ivideogpt-interactive-videogpts-scalable` — [iVideoGPT: Interactive VideoGPTs are Scalable World Models](https://proceedings.neurips.cc/paper_files/paper/2024/hash/7dbb5bfab324e3b86af9bd0df15498dd-Abstract-Conference.html) (NeurIPS 2024)
+- `hao2025-neural-motion-simulator-pushing` — [Neural Motion Simulator Pushing the Limit of World Models in Reinforcement Learning](https://openaccess.thecvf.com/content/CVPR2025/html/Hao_Neural_Motion_Simulator_Pushing_the_Limit_of_World_Models_in_CVPR_2025_paper.html) (CVPR 2025)
+- `wang2025-vq-vla-improving-vision` — [VQ-VLA: Improving Vision-Language-Action Models via Scaling Vector-Quantized Action Tokenizers](https://openaccess.thecvf.com/content/ICCV2025/html/Wang_VQ-VLA_Improving_Vision-Language-Action_Models_via_Scaling_Vector-Quantized_Action_Tokenizers_ICCV_2025_paper.html) (ICCV 2025)
 
 ### We evaluate {method} on {benchmarks or tasks}.
 
@@ -324,6 +352,92 @@ Reports a result established within the stated theoretical or empirical scope.
 
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
+
+### in both simulated and real-world {environments or experiments}
+
+`general.phrase.simulated-real-world.001` · phrase · general · abstract, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+States that a method or finding was evaluated in simulation and on a physical or otherwise genuinely deployed real-world system.
+
+**Use:** Name the simulator, real platform, number of trials, and any protocol differences; report the two result groups separately when they are not directly comparable.
+
+**Avoid:** Do not call a recorded real-world dataset a real-world deployment or merge simulated and physical results into one unsupported claim.
+
+**Patterns:**
+
+- We evaluate {method} in both simulated and real-world {environments}, using {matched or separately described protocols}.
+
+**Usage attestations:**
+
+- `zhu2024-retrieval-augmented-embodied-agents` — Official abstract
+- `li2025-object-centric-prompt-driven` — Official abstract
+- `lu2025-gwm-scalable-gaussian-world` — Official abstract
+- `zhu2025-move-understand-3d-scene` — Official abstract
+
+**Verify in primary sources:**
+
+- `zhu2024-retrieval-augmented-embodied-agents` — [Retrieval-Augmented Embodied Agents](https://openaccess.thecvf.com/content/CVPR2024/html/Zhu_Retrieval-Augmented_Embodied_Agents_CVPR_2024_paper.html) (CVPR 2024)
+- `li2025-object-centric-prompt-driven` — [Object-Centric Prompt-Driven Vision-Language-Action Model for Robotic Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Li_Object-Centric_Prompt-Driven_Vision-Language-Action_Model_for_Robotic_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
+- `lu2025-gwm-scalable-gaussian-world` — [GWM: Towards Scalable Gaussian World Models for Robotic Manipulation](https://openaccess.thecvf.com/content/ICCV2025/html/Lu_GWM_Towards_Scalable_Gaussian_World_Models_for_Robotic_Manipulation_ICCV_2025_paper.html) (ICCV 2025)
+- `zhu2025-move-understand-3d-scene` — [Move to Understand a 3D Scene: Bridging Visual Grounding and Exploration for Efficient and Versatile Embodied Navigation](https://openaccess.thecvf.com/content/ICCV2025/html/Zhu_Move_to_Understand_a_3D_Scene_Bridging_Visual_Grounding_and_ICCV_2025_paper.html) (ICCV 2025)
+
+### {unit} not seen during training
+
+`general.phrase.unseen-during-training.001` · phrase · general · abstract, experiments, limitations, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Identifies a held-out evaluation unit relative to the training data or task distribution.
+
+**Use:** Replace unit with the exact held-out axis—environment, task, object, embodiment, instruction, or combination—and describe how the split was constructed.
+
+**Avoid:** Do not imply broad out-of-distribution generalization when only one named axis was held out.
+
+**Patterns:**
+
+- We evaluate on {unit} not seen during training while holding {other factors} fixed.
+
+**Usage attestations:**
+
+- `koh2021pathdreamer` — Official abstract
+- `mazoure2022-improving-zero-shot-generalization` — Official abstract
+- `wen2025-diffusionvla-scaling-robot-foundation` — Official abstract
+
+**Verify in primary sources:**
+
+- `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+- `mazoure2022-improving-zero-shot-generalization` — [Improving Zero-Shot Generalization in Offline Reinforcement Learning using Generalized Similarity Functions](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9fbdfded5c4d2969d889efc72f85c644-Abstract-Conference.html) (NeurIPS 2022)
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
+
+### across a wide spectrum of {tasks or settings}
+
+`general.phrase.wide-spectrum.001` · phrase · general · abstract, introduction, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Signals deliberately broad coverage across named tasks, settings, or conditions.
+
+**Use:** Use only when the evaluation spans substantively different cases, and name the covered spectrum in the same sentence or immediately after it.
+
+**Avoid:** Do not use wide spectrum as decorative emphasis for several variants of one narrow task.
+
+**Patterns:**
+
+- We evaluate {method} across a wide spectrum of {named tasks or settings}, including {representative cases}.
+
+**Usage attestations:**
+
+- `fan2022-minedojo-building-open-ended` — Official abstract
+- `jiang2024-reinforcement-learning-friendly-vision` — Official abstract
+- `huang2024-embodied-generalist-agent-3d` — Official abstract
+
+**Verify in primary sources:**
+
+- `fan2022-minedojo-building-open-ended` — [MineDojo: Building Open-Ended Embodied Agents with Internet-Scale Knowledge](https://proceedings.neurips.cc/paper_files/paper/2022/hash/74a67268c5cc5910f64938cac4526a90-Abstract-Datasets_and_Benchmarks.html) (NeurIPS 2022)
+- `jiang2024-reinforcement-learning-friendly-vision` — [Reinforcement Learning Friendly Vision-Language Model for Minecraft](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8467_ECCV_2024_paper.php) (ECCV 2024)
+- `huang2024-embodied-generalist-agent-3d` — [An Embodied Generalist Agent in 3D World](https://proceedings.mlr.press/v235/huang24ae.html) (ICML 2024)
 
 ### Removing {component} reduces {metric}, indicating that {bounded interpretation}.
 

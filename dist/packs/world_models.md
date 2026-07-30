@@ -1,14 +1,14 @@
 # Super Library pack: world_models
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### 3D vision-language-action generative world model (paper-specific usage)
 
-`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models · related_work, method, translation
+`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models, vision_language_action · related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -161,6 +161,69 @@ Reinforcement learning that uses a model of environment dynamics, learned or kno
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### navigation world model
+
+`wm.definition.navigation-world-model.001` · definition · world_models, embodied_ai · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A predictive environment model specialized for forecasting navigation-relevant observations, states, or transitions under candidate agent motions.
+
+**Use:** Specify its spatial representation, action interface, prediction target, and how a planner or policy consumes predictions.
+
+**Avoid:** Do not use the label for a static map or localization model without a predictive transition component.
+
+**Patterns:**
+
+- The navigation world model predicts {navigation-relevant target} under {candidate motion} and supports {planning or policy update}.
+
+**Verify in primary sources:**
+
+- `bar2025-navigation-world-models` — [Navigation World Models](https://openaccess.thecvf.com/content/CVPR2025/html/Bar_Navigation_World_Models_CVPR_2025_paper.html) (CVPR 2025)
+- `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+
+### object-centric world model
+
+`wm.definition.object-centric-world-model.001` · definition · world_models · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dynamics model that represents a scene as entities or slots and models their attributes, interactions, or transitions.
+
+**Use:** State how objects are discovered or supervised, how identities persist, and whether interactions are explicitly parameterized.
+
+**Avoid:** Do not use object-centric for any feature map that merely has localized activation.
+
+**Patterns:**
+
+- The model encodes the scene into {entity representation} and predicts {object states or interactions} across time.
+
+**Verify in primary sources:**
+
+- `gx-chen2025-efficient-exploration-discriminative-world` — [Efficient Exploration and Discriminative World Model Learning with an Object-Centric Abstraction](https://iclr.cc/virtual/2025/poster/28750) (ICLR 2025)
+- `feng2025-learning-interactive-world-model` — [Learning Interactive World Model for Object-Centric Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8187faaf6759ef6d4e93293339bc656e-Abstract-Conference.html) (NeurIPS 2025)
+
+### occupancy world model
+
+`wm.definition.occupancy-world-model.001` · definition · world_models, embodied_ai · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A world model that predicts future spatial occupancy, often together with motion or semantic attributes, rather than synthesizing only RGB observations.
+
+**Use:** Name the spatial representation, coordinate frame, temporal horizon, supervised targets, and use in planning or forecasting.
+
+**Avoid:** Do not equate occupancy accuracy with collision-free or task-success performance without downstream evaluation.
+
+**Patterns:**
+
+- The occupancy world model forecasts {spatial representation} over {horizon} and provides {downstream module} with {predicted quantity}.
+
+**Verify in primary sources:**
+
+- `feng2025-gaussian-based-world-model` — [Gaussian-based World Model: Gaussian Priors for Voxel-Based Occupancy Prediction and Future Motion Prediction](https://openaccess.thecvf.com/content/ICCV2025/html/Feng_Gaussian-based_World_Model_Gaussian_Priors_for_Voxel-Based_Occupancy_Prediction_and_ICCV_2025_paper.html) (ICCV 2025)
+- `huang2024-neural-volumetric-world-models` — [Neural Volumetric World Models for Autonomous Driving](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/2571_ECCV_2024_paper.php) (ECCV 2024)
+
 ### probabilistic dynamics model
 
 `wm.definition.probabilistic-dynamics.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, translation
@@ -226,6 +289,27 @@ Planning that represents or uses uncertainty in learned dynamics when evaluating
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 
+### video world model
+
+`wm.definition.video-world-model.001` · definition · world_models · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A predictive model that represents environment evolution in image or video space, usually conditioned on context and optionally on agent actions.
+
+**Use:** Specify conditioning variables, prediction horizon, stochasticity, controllability, and whether generated video is used for planning or only forecasting.
+
+**Avoid:** Do not assume that visually plausible predictions are dynamically faithful or useful for control.
+
+**Patterns:**
+
+- We use a video world model to predict {horizon} future frames conditioned on {context and actions}.
+
+**Verify in primary sources:**
+
+- `po2025-long-context-state-space` — [Long-Context State-Space Video World Models](https://openaccess.thecvf.com/content/ICCV2025/html/Po_Long-Context_State-Space_Video_World_Models_ICCV_2025_paper.html) (ICCV 2025)
+- `wang2024-drivedreamer-real-world-driven` — [DriveDreamer: Towards Real-world-driven World Models for Autonomous Driving](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6416_ECCV_2024_paper.php) (ECCV 2024)
+
 ### visual world model for embodied agents
 
 `wm.definition.visual-world-model.001` · definition · world_models, embodied_ai · introduction, related_work, translation
@@ -271,6 +355,22 @@ A learned predictive model of how an environment evolves, typically conditioned 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 
+### Separate predictive fidelity, controllability, and decision utility when positioning world models.
+
+`wm.sentence-pattern.related-work-generation-control.001` · sentence_pattern · world_models · related_work
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+A Related Work organizer for distinguishing models that forecast observations from models that are action-controllable or validated through downstream decisions.
+
+**Use:** Verify each paper on the named axis and avoid inferring decision utility from media quality.
+
+**Avoid:** Do not collapse pixel prediction, occupancy forecasting, latent control models, and learned simulators into an undifferentiated list.
+
+**Patterns:**
+
+- Prior world models emphasize {prediction target}; among them, {family} additionally conditions on {control}, whereas {family} is evaluated through {decision use}.
+
 ### World-model methods can be organized by {representation}, {training objective}, and {decision mechanism}.
 
 `wm.sentence-pattern.related-work.001` · sentence_pattern · world_models · related_work
@@ -293,6 +393,27 @@ Provides a technical-axis structure for a world-model related-work paragraph.
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `hansen2024tdmpc2` — [TD-MPC2: Scalable, Robust World Models for Continuous Control](https://proceedings.iclr.cc/paper_files/paper/2024/hash/cf73d57b6dcda32b293df7c2d5341f49-Abstract-Conference.html) (ICLR 2024)
+
+### 3D scene memory
+
+`emb.term.3d-scene-memory.001` · term · embodied_ai, world_models · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A persistent spatial representation that aggregates observations into a three-dimensional memory for embodied exploration, grounding, or reasoning.
+
+**Use:** Specify coordinate frame, stored features, update rule, memory lifetime, and how queries access the memory.
+
+**Avoid:** Do not use the term for a single-frame 3D feature tensor that is not maintained across interaction.
+
+**Patterns:**
+
+- The agent updates a 3D scene memory with {features} in {coordinate frame} and queries it for {task}.
+
+**Verify in primary sources:**
+
+- `yang2025-3d-mem-3d-scene` — [3D-Mem: 3D Scene Memory for Embodied Exploration and Reasoning](https://openaccess.thecvf.com/content/CVPR2025/html/Yang_3D-Mem_3D_Scene_Memory_for_Embodied_Exploration_and_Reasoning_CVPR_2025_paper.html) (CVPR 2025)
+- `lin2025-bip3d-bridging-2d-images` — [BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence](https://openaccess.thecvf.com/content/CVPR2025/html/Lin_BIP3D_Bridging_2D_Images_and_3D_Perception_for_Embodied_Intelligence_CVPR_2025_paper.html) (CVPR 2025)
 
 ### bootstrapped target
 
@@ -339,6 +460,26 @@ Predictive dynamics in which future states or observations depend explicitly on 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `zhen2025embodiedworld` — [Learning 4D Embodied World Models](https://openaccess.thecvf.com/content/ICCV2025/html/Zhen_Learning_4D_Embodied_World_Models_ICCV_2025_paper.html) (ICCV 2025)
 
+### any-step dynamics model
+
+`wm.term.any-step-dynamics.001` · term · world_models · related_work, method
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+A dynamics model trained to predict transitions over variable temporal offsets rather than only a fixed one-step transition.
+
+**Use:** Specify how the prediction interval is represented, which offsets are trained, and how multi-step targets enter the loss.
+
+**Avoid:** Do not assume variable-offset prediction removes compounding error; evaluate rollout fidelity at the horizons used downstream.
+
+**Patterns:**
+
+- Conditioned on temporal offset {delta}, the dynamics model predicts the state after {delta} environment steps.
+
+**Verify in primary sources:**
+
+- `lin2025-any-step-dynamics-model` — [Any-step Dynamics Model Improves Future Predictions for Online and Offline Reinforcement Learning](https://iclr.cc/virtual/2025/poster/30099) (ICLR 2025)
+
 ### compounding model error
 
 `wm.term.compounding-model-error.001` · term · world_models, reinforcement_learning · introduction, related_work, experiments, limitations, translation
@@ -360,6 +501,27 @@ Prediction errors that accumulate as a learned model is recursively unrolled, po
 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### action-controllable generation
+
+`wm.term.controllable-generation.001` · term · world_models · method, related_work, experiments
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Generation whose predicted future changes in response to an explicit action or control sequence supplied to the model.
+
+**Use:** Demonstrate controllability by varying actions while holding context fixed and evaluate action-consistent consequences, not appearance alone.
+
+**Avoid:** Do not call text- or context-conditioned generation action-controllable when no agent control enters the dynamics.
+
+**Patterns:**
+
+- Holding the initial context fixed, we vary {action sequence} to evaluate whether the generated futures reflect the commanded behavior.
+
+**Verify in primary sources:**
+
+- `zhu2025-irasim-fine-grained-world` — [IRASim: A Fine-Grained World Model for Robot Manipulation](https://openaccess.thecvf.com/content/ICCV2025/html/Zhu_IRASim_A_Fine-Grained_World_Model_for_Robot_Manipulation_ICCV_2025_paper.html) (ICCV 2025)
+- `bar2025-navigation-world-models` — [Navigation World Models](https://openaccess.thecvf.com/content/CVPR2025/html/Bar_Navigation_World_Models_CVPR_2025_paper.html) (CVPR 2025)
 
 ### discrete latent representation
 
@@ -685,6 +847,27 @@ Aleatoric uncertainty describes conditional variability that remains even with c
 **Verify in primary sources:**
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+
+### evaluate multi-step consistency separately from one-step prediction
+
+`wm.usage-note.multistep-consistency.001` · usage_note · world_models · method, experiments, limitations
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+One-step loss measures local transition fit, whereas multi-step consistency tests whether iterated or direct predictions remain coherent over decision-relevant horizons.
+
+**Use:** Report horizon-conditioned errors or task outcomes and distinguish teacher-forced, open-loop, and replanned predictions.
+
+**Avoid:** Do not use a low one-step reconstruction loss as sufficient evidence of long-horizon planning fidelity.
+
+**Patterns:**
+
+- We evaluate one-step prediction under {protocol} and multi-step consistency over {horizons} under {rollout mode}.
+
+**Verify in primary sources:**
+
+- `lin2025-any-step-dynamics-model` — [Any-step Dynamics Model Improves Future Predictions for Online and Offline Reinforcement Learning](https://iclr.cc/virtual/2025/poster/30099) (ICLR 2025)
+- `ma2024-do-transformer-world-models` — [Do Transformer World Models Give Better Policy Gradients?](https://proceedings.mlr.press/v235/ma24i.html) (ICML 2024)
 
 ### one-step accuracy does not by itself establish long-horizon fidelity
 

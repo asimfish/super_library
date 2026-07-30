@@ -6,15 +6,16 @@ translation, rebuttal, terminology, definitions, or related work.
 ## Required workflow
 
 1. Read `skills/super-library/SKILL.md`.
-2. Classify the task by `domain`, `section`, communicative `intent`, and evidence
-   boundary using `library/taxonomy.json`.
+2. Classify the task by `domain`, optional `topic`, `section`, communicative
+   `intent`, and evidence boundary using `library/taxonomy.json` and
+   `library/topics.json`.
 3. Retrieve before drafting. Prefer one bounded two-pass bundle:
 
    ```bash
    python3 scripts/superlib.py bundle \
      --rhetoric-query "<communicative need>" \
      --technical-query "<technical concept>" \
-     --domain <domain> --section <section> --intent <intent> \
+     --domain <domain> [--topic <topic>] --section <section> --intent <intent> \
      --limit 4 --max-chars 24000
    ```
 
@@ -38,7 +39,9 @@ translation, rebuttal, terminology, definitions, or related work.
    not evidence. Never invent a citation, result, comparison, or venue.
 
 If the CLI is unavailable, read `dist/agent-index.md`, then `dist/core.md`, at
-most one section catalog and one domain catalog, and 3–8 selected cards.
+most one section catalog, one domain hub, one topic catalog, and 3–8 selected
+cards. Do not load paper evidence maps unless a literature claim needs source
+verification.
 
 ## Writing constraints
 

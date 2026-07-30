@@ -1,14 +1,15 @@
 # Super Library agent index
 
-Corpus `0.2.0` · contract `2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · contract `3.0` · snapshot `2026-07-30`.
 
 This is the default link-only entrypoint. Do not load the full corpus.
 
 ## Load order
 
-1. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) once.
-2. Read one section catalog for rhetorical needs and one domain catalog for
-   technical terminology. Catalogs contain only labels and links.
+1. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) once.
+2. Read one section catalog for rhetoric and one small domain hub for
+   terminology; then follow at most one topic catalog. Indexes contain only
+   labels and links.
 3. Open 3–8 entry cards that match the task. A card contains the full meaning,
    use boundary, avoid note, patterns, and primary-source links.
 4. Draft, then audit facts, numbers, negation, modality, comparison scope,
@@ -19,30 +20,35 @@ scientific evidence. Verify primary papers for literature claims.
 
 ## Section catalogs
 
-- [title](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/title.md)
-- [abstract](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/abstract.md)
-- [introduction](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/introduction.md)
-- [related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/related_work.md)
-- [method](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/method.md)
-- [experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/experiments.md)
-- [limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/limitations.md)
-- [conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/conclusion.md)
-- [rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/rebuttal.md)
-- [translation](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/translation.md)
+- [title](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/title.md)
+- [abstract](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/abstract.md)
+- [introduction](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/introduction.md)
+- [related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/related_work.md)
+- [method](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/method.md)
+- [experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/experiments.md)
+- [limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/limitations.md)
+- [conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/conclusion.md)
+- [rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/rebuttal.md)
+- [translation](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/translation.md)
 
 ## Domain catalogs
 
-- [general](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/general.md)
-- [world_models](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/world_models.md)
-- [reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/reinforcement_learning.md)
-- [embodied_ai](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/embodied_ai.md)
-- [robot_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/robot_learning.md)
+- [general](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/general.md)
+- [world_models](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/world_models.md)
+- [reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/reinforcement_learning.md)
+- [embodied_ai](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/embodied_ai.md)
+- [robot_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/robot_learning.md)
+- [vision_language_action](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/vision_language_action.md)
+
+Domain pages are hubs. Follow one topic link instead of loading every
+technical card in a domain. Paper evidence maps are outside the default
+path and should be opened only to verify a literature claim.
 
 ## Machine and local routes
 
-- [Machine router](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/router.json)
-- [Thin JSONL catalog](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalog.jsonl)
-- [Release manifest and checksums](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/manifest.json)
+- [Machine router](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/router.json)
+- [Thin JSONL catalog](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalog.jsonl)
+- [Release manifest and checksums](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/manifest.json)
 
 With a checkout, avoid loading generated files and retrieve a bounded
 bundle directly:
@@ -56,7 +62,7 @@ python3 scripts/superlib.py bundle \
   --domain world_models --section rebuttal --intent respond
 ```
 
-Reviewed catalog: 153 entries. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/super-library-compact.md) and full
+Reviewed catalog: 191 normalized entries backed by a 300-paper recent collection plus earlier canonical sources. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/super-library-compact.md) and full
 domain packs remain for compatibility, but they are not the default.
 A static release cannot establish what is currently latest or
 state-of-the-art.
