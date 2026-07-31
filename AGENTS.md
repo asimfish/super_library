@@ -24,8 +24,9 @@ translation, rebuttal, terminology, definitions, or related work.
    For Abstract, Introduction, or Experiments, add `--guide <guide-id>`.
    Use `route` for a small URL/path plan; it recommends one protocol from the
    query. Use `guide --list`, `guide <guide-id>`, or `show <entry-id>` for a
-   known record. Do not read every guide, `dist/index.json`, every card, the
-   legacy compact pack, or full packs.
+   known record. For a table, use `template --list` and copy exactly one matching
+   LaTeX asset. Do not read every guide, `dist/index.json`, every card, the legacy
+   compact pack, or full packs.
 4. Draft with the retrieved terminology and sentence patterns. Prefer attested
    collocations when relevant; treat original patterns as structural guardrails.
    Adapt patterns to the scientific facts; never copy placeholders or stitch
@@ -43,10 +44,13 @@ translation, rebuttal, terminology, definitions, or related work.
    primary papers listed in `source_ids`. Library entries are navigation aids,
    not evidence. Never invent a citation, result, comparison, or venue.
 
-If the CLI is unavailable, read `dist/agent-index.md`, then `dist/core.md`, at
-most one section protocol, one section catalog, one domain hub, one topic
-catalog, and 3–8 selected cards. Do not load every protocol or paper evidence
-map; open an evidence map only when a literature claim needs source verification.
+If the CLI is unavailable, read `dist/agent-index.md` and first select one
+matching file from `dist/routes/`; that one-file route is the entire language
+context for the task. If no task route matches, then read `dist/core.md`, at most
+one section protocol, one section catalog, one domain hub, one topic catalog, and
+3–8 selected cards. Do not combine a task route with the fallback path. Do not
+load every protocol or paper evidence map; open an evidence map only when a
+literature claim needs source verification.
 
 ## Writing constraints
 

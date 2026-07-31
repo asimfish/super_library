@@ -32,12 +32,16 @@ For Abstract, Introduction, or Experiments, add `--guide <guide-id>`.
 Use `route "<query>" --domain <domain> --section <section>` when card URLs or
 catalog routes are needed; it recommends one relevant protocol. Use
 `guide --list`, `guide <guide-id>`, or `show <entry-id>` for a known record.
+For an experimental table, run `template --list`, then
+`template <template-id> --output <table.tex>` and replace every `SL_*` token.
 
 ### Installed standalone skill
 
-Read `references/core.md` once. Do not read `references/index.json`; query it with
-the bundled script so only a few records enter context. Run these commands from
-the installed skill directory:
+First read `references/routes/index.md`. If one route matches the domain and
+section, read that single route and stop. Otherwise read `references/core.md`
+once. Do not read `references/index.json`; query it with the bundled script so
+only a few records enter context. Run these commands from the installed skill
+directory:
 
 ```bash
 python3 scripts/lookup.py "<rhetorical need>" \
@@ -47,17 +51,22 @@ python3 scripts/lookup.py "<technical concept or Chinese term>" \
 ```
 
 Omit `--kind` for a mix of terms and definitions. Use `--id <entry-id>` to load
-one known record. For Abstract, Introduction, or Experiments, read
-`references/guides/index.md`, then exactly one matching guide. The guide contains
-links to sentence-card IDs; retrieve only the cards needed for the current prose.
+one known record. On the fallback path, for Abstract, Introduction, or
+Experiments, read `references/guides/index.md`, then exactly one matching guide.
+The guide contains links to sentence-card IDs; retrieve only the cards needed for
+the current prose.
+For a table task, copy exactly one matching file from `assets/tables/`; do not
+load all table assets into context.
 
 ### Link-only access
 
 Open the immutable
 [`agent-index.md`](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
-Follow its order: universal core, one section catalog, one domain hub, at most one
-topic catalog, then 3–8 cards. For Abstract, Introduction, or Experiments, insert
-one task-specific guide before the catalogs.
+First check its one-file task-route index. If a route matches the domain and
+section, read that single route and stop. Otherwise follow the fallback order:
+universal core, one section catalog, one domain hub, at most one topic catalog,
+then 3–8 cards. For Abstract, Introduction, or Experiments, insert one
+task-specific guide before the catalogs.
 Do not load `index.json`, the legacy compact pack, or full domain packs by default.
 If neither local retrieval nor the index can be loaded, state that Super Library
 was not used.
@@ -80,13 +89,17 @@ was not used.
 
 ## Route by task
 
+Use these files only on the fallback path when no one-file task route matches.
+
 - Read [paper.md](references/paper.md) for paper sections and Related Work.
 - Read [guides/abstract.md](references/guides/abstract.md) for an Abstract.
 - Read [guides/introduction.md](references/guides/introduction.md) for an
   Introduction.
 - Read [guides/experiments.md](references/guides/experiments.md) for a complete
   experiment section, or select one specialized analysis/table guide through
-  [guides/index.md](references/guides/index.md).
+  [guides/index.md](references/guides/index.md). In the complete experiment
+  protocol, apply only the matching RL, world-model, embodied/robot, or VLA
+  reporting overlay.
 - Read [rebuttal.md](references/rebuttal.md) for reviewer responses.
 - Read [translation.md](references/translation.md) for Chinese–English translation.
 - Read [evidence.md](references/evidence.md) whenever definitions, literature

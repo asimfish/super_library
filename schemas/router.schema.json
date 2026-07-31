@@ -14,6 +14,8 @@
     "core",
     "load_policy",
     "guides",
+    "task_routes",
+    "table_templates",
     "catalogs",
     "cards",
     "context_bytes",
@@ -71,6 +73,32 @@
         }
       }
     },
+    "task_routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "records"],
+      "properties": {
+        "index": {"type": "string", "enum": ["routes/index.md"]},
+        "records": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "table_templates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "records"],
+      "properties": {
+        "index": {"type": "string", "enum": ["templates/tables/index.md"]},
+        "records": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
     "catalogs": {
       "type": "object",
       "additionalProperties": false,
@@ -107,6 +135,7 @@
         "core",
         "guide_index",
         "largest_guide",
+        "largest_task_route",
         "largest_catalog",
         "largest_card",
         "average_card",
@@ -118,6 +147,7 @@
         "core": {"type": "integer", "minimum": 1},
         "guide_index": {"type": "integer", "minimum": 1},
         "largest_guide": {"type": "integer", "minimum": 1},
+        "largest_task_route": {"type": "integer", "minimum": 1, "maximum": 24000},
         "largest_catalog": {"type": "integer", "minimum": 1},
         "largest_card": {"type": "integer", "minimum": 1},
         "average_card": {"type": "integer", "minimum": 1},

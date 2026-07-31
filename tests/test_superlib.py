@@ -265,6 +265,9 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "guides" / "index.md",
             ROOT / "dist" / "guides" / "experiments.md",
             ROOT / "dist" / "guides" / "experiments.table.ablation.md",
+            ROOT / "dist" / "routes" / "experiments.world_models.md",
+            ROOT / "dist" / "routes" / "index.md",
+            ROOT / "dist" / "templates" / "tables" / "main_results.tex",
             ROOT / "dist" / "catalog.jsonl",
             ROOT / "dist" / "super-library-compact.md",
             ROOT / "dist" / "index.json",
@@ -328,6 +331,26 @@ class SuperLibraryCliTests(unittest.TestCase):
                 / generated_path.name
             )
             self.assertEqual(generated_path.read_bytes(), bundled_path.read_bytes())
+        for generated_path in (ROOT / "dist" / "routes").glob("*.md"):
+            bundled_path = (
+                ROOT
+                / "skills"
+                / "super-library"
+                / "references"
+                / "routes"
+                / generated_path.name
+            )
+            self.assertEqual(generated_path.read_bytes(), bundled_path.read_bytes())
+        for source_path in (ROOT / "templates" / "tables").glob("*.tex"):
+            bundled_path = (
+                ROOT
+                / "skills"
+                / "super-library"
+                / "assets"
+                / "tables"
+                / source_path.name
+            )
+            self.assertEqual(source_path.read_bytes(), bundled_path.read_bytes())
 
     def test_progressive_context_artifacts_stay_within_budgets(self):
         result = run_cli("build")
@@ -345,6 +368,17 @@ class SuperLibraryCliTests(unittest.TestCase):
         ]
         self.assertEqual(len(guides), 10)
         self.assertLess(max(path.stat().st_size for path in guides), 12_000)
+        routes = [
+            path
+            for path in (ROOT / "dist" / "routes").glob("*.md")
+            if path.name != "index.md"
+        ]
+        self.assertEqual(len(routes), 18)
+        self.assertLess(max(path.stat().st_size for path in routes), 24_000)
+        self.assertLess(
+            (ROOT / "dist" / "routes" / "index.md").stat().st_size,
+            6_000,
+        )
         catalogs = list((ROOT / "dist" / "catalogs").rglob("*.md"))
         self.assertTrue(catalogs)
         self.assertLess(max(path.stat().st_size for path in catalogs), 20_000)
@@ -406,6 +440,25 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(
             payload["load_order"]["guide"]["id"],
             "experiments.table.ablation",
+        )
+        self.assertIsNone(payload["load_order"]["task_pack"])
+
+    def test_route_prefers_one_file_task_pack_for_common_task(self):
+        result = run_cli(
+            "route",
+            "world model experiments",
+            "--domain",
+            "world_models",
+            "--section",
+            "experiments",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "experiments.world_models",
         )
 
     def test_bundle_is_bounded_and_contains_both_passes(self):
@@ -492,6 +545,64 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("Define the resource", guide.stdout)
         self.assertIn("quality–resource trade-off", guide.stdout)
         self.assertLess(len(guide.stdout), 12_000)
+
+    def test_experiment_guide_has_four_domain_overlays(self):
+        guide = run_cli("guide", "experiments")
+        self.assertEqual(guide.returncode, 0, guide.stderr)
+        self.assertIn("Select one domain reporting overlay", guide.stdout)
+        for label in (
+            "Reinforcement learning",
+            "World models",
+            "Embodied AI and robot learning",
+            "Vision-language-action models",
+        ):
+            self.assertIn(label, guide.stdout)
+
+    def test_experiment_task_route_embeds_only_matching_domain_overlay(self):
+        build = run_cli("build")
+        self.assertEqual(build.returncode, 0, build.stderr)
+        text = (ROOT / "dist" / "routes" / "experiments.embodied_ai.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("### Embodied AI and robot learning", text)
+        self.assertNotIn("### Reinforcement learning", text)
+        self.assertNotIn("### World models", text)
+        self.assertNotIn("### Vision-language-action models", text)
+        bundle = run_cli(
+            "bundle",
+            "--rhetoric-query",
+            "describe real-robot evaluation",
+            "--technical-query",
+            "task success rate",
+            "--domain",
+            "embodied_ai",
+            "--section",
+            "experiments",
+            "--intent",
+            "evidence",
+            "--guide",
+            "experiments",
+        )
+        self.assertEqual(bundle.returncode, 0, bundle.stderr)
+        self.assertIn("### Embodied AI and robot learning", bundle.stdout)
+        self.assertNotIn("### Reinforcement learning", bundle.stdout)
+
+    def test_table_assets_are_copyable_and_auditable(self):
+        listing = run_cli("template", "--list", "--format", "json")
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        self.assertEqual(len(json.loads(listing.stdout)), 5)
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "efficiency.tex"
+            copied = run_cli("template", "efficiency", "--output", str(output))
+            self.assertEqual(copied.returncode, 0, copied.stderr)
+            text = output.read_text(encoding="utf-8")
+            self.assertIn("SL_HARDWARE", text)
+            self.assertIn("\\toprule", text)
+            refused = run_cli("template", "efficiency", "--output", str(output))
+            self.assertEqual(refused.returncode, 2)
+            audit = run_cli("audit", "--text-file", str(output), "--format", "json")
+            rules = {finding["rule"] for finding in json.loads(audit.stdout)}
+            self.assertEqual(rules, {"unresolved-table-token"})
 
     def test_catalogs_are_thin_and_cards_are_complete(self):
         result = run_cli("build")
@@ -671,6 +782,16 @@ class SuperLibraryCliTests(unittest.TestCase):
             self.assertTrue(set(case["expected_retrieval_ids"]).issubset(known_ids))
             if "expected_guide_id" in case:
                 self.assertIn(case["expected_guide_id"], known_guides)
+
+    def test_retrieval_eval_executes_top_k_routes(self):
+        cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())
+        self.assertGreaterEqual(len(cases), 28)
+        result = run_cli("eval-retrieval")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["cases"], len(cases))
+        self.assertEqual(payload["failed"], 0)
+        self.assertEqual(payload["pass_rate"], 1.0)
 
 
 if __name__ == "__main__":

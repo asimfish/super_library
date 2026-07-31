@@ -99,6 +99,38 @@ Use when: Experiments illustrate or stress-test a formal result.
 5. Realistic setting, if used, clearly separated from proof.
 6. Conditions where empirical behavior departs from the theory.
 
+## Select one domain reporting overlay
+
+Apply only the overlay matching the empirical domain; do not load a second protocol for these checks.
+
+### Reinforcement learning
+
+- Separate environment interactions, gradient updates, episodes, wall-clock time, replay ratio, and offline transition count; never report them as one generic sample budget.
+- Name the environment version, observation and action interfaces, horizon or termination rule, reward convention, and any score normalization reference.
+- Report evaluation episodes per seed, independent training seeds, aggregation across tasks, uncertainty, and the checkpoint-selection protocol.
+- For offline RL, describe dataset provenance, behavior-policy mixture, support or coverage diagnostics, and whether any online interaction or evaluation data informed tuning.
+
+### World models
+
+- Separate one-step prediction, multi-step open-loop rollout, closed-loop planning, and downstream policy evidence; none is a substitute for another.
+- Report prediction target, latent or observation space, action conditioning, context length, rollout horizon, replanning interval, and stochastic sampling procedure.
+- State whether planning uses ground-truth observations between decisions and whether reward, value, termination, or uncertainty heads are learned.
+- Evaluate compounding error across horizons and connect control claims to return, success, constraint, or planning metrics under a named interaction budget.
+
+### Embodied AI and robot learning
+
+- Name simulator and real-system conditions separately, including platform, sensing, workspace, control loop, safety constraints, and sim-to-real differences.
+- Define a trial, reset, intervention, timeout, partial completion, and success denominator; report per-task counts and uncertainty rather than only a pooled percentage.
+- Describe demonstrations by task, trajectory, timestep, operator, embodiment, and collection policy when these affect data comparability.
+- Make held-out objects, scenes, tasks, instructions, users, and embodiments distinct generalization axes and disclose selection on any held-out condition.
+
+### Vision-language-action models
+
+- Report pretraining and robot data mixtures, embodiment-specific heads, action representation, prediction horizon, execution horizon, and feedback or replanning interval.
+- Separate model-query latency, action-chunk generation time, effective control frequency, end-to-end task time, and hardware or precision conditions.
+- State whether evaluation is open-loop prediction, closed-loop control, simulation, or physical deployment and avoid transferring conclusions across those regimes.
+- Name instruction, object, scene, task, and embodiment splits separately; report adaptation, prompting, fine-tuning, or calibration used at evaluation time.
+
 ## Verification
 
 - Every main empirical claim has a visible row in the claim–evidence matrix.

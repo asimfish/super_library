@@ -57,6 +57,12 @@ Use when: Methods are compared across seen and one or more unseen conditions.
 - Reporting only shifted results and hiding degradation in the reference condition.
 - Tuning on the test shift while describing it as unseen.
 
+## Reusable LaTeX asset
+
+- [Generalization and robustness table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/generalization.tex) — `generalization.tex`; requires booktabs.
+- Replace every `SL_*` token. Run the wording audit afterward;
+  unresolved table tokens are reported as errors for manual repair.
+
 ## Retrieve related sentence cards only as needed
 
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — `general.usage-note.generalization-axis.001`

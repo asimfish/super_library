@@ -279,14 +279,15 @@
     }
   },
   "context_bytes": {
-    "agent_index": 4632,
+    "agent_index": 5128,
     "average_card": 2210,
     "core": 10879,
     "guide_index": 2489,
     "largest_card": 3296,
     "largest_catalog": 19264,
     "largest_evidence_map": 6436,
-    "largest_guide": 8463,
+    "largest_guide": 11269,
+    "largest_task_route": 17332,
     "legacy_compact": 58174
   },
   "contract_version": "3.0",
@@ -318,6 +319,7 @@
     "max_guides": 1,
     "order": [
       "agent-index.md",
+      "one matching one-file task route when available; stop",
       "core.md",
       "at most 1 task-specific section protocol",
       "section catalog + domain hub",
@@ -331,5 +333,38 @@
   },
   "raw_base": "https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist",
   "release_tag": "v0.3.0",
-  "schema_version": "1.0"
+  "schema_version": "1.0",
+  "table_templates": {
+    "index": "templates/tables/index.md",
+    "records": {
+      "ablation": "templates/tables/ablation.tex",
+      "efficiency": "templates/tables/efficiency.tex",
+      "generalization": "templates/tables/generalization.tex",
+      "main_results": "templates/tables/main_results.tex",
+      "sensitivity": "templates/tables/sensitivity.tex"
+    }
+  },
+  "task_routes": {
+    "index": "routes/index.md",
+    "records": {
+      "abstract.embodied_ai": "routes/abstract.embodied_ai.md",
+      "abstract.reinforcement_learning": "routes/abstract.reinforcement_learning.md",
+      "abstract.vision_language_action": "routes/abstract.vision_language_action.md",
+      "abstract.world_models": "routes/abstract.world_models.md",
+      "experiments.embodied_ai": "routes/experiments.embodied_ai.md",
+      "experiments.reinforcement_learning": "routes/experiments.reinforcement_learning.md",
+      "experiments.vision_language_action": "routes/experiments.vision_language_action.md",
+      "experiments.world_models": "routes/experiments.world_models.md",
+      "introduction.embodied_ai": "routes/introduction.embodied_ai.md",
+      "introduction.reinforcement_learning": "routes/introduction.reinforcement_learning.md",
+      "introduction.vision_language_action": "routes/introduction.vision_language_action.md",
+      "introduction.world_models": "routes/introduction.world_models.md",
+      "rebuttal.general": "routes/rebuttal.general.md",
+      "related_work.embodied_ai": "routes/related_work.embodied_ai.md",
+      "related_work.reinforcement_learning": "routes/related_work.reinforcement_learning.md",
+      "related_work.vision_language_action": "routes/related_work.vision_language_action.md",
+      "related_work.world_models": "routes/related_work.world_models.md",
+      "translation.general": "routes/translation.general.md"
+    }
+  }
 }

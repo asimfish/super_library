@@ -59,6 +59,12 @@ Use when: One ordered variable is varied.
 - Calling a three-point sweep a scaling law.
 - Hiding unstable or failed settings.
 
+## Reusable LaTeX asset
+
+- [Sensitivity, sweep, and scaling table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/sensitivity.tex) — `sensitivity.tex`; requires booktabs.
+- Replace every `SL_*` token. Run the wording audit afterward;
+  unresolved table tokens are reported as errors for manual repair.
+
 ## Retrieve related sentence cards only as needed
 
 - [Unless otherwise specified, we use {default configuration} in all experiments.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.reproducibility-default.001.md) — `general.sentence-pattern.reproducibility-default.001`

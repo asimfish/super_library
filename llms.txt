@@ -10,21 +10,23 @@ https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index
 
 Loading policy:
 1. Read agent-index.md.
-2. Read its universal core once.
-3. For Abstract, Introduction, or Experiments, read at most one protocol selected
+2. Prefer one matching route from routes/index.md. If selected, read that one
+   route and stop; do not also load the core, guide, catalogs, or cards.
+3. If no route matches, read the universal core once.
+4. For Abstract, Introduction, or Experiments, read at most one protocol selected
    through guides/index.md. Never load every protocol.
-4. Read at most one relevant section catalog, one small domain hub, and one topic
+5. Read at most one relevant section catalog, one small domain hub, and one topic
    catalog.
-5. Open only 3–8 selected entry cards. Do not open every catalog or evidence link.
-6. Do not load index.json, the legacy compact pack, or full domain packs unless
+6. Open only 3–8 selected entry cards. Do not open every catalog or evidence link.
+7. Do not load index.json, the legacy compact pack, or full domain packs unless
    selective routing is unavailable.
-7. Retrieve rhetorical moves with section/intent and technical terminology with
+8. Retrieve rhetorical moves with section/intent and technical terminology with
    domain/kind but without a section filter.
-8. Preserve facts, numbers, equations, negation, modality, citation placement,
+9. Preserve facts, numbers, equations, negation, modality, citation placement,
    comparison direction, and user constraints.
-9. Verify primary links before definitions or literature claims. The corpus is a
+10. Verify primary links before definitions or literature claims. The corpus is a
    language and discovery aid, not scientific evidence.
-10. If no corpus entrypoint can be loaded, state that Super Library was not used.
+11. If no corpus entrypoint can be loaded, state that Super Library was not used.
 
 With a checkout, use:
 python3 scripts/superlib.py bundle --rhetoric-query "<need>" \
@@ -33,6 +35,8 @@ For Abstract, Introduction, or Experiments, append --guide <guide-id>.
 
 Machine routes:
 - https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/router.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/routes/index.md
+- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/index.md
 - https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalog.jsonl
 - https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/manifest.json
 

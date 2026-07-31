@@ -58,6 +58,12 @@ Use when: Methods are compared for inference or control deployment.
 - Reporting throughput at a large batch as single-sample latency.
 - Ignoring preprocessing, communication, simulator, or action-decoding time when it dominates deployment.
 
+## Reusable LaTeX asset
+
+- [Efficiency and deployment table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/efficiency.tex) — `efficiency.tex`; requires booktabs.
+- Replace every `SL_*` token. Run the wording audit afterward;
+  unresolved table tokens are reported as errors for manual repair.
+
 ## Retrieve related sentence cards only as needed
 
 - [At a matched {budget}, {method} yields {verified comparison}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.rebuttal-matched-budget.001.md) — `general.sentence-pattern.rebuttal-matched-budget.001`

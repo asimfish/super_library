@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "templates": [
+    {
+      "id": "main_results",
+      "label": "Main-results table",
+      "guide_id": "experiments.table.main_results",
+      "file": "main_results.tex",
+      "requires": ["booktabs"]
+    },
+    {
+      "id": "ablation",
+      "label": "Ablation table",
+      "guide_id": "experiments.table.ablation",
+      "file": "ablation.tex",
+      "requires": ["booktabs"]
+    },
+    {
+      "id": "generalization",
+      "label": "Generalization and robustness table",
+      "guide_id": "experiments.table.generalization",
+      "file": "generalization.tex",
+      "requires": ["booktabs"]
+    },
+    {
+      "id": "efficiency",
+      "label": "Efficiency and deployment table",
+      "guide_id": "experiments.table.efficiency",
+      "file": "efficiency.tex",
+      "requires": ["booktabs"]
+    },
+    {
+      "id": "sensitivity",
+      "label": "Sensitivity, sweep, and scaling table",
+      "guide_id": "experiments.table.sensitivity",
+      "file": "sensitivity.tex",
+      "requires": ["booktabs"]
+    }
+  ]
+}

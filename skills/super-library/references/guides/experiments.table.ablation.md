@@ -59,6 +59,12 @@ Use when: Several discrete modules are toggled.
 - Removing multiple coupled components in one row and attributing the change to one of them.
 - Reporting only the best seed or one favorable task.
 
+## Reusable LaTeX asset
+
+- [Ablation table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/ablation.tex) — `ablation.tex`; requires booktabs.
+- Replace every `SL_*` token. Run the wording audit afterward;
+  unresolved table tokens are reported as errors for manual repair.
+
 ## Retrieve related sentence cards only as needed
 
 - [Removing {component} reduces {metric}, indicating that {bounded interpretation}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.ablation.001.md) — `general.sentence-pattern.ablation.001`

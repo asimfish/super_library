@@ -5,8 +5,10 @@ Add records to the appropriate JSONL file and run `make check`.
 `library/` is canonical. Everything under `dist/` and the generated skill
 snapshots is rebuilt; never edit those artifacts directly.
 
-Section protocols live in `library/writing_guides.json`; full-paper calibration
-metadata lives in `library/studies/`. Do not add extracted paper prose to either.
+Section protocols live in `library/writing_guides.json`; bounded fast paths live
+in `library/task_routes.json`; LaTeX asset metadata lives in
+`library/table_templates.json`; full-paper calibration metadata lives in
+`library/studies/`. Do not add extracted paper prose to any of them.
 
 ## Acceptance checklist
 
@@ -48,6 +50,7 @@ Run:
 python3 scripts/superlib.py validate
 python3 scripts/superlib.py search "<new concept>"
 python3 scripts/superlib.py route "<new concept>" --domain <domain>
+python3 scripts/superlib.py eval-retrieval
 python3 scripts/superlib.py build
 python3 -m unittest discover -s tests -v
 ```
@@ -72,3 +75,9 @@ records. Most new content should remain discoverable through catalogs and cards.
   `docs/WRITING_GUIDE_RESEARCH.md`; independently rewrite every adopted idea.
 - Preserve the context budgets: guide index below 5 KB, each guide below 12 KB,
   and exactly one recommended guide per route.
+- Keep each task route below 24,000 characters. Prefer replacing redundant entry
+  IDs over expanding a fast-path bundle indefinitely.
+- Keep LaTeX table sources generic and factual: booktabs, self-contained caption,
+  explicit metric direction, explicit missing-value semantics, no color-only
+  encoding, and only `SL_*` placeholders. Register every asset in
+  `library/table_templates.json` and test that generated copies are byte-identical.

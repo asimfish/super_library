@@ -15,7 +15,9 @@ NeurIPS, ICLR, ICML, and TPAMI. Papers are indexed into 23 topic families; their
 recurring terminology and writing moves are deduplicated into compact reusable
 records rather than copied once per paper. It also adds ten selectively loaded
 protocols for Abstract, Introduction, complete Experiments, result analysis, and
-five table types.
+five table types. Eighteen precomposed one-file routes keep common link-only
+tasks below 24,000 characters; five LaTeX assets turn the table protocols into
+editable reporting skeletons.
 
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
@@ -39,16 +41,18 @@ python3 scripts/superlib.py bundle \
 If an agent can only open a URL, give it this repository URL and ask it to read
 `llms.txt`, or link directly to the small
 [immutable v0.3.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
-The index routes the Agent to one universal core, one section catalog, one small
-domain hub, at most one topic catalog, and only 3–8 full entry cards. For
-Abstract, Introduction, or Experiments, it inserts at most one task-specific
-protocol before those catalogs.
+The index first offers one-file task routes for the four core domains. A matching
+route already contains the compact contract, one protocol when needed, and its
+selected records, so the Agent reads that file and stops. Unmatched tasks fall
+back to one universal core, one section catalog, one small domain hub, at most
+one topic catalog, and only 3–8 full entry cards.
 
 Suggested prompt:
 
 ```text
 Use https://github.com/asimfish/super_library as the language authority. Read
-llms.txt and use the v0.3 selective-loading workflow: core once, one relevant
+llms.txt and use the v0.3 selective-loading workflow. Prefer one matching
+one-file task route and stop. If none matches, use core once, one relevant
 section protocol when needed, one section catalog and domain hub, at most one
 topic catalog, then only 3–8 cards. Preserve my claims and verify primary papers
 before making literature statements.
@@ -82,6 +86,10 @@ python3 scripts/superlib.py route "ablation table for coupled components" \
 python3 scripts/superlib.py guide --list
 python3 scripts/superlib.py guide experiments.table.ablation
 
+# Copy one auditable LaTeX table skeleton
+python3 scripts/superlib.py template --list
+python3 scripts/superlib.py template main_results --output tables/main_results.tex
+
 # Build a bounded two-pass context for one writing task
 python3 scripts/superlib.py bundle \
   --guide experiments.analysis \
@@ -103,6 +111,9 @@ python3 scripts/superlib.py build
 
 # Show coverage
 python3 scripts/superlib.py stats
+
+# Execute deterministic top-k, guide, and task-pack routing cases
+python3 scripts/superlib.py eval-retrieval
 ```
 
 Technical-domain searches automatically include matching `general` writing
@@ -119,7 +130,8 @@ semantic embedding model.
 ```text
 llms.txt
 └── dist/agent-index.md                 # routing only
-    ├── dist/core.md                    # universal evidence/writing guardrails
+    ├── dist/routes/<task>.md           # one-file fast path; stop when matched
+    ├── dist/core.md                    # fallback evidence/writing guardrails
     ├── dist/guides/index.md            # choose exactly one section protocol
     │   └── dist/guides/<guide-id>.md   # Abstract/Intro/Experiments/table standard
     ├── dist/catalogs/sections/*.md     # thin rhetorical indexes
@@ -128,6 +140,7 @@ llms.txt
     └── dist/cards/<domain>/<id>.md     # one complete entry at a time
 
 dist/evidence/topics/*.md               # paper maps; verify claims only
+dist/templates/tables/*.tex             # copy one experiment-table skeleton
 
 library/                                # canonical hand-reviewed source data
 scripts/superlib.py                     # route/search/bundle/build/lint
@@ -148,6 +161,10 @@ be queried by a script, not pasted into an Agent.
 - `library/collections.json`: auditable paper-selection policies and minimums.
 - `library/writing_guides.json`: functional protocols for Abstract, Introduction,
   Experiments, result analysis, and common experimental table types.
+- `library/task_routes.json`: 18 precomposed routes for common domain/section
+  combinations; each rendered task pack is capped at 24,000 characters.
+- `library/table_templates.json` and `templates/tables/`: five source-controlled
+  LaTeX table assets with explicit `SL_*` replacement tokens.
 - `library/studies/section_writing_2026-07.json`: source IDs and aggregate
   structural observations from the bounded full-paper calibration study.
 - `library/taxonomy.json`: controlled domains, sections, intents, venues, and kinds.
@@ -159,6 +176,8 @@ be queried by a script, not pasted into an Agent.
 - `scripts/superlib.py`: routing, bundle generation, search, validation, build,
   statistics, and wording lint.
 - `evals/`: fresh-Agent behavioral smoke cases for paper, rebuttal, and translation.
+  `evals/retrieval.json` is executed directly to enforce top-k, guide, and
+  one-file-route behavior.
 
 Each entry distinguishes:
 

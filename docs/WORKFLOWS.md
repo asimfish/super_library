@@ -14,10 +14,13 @@
 6. Audit claim scope, comparison scope, terminology consistency, and transitions.
 
 With a checkout, `superlib.py bundle` performs both retrieval passes and enforces
-a context-character budget. With link-only access, use `agent-index.md`, the
-universal core, the `related_work` section catalog, one domain catalog, and only
-one topic catalog, and only the selected cards. Open the topic's paper evidence
-map only when a literature claim requires primary-source verification.
+a context-character budget. With link-only access, open `agent-index.md`, then
+`routes/index.md`, and load exactly one matching `routes/<task>.md` fast-path
+bundle. Stop there unless the task route says evidence verification or a missing
+concept requires deeper retrieval. If no task route matches, use the universal
+core, one section catalog, one domain hub, one topic catalog, and only the
+selected cards. Open the topic's paper evidence map only when a literature claim
+requires primary-source verification.
 
 ## Abstract, Introduction, and Experiments
 
@@ -27,7 +30,12 @@ map only when a literature claim requires primary-source verification.
   use functional moves instead of enforcing a paragraph count.
 - Experiments: build a claim–evidence matrix before prose. Use `guide experiments`
   for the full section, `guide experiments.analysis` for result paragraphs, or one
-  `experiments.table.*` guide for a table task.
+  `experiments.table.*` guide for a table task. Select exactly one domain overlay
+  inside the Experiments guide so that RL, world-model, embodied, and VLA
+  reporting requirements do not enter every task context.
+- Tables: use `template --list`, then copy one of `main_results`, `ablation`,
+  `generalization`, `efficiency`, or `sensitivity`. Replace every `SL_*` token,
+  keep metric direction and denominators explicit, and run `audit` before use.
 - Retrieve sentence cards after choosing the protocol. The protocol and cards
   solve different problems and should not be bulk-loaded together.
 

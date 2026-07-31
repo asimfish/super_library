@@ -103,5 +103,10 @@
     "id": "statistical-significance-needs-test",
     "pattern": "\\bstatistically significant(?:ly)?\\b|\\bsignificantly (?:outperform|improv|increase|decrease|reduc)",
     "message": "Name the statistical test or interval, comparison, sample unit, and correction policy when applicable; otherwise use descriptive wording."
+  },
+  {
+    "id": "unresolved-table-token",
+    "pattern": "\\bSL_[A-Z0-9_]+\\b",
+    "message": "Replace every Super Library table token with manuscript-specific content before submission."
   }
 ]
