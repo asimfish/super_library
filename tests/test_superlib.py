@@ -109,6 +109,25 @@ class SuperLibraryCliTests(unittest.TestCase):
         payload = json.loads(result.stdout)
         self.assertTrue(any("sample efficiency" in item["expression"] for item in payload))
 
+    def test_chinese_introduction_query_routes_protocol_and_cards(self):
+        result = run_cli(
+            "route",
+            "引言中把局限和设计贡献对齐",
+            "--domain",
+            "vla",
+            "--section",
+            "introduction",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["load_order"]["guide"]["id"], "introduction")
+        ids = {
+            item["id"] for item in payload["load_order"]["recommended_cards"]
+        }
+        self.assertIn("general.sentence-pattern.intro-challenge-design.001", ids)
+
     def test_significant_alias_preserves_statistical_distinction(self):
         result = run_cli("search", "显著提升", "--format", "json")
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -197,6 +216,22 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("prove-effectiveness", rules)
         self.assertIn("plural-performance", rules)
 
+    def test_audit_flags_ambiguous_experimental_reporting(self):
+        result = run_cli(
+            "audit",
+            "--text",
+            "Extensive experiments demonstrate that accuracy improves by 10%. "
+            "Results are averaged over multiple seeds.",
+            "--format",
+            "json",
+            "--strict",
+        )
+        self.assertEqual(result.returncode, 1)
+        rules = {finding["rule"] for finding in json.loads(result.stdout)}
+        self.assertIn("extensive-experiments", rules)
+        self.assertIn("ambiguous-percent-improvement", rules)
+        self.assertIn("unspecified-multiple-runs", rules)
+
     def test_audit_checks_bib_keys_when_requested(self):
         with tempfile.TemporaryDirectory() as directory:
             bib = Path(directory) / "refs.bib"
@@ -227,6 +262,12 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "agent-index.md",
             ROOT / "dist" / "core.md",
             ROOT / "dist" / "router.json",
+            ROOT / "dist" / "guides" / "index.md",
+            ROOT / "dist" / "guides" / "experiments.md",
+            ROOT / "dist" / "guides" / "experiments.table.ablation.md",
+            ROOT / "dist" / "routes" / "experiments.world_models.md",
+            ROOT / "dist" / "routes" / "index.md",
+            ROOT / "dist" / "templates" / "tables" / "main_results.tex",
             ROOT / "dist" / "catalog.jsonl",
             ROOT / "dist" / "super-library-compact.md",
             ROOT / "dist" / "index.json",
@@ -249,6 +290,12 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "skills" / "super-library" / "references" / "core.md",
             ROOT / "skills" / "super-library" / "references" / "index.json",
             ROOT / "skills" / "super-library" / "references" / "router.json",
+            ROOT
+            / "skills"
+            / "super-library"
+            / "references"
+            / "guides"
+            / "experiments.md",
         ]
         before = [path.read_bytes() for path in paths]
         second = run_cli("build")
@@ -260,8 +307,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         manifest = json.loads((ROOT / "dist" / "manifest.json").read_text())
-        self.assertEqual(manifest["corpus_version"], "0.2.0")
-        self.assertEqual(manifest["release_tag"], "v0.2.0")
+        self.assertEqual(manifest["corpus_version"], "0.3.0")
+        self.assertEqual(manifest["release_tag"], "v0.3.0")
         self.assertEqual(manifest["data_license"], "CC0-1.0")
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
@@ -274,6 +321,36 @@ class SuperLibraryCliTests(unittest.TestCase):
                 ROOT / "skills" / "super-library" / "references" / name
             ).read_bytes()
             self.assertEqual(generated, bundled)
+        for generated_path in (ROOT / "dist" / "guides").glob("*.md"):
+            bundled_path = (
+                ROOT
+                / "skills"
+                / "super-library"
+                / "references"
+                / "guides"
+                / generated_path.name
+            )
+            self.assertEqual(generated_path.read_bytes(), bundled_path.read_bytes())
+        for generated_path in (ROOT / "dist" / "routes").glob("*.md"):
+            bundled_path = (
+                ROOT
+                / "skills"
+                / "super-library"
+                / "references"
+                / "routes"
+                / generated_path.name
+            )
+            self.assertEqual(generated_path.read_bytes(), bundled_path.read_bytes())
+        for source_path in (ROOT / "templates" / "tables").glob("*.tex"):
+            bundled_path = (
+                ROOT
+                / "skills"
+                / "super-library"
+                / "assets"
+                / "tables"
+                / source_path.name
+            )
+            self.assertEqual(source_path.read_bytes(), bundled_path.read_bytes())
 
     def test_progressive_context_artifacts_stay_within_budgets(self):
         result = run_cli("build")
@@ -282,6 +359,26 @@ class SuperLibraryCliTests(unittest.TestCase):
         core = ROOT / "dist" / "core.md"
         self.assertLess(agent_index.stat().st_size, 8_000)
         self.assertLess(core.stat().st_size, 13_000)
+        guide_index = ROOT / "dist" / "guides" / "index.md"
+        self.assertLess(guide_index.stat().st_size, 5_000)
+        guides = [
+            path
+            for path in (ROOT / "dist" / "guides").glob("*.md")
+            if path.name != "index.md"
+        ]
+        self.assertEqual(len(guides), 10)
+        self.assertLess(max(path.stat().st_size for path in guides), 12_000)
+        routes = [
+            path
+            for path in (ROOT / "dist" / "routes").glob("*.md")
+            if path.name != "index.md"
+        ]
+        self.assertEqual(len(routes), 18)
+        self.assertLess(max(path.stat().st_size for path in routes), 24_000)
+        self.assertLess(
+            (ROOT / "dist" / "routes" / "index.md").stat().st_size,
+            6_000,
+        )
         catalogs = list((ROOT / "dist" / "catalogs").rglob("*.md"))
         self.assertTrue(catalogs)
         self.assertLess(max(path.stat().st_size for path in catalogs), 20_000)
@@ -326,6 +423,43 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         self.assertEqual(result.returncode, 2)
         self.assertIn("at most one --domain catalog", result.stderr)
+
+    def test_route_recommends_one_specialized_experiment_guide(self):
+        result = run_cli(
+            "route",
+            "ablation table for coupled components",
+            "--domain",
+            "world_models",
+            "--section",
+            "experiments",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(
+            payload["load_order"]["guide"]["id"],
+            "experiments.table.ablation",
+        )
+        self.assertIsNone(payload["load_order"]["task_pack"])
+
+    def test_route_prefers_one_file_task_pack_for_common_task(self):
+        result = run_cli(
+            "route",
+            "world model experiments",
+            "--domain",
+            "world_models",
+            "--section",
+            "experiments",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "experiments.world_models",
+        )
 
     def test_bundle_is_bounded_and_contains_both_passes(self):
         result = run_cli(
@@ -380,11 +514,101 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertLessEqual(len(result.stdout), 6000)
 
+    def test_bundle_can_embed_exactly_one_section_protocol(self):
+        result = run_cli(
+            "bundle",
+            "--guide",
+            "experiments.analysis",
+            "--rhetoric-query",
+            "quantify results and acknowledge exceptions",
+            "--section",
+            "experiments",
+            "--intent",
+            "evidence",
+            "--limit",
+            "2",
+            "--max-chars",
+            "12000",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Task-specific protocol: Experimental analysis", result.stdout)
+        self.assertIn("Retrieved IDs:", result.stdout)
+        self.assertLessEqual(len(result.stdout), 12000)
+
+    def test_guide_command_is_bounded_and_section_specific(self):
+        listing = run_cli("guide", "--list", "--format", "json")
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        payload = json.loads(listing.stdout)
+        self.assertEqual(len(payload), 10)
+        guide = run_cli("guide", "experiments.table.efficiency")
+        self.assertEqual(guide.returncode, 0, guide.stderr)
+        self.assertIn("Define the resource", guide.stdout)
+        self.assertIn("quality–resource trade-off", guide.stdout)
+        self.assertLess(len(guide.stdout), 12_000)
+
+    def test_experiment_guide_has_four_domain_overlays(self):
+        guide = run_cli("guide", "experiments")
+        self.assertEqual(guide.returncode, 0, guide.stderr)
+        self.assertIn("Select one domain reporting overlay", guide.stdout)
+        for label in (
+            "Reinforcement learning",
+            "World models",
+            "Embodied AI and robot learning",
+            "Vision-language-action models",
+        ):
+            self.assertIn(label, guide.stdout)
+
+    def test_experiment_task_route_embeds_only_matching_domain_overlay(self):
+        build = run_cli("build")
+        self.assertEqual(build.returncode, 0, build.stderr)
+        text = (ROOT / "dist" / "routes" / "experiments.embodied_ai.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("### Embodied AI and robot learning", text)
+        self.assertNotIn("### Reinforcement learning", text)
+        self.assertNotIn("### World models", text)
+        self.assertNotIn("### Vision-language-action models", text)
+        bundle = run_cli(
+            "bundle",
+            "--rhetoric-query",
+            "describe real-robot evaluation",
+            "--technical-query",
+            "task success rate",
+            "--domain",
+            "embodied_ai",
+            "--section",
+            "experiments",
+            "--intent",
+            "evidence",
+            "--guide",
+            "experiments",
+        )
+        self.assertEqual(bundle.returncode, 0, bundle.stderr)
+        self.assertIn("### Embodied AI and robot learning", bundle.stdout)
+        self.assertNotIn("### Reinforcement learning", bundle.stdout)
+
+    def test_table_assets_are_copyable_and_auditable(self):
+        listing = run_cli("template", "--list", "--format", "json")
+        self.assertEqual(listing.returncode, 0, listing.stderr)
+        self.assertEqual(len(json.loads(listing.stdout)), 5)
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "efficiency.tex"
+            copied = run_cli("template", "efficiency", "--output", str(output))
+            self.assertEqual(copied.returncode, 0, copied.stderr)
+            text = output.read_text(encoding="utf-8")
+            self.assertIn("SL_HARDWARE", text)
+            self.assertIn("\\toprule", text)
+            refused = run_cli("template", "efficiency", "--output", str(output))
+            self.assertEqual(refused.returncode, 2)
+            audit = run_cli("audit", "--text-file", str(output), "--format", "json")
+            rules = {finding["rule"] for finding in json.loads(audit.stdout)}
+            self.assertEqual(rules, {"unresolved-table-token"})
+
     def test_catalogs_are_thin_and_cards_are_complete(self):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         catalog = (
-            ROOT / "dist" / "catalogs" / "domains" / "world_models.md"
+            ROOT / "dist" / "catalogs" / "topics" / "world_model_general.md"
         ).read_text(encoding="utf-8")
         self.assertIn("wm.definition.world-model.001", catalog)
         self.assertNotIn("**Use:**", catalog)
@@ -398,6 +622,57 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("**Use:**", card)
         self.assertIn("**Avoid:**", card)
         self.assertIn("Verify in primary sources", card)
+
+    def test_recent_five_year_collection_contract(self):
+        _, sources, _ = superlib.load_corpus()
+        recent = [
+            source
+            for source in sources
+            if "recent-five-year-core" in source.get("collections", [])
+        ]
+        self.assertEqual(len(recent), 300)
+        self.assertEqual({source["year"] for source in recent}, set(range(2021, 2026)))
+        self.assertEqual(
+            {source["venue"] for source in recent},
+            {"CVPR", "ECCV", "ICCV", "NeurIPS", "ICLR", "ICML", "TPAMI"},
+        )
+        self.assertTrue(all(source.get("topic_families") for source in recent))
+
+    def test_section_writing_study_is_bounded_and_balanced(self):
+        _, sources, _ = superlib.load_corpus()
+        _, study = superlib.load_writing_guides()
+        self.assertEqual(study["counts"]["full_papers"], 40)
+        self.assertEqual(len(study["sample_source_ids"]), 40)
+        self.assertEqual(
+            study["counts"]["by_domain"],
+            {
+                "embodied_ai": 10,
+                "reinforcement_learning": 10,
+                "vision_language_action": 10,
+                "world_models": 10,
+            },
+        )
+        known = {source["id"] for source in sources}
+        self.assertTrue(set(study["sample_source_ids"]).issubset(known))
+
+    def test_topic_route_is_bounded(self):
+        result = run_cli(
+            "route",
+            "action tokenization",
+            "--domain",
+            "vla",
+            "--topic",
+            "action_representation",
+            "--section",
+            "related_work",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        catalogs = payload["load_order"]["catalogs"]
+        self.assertEqual([item["type"] for item in catalogs], ["section", "domain", "topic"])
+        self.assertLessEqual(len(payload["load_order"]["recommended_cards"]), 8)
 
     def test_standalone_skill_lookup_is_bounded(self):
         result = subprocess.run(
@@ -469,6 +744,19 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("expected object", joined)
         self.assertIn("silver entries must have status=source_checked", joined)
 
+    def test_writing_guide_business_rules_are_enforced(self):
+        taxonomy, sources, entries = superlib.load_corpus()
+        guide_config, study = superlib.load_writing_guides()
+        bad_guides = copy.deepcopy(guide_config)
+        bad_guides["guides"][0]["related_entry_ids"].append("missing.entry.001")
+        original_loader = superlib.load_writing_guides
+        try:
+            superlib.load_writing_guides = lambda: (bad_guides, study)
+            errors = superlib.validate_writing_guides(taxonomy, sources, entries)
+        finally:
+            superlib.load_writing_guides = original_loader
+        self.assertTrue(any("unknown related_entry_ids" in item for item in errors))
+
     def test_unsafe_agent_markup_is_rejected(self):
         taxonomy, sources, entries = superlib.load_corpus()
         bad_entries = copy.deepcopy(entries)
@@ -484,12 +772,26 @@ class SuperLibraryCliTests(unittest.TestCase):
 
     def test_smoke_evals_reference_real_entries(self):
         _, _, entries = superlib.load_corpus()
+        guide_config, _ = superlib.load_writing_guides()
         known_ids = {entry["id"] for entry in entries}
+        known_guides = {guide["id"] for guide in guide_config["guides"]}
         cases = json.loads((ROOT / "evals" / "smoke.json").read_text())
         self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
         for case in cases:
             self.assertTrue(case["invariants"])
             self.assertTrue(set(case["expected_retrieval_ids"]).issubset(known_ids))
+            if "expected_guide_id" in case:
+                self.assertIn(case["expected_guide_id"], known_guides)
+
+    def test_retrieval_eval_executes_top_k_routes(self):
+        cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())
+        self.assertGreaterEqual(len(cases), 28)
+        result = run_cli("eval-retrieval")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["cases"], len(cases))
+        self.assertEqual(payload["failed"], 0)
+        self.assertEqual(payload["pass_rate"], 1.0)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,287 @@
+[
+  {
+    "id": "wm-latent-dynamics",
+    "query": "latent dynamics model",
+    "domain": "world_models",
+    "section": "method",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["wm.term.latent-dynamics.001"]
+  },
+  {
+    "id": "wm-probabilistic-dynamics",
+    "query": "probabilistic dynamics uncertainty",
+    "domain": "world_models",
+    "section": "method",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["wm.definition.probabilistic-dynamics.001"]
+  },
+  {
+    "id": "wm-rollout-horizon",
+    "query": "world model rollout horizon evaluation",
+    "domain": "world_models",
+    "section": "experiments",
+    "intent": "scope",
+    "limit": 6,
+    "expected_entry_ids": ["wm.usage-note.rollout-horizon.001"],
+    "expected_guide_id": "experiments",
+    "expected_task_pack_id": "experiments.world_models"
+  },
+  {
+    "id": "wm-planning-vs-generation",
+    "query": "planning versus open-loop video generation",
+    "domain": "world_models",
+    "section": "related_work",
+    "intent": "compare",
+    "limit": 6,
+    "expected_entry_ids": ["wm.usage-note.planning-vs-policy.001"],
+    "expected_task_pack_id": "related_work.world_models"
+  },
+  {
+    "id": "wm-compounding-error",
+    "query": "compounding model error",
+    "domain": "world_models",
+    "section": "limitations",
+    "intent": "limit",
+    "limit": 6,
+    "expected_entry_ids": ["wm.term.compounding-model-error.001"]
+  },
+  {
+    "id": "rl-offline-definition",
+    "query": "offline reinforcement learning definition",
+    "domain": "reinforcement_learning",
+    "section": "related_work",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["rl.definition.offline-rl.001"],
+    "expected_task_pack_id": "related_work.reinforcement_learning"
+  },
+  {
+    "id": "rl-sample-efficiency",
+    "query": "sample efficiency and interaction budget",
+    "domain": "reinforcement_learning",
+    "section": "experiments",
+    "intent": "quantify",
+    "limit": 6,
+    "expected_entry_ids": ["rl.term.sample-efficiency.001"],
+    "expected_guide_id": "experiments.table.efficiency"
+  },
+  {
+    "id": "rl-on-off-policy",
+    "query": "on-policy versus off-policy",
+    "domain": "reinforcement_learning",
+    "section": "related_work",
+    "intent": "compare",
+    "limit": 6,
+    "expected_entry_ids": ["rl.usage-note.on-off-policy.001"],
+    "expected_task_pack_id": "related_work.reinforcement_learning"
+  },
+  {
+    "id": "rl-advantage-function",
+    "query": "advantage function",
+    "domain": "reinforcement_learning",
+    "section": "method",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["rl.definition.advantage-function.001"]
+  },
+  {
+    "id": "rl-dataset-coverage",
+    "query": "offline dataset support coverage",
+    "domain": "reinforcement_learning",
+    "section": "introduction",
+    "intent": "gap",
+    "limit": 6,
+    "expected_entry_ids": ["rl.term.offline-dataset-coverage.001"],
+    "expected_guide_id": "introduction",
+    "expected_task_pack_id": "introduction.reinforcement_learning"
+  },
+  {
+    "id": "emb-action-chunking-zh",
+    "query": "动作分块和闭环反馈",
+    "domain": "embodied_ai",
+    "section": "method",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["emb.definition.action-chunking.001"]
+  },
+  {
+    "id": "emb-task-success-rate",
+    "query": "task success rate and trial denominator",
+    "domain": "embodied_ai",
+    "section": "experiments",
+    "intent": "evidence",
+    "limit": 6,
+    "expected_entry_ids": ["emb.term.task-success-rate.001"],
+    "expected_guide_id": "experiments",
+    "expected_task_pack_id": "experiments.embodied_ai"
+  },
+  {
+    "id": "emb-sim-to-real",
+    "query": "sim-to-real transfer",
+    "domain": "embodied_ai",
+    "section": "introduction",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["emb.definition.sim-to-real.001"],
+    "expected_guide_id": "introduction",
+    "expected_task_pack_id": "introduction.embodied_ai"
+  },
+  {
+    "id": "emb-unseen-embodiment",
+    "query": "generalization to unseen robot embodiments",
+    "domain": "embodied_ai",
+    "section": "experiments",
+    "intent": "scope",
+    "limit": 6,
+    "expected_entry_ids": ["emb.usage-note.systematic-generalization.001"],
+    "expected_guide_id": "experiments.table.generalization"
+  },
+  {
+    "id": "vla-definition",
+    "query": "vision language action model definition",
+    "domain": "vision_language_action",
+    "section": "related_work",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["emb.definition.vla.001"],
+    "expected_task_pack_id": "related_work.vision_language_action"
+  },
+  {
+    "id": "vla-control-latency",
+    "query": "control latency and inference efficiency",
+    "domain": "vision_language_action",
+    "section": "experiments",
+    "intent": "quantify",
+    "limit": 6,
+    "expected_entry_ids": ["vla.usage-note.control-latency.001"],
+    "expected_guide_id": "experiments.table.efficiency"
+  },
+  {
+    "id": "vla-action-vocabulary",
+    "query": "action token vocabulary",
+    "domain": "vision_language_action",
+    "section": "method",
+    "intent": "define",
+    "limit": 6,
+    "expected_entry_ids": ["vla.term.action-vocabulary.001"]
+  },
+  {
+    "id": "vla-open-closed-loop",
+    "query": "open-loop versus closed-loop control",
+    "domain": "vision_language_action",
+    "section": "experiments",
+    "intent": "compare",
+    "limit": 6,
+    "expected_entry_ids": ["vla.usage-note.open-closed-loop.001"],
+    "expected_guide_id": "experiments",
+    "expected_task_pack_id": "experiments.vision_language_action"
+  },
+  {
+    "id": "vla-pretrain-finetune",
+    "query": "pretraining and robot fine-tuning",
+    "domain": "vision_language_action",
+    "section": "related_work",
+    "intent": "compare",
+    "limit": 6,
+    "expected_entry_ids": ["vla.usage-note.pretrain-finetune.001"],
+    "expected_task_pack_id": "related_work.vision_language_action"
+  },
+  {
+    "id": "rebuttal-existing-evidence",
+    "query": "answer reviewer concern with existing evidence",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "respond",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.rebuttal-answer.001",
+      "general.sentence-pattern.rebuttal-evidence.001"
+    ],
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "rebuttal-significance",
+    "query": "statistically significant reviewer response",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "clarify",
+    "limit": 6,
+    "expected_entry_ids": ["general.usage-note.significant.001"],
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "abstract-scope",
+    "query": "abstract results and evaluation scope",
+    "domain": "embodied_ai",
+    "section": "abstract",
+    "intent": "scope",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.abstract-scope.001"],
+    "expected_guide_id": "abstract",
+    "expected_task_pack_id": "abstract.embodied_ai"
+  },
+  {
+    "id": "introduction-assumption",
+    "query": "restrictive assumption and design response",
+    "domain": "world_models",
+    "section": "introduction",
+    "intent": "gap",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.intro-restrictive-assumption.001"],
+    "expected_guide_id": "introduction",
+    "expected_task_pack_id": "introduction.world_models"
+  },
+  {
+    "id": "experiment-result-tradeoff",
+    "query": "analyze results and report quality latency trade-off",
+    "domain": "general",
+    "section": "experiments",
+    "intent": "compare",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.result-tradeoff.001"],
+    "expected_guide_id": "experiments.table.efficiency"
+  },
+  {
+    "id": "experiment-ablation-table",
+    "query": "ablation table for coupled components",
+    "domain": "world_models",
+    "section": "experiments",
+    "intent": "evidence",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.ablation-interaction.001"],
+    "expected_guide_id": "experiments.table.ablation"
+  },
+  {
+    "id": "experiment-real-robot",
+    "query": "real robot trials success criterion and reset protocol",
+    "domain": "embodied_ai",
+    "section": "experiments",
+    "intent": "describe",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.real-system-trials.001"],
+    "expected_guide_id": "experiments",
+    "expected_task_pack_id": "experiments.embodied_ai"
+  },
+  {
+    "id": "translation-modality",
+    "query": "translate possibility without inflating causality",
+    "domain": "general",
+    "section": "translation",
+    "intent": "clarify",
+    "limit": 6,
+    "expected_entry_ids": ["general.usage-note.modality.001"],
+    "expected_task_pack_id": "translation.general"
+  },
+  {
+    "id": "related-work-position-vla",
+    "query": "position VLA methods by technical axes",
+    "domain": "vision_language_action",
+    "section": "related_work",
+    "intent": "position",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.position.001"],
+    "expected_task_pack_id": "related_work.vision_language_action"
+  }
+]

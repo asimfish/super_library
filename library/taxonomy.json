@@ -1,15 +1,16 @@
 {
   "schema_version": "1.0",
-  "corpus_version": "0.2.0",
-  "contract_version": "2.0",
+  "corpus_version": "0.3.0",
+  "contract_version": "3.0",
   "as_of": "2026-07-30",
-  "release_tag": "v0.2.0",
+  "release_tag": "v0.3.0",
   "domains": [
     "general",
     "world_models",
     "reinforcement_learning",
     "embodied_ai",
-    "robot_learning"
+    "robot_learning",
+    "vision_language_action"
   ],
   "sections": [
     "title",
@@ -50,6 +51,31 @@
     "usage_note",
     "anti_pattern"
   ],
+  "topic_families": [
+    "action_representation",
+    "dynamics_representation",
+    "egocentric_3d_grounding",
+    "embodied_navigation",
+    "embodied_reasoning_agents",
+    "exploration_skills_goals",
+    "imitation_sequence",
+    "language_conditioned_control",
+    "locomotion_dexterity",
+    "model_based_rl",
+    "multi_agent_rl",
+    "offline_rl",
+    "planning_imagination",
+    "policy_optimization",
+    "rl_theory_evaluation",
+    "robot_foundation",
+    "robot_manipulation",
+    "safe_robust_rl",
+    "sim_to_real_robot_learning",
+    "value_learning",
+    "video_occupancy_world_models",
+    "vla_models",
+    "world_model_general"
+  ],
   "venues": [
     "ICLR",
     "ICML",
@@ -85,7 +111,10 @@
       "embodied-ai": "embodied_ai",
       "具身智能": "embodied_ai",
       "robotics": "robot_learning",
-      "机器人学习": "robot_learning"
+      "机器人学习": "robot_learning",
+      "vla": "vision_language_action",
+      "vision-language-action": "vision_language_action",
+      "视觉-语言-动作": "vision_language_action"
     },
     "section": {
       "related-work": "related_work",
@@ -106,6 +135,15 @@
       "NIPS": "NeurIPS",
       "neurips": "NeurIPS",
       "tpami": "TPAMI"
+    },
+    "topic": {
+      "vla": "vla_models",
+      "vision-language-action": "vla_models",
+      "世界模型": "world_model_general",
+      "具身导航": "embodied_navigation",
+      "离线强化学习": "offline_rl",
+      "多智能体强化学习": "multi_agent_rl",
+      "机器人操作": "robot_manipulation"
     }
   }
 }

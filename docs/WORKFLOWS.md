@@ -3,17 +3,41 @@
 ## Paper or related work
 
 1. Extract propositions, entities, comparison axes, and uncertainty from the notes.
-2. Retrieve rhetorical moves by section and intent, then retrieve technical terms
-   and definitions by domain without a section filter.
-3. Use definitions as semantic atoms; synthesize a new sentence for the local
+2. For Abstract, Introduction, or Experiments, use `route` to select exactly one
+   section protocol. Do not load all guides.
+3. Retrieve rhetorical moves by section and intent, then retrieve technical terms
+   and definitions by domain and, when known, one topic family without a section
+   filter.
+4. Use definitions as semantic atoms; synthesize a new sentence for the local
    argument.
-4. Verify every literature relationship in the linked primary papers.
-5. Audit claim scope, comparison scope, terminology consistency, and transitions.
+5. Verify every literature relationship in the linked primary papers.
+6. Audit claim scope, comparison scope, terminology consistency, and transitions.
 
 With a checkout, `superlib.py bundle` performs both retrieval passes and enforces
-a context-character budget. With link-only access, use `agent-index.md`, the
-universal core, the `related_work` section catalog, one domain catalog, and only
-the selected cards.
+a context-character budget. With link-only access, open `agent-index.md`, then
+`routes/index.md`, and load exactly one matching `routes/<task>.md` fast-path
+bundle. Stop there unless the task route says evidence verification or a missing
+concept requires deeper retrieval. If no task route matches, use the universal
+core, one section catalog, one domain hub, one topic catalog, and only the
+selected cards. Open the topic's paper evidence map only when a literature claim
+requires primary-source verification.
+
+## Abstract, Introduction, and Experiments
+
+- Abstract: build the completed-paper claim ledger first, then select the
+  empirical, resource, or theory template from `guide abstract`.
+- Introduction: align limitation → challenge → design → contribution → evidence;
+  use functional moves instead of enforcing a paragraph count.
+- Experiments: build a claim–evidence matrix before prose. Use `guide experiments`
+  for the full section, `guide experiments.analysis` for result paragraphs, or one
+  `experiments.table.*` guide for a table task. Select exactly one domain overlay
+  inside the Experiments guide so that RL, world-model, embodied, and VLA
+  reporting requirements do not enter every task context.
+- Tables: use `template --list`, then copy one of `main_results`, `ablation`,
+  `generalization`, `efficiency`, or `sensitivity`. Replace every `SL_*` token,
+  keep metric direction and denominators explicit, and run `audit` before use.
+- Retrieve sentence cards after choosing the protocol. The protocol and cards
+  solve different problems and should not be bulk-loaded together.
 
 ## Rebuttal
 

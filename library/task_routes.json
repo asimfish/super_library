@@ -1,0 +1,303 @@
+{
+  "schema_version": "1.0",
+  "max_chars": 24000,
+  "routes": [
+    {
+      "id": "abstract.world_models",
+      "label": "World-model empirical abstract",
+      "domain": "world_models",
+      "section": "abstract",
+      "intent": "evidence",
+      "guide_id": "abstract",
+      "aliases": ["world model abstract", "世界模型摘要"],
+      "entry_ids": [
+        "general.sentence-pattern.abstract-gap.001",
+        "general.sentence-pattern.abstract-method.001",
+        "general.sentence-pattern.abstract-result.001",
+        "general.sentence-pattern.abstract-scope.001",
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ]
+    },
+    {
+      "id": "abstract.reinforcement_learning",
+      "label": "Reinforcement-learning empirical abstract",
+      "domain": "reinforcement_learning",
+      "section": "abstract",
+      "intent": "evidence",
+      "guide_id": "abstract",
+      "aliases": ["RL abstract", "强化学习摘要"],
+      "entry_ids": [
+        "general.sentence-pattern.abstract-gap.001",
+        "general.sentence-pattern.abstract-method.001",
+        "general.sentence-pattern.abstract-result.001",
+        "general.sentence-pattern.abstract-scope.001",
+        "rl.definition.reinforcement-learning.001",
+        "rl.term.sample-efficiency.001"
+      ]
+    },
+    {
+      "id": "abstract.embodied_ai",
+      "label": "Embodied-AI empirical abstract",
+      "domain": "embodied_ai",
+      "section": "abstract",
+      "intent": "evidence",
+      "guide_id": "abstract",
+      "aliases": ["embodied AI abstract", "具身智能摘要"],
+      "entry_ids": [
+        "general.sentence-pattern.abstract-gap.001",
+        "general.sentence-pattern.abstract-method.001",
+        "general.sentence-pattern.abstract-result.001",
+        "general.sentence-pattern.abstract-scope.001",
+        "emb.definition.embodied-ai.001",
+        "emb.usage-note.systematic-generalization.001"
+      ]
+    },
+    {
+      "id": "abstract.vision_language_action",
+      "label": "Vision-language-action empirical abstract",
+      "domain": "vision_language_action",
+      "section": "abstract",
+      "intent": "evidence",
+      "guide_id": "abstract",
+      "aliases": ["VLA abstract", "视觉语言动作摘要"],
+      "entry_ids": [
+        "general.sentence-pattern.abstract-gap.001",
+        "general.sentence-pattern.abstract-method.001",
+        "general.sentence-pattern.abstract-result.001",
+        "general.sentence-pattern.abstract-scope.001",
+        "emb.definition.vla.001",
+        "vla.usage-note.pretrain-finetune.001"
+      ]
+    },
+    {
+      "id": "introduction.world_models",
+      "label": "World-model limitation-to-design introduction",
+      "domain": "world_models",
+      "section": "introduction",
+      "intent": "motivate",
+      "guide_id": "introduction",
+      "aliases": ["world model introduction", "世界模型引言"],
+      "entry_ids": [
+        "general.sentence-pattern.intro-restrictive-assumption.001",
+        "general.sentence-pattern.intro-observation-design.001",
+        "general.sentence-pattern.intro-contribution-evidence.001",
+        "general.sentence-pattern.intro-nongoal.001",
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ]
+    },
+    {
+      "id": "introduction.reinforcement_learning",
+      "label": "Reinforcement-learning limitation-to-design introduction",
+      "domain": "reinforcement_learning",
+      "section": "introduction",
+      "intent": "motivate",
+      "guide_id": "introduction",
+      "aliases": ["RL introduction", "强化学习引言"],
+      "entry_ids": [
+        "general.sentence-pattern.intro-restrictive-assumption.001",
+        "general.sentence-pattern.intro-observation-design.001",
+        "general.sentence-pattern.intro-contribution-evidence.001",
+        "general.sentence-pattern.intro-nongoal.001",
+        "rl.definition.reinforcement-learning.001",
+        "rl.term.sample-efficiency.001"
+      ]
+    },
+    {
+      "id": "introduction.embodied_ai",
+      "label": "Embodied-AI limitation-to-design introduction",
+      "domain": "embodied_ai",
+      "section": "introduction",
+      "intent": "motivate",
+      "guide_id": "introduction",
+      "aliases": ["embodied AI introduction", "具身智能引言"],
+      "entry_ids": [
+        "general.sentence-pattern.intro-restrictive-assumption.001",
+        "general.sentence-pattern.intro-observation-design.001",
+        "general.sentence-pattern.intro-contribution-evidence.001",
+        "general.sentence-pattern.intro-nongoal.001",
+        "emb.definition.embodied-ai.001",
+        "emb.usage-note.systematic-generalization.001"
+      ]
+    },
+    {
+      "id": "introduction.vision_language_action",
+      "label": "Vision-language-action limitation-to-design introduction",
+      "domain": "vision_language_action",
+      "section": "introduction",
+      "intent": "motivate",
+      "guide_id": "introduction",
+      "aliases": ["VLA introduction", "视觉语言动作引言"],
+      "entry_ids": [
+        "general.sentence-pattern.intro-restrictive-assumption.001",
+        "general.sentence-pattern.intro-observation-design.001",
+        "general.sentence-pattern.intro-contribution-evidence.001",
+        "general.sentence-pattern.intro-nongoal.001",
+        "emb.definition.vla.001",
+        "vla.usage-note.pretrain-finetune.001"
+      ]
+    },
+    {
+      "id": "experiments.world_models",
+      "label": "World-model experimental protocol",
+      "domain": "world_models",
+      "section": "experiments",
+      "intent": "evidence",
+      "guide_id": "experiments",
+      "aliases": ["world model experiments", "世界模型实验"],
+      "entry_ids": [
+        "general.sentence-pattern.metric-direction-unit.001",
+        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.resource-parity.001",
+        "wm.usage-note.rollout-horizon.001",
+        "wm.usage-note.one-vs-multistep.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ]
+    },
+    {
+      "id": "experiments.reinforcement_learning",
+      "label": "Reinforcement-learning experimental protocol",
+      "domain": "reinforcement_learning",
+      "section": "experiments",
+      "intent": "evidence",
+      "guide_id": "experiments",
+      "aliases": ["RL experiments", "强化学习实验"],
+      "entry_ids": [
+        "general.sentence-pattern.metric-direction-unit.001",
+        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.resource-parity.001",
+        "rl.term.sample-efficiency.001",
+        "rl.term.offline-dataset-coverage.001",
+        "rl.usage-note.on-off-policy.001"
+      ]
+    },
+    {
+      "id": "experiments.embodied_ai",
+      "label": "Embodied-AI and real-robot experimental protocol",
+      "domain": "embodied_ai",
+      "section": "experiments",
+      "intent": "evidence",
+      "guide_id": "experiments",
+      "aliases": ["embodied experiments", "real robot experiments", "具身实验"],
+      "entry_ids": [
+        "general.sentence-pattern.real-system-trials.001",
+        "general.sentence-pattern.failure-denominator.001",
+        "general.sentence-pattern.resource-parity.001",
+        "general.sentence-pattern.metric-direction-unit.001",
+        "emb.term.task-success-rate.001",
+        "emb.usage-note.systematic-generalization.001"
+      ]
+    },
+    {
+      "id": "experiments.vision_language_action",
+      "label": "Vision-language-action experimental protocol",
+      "domain": "vision_language_action",
+      "section": "experiments",
+      "intent": "evidence",
+      "guide_id": "experiments",
+      "aliases": ["VLA experiments", "视觉语言动作实验"],
+      "entry_ids": [
+        "general.sentence-pattern.real-system-trials.001",
+        "general.sentence-pattern.resource-parity.001",
+        "general.sentence-pattern.latency-protocol.001",
+        "vla.usage-note.control-latency.001",
+        "vla.usage-note.open-closed-loop.001",
+        "emb.usage-note.chunking-feedback.001"
+      ]
+    },
+    {
+      "id": "related_work.world_models",
+      "label": "World-model Related Work positioning",
+      "domain": "world_models",
+      "section": "related_work",
+      "intent": "position",
+      "aliases": ["world model related work", "世界模型相关工作"],
+      "entry_ids": [
+        "general.sentence-pattern.position.001",
+        "general.sentence-pattern.related-family.001",
+        "general.sentence-pattern.related-synthesis.001",
+        "wm.definition.world-model.001",
+        "wm.definition.model-based-rl.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ]
+    },
+    {
+      "id": "related_work.reinforcement_learning",
+      "label": "Reinforcement-learning Related Work positioning",
+      "domain": "reinforcement_learning",
+      "section": "related_work",
+      "intent": "position",
+      "aliases": ["RL related work", "强化学习相关工作"],
+      "entry_ids": [
+        "general.sentence-pattern.position.001",
+        "general.sentence-pattern.related-family.001",
+        "general.sentence-pattern.related-synthesis.001",
+        "rl.definition.reinforcement-learning.001",
+        "rl.usage-note.on-off-policy.001",
+        "rl.usage-note.policy-evaluation-control.001"
+      ]
+    },
+    {
+      "id": "related_work.embodied_ai",
+      "label": "Embodied-AI Related Work positioning",
+      "domain": "embodied_ai",
+      "section": "related_work",
+      "intent": "position",
+      "aliases": ["embodied related work", "具身智能相关工作"],
+      "entry_ids": [
+        "general.sentence-pattern.position.001",
+        "general.sentence-pattern.related-family.001",
+        "general.sentence-pattern.related-synthesis.001",
+        "emb.definition.embodied-ai.001",
+        "emb.usage-note.systematic-generalization.001",
+        "emb.usage-note.chunking-feedback.001"
+      ]
+    },
+    {
+      "id": "related_work.vision_language_action",
+      "label": "Vision-language-action Related Work positioning",
+      "domain": "vision_language_action",
+      "section": "related_work",
+      "intent": "position",
+      "aliases": ["VLA related work", "视觉语言动作相关工作"],
+      "entry_ids": [
+        "general.sentence-pattern.position.001",
+        "general.sentence-pattern.related-family.001",
+        "general.sentence-pattern.related-synthesis.001",
+        "emb.definition.vla.001",
+        "vla.usage-note.pretrain-finetune.001",
+        "vla.usage-note.open-closed-loop.001"
+      ]
+    },
+    {
+      "id": "rebuttal.general",
+      "label": "Evidence-bounded reviewer rebuttal",
+      "domain": "general",
+      "section": "rebuttal",
+      "intent": "respond",
+      "aliases": ["reviewer rebuttal", "审稿回复"],
+      "entry_ids": [
+        "general.sentence-pattern.rebuttal-answer.001",
+        "general.sentence-pattern.rebuttal-evidence.001",
+        "general.sentence-pattern.rebuttal-revision.001",
+        "general.sentence-pattern.rebuttal-no-evidence.001",
+        "general.usage-note.significant.001"
+      ]
+    },
+    {
+      "id": "translation.general",
+      "label": "Chinese-to-English scientific translation",
+      "domain": "general",
+      "section": "translation",
+      "intent": "clarify",
+      "aliases": ["technical translation", "中英论文翻译"],
+      "entry_ids": [
+        "general.sentence-pattern.translation-preserve.001",
+        "general.usage-note.modality.001",
+        "general.usage-note.significant.001",
+        "general.usage-note.respectively.001"
+      ]
+    }
+  ]
+}

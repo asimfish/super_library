@@ -79,5 +79,97 @@
       "Do not claim open-loop execution of the entire chunk.",
       "Name language and both camera views as conditioning inputs."
     ]
+  },
+  {
+    "id": "paper-experiment-real-robot-setup",
+    "mode": "paper",
+    "request": "Write a reproducible experimental-setup paragraph for the real-robot evaluation.",
+    "facts": [
+      "There are six tasks and 20 trials per task.",
+      "A trial succeeds only if the object reaches the target region without human intervention.",
+      "All methods use the same 120 demonstrations per task.",
+      "Results report mean task success and a Wilson 95% confidence interval over trials."
+    ],
+    "expected_guide_id": "experiments",
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.real-system-trials.001",
+      "general.sentence-pattern.resource-parity.001",
+      "general.sentence-pattern.metric-direction-unit.001"
+    ],
+    "invariants": [
+      "State six tasks, 20 trials per task, and the exact success criterion.",
+      "State the matched 120-demonstration budget.",
+      "Name the Wilson 95% confidence interval and its trial denominator.",
+      "Do not invent robot hardware, control frequency, seeds, or baseline versions."
+    ]
+  },
+  {
+    "id": "paper-experiment-analysis-tradeoff",
+    "mode": "paper",
+    "request": "Analyze the main result without hiding the quality–latency trade-off.",
+    "facts": [
+      "Success increases from 62% to 70%.",
+      "Inference latency increases from 40 ms to 68 ms on the same hardware.",
+      "The gain occurs on four of six tasks; two tasks are unchanged within uncertainty.",
+      "The study does not identify which component causes the gain."
+    ],
+    "expected_guide_id": "experiments.analysis",
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.result-absolute-relative.001",
+      "general.sentence-pattern.result-tradeoff.001",
+      "general.sentence-pattern.result-consistency.001"
+    ],
+    "invariants": [
+      "Report an eight-percentage-point success gain, not an ambiguous 8% gain.",
+      "Report the latency increase under the matched hardware condition.",
+      "Retain the two unchanged tasks.",
+      "Do not attribute the gain to a component."
+    ]
+  },
+  {
+    "id": "paper-introduction-alignment",
+    "mode": "paper",
+    "request": "Draft the limitation-to-design bridge and contribution paragraph for an offline world-model paper.",
+    "facts": [
+      "Prior methods assume dense action coverage in the offline dataset.",
+      "The proposed uncertainty-aware planner avoids trajectories far from dataset support.",
+      "Experiments evaluate return and support violation rate on three offline-control benchmarks.",
+      "No real-robot or online-adaptation experiment was conducted."
+    ],
+    "expected_guide_id": "introduction",
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.intro-restrictive-assumption.001",
+      "general.sentence-pattern.intro-observation-design.001",
+      "general.sentence-pattern.intro-nongoal.001"
+    ],
+    "invariants": [
+      "Connect the dense-coverage assumption to the proposed planner.",
+      "Pair empirical contributions with return and support-violation evidence.",
+      "Limit the contribution to the three offline-control benchmarks.",
+      "Do not claim real-robot deployment or online adaptation."
+    ]
+  },
+  {
+    "id": "paper-abstract-claim-ledger",
+    "mode": "paper",
+    "request": "Draft a compact abstract from the completed paper facts.",
+    "facts": [
+      "The method improves success from 48% to 57% on unseen-object manipulation.",
+      "The difference is nine percentage points over four benchmarks.",
+      "Evaluation is simulation-only and uses five seeds.",
+      "No evidence supports unseen-embodiment transfer."
+    ],
+    "expected_guide_id": "abstract",
+    "expected_retrieval_ids": [
+      "general.sentence-pattern.abstract-result.001",
+      "general.sentence-pattern.abstract-scope.001",
+      "general.usage-note.generalization-axis.001"
+    ],
+    "invariants": [
+      "Report the nine-percentage-point change and both endpoint values.",
+      "Name unseen objects as the tested generalization axis.",
+      "State or preserve the simulation-only scope and five seeds.",
+      "Do not claim unseen-embodiment transfer."
+    ]
   }
 ]

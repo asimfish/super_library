@@ -47,6 +47,11 @@
       "uniqueItems": true,
       "items": {"type": "string"}
     },
+    "topic_families": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"}
+    },
     "provenance": {
       "enum": ["original_pattern", "attested_collocation", "terminology", "paraphrased_synthesis"]
     },

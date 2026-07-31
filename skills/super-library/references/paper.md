@@ -2,21 +2,28 @@
 
 1. Convert notes into a fact ledger: problem, assumptions, mechanism, evidence,
    scope, limitations, and allowed citations.
-2. Retrieve separately for each paragraph's domain, section, and intent.
-3. Build paragraphs around propositions:
+2. For Abstract, Introduction, or Experiments, read exactly one matching protocol
+   from `guides/index.md`; do not load all section and table guides.
+3. Retrieve separately for each paragraph's domain, section, and intent.
+4. Build paragraphs around propositions:
    - topic claim;
    - mechanism or evidence;
    - contrast or consequence;
    - scope.
-4. Organize Related Work by technical axes rather than listing papers. Useful axes
+5. Organize Related Work by technical axes rather than listing papers. Useful axes
    include representation, supervision, data regime, decision mechanism,
    interaction regime, and deployment assumptions.
-5. Use source-linked concept entries as semantic atoms. Reopen the primary papers,
+6. Use source-linked concept entries as semantic atoms. Reopen the primary papers,
    verify the relationship, and synthesize new wording for the local argument.
-6. In experiments, name the metric, baseline, budget, aggregation, and uncertainty.
-   Keep final performance, sample efficiency, compute efficiency, and robustness
-   as distinct claims.
-7. Audit each paragraph for one clear job, consistent terms, fair comparison,
+7. Before writing experiments, create a claim–evidence matrix with research
+   question, comparison axis, protocol, metric, display, and allowed
+   interpretation. Name metric direction, unit, denominator, independent runs or
+   trials, uncertainty, selection policy, baseline provenance, and material
+   budget differences. Keep final performance, sample efficiency, compute
+   efficiency, robustness, and deployment latency as distinct claims.
+8. For result paragraphs, use evidence → quantified comparison → consistency or
+   exception → calibrated interpretation → trade-off or boundary.
+9. Audit each paragraph for one clear job, consistent terms, fair comparison,
    supported causality, and conclusions bounded by the evaluated settings.
 
 Do not make venue-specific style stereotypes. Venue metadata describes where a

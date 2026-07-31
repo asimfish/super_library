@@ -13,6 +13,9 @@
     "entrypoint",
     "core",
     "load_policy",
+    "guides",
+    "task_routes",
+    "table_templates",
     "catalogs",
     "cards",
     "context_bytes",
@@ -32,14 +35,15 @@
     "load_policy": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["order", "max_catalogs", "recommended_cards", "avoid_by_default"],
+      "required": ["order", "max_guides", "max_catalogs", "recommended_cards", "avoid_by_default"],
       "properties": {
         "order": {
           "type": "array",
           "minItems": 4,
           "items": {"type": "string"}
         },
-        "max_catalogs": {"type": "integer", "minimum": 1, "maximum": 2},
+        "max_guides": {"type": "integer", "minimum": 1, "maximum": 1},
+        "max_catalogs": {"type": "integer", "minimum": 1, "maximum": 3},
         "recommended_cards": {
           "type": "object",
           "additionalProperties": false,
@@ -56,10 +60,49 @@
         }
       }
     },
+    "guides": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "records"],
+      "properties": {
+        "index": {"type": "string", "enum": ["guides/index.md"]},
+        "records": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "task_routes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "records"],
+      "properties": {
+        "index": {"type": "string", "enum": ["routes/index.md"]},
+        "records": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
+    "table_templates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "records"],
+      "properties": {
+        "index": {"type": "string", "enum": ["templates/tables/index.md"]},
+        "records": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        }
+      }
+    },
     "catalogs": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["domains", "sections", "jsonl"],
+      "required": ["domains", "sections", "topics", "jsonl"],
       "properties": {
         "domains": {
           "type": "object",
@@ -67,6 +110,11 @@
           "additionalProperties": {"type": "string"}
         },
         "sections": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": {"type": "string"}
+        },
+        "topics": {
           "type": "object",
           "minProperties": 1,
           "additionalProperties": {"type": "string"}
@@ -85,18 +133,26 @@
       "required": [
         "agent_index",
         "core",
+        "guide_index",
+        "largest_guide",
+        "largest_task_route",
         "largest_catalog",
         "largest_card",
         "average_card",
-        "legacy_compact"
+        "legacy_compact",
+        "largest_evidence_map"
       ],
       "properties": {
         "agent_index": {"type": "integer", "minimum": 1},
         "core": {"type": "integer", "minimum": 1},
+        "guide_index": {"type": "integer", "minimum": 1},
+        "largest_guide": {"type": "integer", "minimum": 1},
+        "largest_task_route": {"type": "integer", "minimum": 1, "maximum": 24000},
         "largest_catalog": {"type": "integer", "minimum": 1},
         "largest_card": {"type": "integer", "minimum": 1},
         "average_card": {"type": "integer", "minimum": 1},
-        "legacy_compact": {"type": "integer", "minimum": 1}
+        "legacy_compact": {"type": "integer", "minimum": 1},
+        "largest_evidence_map": {"type": "integer", "minimum": 1}
       }
     },
     "raw_base": {"type": "string", "pattern": "^https://"}

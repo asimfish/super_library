@@ -1,14 +1,14 @@
 # Super Library pack: embodied_ai
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### 3D vision-language-action generative world model (paper-specific usage)
 
-`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models · related_work, method, translation
+`emb.definition.3d-vla-world-model.001` · definition · embodied_ai, robot_learning, world_models, vision_language_action · related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -29,7 +29,7 @@ In 3D-VLA, a model that uses 3D scene information and language-conditioned repre
 
 ### action chunking
 
-`emb.definition.action-chunking.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.action-chunking.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -73,7 +73,7 @@ Perception in which an agent's actions influence which observations become avail
 
 ### bimanual robotic manipulation
 
-`emb.definition.bimanual-manipulation.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.bimanual-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -115,7 +115,7 @@ The application or adaptation of learned knowledge across robots or agents with 
 
 ### cross-robot data mixture
 
-`emb.definition.cross-robot-data-mixture.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.cross-robot-data-mixture.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -202,7 +202,7 @@ The study of agents that perceive and act within an environment, where their obs
 
 ### embodied multimodal language model
 
-`emb.definition.embodied-language-model.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.embodied-language-model.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -290,7 +290,7 @@ Perception that integrates information from distinct sensory modalities, such as
 
 ### multimodal task prompt
 
-`emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -308,6 +308,48 @@ A task specification composed of more than one modality, such as interleaved tex
 **Verify in primary sources:**
 
 - `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
+### object-goal navigation (ObjectNav)
+
+`emb.definition.object-goal-navigation.001` · definition · embodied_ai · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied navigation task in which an agent must reach an instance of a target object category from egocentric observations.
+
+**Use:** State target specification, sensors, environment split, success radius, stopping rule, and evaluation metrics such as success and path efficiency.
+
+**Avoid:** Do not conflate ObjectNav with point-goal navigation, where the target is a coordinate.
+
+**Patterns:**
+
+- In ObjectNav, the agent receives {target category} and must navigate to a valid instance using {observations}.
+
+**Verify in primary sources:**
+
+- `zhu2025-move-understand-3d-scene` — [Move to Understand a 3D Scene: Bridging Visual Grounding and Exploration for Efficient and Versatile Embodied Navigation](https://openaccess.thecvf.com/content/ICCV2025/html/Zhu_Move_to_Understand_a_3D_Scene_Bridging_Visual_Grounding_and_ICCV_2025_paper.html) (ICCV 2025)
+- `liu2025-citywalker-learning-embodied-urban` — [CityWalker: Learning Embodied Urban Navigation from Web-Scale Videos](https://openaccess.thecvf.com/content/CVPR2025/html/Liu_CityWalker_Learning_Embodied_Urban_Navigation_from_Web-Scale_Videos_CVPR_2025_paper.html) (CVPR 2025)
+
+### open-vocabulary manipulation
+
+`emb.definition.open-vocabulary-manipulation.001` · definition · embodied_ai, robot_learning · introduction, related_work, experiments
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Manipulation conditioned on object or task descriptions whose evaluation vocabulary is not restricted to a fixed closed set used during task-specific training.
+
+**Use:** Define the held-out unit, language source, object and task splits, perception assumptions, and any foundation-model supervision.
+
+**Avoid:** Do not claim open-vocabulary generalization when test names are new strings for training-seen objects or skills.
+
+**Patterns:**
+
+- We evaluate open-vocabulary manipulation on held-out {objects, concepts, or instructions} while holding {other axis} fixed.
+
+**Verify in primary sources:**
+
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
+- `zhang2025-vlabench-large-scale-benchmark` — [VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.html) (ICCV 2025)
 
 ### simulation-to-real (sim-to-real) transfer
 
@@ -355,7 +397,7 @@ A policy that maps visual observations, often together with proprioception or go
 
 ### vision-language-action (VLA) model
 
-`emb.definition.vla.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.definition.vla.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -397,6 +439,27 @@ A task in which an embodied agent follows a natural-language route instruction b
 
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
 
+### chain-of-affordance reasoning
+
+`vla.definition.chain-of-affordance.001` · definition · vision_language_action, embodied_ai · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An intermediate reasoning formulation that decomposes a manipulation instruction into action-relevant object, spatial, or interaction affordances before control prediction.
+
+**Use:** State the intermediate representation, its supervision, and whether it is generated explicitly at inference time.
+
+**Avoid:** Do not treat an interpretable-looking intermediate output as causal evidence that the policy used the stated reasoning process.
+
+**Patterns:**
+
+- The model predicts {affordance representation} as an intermediate target before decoding {robot action}.
+
+**Verify in primary sources:**
+
+- `li2025-coa-vla-improving-vision` — [CoA-VLA: Improving Vision-Language-Action Models via Visual-Text Chain-of-Affordance](https://openaccess.thecvf.com/content/ICCV2025/html/Li_CoA-VLA_Improving_Vision-Language-Action_Models_via_Visual-Text_Chain-of-Affordance_ICCV_2025_paper.html) (ICCV 2025)
+- `zhao2025-cot-vla-visual-chain` — [CoT-VLA: Visual Chain-of-Thought Reasoning for Vision-Language-Action Models](https://openaccess.thecvf.com/content/CVPR2025/html/Zhao_CoT-VLA_Visual_Chain-of-Thought_Reasoning_for_Vision-Language-Action_Models_CVPR_2025_paper.html) (CVPR 2025)
+
 ### embodied world model
 
 `wm.definition.embodied-world-model.001` · definition · world_models, embodied_ai, robot_learning · abstract, introduction, related_work, translation
@@ -420,6 +483,48 @@ An action-aware predictive model of how an embodied environment evolves in space
 - `zhu2025unifiedworld` — [Unified World Models: Coupling Video and Action Diffusion for Pretraining on Large Robotic Datasets](https://www.roboticsproceedings.org/rss21/p015.html) (RSS 2025)
 - `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
 
+### navigation world model
+
+`wm.definition.navigation-world-model.001` · definition · world_models, embodied_ai · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A predictive environment model specialized for forecasting navigation-relevant observations, states, or transitions under candidate agent motions.
+
+**Use:** Specify its spatial representation, action interface, prediction target, and how a planner or policy consumes predictions.
+
+**Avoid:** Do not use the label for a static map or localization model without a predictive transition component.
+
+**Patterns:**
+
+- The navigation world model predicts {navigation-relevant target} under {candidate motion} and supports {planning or policy update}.
+
+**Verify in primary sources:**
+
+- `bar2025-navigation-world-models` — [Navigation World Models](https://openaccess.thecvf.com/content/CVPR2025/html/Bar_Navigation_World_Models_CVPR_2025_paper.html) (CVPR 2025)
+- `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+
+### occupancy world model
+
+`wm.definition.occupancy-world-model.001` · definition · world_models, embodied_ai · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A world model that predicts future spatial occupancy, often together with motion or semantic attributes, rather than synthesizing only RGB observations.
+
+**Use:** Name the spatial representation, coordinate frame, temporal horizon, supervised targets, and use in planning or forecasting.
+
+**Avoid:** Do not equate occupancy accuracy with collision-free or task-success performance without downstream evaluation.
+
+**Patterns:**
+
+- The occupancy world model forecasts {spatial representation} over {horizon} and provides {downstream module} with {predicted quantity}.
+
+**Verify in primary sources:**
+
+- `feng2025-gaussian-based-world-model` — [Gaussian-based World Model: Gaussian Priors for Voxel-Based Occupancy Prediction and Future Motion Prediction](https://openaccess.thecvf.com/content/ICCV2025/html/Feng_Gaussian-based_World_Model_Gaussian_Priors_for_Voxel-Based_Occupancy_Prediction_and_ICCV_2025_paper.html) (ICCV 2025)
+- `huang2024-neural-volumetric-world-models` — [Neural Volumetric World Models for Autonomous Driving](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/2571_ECCV_2024_paper.php) (ECCV 2024)
+
 ### visual world model for embodied agents
 
 `wm.definition.visual-world-model.001` · definition · world_models, embodied_ai · introduction, related_work, translation
@@ -441,6 +546,22 @@ A predictive model that represents how an embodied agent's visual environment ma
 
 - `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
 - `zhen2025embodiedworld` — [Learning 4D Embodied World Models](https://openaccess.thecvf.com/content/ICCV2025/html/Zhen_Learning_4D_Embodied_World_Models_ICCV_2025_paper.html) (ICCV 2025)
+
+### Embodied systems should be grouped by geometry, memory, interaction, and supervision.
+
+`emb.sentence-pattern.related-work-memory-geometry.001` · sentence_pattern · embodied_ai · related_work
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+A Related Work scaffold that distinguishes representational and data assumptions instead of listing agents by publication date.
+
+**Use:** Use only axes that materially separate the cited methods and verify every assigned category.
+
+**Avoid:** Do not treat 2D versus 3D representation as the only meaningful difference when memory and interaction regimes also differ.
+
+**Patterns:**
+
+- Embodied approaches vary in their geometric representation ({geometry}), temporal memory ({memory}), interaction regime ({regime}), and supervision ({signals}).
 
 ### Embodied methods should be positioned by supervision, interaction regime, and deployment assumptions.
 
@@ -466,9 +587,47 @@ Structures embodied-AI related work around how data is obtained, whether learnin
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### Each real-system condition is evaluated in {trials} trials, with success defined as {criterion}.
+
+`general.sentence-pattern.real-system-trials.001` · sentence_pattern · general, embodied_ai, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the trial count and success criterion for a physical or deployed-system evaluation.
+
+**Use:** Also state reset procedure, intervention policy, trial independence, task allocation, and the denominator used for success rate.
+
+**Avoid:** Do not report a success percentage without the number and composition of physical trials.
+
+**Patterns:**
+
+- Each real-robot task is evaluated in {trials} trials, with success defined as {terminal condition}.
+- We conduct {number} trials per {task and object} pair and count an intervention as {outcome}.
+
+### 3D scene memory
+
+`emb.term.3d-scene-memory.001` · term · embodied_ai, world_models · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A persistent spatial representation that aggregates observations into a three-dimensional memory for embodied exploration, grounding, or reasoning.
+
+**Use:** Specify coordinate frame, stored features, update rule, memory lifetime, and how queries access the memory.
+
+**Avoid:** Do not use the term for a single-frame 3D feature tensor that is not maintained across interaction.
+
+**Patterns:**
+
+- The agent updates a 3D scene memory with {features} in {coordinate frame} and queries it for {task}.
+
+**Verify in primary sources:**
+
+- `yang2025-3d-mem-3d-scene` — [3D-Mem: 3D Scene Memory for Embodied Exploration and Reasoning](https://openaccess.thecvf.com/content/CVPR2025/html/Yang_3D-Mem_3D_Scene_Memory_for_Embodied_Exploration_and_Reasoning_CVPR_2025_paper.html) (CVPR 2025)
+- `lin2025-bip3d-bridging-2d-images` — [BIP3D: Bridging 2D Images and 3D Perception for Embodied Intelligence](https://openaccess.thecvf.com/content/CVPR2025/html/Lin_BIP3D_Bridging_2D_Images_and_3D_Perception_for_Embodied_Intelligence_CVPR_2025_paper.html) (CVPR 2025)
+
 ### robot-action tokenization
 
-`emb.term.action-tokenization.001` · term · embodied_ai, robot_learning · related_work, method, translation
+`emb.term.action-tokenization.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -487,6 +646,27 @@ A representation that maps continuous or structured robot controls into discrete
 
 - `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
 - `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
+
+### affordance grounding
+
+`emb.term.affordance-grounding.001` · term · embodied_ai, robot_learning · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The association of a task or action description with scene regions, objects, poses, or interactions that support the action.
+
+**Use:** Name the affordance representation, grounding target, supervision source, and whether feasibility is verified by execution.
+
+**Avoid:** Do not call semantic relevance an affordance unless it expresses an action possibility or interaction relation.
+
+**Patterns:**
+
+- The model grounds {instruction or action} to {object, region, or pose} that affords {interaction}.
+
+**Verify in primary sources:**
+
+- `wu2025-garmentpile-point-level-visual` — [GarmentPile: Point-Level Visual Affordance Guided Retrieval and Adaptation for Cluttered Garments Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_GarmentPile_Point-Level_Visual_Affordance_Guided_Retrieval_and_Adaptation_for_Cluttered_CVPR_2025_paper.html) (CVPR 2025)
+- `li2025-coa-vla-improving-vision` — [CoA-VLA: Improving Vision-Language-Action Models via Visual-Text Chain-of-Affordance](https://openaccess.thecvf.com/content/ICCV2025/html/Li_CoA-VLA_Improving_Vision-Language-Action_Models_via_Visual-Text_Chain-of-Affordance_ICCV_2025_paper.html) (ICCV 2025)
 
 ### egocentric observation
 
@@ -536,7 +716,7 @@ The agent-specific physical or simulated form that determines its sensing, actua
 
 ### language-conditioned visuomotor policy
 
-`emb.term.language-conditioned-policy.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+`emb.term.language-conditioned-policy.001` · term · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -625,7 +805,7 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 
 ### task success rate
 
-`emb.term.task-success-rate.001` · term · embodied_ai, robot_learning · experiments, rebuttal, translation
+`emb.term.task-success-rate.001` · term · embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -648,7 +828,7 @@ The fraction or percentage of evaluation trials that satisfy a predefined task-c
 
 ### teleoperated robot demonstration
 
-`emb.term.teleoperation-demonstration.001` · term · embodied_ai, robot_learning · related_work, method, experiments, translation
+`emb.term.teleoperation-demonstration.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, experiments, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -670,7 +850,7 @@ A robot trajectory collected while a human operator controls the robot through a
 
 ### temporal ensembling of overlapping action predictions
 
-`emb.term.temporal-ensembling.001` · term · embodied_ai, robot_learning · related_work, method, translation
+`emb.term.temporal-ensembling.001` · term · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `terminology` · **Quality:** `gold+reviewed`
 
@@ -691,7 +871,7 @@ Combining action predictions made at different policy-query times for the same f
 
 ### separate prediction horizon, execution horizon, and feedback frequency
 
-`emb.usage-note.chunking-feedback.001` · usage_note · embodied_ai, robot_learning · method, experiments, limitations, rebuttal, translation
+`emb.usage-note.chunking-feedback.001` · usage_note · embodied_ai, robot_learning, vision_language_action · method, experiments, limitations, rebuttal, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -711,9 +891,30 @@ A policy may predict many future actions while executing only part of them befor
 - `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)
 - `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
 
+### decompose the embodiment gap into physical and visual disparities
+
+`emb.usage-note.embodiment-gap.001` · usage_note · embodied_ai · related_work, experiments, limitations
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Differences between training and deployment embodiments can arise from morphology and dynamics as well as camera geometry, appearance, sensing, and observation statistics.
+
+**Use:** Evaluate or discuss physical and visual shifts separately before attributing transfer failure to embodiment as a single factor.
+
+**Avoid:** Do not use embodiment gap as an unexplained catch-all for every domain shift.
+
+**Patterns:**
+
+- We isolate physical disparity in {factor} from visual disparity in {factor} and evaluate each under {controlled protocol}.
+
+**Verify in primary sources:**
+
+- `wang2025-rethinking-embodied-gap-vision` — [Rethinking the Embodied Gap in Vision-and-Language Navigation: A Holistic Study of Physical and Visual Disparities](https://openaccess.thecvf.com/content/ICCV2025/html/Wang_Rethinking_the_Embodied_Gap_in_Vision-and-Language_Navigation_A_Holistic_Study_ICCV_2025_paper.html) (ICCV 2025)
+- `yuan2025-cross-embodiment-dexterous-grasping` — [Cross-Embodiment Dexterous Grasping with Reinforcement Learning](https://iclr.cc/virtual/2025/poster/28010) (ICLR 2025)
+
 ### heterogeneous robot action spaces require an explicit alignment strategy
 
-`emb.usage-note.heterogeneous-actions.001` · usage_note · embodied_ai, robot_learning · related_work, method, limitations, translation
+`emb.usage-note.heterogeneous-actions.001` · usage_note · embodied_ai, robot_learning, vision_language_action · related_work, method, limitations, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -757,7 +958,7 @@ Imitation learning is the broader problem of learning behavior from demonstratio
 
 ### evaluate embodied generalization along separately controlled axes
 
-`emb.usage-note.systematic-generalization.001` · usage_note · embodied_ai, robot_learning · experiments, limitations, rebuttal, translation
+`emb.usage-note.systematic-generalization.001` · usage_note · embodied_ai, robot_learning, vision_language_action · experiments, limitations, rebuttal, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 
@@ -780,7 +981,7 @@ Systematic evaluation varies identified factors—such as objects, placements, t
 
 ### distinguish VLA policies from embodied language models
 
-`emb.usage-note.vla-vs-elm.001` · usage_note · embodied_ai, robot_learning · related_work, method, translation
+`emb.usage-note.vla-vs-elm.001` · usage_note · embodied_ai, robot_learning, vision_language_action · related_work, method, translation
 
 **Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
 

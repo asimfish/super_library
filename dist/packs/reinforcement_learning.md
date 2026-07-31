@@ -1,10 +1,10 @@
 # Super Library pack: reinforcement_learning
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### actor–critic method
 
@@ -71,6 +71,27 @@ Learning value estimates with an objective that penalizes overly high Q-values, 
 
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 
+### constrained Markov decision process (CMDP)
+
+`rl.definition.constrained-mdp.001` · definition · reinforcement_learning · related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An MDP augmented with one or more cumulative cost constraints, so the policy objective optimizes return while satisfying specified cost limits.
+
+**Use:** Define reward, every cost signal, discounting or horizon, thresholds, feasibility assumptions, and whether constraints apply in expectation or with another risk criterion.
+
+**Avoid:** Do not describe an unconstrained penalty objective as a CMDP without stating the corresponding constraints and thresholds.
+
+**Patterns:**
+
+- We formulate the task as a CMDP that maximizes {return} subject to {expected cumulative cost} not exceeding {threshold}.
+
+**Verify in primary sources:**
+
+- `khattar2023-cmdp-within-online-framework` — [A CMDP-within-online framework for Meta-Safe Reinforcement Learning](https://iclr.cc/virtual/2023/poster/11412) (ICLR 2023)
+- `zhou2025-chpo-constrained-hybrid-action` — [CHPO: Constrained Hybrid-action Policy Optimization for Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/5eca2e4fe7858cbbfef4e08573cfcb25-Abstract-Conference.html) (NeurIPS 2025)
+
 ### multi-agent credit assignment
 
 `rl.definition.credit-assignment.001` · definition · reinforcement_learning · introduction, related_work, method, translation
@@ -136,6 +157,26 @@ A mechanism that stores previously collected transitions or trajectories and res
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
+
+### goal-conditioned reinforcement learning
+
+`rl.definition.goal-conditioned-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A reinforcement-learning formulation in which the policy or value function is conditioned on a goal representation and optimized to reach or satisfy that goal.
+
+**Use:** Specify the goal space, reward or success definition, goal-sampling distribution, horizon, and generalization split.
+
+**Avoid:** Do not conflate goal conditioning with language conditioning unless language is the defined goal representation.
+
+**Patterns:**
+
+- The policy conditions on goal {g} and maximizes {objective} under goals sampled from {distribution}.
+
+**Verify in primary sources:**
+
+- `cho2023-outcome-directed-reinforcement-learning` — [Outcome-directed Reinforcement Learning by Uncertainty \& Temporal Distance-Aware Curriculum Goal Generation](https://iclr.cc/virtual/2023/poster/11888) (ICLR 2023)
 
 ### maximum-entropy reinforcement learning
 
@@ -224,6 +265,27 @@ Reinforcement learning from a fixed dataset of previously collected transitions,
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
 
+### offline-to-online reinforcement learning
+
+`rl.definition.offline-to-online.001` · definition · reinforcement_learning · introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A learning protocol that initializes from a fixed offline dataset and subsequently improves the policy using additional online environment interaction.
+
+**Use:** Report offline data provenance, initialization method, online interaction budget, replay mixture, and whether baselines receive the same data.
+
+**Avoid:** Do not label online fine-tuning as an offline-RL result without separately reporting the online budget.
+
+**Patterns:**
+
+- We initialize from {offline dataset} and continue learning for {online budget} transitions using {data-mixture strategy}.
+
+**Verify in primary sources:**
+
+- `wagenmaker2023-leveraging-offline-data-online` — [Leveraging Offline Data in Online Reinforcement Learning](https://proceedings.mlr.press/v202/wagenmaker23a.html) (ICML 2023)
+- `wang2024-making-offline-rl-online` — [Making Offline RL Online: Collaborative World Models for Offline Visual Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b041cbfcc3f282a9b3c8eb9c16177529-Abstract-Conference.html) (NeurIPS 2024)
+
 ### reinforcement learning (RL)
 
 `rl.definition.reinforcement-learning.001` · definition · reinforcement_learning · introduction, related_work, translation
@@ -288,6 +350,47 @@ The cumulative sum of future rewards, commonly weighting a reward received k ste
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
+### reward-free exploration
+
+`rl.definition.reward-free-exploration.001` · definition · reinforcement_learning · abstract, introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An exploration setting in which an agent collects information without knowing the downstream reward and later uses the collected data to solve one or more reward-specified tasks.
+
+**Use:** State whether rewards are entirely absent during exploration, which task class is considered, and how planning or learning proceeds after reward revelation.
+
+**Avoid:** Do not use reward-free as a synonym for intrinsic-reward exploration when a designed exploration reward drives data collection.
+
+**Patterns:**
+
+- During reward-free exploration, the agent collects {data}; after receiving {reward specification}, it computes {policy or value function} without further interaction.
+
+**Verify in primary sources:**
+
+- `cheng2023-improved-sample-complexity-reward` — [Improved Sample Complexity for Reward-free Reinforcement Learning under Low-rank MDPs](https://iclr.cc/virtual/2023/poster/11380) (ICLR 2023)
+- `qiao2023-near-optimal-deployment-efficiency` — [Near-Optimal Deployment Efficiency in Reward-Free Reinforcement Learning with Linear Function Approximation](https://iclr.cc/virtual/2023/poster/11300) (ICLR 2023)
+
+### unsupervised skill discovery
+
+`rl.definition.skill-discovery.001` · definition · reinforcement_learning · introduction, related_work, method
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The learning of a diverse set of temporally extended behaviors without task-specific external rewards, typically by optimizing an intrinsic diversity or predictability objective.
+
+**Use:** State the skill variable, intrinsic objective, temporal horizon, diversity measure, and downstream adaptation protocol.
+
+**Avoid:** Do not equate visually different trajectories with useful or controllable skills without a downstream criterion.
+
+**Patterns:**
+
+- The agent learns a skill-conditioned policy by maximizing {intrinsic objective} over {skill distribution} before downstream adaptation.
+
+**Verify in primary sources:**
+
+- `chalumeau2023-neuroevolution-competitive-alternative-reinforcement` — [Neuroevolution is a Competitive Alternative to Reinforcement Learning for Skill Discovery](https://iclr.cc/virtual/2023/poster/10722) (ICLR 2023)
 
 ### temporal-difference (TD) learning
 
@@ -488,6 +591,22 @@ A learned predictive model of how an environment evolves, typically conditioned 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 
+### RL literature should be organized by data regime, interaction budget, information structure, and optimization objective.
+
+`rl.sentence-pattern.related-work-regime.001` · sentence_pattern · reinforcement_learning · related_work
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+A Related Work scaffold for avoiding comparisons between methods that solve materially different reinforcement-learning problems.
+
+**Use:** Select the axes relevant to the cited family and explicitly mark changes in assumptions or supervision.
+
+**Avoid:** Do not present offline, online, model-based, multi-agent, and constrained methods as directly comparable without a common problem setting.
+
+**Patterns:**
+
+- These methods share {objective}, but differ in their data regime ({regimes}), interaction budget ({budgets}), information structure ({information}), and optimization objective ({objectives}).
+
 ### RL methods should be compared at matched interaction, data, and evaluation budgets.
 
 `rl.sentence-pattern.related-work.001` · sentence_pattern · reinforcement_learning · related_work
@@ -510,6 +629,26 @@ Frames a fair reinforcement-learning comparison around the budgets that determin
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### action gap
+
+`rl.term.action-gap.001` · term · reinforcement_learning · related_work, method
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The difference between the value of a preferred action and that of an alternative action at a state, with the precise comparator determined by the formulation.
+
+**Use:** Define which actions are compared, which value functional or return distribution is used, and whether time is discrete or continuous.
+
+**Avoid:** Do not use action gap as a generic synonym for advantage without specifying the baseline action or policy.
+
+**Patterns:**
+
+- We define the action gap as {value of selected action} minus {value of comparator} under {value criterion}.
+
+**Verify in primary sources:**
+
+- `wiltzer2024-action-gaps-advantages-continuous` — [Action Gaps and Advantages in Continuous-Time Distributional Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/55769e1208c7f45e9acc98f06279c10c-Abstract-Conference.html) (NeurIPS 2024)
 
 ### advantage-weighted behavioral cloning
 
@@ -597,6 +736,26 @@ A multi-agent learning paradigm that permits access to joint or global informati
 **Verify in primary sources:**
 
 - `foerster2018coma` — [Counterfactual Multi-Agent Policy Gradients](https://ojs.aaai.org/index.php/AAAI/article/view/11794) (AAAI 2018)
+
+### deployment efficiency
+
+`rl.term.deployment-efficiency.001` · term · reinforcement_learning · related_work, experiments, method
+
+**Provenance:** `terminology` · **Quality:** `gold+reviewed`
+
+The amount of distinct real-world or environment deployment rounds required to collect interaction data, separated from the total number of transitions.
+
+**Use:** Define a deployment round, parallelism, batch size, adaptivity between rounds, and both round and sample complexity.
+
+**Avoid:** Do not call a method deployment-efficient solely because it is sample-efficient.
+
+**Patterns:**
+
+- The algorithm uses {rounds} deployment rounds and {samples} transitions, with policy updates occurring {between or within rounds}.
+
+**Verify in primary sources:**
+
+- `qiao2023-near-optimal-deployment-efficiency` — [Near-Optimal Deployment Efficiency in Reward-Free Reinforcement Learning with Linear Function Approximation](https://iclr.cc/virtual/2023/poster/11300) (ICLR 2023)
 
 ### entropy regularization / entropy-augmented objective
 
@@ -1037,6 +1196,27 @@ A sampling procedure that propagates multiple hypothetical trajectories through 
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 
+### separate centralized information during training from each agent's execution-time observations
+
+`rl.usage-note.marl-observability.001` · usage_note · reinforcement_learning · related_work, method, experiments
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Multi-agent algorithms may use global state or joint information in training while each deployed agent acts from local observations and internal memory.
+
+**Use:** Report information available to actor, critic, mixer, and replay data at both training and execution; state the partial-observability model.
+
+**Avoid:** Do not call execution decentralized if an actor directly receives privileged global information.
+
+**Patterns:**
+
+- During training, {module} observes {centralized information}; at execution, agent {i} acts from {local history or observation}.
+
+**Verify in primary sources:**
+
+- `phan2023-attention-based-recurrence-multi` — [Attention-Based Recurrence for Multi-Agent Reinforcement Learning under Stochastic Partial Observability](https://proceedings.mlr.press/v202/phan23a.html) (ICML 2023)
+- `kuba2022-trust-region-policy-optimisation` — [Trust Region Policy Optimisation in Multi-Agent Reinforcement Learning](https://iclr.cc/virtual/2022/poster/6244) (ICLR 2022)
+
 ### on-policy versus off-policy learning
 
 `rl.usage-note.on-off-policy.001` · usage_note · reinforcement_learning · introduction, related_work, method, translation
@@ -1081,6 +1261,27 @@ Policy evaluation estimates returns for a fixed policy, whereas control addition
 
 - `bellemare2017distributional` — [A Distributional Perspective on Reinforcement Learning](https://proceedings.mlr.press/v70/bellemare17a.html) (ICML 2017)
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
+
+### distinguish safety constraints from robustness to perturbations
+
+`rl.usage-note.safe-robust.001` · usage_note · reinforcement_learning · related_work, experiments, limitations
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Safety concerns satisfaction of specified cost or risk criteria, whereas robustness concerns stability of performance or constraint satisfaction under distributional or observational perturbations.
+
+**Use:** Name the safety criterion, perturbation set or shift, and evaluate reward and violations separately.
+
+**Avoid:** Do not infer safety from average-return robustness or robustness from nominal constraint satisfaction.
+
+**Patterns:**
+
+- We report nominal and perturbed return together with {violation metric} under {specified perturbation set}.
+
+**Verify in primary sources:**
+
+- `liu2023-robustness-safe-reinforcement-learning` — [On the Robustness of Safe Reinforcement Learning under Observational Perturbations](https://iclr.cc/virtual/2023/poster/11925) (ICLR 2023)
+- `khattar2023-cmdp-within-online-framework` — [A CMDP-within-online framework for Meta-Safe Reinforcement Learning](https://iclr.cc/virtual/2023/poster/11412) (ICLR 2023)
 
 ### distinguish interpolation within dataset support from extrapolation beyond it
 

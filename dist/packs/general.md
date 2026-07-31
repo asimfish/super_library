@@ -1,10 +1,10 @@
 # Super Library pack: general
 
-Corpus `0.2.0` · snapshot `2026-07-30`.
+Corpus `0.3.0` · snapshot `2026-07-30`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
 
 ### generalization ability / robustness ability
 
@@ -108,6 +108,34 @@ States a finding supported by the paper's experiments or analysis.
 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `khazatsky2024droid` — [DROID: A Large-Scale In-The-Wild Robot Manipulation Dataset](https://roboticsproceedings.org/rss20/p120.html) (RSS 2024)
+
+### a range of downstream tasks
+
+`general.phrase.downstream-range.001` · phrase · general · abstract, introduction, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Refers to several named applications used to test whether a learned representation, model, or policy transfers beyond its training objective.
+
+**Use:** Name the downstream tasks and state whether evaluation uses frozen features, prompting, fine-tuning, planning, or policy learning.
+
+**Avoid:** Do not use range to conceal a small or homogeneous evaluation set, and do not imply zero-shot transfer when adaptation is used.
+
+**Patterns:**
+
+- We assess {representation or model} on a range of downstream tasks under {adaptation protocol}: {named tasks}.
+
+**Usage attestations:**
+
+- `wu2024-ivideogpt-interactive-videogpts-scalable` — Official abstract
+- `hao2025-neural-motion-simulator-pushing` — Official abstract
+- `wang2025-vq-vla-improving-vision` — Official abstract
+
+**Verify in primary sources:**
+
+- `wu2024-ivideogpt-interactive-videogpts-scalable` — [iVideoGPT: Interactive VideoGPTs are Scalable World Models](https://proceedings.neurips.cc/paper_files/paper/2024/hash/7dbb5bfab324e3b86af9bd0df15498dd-Abstract-Conference.html) (NeurIPS 2024)
+- `hao2025-neural-motion-simulator-pushing` — [Neural Motion Simulator Pushing the Limit of World Models in Reinforcement Learning](https://openaccess.thecvf.com/content/CVPR2025/html/Hao_Neural_Motion_Simulator_Pushing_the_Limit_of_World_Models_in_CVPR_2025_paper.html) (CVPR 2025)
+- `wang2025-vq-vla-improving-vision` — [VQ-VLA: Improving Vision-Language-Action Models via Scaling Vector-Quantized Action Tokenizers](https://openaccess.thecvf.com/content/ICCV2025/html/Wang_VQ-VLA_Improving_Vision-Language-Action_Models_via_Scaling_Vector-Quantized_Action_Tokenizers_ICCV_2025_paper.html) (ICCV 2025)
 
 ### We evaluate {method} on {benchmarks or tasks}.
 
@@ -325,6 +353,109 @@ Reports a result established within the stated theoretical or empirical scope.
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
 
+### in both simulated and real-world {environments or experiments}
+
+`general.phrase.simulated-real-world.001` · phrase · general · abstract, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+States that a method or finding was evaluated in simulation and on a physical or otherwise genuinely deployed real-world system.
+
+**Use:** Name the simulator, real platform, number of trials, and any protocol differences; report the two result groups separately when they are not directly comparable.
+
+**Avoid:** Do not call a recorded real-world dataset a real-world deployment or merge simulated and physical results into one unsupported claim.
+
+**Patterns:**
+
+- We evaluate {method} in both simulated and real-world {environments}, using {matched or separately described protocols}.
+
+**Usage attestations:**
+
+- `zhu2024-retrieval-augmented-embodied-agents` — Official abstract
+- `li2025-object-centric-prompt-driven` — Official abstract
+- `lu2025-gwm-scalable-gaussian-world` — Official abstract
+- `zhu2025-move-understand-3d-scene` — Official abstract
+
+**Verify in primary sources:**
+
+- `zhu2024-retrieval-augmented-embodied-agents` — [Retrieval-Augmented Embodied Agents](https://openaccess.thecvf.com/content/CVPR2024/html/Zhu_Retrieval-Augmented_Embodied_Agents_CVPR_2024_paper.html) (CVPR 2024)
+- `li2025-object-centric-prompt-driven` — [Object-Centric Prompt-Driven Vision-Language-Action Model for Robotic Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Li_Object-Centric_Prompt-Driven_Vision-Language-Action_Model_for_Robotic_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
+- `lu2025-gwm-scalable-gaussian-world` — [GWM: Towards Scalable Gaussian World Models for Robotic Manipulation](https://openaccess.thecvf.com/content/ICCV2025/html/Lu_GWM_Towards_Scalable_Gaussian_World_Models_for_Robotic_Manipulation_ICCV_2025_paper.html) (ICCV 2025)
+- `zhu2025-move-understand-3d-scene` — [Move to Understand a 3D Scene: Bridging Visual Grounding and Exploration for Efficient and Versatile Embodied Navigation](https://openaccess.thecvf.com/content/ICCV2025/html/Zhu_Move_to_Understand_a_3D_Scene_Bridging_Visual_Grounding_and_ICCV_2025_paper.html) (ICCV 2025)
+
+### {unit} not seen during training
+
+`general.phrase.unseen-during-training.001` · phrase · general · abstract, experiments, limitations, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Identifies a held-out evaluation unit relative to the training data or task distribution.
+
+**Use:** Replace unit with the exact held-out axis—environment, task, object, embodiment, instruction, or combination—and describe how the split was constructed.
+
+**Avoid:** Do not imply broad out-of-distribution generalization when only one named axis was held out.
+
+**Patterns:**
+
+- We evaluate on {unit} not seen during training while holding {other factors} fixed.
+
+**Usage attestations:**
+
+- `koh2021pathdreamer` — Official abstract
+- `mazoure2022-improving-zero-shot-generalization` — Official abstract
+- `wen2025-diffusionvla-scaling-robot-foundation` — Official abstract
+
+**Verify in primary sources:**
+
+- `koh2021pathdreamer` — [Pathdreamer: A World Model for Indoor Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Koh_Pathdreamer_A_World_Model_for_Indoor_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+- `mazoure2022-improving-zero-shot-generalization` — [Improving Zero-Shot Generalization in Offline Reinforcement Learning using Generalized Similarity Functions](https://proceedings.neurips.cc/paper_files/paper/2022/hash/9fbdfded5c4d2969d889efc72f85c644-Abstract-Conference.html) (NeurIPS 2022)
+- `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
+
+### across a wide spectrum of {tasks or settings}
+
+`general.phrase.wide-spectrum.001` · phrase · general · abstract, introduction, experiments, conclusion, translation
+
+**Provenance:** `attested_collocation` · **Quality:** `gold+reviewed`
+
+Signals deliberately broad coverage across named tasks, settings, or conditions.
+
+**Use:** Use only when the evaluation spans substantively different cases, and name the covered spectrum in the same sentence or immediately after it.
+
+**Avoid:** Do not use wide spectrum as decorative emphasis for several variants of one narrow task.
+
+**Patterns:**
+
+- We evaluate {method} across a wide spectrum of {named tasks or settings}, including {representative cases}.
+
+**Usage attestations:**
+
+- `fan2022-minedojo-building-open-ended` — Official abstract
+- `jiang2024-reinforcement-learning-friendly-vision` — Official abstract
+- `huang2024-embodied-generalist-agent-3d` — Official abstract
+
+**Verify in primary sources:**
+
+- `fan2022-minedojo-building-open-ended` — [MineDojo: Building Open-Ended Embodied Agents with Internet-Scale Knowledge](https://proceedings.neurips.cc/paper_files/paper/2022/hash/74a67268c5cc5910f64938cac4526a90-Abstract-Datasets_and_Benchmarks.html) (NeurIPS 2022)
+- `jiang2024-reinforcement-learning-friendly-vision` — [Reinforcement Learning Friendly Vision-Language Model for Minecraft](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8467_ECCV_2024_paper.php) (ECCV 2024)
+- `huang2024-embodied-generalist-agent-3d` — [An Embodied Generalist Agent in 3D World](https://proceedings.mlr.press/v235/huang24ae.html) (ICML 2024)
+
+### The joint variant differs from the sum of individual changes, suggesting an interaction between {components}.
+
+`general.sentence-pattern.ablation-interaction.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Describes non-additive ablation behavior as evidence consistent with a component interaction.
+
+**Use:** Use only when the factorial variants and common reference permit the comparison. Quantify the observed non-additivity and uncertainty.
+
+**Avoid:** Do not infer interaction from unrelated single-drop variants or unmatched optimization settings.
+
+**Patterns:**
+
+- The joint variant changes {metric} by {value}, compared with {individual effects}, suggesting an interaction between {components}.
+- The benefit of {component A} appears only with {component B}, consistent with their intended coupling.
+
 ### Removing {component} reduces {metric}, indicating that {bounded interpretation}.
 
 `general.sentence-pattern.ablation.001` · sentence_pattern · general · experiments, rebuttal
@@ -340,6 +471,193 @@ Connects an ablation result to a component-level interpretation.
 **Patterns:**
 
 - Removing {component} reduces {metric} from {a} to {b}, indicating that it contributes to {capability} in {setting}.
+
+### For {task}, existing methods remain limited by {specific constraint}.
+
+`general.sentence-pattern.abstract-gap.001` · sentence_pattern · general · abstract, introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Introduces a concrete research gap tied to a task and a named constraint.
+
+**Use:** Use only after verifying that the closest relevant methods share the stated constraint. Name the setting in which it matters.
+
+**Avoid:** Avoid replacing the constraint with 'limited performance' or implying that every prior method has the same weakness.
+
+**Patterns:**
+
+- For {task}, existing methods remain limited by {assumption} when {condition}.
+- In {setting}, current approaches require {resource or supervision}, which restricts {capability}.
+
+### Our key insight is that {insight}, which enables {capability}.
+
+`general.sentence-pattern.abstract-insight.001` · sentence_pattern · general · abstract, introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States the conceptual observation that motivates the method and connects it to a scoped capability.
+
+**Use:** Express a technical relationship that the paper actually establishes or uses. Follow with the mechanism that realizes it.
+
+**Avoid:** Do not use 'key insight' for a restatement of the method name or an unsupported causal story.
+
+**Patterns:**
+
+- Our key insight is that {representation property} permits {operation}, which enables {capability}.
+- The central observation is that {condition}; this motivates {design choice}.
+
+### We introduce {method}, which {mechanism} to {objective}.
+
+`general.sentence-pattern.abstract-method.001` · sentence_pattern · general · abstract, introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Names the contribution and summarizes its operative mechanism and objective in one sentence.
+
+**Use:** Replace the slots with the paper-level mechanism, not a list of low-level implementation details. Use the exact method name from the manuscript.
+
+**Avoid:** Avoid chaining several modules with 'novel' adjectives without explaining their function.
+
+**Patterns:**
+
+- We introduce {method}, which combines {mechanisms} to {objective}.
+- We develop {method}, a {method class} that {mechanism} for {task}.
+
+### Across {evaluation scope}, {method} changes {metric} by {value} relative to {comparator}.
+
+`general.sentence-pattern.abstract-result.001` · sentence_pattern · general · abstract, experiments, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reports one principal verified result with its evaluation scope, metric, magnitude, and comparator.
+
+**Use:** Specify whether the value is absolute, relative, or in percentage points. Use the same aggregation and comparison set as the referenced display.
+
+**Avoid:** Do not average incompatible tasks or select the largest favorable result while implying it summarizes the full study.
+
+**Patterns:**
+
+- Across {number} {tasks}, {method} improves {metric} by {value} percentage points over {comparator}.
+- Under {shift}, {method} reduces {error metric} from {baseline value} to {method value}.
+
+### These results support {scoped conclusion} under {evaluated conditions}.
+
+`general.sentence-pattern.abstract-scope.001` · sentence_pattern · general · abstract, conclusion, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Closes an empirical summary with a conclusion bounded by the actual evaluation.
+
+**Use:** Name the datasets, tasks, shifts, assumptions, or system conditions that bound the conclusion when they are material.
+
+**Avoid:** Avoid turning benchmark evidence into an unrestricted claim about real-world deployment or general intelligence.
+
+**Patterns:**
+
+- These results support {conclusion} for {task family} under {protocol}.
+- The evidence supports transfer across {held-out axis}, but does not establish {broader scope}.
+
+### Baseline results are {rerun or sourced} using {implementation and version}.
+
+`general.sentence-pattern.baseline-provenance.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Records whether baseline numbers were reproduced or taken from a source and identifies the implementation.
+
+**Use:** State code commit or release, consequential changes, tuning policy, and whether the reported protocol matches the present evaluation.
+
+**Avoid:** Do not mix rerun and copied numbers without labeling their provenance and compatibility.
+
+**Patterns:**
+
+- Baseline results are reproduced using the authors' {release} with {documented changes}.
+- Results marked with {symbol} are taken from {verified source}; all others are rerun under our protocol.
+
+### Ablation of {components} with all variants trained under {matched protocol}.
+
+`general.sentence-pattern.caption-ablation.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Introduces an ablation caption and states the matched condition needed to compare variants.
+
+**Use:** Define component indicators, full-model row, metric, runs, uncertainty, and any retuning policy in the remaining caption.
+
+**Avoid:** Do not claim a matched ablation when variants use different data, budgets, selection, or evaluation.
+
+**Patterns:**
+
+- Ablation of {components} with all variants trained under the same {data and compute budget}. Values report {statistic} over {seeds}.
+- Component analysis on {task}; the full model is {row}, and each variant changes {factor}.
+
+### Quality and deployment cost measured under {hardware and timing protocol}.
+
+`general.sentence-pattern.caption-efficiency.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Frames an efficiency caption around both outcome quality and a reproducibly measured deployment resource.
+
+**Use:** Name hardware, precision, batch, input, warm-up, timing boundary, repeats, resource units, and metric directions.
+
+**Avoid:** Do not label a table efficiency when it reports only parameter count or latency without task quality.
+
+**Patterns:**
+
+- Quality and deployment cost measured on {hardware} at {precision} and batch size {value}. Latency includes {boundary}.
+- Task success and control latency under {deployment protocol}; values report {statistic} over {repeats}.
+
+### Generalization from {training condition} to {held-out condition}.
+
+`general.sentence-pattern.caption-generalization.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Names the training and held-out conditions at the start of a generalization-table caption.
+
+**Use:** Continue with the held-out unit, selection protocol, metrics, runs, uncertainty, and reference condition.
+
+**Avoid:** Do not use 'unseen' without specifying what was withheld and whether it influenced model selection.
+
+**Patterns:**
+
+- Generalization from {training environments} to held-out {environments}. Test environments are excluded from training and validation.
+- Transfer from {embodiments} to unseen {embodiments}; success rates are averaged over {trials}.
+
+### Results on {dataset or task} under {protocol}. {Metric direction and units}.
+
+`general.sentence-pattern.caption-main-results.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Provides the first two functional sentences of a self-contained main-results caption.
+
+**Use:** Continue with aggregation, uncertainty, runs, emphasis, and protocol exceptions. Use the exact split and evaluation setting.
+
+**Avoid:** Do not use a one-phrase caption that forces readers to reconstruct the protocol from the prose.
+
+**Patterns:**
+
+- Results on {tasks} under the {split} protocol. Higher {metric} is better; values are {units} and report {statistic} over {runs}.
+- Evaluation on {environment} with {budget}. Lower {metric} is better, and bold marks the best comparable result.
+
+### Sensitivity to {parameter}; {default marker} denotes the selected configuration.
+
+`general.sentence-pattern.caption-sensitivity.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Introduces a sensitivity caption and identifies the configuration used elsewhere in the paper.
+
+**Use:** State the full range, selection data and objective, fixed factors, runs, uncertainty, and changed resource when scale varies.
+
+**Avoid:** Do not show only values near the chosen optimum or imply a scaling law from a narrow sweep.
+
+**Patterns:**
+
+- Sensitivity to {parameter}; the dagger denotes the validation-selected configuration. All other settings and seeds are fixed.
+- Scaling with {data or model size}; bold identifies the configuration used for the main experiments, not an oracle test optimum.
 
 ### These results are consistent with the hypothesis that {mechanism}.
 
@@ -421,6 +739,40 @@ Defines a term while making the scope of the definition explicit.
 
 - In this work, {term} refers specifically to {property within the studied setting}.
 
+### We evaluate {method} on {tasks} using {metrics} under {protocol}.
+
+`general.sentence-pattern.experiment-overview.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Introduces the evaluation scope, outcome measures, and protocol in one compact sentence.
+
+**Use:** Name the actual tasks, principal metrics, split or evaluation regime, and any material simulation or deployment condition.
+
+**Avoid:** Avoid 'we conduct extensive experiments' without stating what questions or settings are evaluated.
+
+**Patterns:**
+
+- We evaluate {method} on {benchmarks} using {metrics} under a matched {budget}.
+- We evaluate in {simulation or real system} on {tasks}, reporting {metrics} under {protocol}.
+
+### Failure cases are dominated by {category}, accounting for {fraction} of {denominator}.
+
+`general.sentence-pattern.failure-denominator.001` · sentence_pattern · general · experiments, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reports a failure category with its frequency and explicit denominator.
+
+**Use:** Define a mutually interpretable failure taxonomy, label multi-cause cases, and state whether categories were assigned manually or automatically.
+
+**Avoid:** Do not select illustrative failures without reporting how frequently they occur in the evaluated population.
+
+**Patterns:**
+
+- Failure cases are dominated by {category}, accounting for {count} of {total} unsuccessful trials.
+- Among {denominator}, {fraction} involve {condition}; category labels were assigned using {procedure}.
+
 ### For a controlled comparison, we hold {factor} fixed and vary only {factor}.
 
 `general.sentence-pattern.fair-comparison.001` · sentence_pattern · general · experiments, rebuttal
@@ -485,6 +837,176 @@ Identifies a research gap without dismissing prior progress.
 
 - Despite progress in {capability}, existing methods remain limited by {assumption or failure mode} in {setting}.
 
+### The {split} holds out {unit} from all training and selection data.
+
+`general.sentence-pattern.heldout-split.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines a held-out unit and excludes it from both model fitting and selection.
+
+**Use:** Name whether the unit is subject, scene, object, task, environment, embodiment, or temporal block. Disclose any preprocessing learned globally.
+
+**Avoid:** Do not call a test condition unseen if it influenced prompts, hyperparameters, checkpoint selection, or data curation.
+
+**Patterns:**
+
+- The test split holds out {objects} from all training and validation trajectories.
+- For cross-environment evaluation, {environments} are excluded from both training and model selection.
+
+### We report {statistic} over {number} independent {runs or seeds}.
+
+`general.sentence-pattern.independent-runs.001` · sentence_pattern · general · experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States the aggregation statistic and number of independent repetitions.
+
+**Use:** Replace the statistical unit precisely and explain nested averaging when episodes or scenes occur within seeds. Name uncertainty separately.
+
+**Avoid:** Avoid 'averaged over multiple runs' when the count, independence, and dispersion are not given.
+
+**Patterns:**
+
+- We report the mean and standard deviation over {number} independent seeds.
+- Values are medians over {number} runs, with {interval} percentiles in parentheses.
+
+### Within {scope}, the closest approaches can be compared along {axis one} and {axis two}.
+
+`general.sentence-pattern.intro-approach-axes.001` · sentence_pattern · general · introduction, related_work
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Organizes related approach families by explicit technical dimensions relevant to the present argument.
+
+**Use:** Choose verified axes such as representation, supervision, data, decision rule, interaction regime, or deployment assumption.
+
+**Avoid:** Do not manufacture a taxonomy that collapses technically heterogeneous work or omits the closest method.
+
+**Patterns:**
+
+- Within {task}, the closest approaches can be compared by how they represent {entity} and obtain {supervision}.
+- Existing methods can be distinguished by {decision mechanism} and {interaction regime}.
+
+### The design addresses {challenge} by {technical choice}.
+
+`general.sentence-pattern.intro-challenge-design.001` · sentence_pattern · general · introduction, method
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Maps one emphasized challenge to the corresponding design mechanism.
+
+**Use:** Use the same challenge and component names throughout the Introduction, Method, and experiments. Avoid implying causal sufficiency without evidence.
+
+**Avoid:** Do not introduce a challenge that no design element or experiment addresses.
+
+**Patterns:**
+
+- The design addresses {challenge} by conditioning {mechanism} on {signal}.
+- To handle {challenge}, the model uses {technical choice}.
+
+### Our contributions are evaluated through {research questions}.
+
+`general.sentence-pattern.intro-contribution-evidence.001` · sentence_pattern · general · introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Frames empirical contributions as questions that the Experiments section is designed to answer.
+
+**Use:** Replace the slot with two or three concrete questions or evaluation axes. Pair non-empirical contributions with theorems, resources, or analyses instead.
+
+**Avoid:** Avoid treating the mere number of experiments as a contribution.
+
+**Patterns:**
+
+- We evaluate whether {method} improves {outcome}, transfers across {shift}, and reduces {resource}.
+- The experiments test {main comparison}, {mechanism claim}, and {deployment boundary}.
+
+### We focus on {scope}; {non-goal} remains outside the present study.
+
+`general.sentence-pattern.intro-nongoal.001` · sentence_pattern · general · introduction, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States an explicit boundary that prevents an overbroad reading of the contribution.
+
+**Use:** Use for a material assumption or non-goal, especially when motivation is broader than evaluation. Keep it consistent with Limitations.
+
+**Avoid:** Do not use a non-goal to dismiss a comparison or safety issue that is essential to the central claim.
+
+**Patterns:**
+
+- We focus on {evaluated setting}; transfer to {unseen setting} remains outside the present study.
+- Our analysis concerns {formal regime} and does not establish {broader guarantee}.
+
+### Motivated by this observation, we design {mechanism} to {goal}.
+
+`general.sentence-pattern.intro-observation-design.001` · sentence_pattern · general · introduction, method
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Bridges a stated insight or empirical observation to the paper's design response.
+
+**Use:** Ensure the antecedent observation directly motivates the mechanism. Name the technical goal rather than 'better performance.'
+
+**Avoid:** Avoid using the transition when the design choice is unrelated to the preceding limitation.
+
+**Patterns:**
+
+- Motivated by this observation, we design {mechanism} to preserve {property}.
+- This analysis motivates {design choice}, which targets {failure mode}.
+
+### This work studies {task} under {operational setting}.
+
+`general.sentence-pattern.intro-operational-scope.001` · sentence_pattern · general · introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the paper's task and setting before broader motivation or method details.
+
+**Use:** Specify the decision, observation, data, interaction, or deployment regime that makes the task operationally distinct.
+
+**Avoid:** Avoid beginning from an expansive societal claim when the paper evaluates a narrower technical setting.
+
+**Patterns:**
+
+- This work studies {task} under {observation and action constraints}.
+- We consider {task} in the {offline, online, simulated, or real-system} setting.
+
+### This assumption becomes restrictive when {condition}, because {consequence}.
+
+`general.sentence-pattern.intro-restrictive-assumption.001` · sentence_pattern · general · introduction, related_work, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Connects a verified method assumption to the condition under which it limits the target capability.
+
+**Use:** State the assumption, triggering condition, and consequence explicitly. Support literature and empirical claims with primary evidence.
+
+**Avoid:** Do not describe a design difference as restrictive without showing why it matters for the task.
+
+**Patterns:**
+
+- This assumption becomes restrictive when {shift}, because {technical consequence}.
+- The requirement for {resource} limits deployment in {setting}, where {constraint}.
+
+### Latency is measured on {hardware} with {precision, batch, and timing boundary}.
+
+`general.sentence-pattern.latency-protocol.001` · sentence_pattern · general, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the hardware and measurement boundary required to interpret latency.
+
+**Use:** State warm-up, synchronization, repeats, input shape, preprocessing, action decoding, and whether the value is model-only or end to end.
+
+**Avoid:** Do not compare latency across hardware or confuse batched throughput with single-sample latency.
+
+**Patterns:**
+
+- Latency is measured on {hardware} at {precision} and batch size {value}, including {timing boundary}.
+- End-to-end control latency includes {components} and is averaged over {repetitions} after {warm-up}.
+
 ### Our evaluation is limited to {scope}; performance under {unseen condition} remains to be established.
 
 `general.sentence-pattern.limitation.001` · sentence_pattern · general · limitations, conclusion, rebuttal
@@ -500,6 +1022,23 @@ States an evaluation boundary and separates tested from untested conditions.
 **Patterns:**
 
 - Our evaluation is limited to {tasks or environments}; robustness to {shift} remains to be established.
+
+### Higher values of {metric} indicate {meaning}; results are averaged over {unit}.
+
+`general.sentence-pattern.metric-direction-unit.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines metric direction, interpretation, and the statistical unit used for aggregation.
+
+**Use:** Use 'lower' where appropriate and name whether the unit is task, scene, episode, trial, seed, or example.
+
+**Avoid:** Do not let readers infer whether a metric is a percentage, fraction, count, error, or normalized score.
+
+**Patterns:**
+
+- Higher values of {metric} indicate {capability}; results are averaged over {tasks} and then over {seeds}.
+- Lower {metric} indicates {meaning}; each value is averaged over {evaluation unit}.
 
 ### A central challenge is to {objective} while {constraint}.
 
@@ -564,6 +1103,23 @@ Reports a quantified comparison with its baseline and protocol.
 **Patterns:**
 
 - {method} improves mean {metric} by {absolute or relative value} over {baseline} under the {protocol} protocol.
+
+### Each real-system condition is evaluated in {trials} trials, with success defined as {criterion}.
+
+`general.sentence-pattern.real-system-trials.001` · sentence_pattern · general, embodied_ai, robot_learning, vision_language_action · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Defines the trial count and success criterion for a physical or deployed-system evaluation.
+
+**Use:** Also state reset procedure, intervention policy, trial independence, task allocation, and the denominator used for success rate.
+
+**Avoid:** Do not report a success percentage without the number and composition of physical trials.
+
+**Patterns:**
+
+- Each real-robot task is evaluated in {trials} trials, with success defined as {terminal condition}.
+- We conduct {number} trials per {task and object} pair and count an intervention as {outcome}.
 
 ### We agree that {concern} is important; our current evidence addresses {covered scope}.
 
@@ -762,6 +1318,159 @@ Declares a shared experimental default while allowing explicitly identified exce
 - Unless otherwise specified, we report the mean over {number} seeds and use {aggregation rule}.
 - Unless otherwise specified, all methods use the same {data, compute, or interaction budget}.
 
+### All methods use the same {resource budget}; remaining differences are {differences}.
+
+`general.sentence-pattern.resource-parity.001` · sentence_pattern · general · experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States one controlled comparison resource while disclosing consequential factors that remain unmatched.
+
+**Use:** Name data, environment interaction, parameters, training compute, tuning, or evaluation budgets precisely. Do not imply full fairness from one matched resource.
+
+**Avoid:** Avoid the blanket phrase 'under fair settings' without listing matched and unmatched factors.
+
+**Patterns:**
+
+- All methods use the same {interaction budget}; model size and pretraining data differ as noted in {location}.
+- Training data are matched across methods, while {baseline} uses {additional resource}.
+
+### On {metric}, {method} changes {baseline value} to {method value}, an {absolute or relative} difference of {value}.
+
+`general.sentence-pattern.result-absolute-relative.001` · sentence_pattern · general · abstract, experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reports both endpoint values and labels the comparison as absolute or relative.
+
+**Use:** For percentages, distinguish percentage-point differences from relative percent changes. Retain the metric unit and aggregation.
+
+**Avoid:** Avoid 'improves by 10%' when readers cannot tell whether this means ten percentage points or ten percent relative.
+
+**Patterns:**
+
+- On {metric}, {method} increases the score from {value} to {value}, a gain of {points} percentage points.
+- The error decreases from {value} to {value}, corresponding to a {relative value}% relative reduction.
+
+### Performance degrades under {condition}, which limits the claim to {scope}.
+
+`general.sentence-pattern.result-boundary.001` · sentence_pattern · general · experiments, limitations, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Connects an observed failure condition to the boundary it imposes on the paper's claim.
+
+**Use:** Quantify the degradation, state the denominator, and distinguish a sampled failure condition from a universal boundary.
+
+**Avoid:** Do not bury a condition that directly contradicts an Abstract or Introduction claim.
+
+**Patterns:**
+
+- Performance degrades under {shift}, which limits the claim to {evaluated range}.
+- Success falls from {value} to {value} for {condition}; we therefore restrict the conclusion to {scope}.
+
+### The improvement is concentrated in {conditions}, whereas {other conditions} show {outcome}.
+
+`general.sentence-pattern.result-concentration.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Identifies where an aggregate gain arises and contrasts it with conditions showing a different pattern.
+
+**Use:** Use subgroup or condition-level results that were defined or transparently labeled exploratory. Report denominators and uncertainty.
+
+**Avoid:** Do not select favorable subgroups post hoc without disclosure or ignore degradation elsewhere.
+
+**Patterns:**
+
+- The improvement is concentrated in {long-horizon tasks}, whereas {short-horizon tasks} show comparable performance.
+- Gains occur primarily under {shift}; in the reference condition, the methods differ by {value}.
+
+### The advantage is consistent across {settings}, with {exceptions}.
+
+`general.sentence-pattern.result-consistency.001` · sentence_pattern · general · experiments, rebuttal
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Summarizes the breadth of an observed comparison while explicitly retaining exceptions.
+
+**Use:** Name the settings and define consistency using the direction, effect range, uncertainty, or success frequency. Fill the exception slot even if the answer is none observed.
+
+**Avoid:** Do not call a result consistent when only an average is positive or when important settings reverse the ranking.
+
+**Patterns:**
+
+- The advantage is consistent across {tasks}, except on {task}, where {outcome}.
+- The direction is stable over {seeds or scales}, although the magnitude varies from {range}.
+
+### This pattern is consistent with {hypothesis}, although {alternative} is not controlled.
+
+`general.sentence-pattern.result-hypothesis-caution.001` · sentence_pattern · general · experiments, limitations, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Offers a mechanism interpretation while acknowledging a plausible uncontrolled explanation.
+
+**Use:** Use after stating the observed result. Replace the slots with a testable hypothesis and a concrete confounder or alternative mechanism.
+
+**Avoid:** Avoid 'this proves that the gain is due to' when the experiment does not identify the mechanism.
+
+**Patterns:**
+
+- This pattern is consistent with {mechanism}, although differences in {data or scale} are not controlled.
+- The result suggests {explanation}; however, {alternative} could also account for the change.
+
+### We observe no consistent advantage on {scope}; the difference remains within {uncertainty}.
+
+`general.sentence-pattern.result-null.001` · sentence_pattern · general · experiments, rebuttal, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reports a null or unstable comparison without converting it into evidence of equivalence.
+
+**Use:** Name the uncertainty statistic and comparison scope. If equivalence matters, use an appropriate equivalence or non-inferiority design.
+
+**Avoid:** Do not interpret a non-significant or noisy difference as proof that methods are identical.
+
+**Patterns:**
+
+- We observe no consistent advantage on {tasks}; differences vary in sign across {seeds}.
+- The estimate differs by {value}, with a {confidence interval} that includes {reference}.
+
+### This gain comes with {cost}, revealing a trade-off between {axes}.
+
+`general.sentence-pattern.result-tradeoff.001` · sentence_pattern · general · experiments, limitations, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reports a measured benefit together with the resource, quality, safety, or robustness cost that accompanies it.
+
+**Use:** Quantify both axes under the same protocol and avoid causal language if the trade-off is only observational.
+
+**Avoid:** Do not hide the cost in a footnote while presenting the gain as unqualified superiority.
+
+**Patterns:**
+
+- This gain comes with {latency increase}, revealing a trade-off between {accuracy} and {deployment speed}.
+- Improved robustness is accompanied by {reference-condition change}, indicating a trade-off across {axes}.
+
+### Variation across {seeds or trials} is {statistic}, indicating {bounded inference}.
+
+`general.sentence-pattern.result-variability.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Uses a named variability statistic to qualify the stability of an empirical result.
+
+**Use:** Name standard deviation, interquartile range, confidence interval, or another appropriate statistic and keep the inference modest.
+
+**Avoid:** Do not call a method stable from one run or from low variation over correlated evaluation episodes.
+
+**Patterns:**
+
+- Variation across seeds is {standard deviation}, indicating that the ranking is {stable or uncertain} under this protocol.
+- The interval across trials is {range}, so the observed difference should be interpreted as {bounded conclusion}.
+
 ### Under {evaluated setting}, {method} consistently {measured outcome}.
 
 `general.sentence-pattern.scope.001` · sentence_pattern · general · abstract, introduction, experiments, conclusion, rebuttal
@@ -810,6 +1519,23 @@ Preserves a concession and its qualification during Chinese-to-English reconstru
 
 - Although {method} improves {metric} on {subset}, the difference is not statistically significant across {units}.
 
+### Hyperparameters are selected on {validation set} using {criterion}.
+
+`general.sentence-pattern.validation-selection.001` · sentence_pattern · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Declares which data and objective selected hyperparameters or checkpoints.
+
+**Use:** State whether one configuration is shared across tasks and whether test or shifted conditions influenced selection.
+
+**Avoid:** Do not report test-optimal settings as if they were selected without access to test results.
+
+**Patterns:**
+
+- Hyperparameters are selected on {validation tasks} using {metric}, and the selected configuration is fixed for all test tasks.
+- We select the checkpoint with the highest {validation metric} before evaluating it once on {test set}.
+
 ### replace vague effectiveness claims with the observed outcome
 
 `general.usage-note.effectiveness.001` · usage_note · general · abstract, experiments, conclusion, rebuttal, translation
@@ -843,6 +1569,23 @@ Generalization is always relative to a specified shift, such as unseen objects, 
 
 - We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
 - The current study does not establish transfer across unseen {embodiments or environments}.
+
+### A dash denotes an unreported value, not a measured zero.
+
+`general.usage-note.missing-zero-na.001` · usage_note · general · experiments
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Separates missing or unreported results from numeric zero and from conditions that are not applicable.
+
+**Use:** Define every symbol in the caption or footnote. Use 0 or 0.0 only for a measured zero and N/A only when the metric or condition does not apply.
+
+**Avoid:** Do not encode unavailable, failed, and zero-valued results with the same blank cell or dash.
+
+**Patterns:**
+
+- A dash denotes a result that was not reported; N/A indicates that the metric is not applicable.
+- Zero is reported numerically, while failed runs are counted under {failure policy}.
 
 ### Distinguish possibility, interpretation, empirical evidence, and formal proof.
 

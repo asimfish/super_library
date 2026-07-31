@@ -1,4 +1,4 @@
 interface:
   display_name: "Super Library Academic Writing"
-  short_description: "Bounded retrieval for source-aware AI research writing"
-  default_prompt: "Use $super-library to retrieve a small, source-aware context bundle before revising this AI research passage."
+  short_description: "Bounded AI-paper retrieval and section protocols"
+  default_prompt: "Use $super-library to select at most one relevant section protocol and retrieve a small, source-aware context bundle before revising this AI research passage."

@@ -60,7 +60,13 @@ def score(entry: Dict[str, Any], query: str) -> int:
     guidance = normalize(entry["guidance"])
     examples = normalize(" ".join(entry["examples"]))
     metadata = normalize(
-        " ".join(entry["domains"] + entry["sections"] + entry["intents"] + entry["tags"])
+        " ".join(
+            entry["domains"]
+            + entry["sections"]
+            + entry["intents"]
+            + entry["tags"]
+            + entry.get("topic_families", [])
+        )
     )
     value = 0
     if query_norm == expression:
@@ -86,6 +92,7 @@ def filtered(
     sections: Sequence[str],
     intents: Sequence[str],
     kinds: Sequence[str],
+    topics: Sequence[str],
 ) -> Iterable[Dict[str, Any]]:
     for entry in entries:
         if (
@@ -100,6 +107,12 @@ def filtered(
             continue
         if kinds and entry["kind"] not in kinds:
             continue
+        if (
+            topics
+            and "general" not in entry["domains"]
+            and not set(topics).intersection(entry.get("topic_families", []))
+        ):
+            continue
         yield entry
 
 
@@ -110,11 +123,14 @@ def rank(
     sections: Sequence[str],
     intents: Sequence[str],
     kinds: Sequence[str],
+    topics: Sequence[str],
 ) -> List[Tuple[int, Dict[str, Any]]]:
     variants = expand_query(query, index["aliases"])
     ranked = [
         (max(score(entry, variant) for variant in variants), entry)
-        for entry in filtered(index["entries"], domains, sections, intents, kinds)
+        for entry in filtered(
+            index["entries"], domains, sections, intents, kinds, topics
+        )
     ]
     ranked = [item for item in ranked if item[0] > 0]
     ranked.sort(key=lambda item: (-item[0], item[1]["id"]))
@@ -154,6 +170,7 @@ def normalize_values(
         "section": "sections",
         "intent": "intents",
         "kind": "kinds",
+        "topic": "topic_families",
     }[field]
     allowed = set(taxonomy[taxonomy_key])
     normalized = []
@@ -178,6 +195,7 @@ def main() -> int:
     parser.add_argument("--section", action="append", default=[])
     parser.add_argument("--intent", action="append", default=[])
     parser.add_argument("--kind", action="append", default=[])
+    parser.add_argument("--topic", action="append", default=[])
     parser.add_argument("--limit", type=int, default=6)
     parser.add_argument(
         "--format", choices=["markdown", "ids", "json"], default="markdown"
@@ -188,7 +206,7 @@ def main() -> int:
 
     index = load_index()
     taxonomy = index["taxonomy"]
-    for field in ("domain", "section", "intent", "kind"):
+    for field in ("domain", "section", "intent", "kind", "topic"):
         setattr(args, field, normalize_values(getattr(args, field), taxonomy, field))
     sources_by_id = {source["id"]: source for source in index["sources"]}
 
@@ -207,6 +225,7 @@ def main() -> int:
             args.section,
             args.intent,
             args.kind,
+            args.topic,
         )
         selected = [entry for _, entry in ranked[: args.limit]]
         if not selected:

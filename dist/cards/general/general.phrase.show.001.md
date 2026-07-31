@@ -1,6 +1,6 @@
 # Super Library card: general.phrase.show.001
 
-Corpus `0.2.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/core.md)
+Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -32,9 +32,9 @@ Reports a result established within the stated theoretical or empirical scope.
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
 
 Catalog routes:
-- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/domains/general.md)
-- [section: abstract](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/abstract.md)
-- [section: experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/experiments.md)
-- [section: conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/conclusion.md)
-- [section: rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/rebuttal.md)
-- [section: translation](https://raw.githubusercontent.com/asimfish/super_library/v0.2.0/dist/catalogs/sections/translation.md)
+- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/general.md)
+- [section: abstract](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/abstract.md)
+- [section: experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/experiments.md)
+- [section: conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/conclusion.md)
+- [section: rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/rebuttal.md)
+- [section: translation](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/translation.md)
