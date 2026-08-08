@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from scripts import superlib
+from scripts import source_health
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -272,6 +273,8 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "super-library-compact.md",
             ROOT / "dist" / "index.json",
             ROOT / "dist" / "stats.json",
+            ROOT / "dist" / "evidence" / "source-analysis.md",
+            ROOT / "dist" / "evidence" / "source-analysis.jsonl",
             ROOT / "dist" / "manifest.json",
             ROOT / "dist" / "packs" / "world_models.md",
             ROOT / "dist" / "packs" / "reinforcement_learning.md",
@@ -307,9 +310,18 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         manifest = json.loads((ROOT / "dist" / "manifest.json").read_text())
-        self.assertEqual(manifest["corpus_version"], "0.3.0")
-        self.assertEqual(manifest["release_tag"], "v0.3.0")
+        self.assertEqual(manifest["corpus_version"], "0.4.0")
+        self.assertEqual(manifest["release_tag"], "v0.4.0")
         self.assertEqual(manifest["data_license"], "CC0-1.0")
+        router = json.loads((ROOT / "dist" / "router.json").read_text())
+        self.assertEqual(
+            router["evidence"]["source_analysis_records"],
+            "evidence/source-analysis.jsonl",
+        )
+        self.assertEqual(
+            manifest["source_analysis"]["records"],
+            "evidence/source-analysis.jsonl",
+        )
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
                 (ROOT / "dist" / relative_path).read_bytes()
@@ -366,7 +378,7 @@ class SuperLibraryCliTests(unittest.TestCase):
             for path in (ROOT / "dist" / "guides").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(guides), 10)
+        self.assertEqual(len(guides), 16)
         self.assertLess(max(path.stat().st_size for path in guides), 12_000)
         routes = [
             path
@@ -461,6 +473,46 @@ class SuperLibraryCliTests(unittest.TestCase):
             "experiments.world_models",
         )
 
+    def test_mixed_real_robot_experiment_routes_to_complete_protocol(self):
+        result = run_cli(
+            "route",
+            "真实机器人实验设置与结果分析",
+            "--domain",
+            "embodied_ai",
+            "--section",
+            "experiments",
+            "--intent",
+            "evidence",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["load_order"]["guide"]["id"], "experiments")
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "experiments.embodied_ai",
+        )
+
+    def test_related_work_route_embeds_related_work_protocol(self):
+        result = run_cli(
+            "route",
+            "world model related work",
+            "--domain",
+            "world_models",
+            "--section",
+            "related_work",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["load_order"]["guide"]["id"], "related_work")
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "related_work.world_models",
+        )
+
     def test_bundle_is_bounded_and_contains_both_passes(self):
         result = run_cli(
             "bundle",
@@ -539,7 +591,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         listing = run_cli("guide", "--list", "--format", "json")
         self.assertEqual(listing.returncode, 0, listing.stderr)
         payload = json.loads(listing.stdout)
-        self.assertEqual(len(payload), 10)
+        self.assertEqual(len(payload), 16)
         guide = run_cli("guide", "experiments.table.efficiency")
         self.assertEqual(guide.returncode, 0, guide.stderr)
         self.assertIn("Define the resource", guide.stdout)
@@ -655,6 +707,45 @@ class SuperLibraryCliTests(unittest.TestCase):
         known = {source["id"] for source in sources}
         self.assertTrue(set(study["sample_source_ids"]).issubset(known))
 
+    def test_source_analysis_ledger_is_complete_and_explicit(self):
+        _, sources, entries = superlib.load_corpus()
+        records = superlib.source_analysis_records(sources, entries)
+        summary = superlib.source_analysis_summary(records)
+        self.assertEqual(len(records), 300)
+        self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
+        self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
+        self.assertEqual(summary["papers_with_direct_library_links"], 60)
+        self.assertEqual(len({record["source_id"] for record in records}), 300)
+        result = run_cli("analysis-status", records[0]["source_id"], "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["source_id"], records[0]["source_id"])
+
+    def test_source_health_classification_and_concurrency_are_deterministic(self):
+        self.assertEqual(source_health.classify_http_status(200), "reachable")
+        self.assertEqual(source_health.classify_http_status(403), "blocked")
+        self.assertEqual(source_health.classify_http_status(404), "broken")
+        self.assertEqual(source_health.classify_http_status(503), "transient")
+        sources = [
+            {"id": "paper-b", "url": "https://example.org/b"},
+            {"id": "paper-a", "url": "https://example.org/a"},
+        ]
+
+        def fake_checker(source, timeout):
+            self.assertEqual(timeout, 2.0)
+            return {
+                "source_id": source["id"],
+                "url": source["url"],
+                "final_url": source["url"],
+                "http_status": 200,
+                "status": "reachable",
+                "detail": "",
+            }
+
+        results = source_health.verify_sources(
+            sources, timeout=2.0, workers=2, checker=fake_checker
+        )
+        self.assertEqual([item["source_id"] for item in results], ["paper-a", "paper-b"])
+
     def test_topic_route_is_bounded(self):
         result = run_cli(
             "route",
@@ -768,7 +859,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         _, sources, entries = superlib.load_corpus()
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(f"**{len(entries)} gold entries**", readme)
-        self.assertIn(f"**{len(sources)} verified", readme)
+        self.assertIn(f"**{len(sources)} primary-source", readme)
 
     def test_smoke_evals_reference_real_entries(self):
         _, _, entries = superlib.load_corpus()

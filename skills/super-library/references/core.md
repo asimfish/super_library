@@ -1,8 +1,8 @@
 # Super Library universal core
 
-Corpus `0.3.0` · contract `3.0` · snapshot `2026-07-30`.
+Corpus `0.4.0` · contract `4.0` · snapshot `2026-08-09`.
 
-Read this once, then return to the [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and load only selected cards.
+Read this once, then return to the [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) and load only selected cards.
 
 ## Non-negotiable contract
 

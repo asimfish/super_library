@@ -7,9 +7,10 @@ translation, rebuttal, terminology, definitions, or related work.
 
 1. Read `skills/super-library/SKILL.md`.
 2. Classify the task by `domain`, optional `topic`, `section`, communicative
-   `intent`, evidence boundary, and—when drafting Abstract, Introduction, or
-   Experiments—one section protocol using `library/taxonomy.json`,
-   `library/topics.json`, and `library/writing_guides.json`.
+   `intent`, evidence boundary, and—when a matching structured protocol exists—
+   one section protocol. Use the identifiers in `library/taxonomy.json` and
+   `library/topics.json`, then select the protocol with `route`, `guide --list`,
+   or `guide <guide-id>`. Do not read `library/writing_guides.json` wholesale.
 3. Retrieve before drafting. Prefer one bounded two-pass bundle. Add exactly one
    `--guide` only when the task needs a section or table protocol:
 
@@ -21,7 +22,7 @@ translation, rebuttal, terminology, definitions, or related work.
      --limit 4 --max-chars 24000
    ```
 
-   For Abstract, Introduction, or Experiments, add `--guide <guide-id>`.
+   Add `--guide <guide-id>` whenever the task needs one section or table protocol.
    Use `route` for a small URL/path plan; it recommends one protocol from the
    query. Use `guide --list`, `guide <guide-id>`, or `show <entry-id>` for a
    known record. For a table, use `template --list` and copy exactly one matching

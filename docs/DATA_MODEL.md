@@ -56,12 +56,14 @@ The repository intentionally has no `quote` provenance type.
 - `dist/agent-index.md`: smallest link-only route table and loading contract.
 - `dist/core.md`: universal high-risk writing and evidence rules.
 - `dist/guides/index.md`: thin route table for section and table protocols.
-- `dist/guides/<guide-id>.md`: one bounded Abstract, Introduction, Experiments,
+- `dist/guides/<guide-id>.md`: one bounded section, rebuttal, translation,
   results-analysis, or table-construction protocol.
 - `dist/catalogs/sections/*.md`: thin rhetoric catalogs.
 - `dist/catalogs/domains/*.md`: small technical-domain hubs.
 - `dist/catalogs/topics/*.md`: bounded technical-concept catalogs.
 - `dist/evidence/topics/*.md`: on-demand maps from a topic to recent primary papers.
+- `dist/evidence/source-analysis.{md,jsonl}`: aggregate and per-paper analysis-depth
+  audit, excluded from default writing context.
 - `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
 - `dist/router.json` and `dist/catalog.jsonl`: machine-readable routing metadata.
 - `dist/index.json`: complete machine index for scripts; do not paste it into an

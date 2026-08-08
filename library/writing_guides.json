@@ -1030,6 +1030,608 @@
         "general.sentence-pattern.quantify.001",
         "general.sentence-pattern.causal-caution.001"
       ]
+    },
+    {
+      "id": "related_work",
+      "guide_type": "section_protocol",
+      "section": "related_work",
+      "label": "Related Work: evidence-verified synthesis and positioning",
+      "purpose": "Organize verified primary papers into problem-relevant families, compare them on explicit axes, and locate the present work without paper-by-paper narration or unsupported priority claims.",
+      "aliases": ["related work", "literature review", "相关工作", "文献综述"],
+      "use_when": "Planning, drafting, or revising an AI-paper Related Work section or a focused literature-positioning paragraph.",
+      "inputs": [
+        "The exact task, setting, and claim that the literature discussion must contextualize.",
+        "Verified primary papers with bibliographic metadata and notes tied to specific passages.",
+        "A small set of organizing families and explicit comparison axes such as objective, supervision, data regime, assumptions, compute, or deployment setting.",
+        "The present paper's factual relationship to each relevant family, including shared assumptions and material differences."
+      ],
+      "moves": [
+        {
+          "id": "evidence-ledger",
+          "label": "Verify the literature evidence",
+          "required": true,
+          "checks": [
+            "Open every primary paper used for a definition, historical claim, method characterization, or comparison.",
+            "Record what the cited passage supports and do not infer absent limitations from silence.",
+            "Use the library's source IDs only as navigation; never treat a corpus summary as the citation evidence."
+          ]
+        },
+        {
+          "id": "family-taxonomy",
+          "label": "Build a task-relevant taxonomy",
+          "required": true,
+          "checks": [
+            "Group papers by the technical choice that matters to this paper rather than by arbitrary chronology.",
+            "State the comparison axis before naming examples from a family.",
+            "Separate families that solve different problem settings instead of ranking them together."
+          ]
+        },
+        {
+          "id": "synthesis",
+          "label": "Synthesize similarities and differences",
+          "required": true,
+          "checks": [
+            "Describe a recurring approach, then identify a verified assumption, mechanism, or scope difference.",
+            "Make the subject of every evaluative statement explicit: method, dataset, protocol, or result.",
+            "Distinguish reported evidence from the authors' interpretation and from this paper's synthesis."
+          ]
+        },
+        {
+          "id": "position",
+          "label": "Position the present work precisely",
+          "required": true,
+          "checks": [
+            "State what is shared with prior work before the differentiating axis.",
+            "Name the changed assumption, supervision, data, mechanism, evaluation, or deployment constraint.",
+            "Do not imply superiority unless a verified comparable experiment supports it."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "taxonomy-first",
+          "name": "Taxonomy-first synthesis",
+          "when": "Several approach families address a common task under different assumptions.",
+          "sequence": [
+            "Define the shared task and organizing axis.",
+            "Describe the first family and its operative assumption.",
+            "Contrast the next family on the same axis.",
+            "Synthesize the unresolved boundary across families.",
+            "Position the present work on that boundary."
+          ]
+        },
+        {
+          "id": "concept-evolution",
+          "name": "Concept evolution",
+          "when": "Chronology is scientifically meaningful because later work changes a specific assumption or capability.",
+          "sequence": [
+            "State the original formulation or capability with a primary source.",
+            "Describe the verified change introduced by subsequent work.",
+            "Compare the resulting families on a stable axis rather than merely listing years.",
+            "Identify the remaining problem addressed here."
+          ]
+        }
+      ],
+      "verification": [
+        "Every citation exists, has been opened, and supports the adjacent proposition at the stated scope.",
+        "Every comparison names a common axis and avoids ranking incompatible protocols.",
+        "Definitions are paraphrases unless a short quotation is explicitly marked and permitted.",
+        "The section represents close alternatives fairly, including assumptions that favor the present method.",
+        "No claim uses latest, first, only, most, or state-of-the-art without a separately verified comparison set."
+      ],
+      "avoid": [
+        "One sentence per paper with no cross-paper synthesis.",
+        "Citation clusters whose individual sources do not support the whole sentence.",
+        "Describing prior work only through limitations while omitting its intended setting or strength.",
+        "Using temporal recency as a proxy for relevance, quality, or novelty."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.related-family.001",
+        "general.sentence-pattern.related-synthesis.001",
+        "general.sentence-pattern.position.001",
+        "general.sentence-pattern.contrast.001",
+        "general.usage-note.modality.001",
+        "general.usage-note.state-of-the-art.001"
+      ]
+    },
+    {
+      "id": "method",
+      "guide_type": "section_protocol",
+      "section": "method",
+      "label": "Method: executable specification and design rationale",
+      "purpose": "Describe the problem formulation, components, objective, training procedure, and inference behavior precisely enough that a technically competent reader can reconstruct the method and test each claimed mechanism.",
+      "aliases": ["method", "methodology", "approach", "方法", "模型设计"],
+      "use_when": "Planning, drafting, or auditing an AI-paper Method section, algorithm description, or implementation-facing formulation.",
+      "inputs": [
+        "Operational task definition, notation, inputs, outputs, supervision, and assumptions.",
+        "Component graph with tensor or state interfaces and the purpose of each component.",
+        "Objectives with signs, weights, estimators, gradient boundaries, and optimization schedule.",
+        "Training-data flow and deployment-time procedure, including what information is available at each stage.",
+        "Claim-to-mechanism map and material compute, latency, memory, or sampling requirements."
+      ],
+      "moves": [
+        {
+          "id": "formulation",
+          "label": "Define the problem and information boundary",
+          "required": true,
+          "checks": [
+            "Define every symbol before or at first use and state tensor, sequence, or state semantics when ambiguity matters.",
+            "Separate training-only supervision or privileged information from inference-time inputs.",
+            "State assumptions and non-goals that limit what the formulation represents."
+          ]
+        },
+        {
+          "id": "interfaces",
+          "label": "Specify components through interfaces",
+          "required": true,
+          "checks": [
+            "For each component, state its input, output, transformation, and downstream consumer.",
+            "Explain why the component addresses a named failure mode or claim rather than only naming its architecture.",
+            "Keep notation and component names identical across text, equations, figures, pseudocode, and appendices."
+          ]
+        },
+        {
+          "id": "objective",
+          "label": "Make the learning objective auditable",
+          "required": true,
+          "checks": [
+            "Define each loss or reward term, coefficient, estimator, normalization, mask, and reduction.",
+            "State where gradients flow or stop and which parameters each term updates.",
+            "Distinguish the optimized surrogate from the scientific quantity it is intended to improve."
+          ]
+        },
+        {
+          "id": "procedure",
+          "label": "Separate training and inference procedures",
+          "required": true,
+          "checks": [
+            "Give an ordered training procedure with data sampling, update ratios, target updates, and selection protocol where relevant.",
+            "Give an ordered inference or control procedure with state, decoding, replanning, stopping, and timing boundaries.",
+            "Surface stochastic choices, seeds, search budgets, or external modules that affect reproducibility."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "model-objective-procedure",
+          "name": "Model–objective–procedure",
+          "when": "A learned architecture is the main contribution.",
+          "sequence": [
+            "Problem formulation and notation.",
+            "System overview and component interfaces.",
+            "Representation or prediction modules.",
+            "Training objectives and optimization.",
+            "Inference or control procedure.",
+            "Complexity, assumptions, and implementation-critical details."
+          ]
+        },
+        {
+          "id": "algorithmic",
+          "name": "Algorithmic procedure",
+          "when": "The contribution is primarily an update rule, planner, optimizer, or decision procedure.",
+          "sequence": [
+            "Formal setting and objective.",
+            "Core update or search rule.",
+            "Estimator, approximation, and stopping conditions.",
+            "Pseudocode with all externally chosen quantities defined.",
+            "Computational requirements and applicable guarantees."
+          ]
+        }
+      ],
+      "verification": [
+        "A reader can trace every input to every output without guessing an unstated module or data source.",
+        "Equations, pseudocode, diagrams, and prose use consistent notation and ordering.",
+        "Train-time and test-time information, computation, and model variants are explicitly separated.",
+        "Every mechanism claim has a corresponding experiment, theorem, diagnostic, or explicitly limited interpretation.",
+        "Implementation details that materially affect the comparison are in the main text or clearly routed appendix."
+      ],
+      "avoid": [
+        "Using intuitive prose in place of an operational definition.",
+        "Introducing modules as a list without interfaces or design rationale.",
+        "Hiding optimization, selection, or inference details behind 'we follow standard practice'.",
+        "Claiming a component causes an improvement when the design only establishes correlation."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.define.001",
+        "general.sentence-pattern.intro-challenge-design.001",
+        "general.sentence-pattern.reproducibility-default.001",
+        "general.sentence-pattern.transition.001",
+        "general.usage-note.respectively.001"
+      ]
+    },
+    {
+      "id": "limitations",
+      "guide_type": "section_protocol",
+      "section": "limitations",
+      "label": "Limitations: evidence boundary and consequential failure modes",
+      "purpose": "State where the evidence, assumptions, resources, and deployment conditions stop supporting the paper's claims, and identify concrete failure modes without generic disclaimers.",
+      "aliases": ["limitations", "failure modes", "局限性", "不足"],
+      "use_when": "Drafting a Limitations section, failure-boundary discussion, broader-impact caveat, or scoped response to an untested setting.",
+      "inputs": [
+        "The paper's claims and the exact evidence supporting each claim.",
+        "Untested datasets, tasks, shifts, embodiments, populations, or deployment conditions that a reader might otherwise infer.",
+        "Observed failures, null results, sensitivity, safety concerns, and resource requirements.",
+        "Assumptions in the formulation, data, annotations, simulator, metrics, or evaluation protocol."
+      ],
+      "moves": [
+        {
+          "id": "claim-boundary",
+          "label": "Bound each claim",
+          "required": true,
+          "checks": [
+            "Name the evaluated axis and the nearest unsupported extrapolation.",
+            "Distinguish not evaluated, evaluated with a null result, and observed failure.",
+            "Use calibrated modality so uncertainty is not converted into a negative result."
+          ]
+        },
+        {
+          "id": "failure-consequence",
+          "label": "Describe mechanism and consequence",
+          "required": true,
+          "checks": [
+            "State the condition under which the failure occurs and the observable consequence.",
+            "Connect the boundary to a data, model, objective, protocol, or deployment mechanism when evidence permits.",
+            "Identify who or what is affected when the limitation has safety, fairness, or operational consequences."
+          ]
+        },
+        {
+          "id": "mitigation",
+          "label": "Separate current mitigation from future work",
+          "required": true,
+          "checks": [
+            "Describe existing safeguards or diagnostics as implemented facts.",
+            "Label proposed mitigations as future work and do not imply they are validated.",
+            "Prioritize limitations that materially change interpretation over generic statements that all methods could make."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "empirical-boundary",
+          "name": "Empirical boundary",
+          "when": "The main limitation is incomplete evaluation or a measured failure region.",
+          "sequence": [
+            "Supported claim and evaluated scope.",
+            "Nearest untested or failed condition.",
+            "Observed evidence or reason for uncertainty.",
+            "Effect on interpretation or deployment.",
+            "Current mitigation and clearly labeled future validation."
+          ]
+        },
+        {
+          "id": "assumption-resource",
+          "name": "Assumption or resource boundary",
+          "when": "Performance relies on information, data, compute, hardware, or a formal assumption.",
+          "sequence": [
+            "Required assumption or resource.",
+            "Where it enters the method or evaluation.",
+            "What changes when it is violated or unavailable.",
+            "Scope of claims that remain valid."
+          ]
+        }
+      ],
+      "verification": [
+        "Every limitation is specific enough to suggest a test, affected claim, or deployment decision.",
+        "Observed failures, null results, and untested settings are linguistically distinct.",
+        "The section does not introduce evidence or causal explanations absent from the paper.",
+        "Resource and data limitations include units, scale, provenance, or access conditions where relevant.",
+        "Safety-relevant limitations are not hidden behind vague future-work language."
+      ],
+      "avoid": [
+        "Generic statements that more data, compute, or future research may help.",
+        "Presenting a missing experiment as evidence of likely success or failure.",
+        "Minimizing a consequential failure because it occurs outside the average benchmark case.",
+        "Adding a limitation that contradicts the paper's main claim without reconciling the scope."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.limitation.001",
+        "general.sentence-pattern.result-boundary.001",
+        "general.sentence-pattern.result-null.001",
+        "general.sentence-pattern.result-tradeoff.001",
+        "general.sentence-pattern.future.001",
+        "general.usage-note.generalization-axis.001",
+        "general.usage-note.modality.001"
+      ]
+    },
+    {
+      "id": "conclusion",
+      "guide_type": "section_protocol",
+      "section": "conclusion",
+      "label": "Conclusion: contribution–evidence–scope closure",
+      "purpose": "Close the paper by restating the solved problem, core contribution, principal verified evidence, and remaining boundary without adding new claims or repeating the abstract verbatim.",
+      "aliases": ["conclusion", "concluding remarks", "结论", "总结"],
+      "use_when": "Drafting or revising the final paper section after claims, results, and limitations are stable.",
+      "inputs": [
+        "Final problem statement and contribution claims.",
+        "Principal verified result or theoretical implication with its evaluation scope.",
+        "The most consequential limitation or next research question.",
+        "Any broader implication that follows directly from the paper rather than from aspiration."
+      ],
+      "moves": [
+        {
+          "id": "synthesis",
+          "label": "Synthesize problem and contribution",
+          "required": true,
+          "checks": [
+            "Restate the addressed problem at the same scope as the Introduction.",
+            "Name the core insight and contribution rather than listing every module.",
+            "Avoid copying the Abstract sentence by sentence."
+          ]
+        },
+        {
+          "id": "evidence",
+          "label": "Close the claim with evidence",
+          "required": true,
+          "checks": [
+            "State the principal verified finding and the setting in which it holds.",
+            "Retain exceptions, trade-offs, or uncertainty that materially affect the conclusion.",
+            "Do not upgrade a trend or benchmark result into a causal or universal claim."
+          ]
+        },
+        {
+          "id": "boundary",
+          "label": "End with a bounded implication",
+          "required": true,
+          "checks": [
+            "Identify a specific remaining boundary or research direction grounded in the findings.",
+            "Separate demonstrated capability from plausible broader impact.",
+            "Introduce no new method detail, citation-dependent literature claim, or result."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "empirical-closure",
+          "name": "Empirical paper closure",
+          "when": "The main contribution is an empirically evaluated method or system.",
+          "sequence": [
+            "Problem and core design insight.",
+            "Contribution at system or algorithm level.",
+            "Principal evidence with evaluation scope.",
+            "Trade-off or limitation that affects interpretation.",
+            "Specific next question or bounded implication."
+          ]
+        },
+        {
+          "id": "theory-resource-closure",
+          "name": "Theory or resource closure",
+          "when": "The main contribution is a theorem, benchmark, dataset, or analysis.",
+          "sequence": [
+            "Formal or measurement gap addressed.",
+            "Main result or resource contribution.",
+            "What the result enables or reveals under stated assumptions.",
+            "Boundary of validity or coverage.",
+            "Concrete follow-up enabled by the contribution."
+          ]
+        }
+      ],
+      "verification": [
+        "Every conclusion claim appears earlier with supporting evidence or analysis.",
+        "Numbers, comparisons, and scope match the final Results and Limitations sections.",
+        "No state-of-the-art, generalization, deployment, or causal claim is strengthened during summarization.",
+        "The final sentence communicates a specific implication or boundary rather than generic future work."
+      ],
+      "avoid": [
+        "Repeating the Abstract nearly verbatim.",
+        "Introducing a new experiment, citation, comparison, or technical mechanism.",
+        "Ending with an unbounded claim that the method opens broad new possibilities.",
+        "Omitting a trade-off that is necessary to interpret the main result."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.contribution.001",
+        "general.sentence-pattern.abstract-result.001",
+        "general.sentence-pattern.scope.001",
+        "general.sentence-pattern.result-boundary.001",
+        "general.sentence-pattern.result-tradeoff.001",
+        "general.sentence-pattern.future.001"
+      ]
+    },
+    {
+      "id": "rebuttal",
+      "guide_type": "section_protocol",
+      "section": "rebuttal",
+      "label": "Rebuttal: answer–evidence–revision with fixed evidence",
+      "purpose": "Respond directly to reviewer concerns using existing evidence, precise scope, and concrete manuscript changes while distinguishing correction, clarification, concession, and new work.",
+      "aliases": ["rebuttal", "reviewer response", "response letter", "审稿回复", "答辩"],
+      "use_when": "Drafting a conference rebuttal, response-to-reviewers document, or concise answer to a technical concern.",
+      "inputs": [
+        "The reviewer's concern decomposed into factual questions or requested actions.",
+        "Existing manuscript evidence, table or figure locations, analyses, and exact results available before the response deadline.",
+        "The valid scope of the current claim and any aspect that should be conceded.",
+        "Specific text, figure, table, appendix, or experiment changes that are actually authorized and feasible."
+      ],
+      "moves": [
+        {
+          "id": "classify",
+          "label": "Classify the concern",
+          "required": true,
+          "checks": [
+            "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
+            "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
+            "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous."
+          ]
+        },
+        {
+          "id": "answer",
+          "label": "Lead with the answer",
+          "required": true,
+          "checks": [
+            "Begin with yes, no, agreement, correction, or a one-sentence scoped answer.",
+            "State the claim boundary before explanatory background when scope is disputed.",
+            "Acknowledge a valid concern without conceding unrelated claims."
+          ]
+        },
+        {
+          "id": "evidence",
+          "label": "Point to existing evidence",
+          "required": true,
+          "checks": [
+            "Give the exact table, figure, equation, appendix, or result and state what it supports.",
+            "Report metric, denominator, comparison, runs, and uncertainty when the response relies on a number.",
+            "If evidence is absent, say so and narrow the claim instead of inventing a result."
+          ]
+        },
+        {
+          "id": "revision",
+          "label": "Commit to a concrete revision",
+          "required": true,
+          "checks": [
+            "Describe the exact manuscript change and where it will appear.",
+            "Distinguish completed analysis from a promised revision or future experiment.",
+            "Ensure the revision resolves the stated concern rather than only adding volume."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "clarification",
+          "name": "Clarification with existing evidence",
+          "when": "The concern is addressed by evidence already in the submission but presentation is unclear.",
+          "sequence": [
+            "Direct scoped answer.",
+            "Exact existing evidence and what it establishes.",
+            "Source of ambiguity in the current manuscript.",
+            "Concrete clarification and location."
+          ]
+        },
+        {
+          "id": "valid-limitation",
+          "name": "Valid limitation or missing evidence",
+          "when": "The reviewer identifies an unsupported scope, untested condition, or real weakness.",
+          "sequence": [
+            "Explicit agreement on the valid concern.",
+            "What the current evidence does and does not establish.",
+            "Narrowed claim or limitation statement.",
+            "Feasible revision, with new experiments labeled only if actually run."
+          ]
+        }
+      ],
+      "verification": [
+        "Every response begins with an answer rather than gratitude or background.",
+        "Every numeric or comparative statement matches the submission or a clearly identified completed addition.",
+        "Promises correspond to concrete edits that can be delivered under the venue rules.",
+        "Tone is factual and respectful without exaggerating agreement or certainty.",
+        "No citation, experiment, result, or venue policy is invented."
+      ],
+      "avoid": [
+        "Thanking the reviewer without answering the question.",
+        "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
+        "Promising broad experiments without completed results, resources, or permission.",
+        "Using significance, fairness, or state-of-the-art language without the required evidence."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.rebuttal-answer.001",
+        "general.sentence-pattern.rebuttal-acknowledge.001",
+        "general.sentence-pattern.rebuttal-evidence.001",
+        "general.sentence-pattern.rebuttal-no-evidence.001",
+        "general.sentence-pattern.rebuttal-revision.001",
+        "general.sentence-pattern.rebuttal-concede.001",
+        "general.sentence-pattern.fair-comparison.001"
+      ]
+    },
+    {
+      "id": "translation",
+      "guide_type": "section_protocol",
+      "section": "translation",
+      "label": "Translation: proposition-first scientific English",
+      "purpose": "Translate Chinese AI-paper prose by preserving the scientific proposition, terminology, notation, evidence strength, and discourse function before realizing it in field-standard English.",
+      "aliases": ["translation", "Chinese to English", "paper translation", "中英翻译", "论文翻译"],
+      "use_when": "Translating or bilingual-editing AI-paper text, captions, rebuttals, definitions, or technical explanations from Chinese into English.",
+      "inputs": [
+        "Source text plus its section, domain, intended readers, and neighboring sentences.",
+        "A terminology lock for method names, benchmark names, symbols, metrics, and repeated concepts.",
+        "The proposition structure: actor, action or relation, object, condition, comparison, evidence, negation, and modality.",
+        "Any primary source that must be checked for a technical definition or literature claim."
+      ],
+      "moves": [
+        {
+          "id": "proposition",
+          "label": "Recover the scientific proposition",
+          "required": true,
+          "checks": [
+            "Identify who or what performs each action and what condition limits the statement.",
+            "Preserve negation, causal direction, quantifiers, uncertainty, comparison direction, and temporal order.",
+            "Resolve omitted Chinese subjects only from context; surface ambiguity instead of guessing."
+          ]
+        },
+        {
+          "id": "terminology",
+          "label": "Lock technical terminology",
+          "required": true,
+          "checks": [
+            "Retrieve the canonical term by domain without relying on literal dictionary equivalence.",
+            "Use one English form for each concept unless a distinction is intended.",
+            "Preserve symbols, method names, citation keys, metric units, dataset names, and capitalization."
+          ]
+        },
+        {
+          "id": "realization",
+          "label": "Realize the section-specific discourse move",
+          "required": true,
+          "checks": [
+            "Choose sentence structure for the section and intent rather than mirroring Chinese word order.",
+            "Use attested collocations only when they match the proposition and rewrite original patterns around the facts.",
+            "Make comparison axes and antecedents explicit where English readers would otherwise misread them."
+          ]
+        },
+        {
+          "id": "backcheck",
+          "label": "Back-check fidelity",
+          "required": true,
+          "checks": [
+            "Compare the translation against the source for omissions, additions, stronger modality, and reversed relations.",
+            "Check all numbers, units, parentheses, citations, equations, and respectively mappings.",
+            "Do not add explanations, praise, novelty, or evidence absent from the source."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "technical-prose",
+          "name": "Technical proposition",
+          "when": "Translating method, experiment, or analysis prose.",
+          "sequence": [
+            "Recover proposition and condition.",
+            "Lock terms and notation.",
+            "Select section-appropriate subject and verb.",
+            "Realize modifiers near the quantity or noun they constrain.",
+            "Back-check evidence strength and factual completeness."
+          ]
+        },
+        {
+          "id": "definition-literature",
+          "name": "Definition or literature claim",
+          "when": "The source defines a concept or characterizes prior work.",
+          "sequence": [
+            "Identify the exact definitional or literature proposition.",
+            "Verify the primary source and canonical term.",
+            "Paraphrase rather than present source-derived wording as a quotation.",
+            "Preserve citation scope and distinguish synthesis from source claims."
+          ]
+        }
+      ],
+      "verification": [
+        "Back-translation preserves the same technical proposition, negation, comparison, and uncertainty.",
+        "Terminology is consistent with the paper and the target research community.",
+        "Every number, unit, symbol, citation, benchmark, and method name is unchanged unless correction was explicitly requested.",
+        "English syntax is natural for the target section and does not retain avoidable Chinese topic-comment structure.",
+        "No factual content, novelty claim, causal claim, or citation was added."
+      ],
+      "avoid": [
+        "Translating words in source order before identifying the proposition.",
+        "Replacing technical terms with stylistically varied near-synonyms.",
+        "Strengthening may, can, suggests, or is associated with into proves or demonstrates.",
+        "Adding an explanatory clause that is plausible but absent from the source."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.translation-preserve.001",
+        "general.usage-note.modality.001",
+        "general.usage-note.respectively.001",
+        "general.usage-note.significant.001",
+        "general.usage-note.generalization-axis.001",
+        "general.anti-pattern.ability-noun.001",
+        "general.anti-pattern.perform-good.001"
+      ]
     }
   ]
 }

@@ -14,6 +14,11 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
+if __package__:
+    from .source_health import health_summary, verify_sources
+else:
+    from source_health import health_summary, verify_sources
+
 
 ROOT = Path(__file__).resolve().parents[1]
 LIBRARY = ROOT / "library"
@@ -41,6 +46,7 @@ TASK_ROUTES_SCHEMA_PATH = ROOT / "schemas" / "task-routes.schema.json"
 TABLE_TEMPLATES_SCHEMA_PATH = ROOT / "schemas" / "table-templates.schema.json"
 RETRIEVAL_EVAL_SCHEMA_PATH = ROOT / "schemas" / "retrieval-eval.schema.json"
 SECTION_STUDY_SCHEMA_PATH = ROOT / "schemas" / "section-study.schema.json"
+CORPUS_REPORT_SCHEMA_PATH = ROOT / "schemas" / "corpus-report.schema.json"
 TABLE_TEMPLATE_DIR = ROOT / "templates" / "tables"
 RETRIEVAL_EVAL_PATH = ROOT / "evals" / "retrieval.json"
 SKILL_DIR = ROOT / "skills" / "super-library"
@@ -122,6 +128,91 @@ def load_table_templates() -> Dict[str, Any]:
     return read_json(TABLE_TEMPLATES_PATH)
 
 
+def source_analysis_records(
+    sources: Sequence[Dict[str, Any]], entries: Sequence[Dict[str, Any]]
+) -> List[Dict[str, Any]]:
+    """Build one transparent analysis-depth record for every core paper."""
+    report = read_json(CORPUS_REPORT_PATH)
+    study = read_json(SECTION_STUDY_PATH)
+    collection_id = report["collection"]
+    unavailable_abstracts = set(
+        report.get("abstracts_not_analyzed", {}).get("source_ids", [])
+    )
+    full_text_samples = set(study.get("sample_source_ids", []))
+    linked_entries: Dict[str, List[str]] = collections.defaultdict(list)
+    for entry in entries:
+        for source_id in entry.get("source_ids", []):
+            linked_entries[source_id].append(entry["id"])
+
+    records = []
+    for source in sorted(sources, key=lambda item: item["id"]):
+        if collection_id not in source.get("collections", []):
+            continue
+        source_id = source["id"]
+        abstract_status = (
+            "unavailable" if source_id in unavailable_abstracts else "analyzed"
+        )
+        full_text_status = (
+            "structural_sample" if source_id in full_text_samples else "not_sampled"
+        )
+        direct_links = sorted(linked_entries.get(source_id, []))
+        if full_text_status == "structural_sample" and direct_links:
+            outcome = "structural_sample_with_library_links"
+        elif full_text_status == "structural_sample":
+            outcome = "structural_sample_without_library_links"
+        elif direct_links:
+            outcome = "library_links_without_full_text_sample"
+        elif abstract_status == "analyzed":
+            outcome = "abstract_analyzed_no_library_link"
+        else:
+            outcome = "metadata_only"
+        records.append(
+            {
+                "source_id": source_id,
+                "title": source["title"],
+                "venue": source["venue"],
+                "year": source["year"],
+                "domains": source.get("domains", []),
+                "topic_families": source.get("topic_families", []),
+                "official_url": source["url"],
+                "abstract_status": abstract_status,
+                "full_text_status": full_text_status,
+                "linked_entry_ids": direct_links,
+                "outcome": outcome,
+            }
+        )
+    return records
+
+
+def source_analysis_summary(records: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    """Summarize evidence depth without implying that metadata is language evidence."""
+    linked = [record for record in records if record["linked_entry_ids"]]
+    return {
+        "papers": len(records),
+        "abstract_status": dict(
+            sorted(collections.Counter(r["abstract_status"] for r in records).items())
+        ),
+        "full_text_status": dict(
+            sorted(collections.Counter(r["full_text_status"] for r in records).items())
+        ),
+        "papers_with_direct_library_links": len(linked),
+        "papers_without_direct_library_links": len(records) - len(linked),
+        "outcomes": dict(
+            sorted(collections.Counter(r["outcome"] for r in records).items())
+        ),
+        "direct_links_by_venue": dict(
+            sorted(collections.Counter(r["venue"] for r in linked).items())
+        ),
+        "direct_links_by_domain": dict(
+            sorted(
+                collections.Counter(
+                    domain for record in linked for domain in record["domains"]
+                ).items()
+            )
+        ),
+    }
+
+
 def public_record(record: Dict[str, Any]) -> Dict[str, Any]:
     return {key: value for key, value in record.items() if not key.startswith("_")}
 
@@ -148,6 +239,8 @@ def schema_validation_errors(
         "array": lambda item: isinstance(item, list),
         "string": lambda item: isinstance(item, str),
         "integer": lambda item: isinstance(item, int) and not isinstance(item, bool),
+        "number": lambda item: isinstance(item, (int, float))
+        and not isinstance(item, bool),
         "boolean": lambda item: isinstance(item, bool),
     }
     if expected_type in type_checks and not type_checks[expected_type](value):
@@ -199,7 +292,7 @@ def schema_validation_errors(
                 errors.extend(
                     schema_validation_errors(item, additional, f"{path}.{key}")
                 )
-    elif isinstance(value, int) and not isinstance(value, bool):
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
         if "minimum" in schema and value < schema["minimum"]:
             errors.append(f"{path}: integer is below minimum")
         if "maximum" in schema and value > schema["maximum"]:
@@ -598,8 +691,13 @@ def validate_corpus(
         topic_config = read_json(TOPICS_PATH)
         collection_config = read_json(COLLECTIONS_PATH)
         corpus_report = read_json(CORPUS_REPORT_PATH)
+        corpus_report_schema = read_json(CORPUS_REPORT_SCHEMA_PATH)
     except CorpusError as exc:
         return [*errors, str(exc)]
+    errors.extend(
+        f"library/corpus_report.json: schema: {error}"
+        for error in schema_validation_errors(corpus_report, corpus_report_schema)
+    )
     topics = {
         item.get("id"): item for item in topic_config.get("topics", [])
         if isinstance(item, dict) and isinstance(item.get("id"), str)
@@ -941,11 +1039,63 @@ def validate_corpus(
             "collection membership"
         )
     analyzed = corpus_report.get("official_abstracts_analyzed", 0)
-    not_analyzed = corpus_report.get("abstracts_not_analyzed", {}).get("count", 0)
+    not_analyzed_record = corpus_report.get("abstracts_not_analyzed", {})
+    not_analyzed = not_analyzed_record.get("count", 0)
+    not_analyzed_ids = not_analyzed_record.get("source_ids", [])
     if analyzed + not_analyzed != len(reported_members):
         errors.append(
             "library/corpus_report.json: abstract analysis counts do not sum to "
             "collection membership"
+        )
+    if not_analyzed != len(not_analyzed_ids):
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed.count does not "
+            "match source_ids"
+        )
+    reported_member_ids = {source["id"] for source in reported_members}
+    unknown_not_analyzed = set(not_analyzed_ids) - reported_member_ids
+    if unknown_not_analyzed:
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed has unknown or "
+            f"out-of-collection source IDs: {sorted(unknown_not_analyzed)}"
+        )
+    venue = not_analyzed_record.get("venue")
+    wrong_venue = sorted(
+        source["id"]
+        for source in reported_members
+        if source["id"] in set(not_analyzed_ids) and source["venue"] != venue
+    )
+    if wrong_venue:
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed venue does not "
+            f"match source metadata: {wrong_venue}"
+        )
+    try:
+        analysis_records = source_analysis_records(sources, entries)
+        declared_samples = set(
+            read_json(SECTION_STUDY_PATH).get("sample_source_ids", [])
+        )
+    except CorpusError as exc:
+        errors.append(str(exc))
+        analysis_records = []
+        declared_samples = set()
+    if len(analysis_records) != len(reported_members):
+        errors.append(
+            "generated source-analysis ledger does not cover the reported collection"
+        )
+    if len({record["source_id"] for record in analysis_records}) != len(
+        analysis_records
+    ):
+        errors.append("generated source-analysis ledger contains duplicate papers")
+    structural_samples = {
+        record["source_id"]
+        for record in analysis_records
+        if record["full_text_status"] == "structural_sample"
+    }
+    if structural_samples != declared_samples:
+        errors.append(
+            "section-writing full-paper samples must all belong to the reported "
+            "core collection"
         )
     unknown_promoted = set(corpus_report.get("promoted_collocation_ids", [])) - set(
         entries_by_id
@@ -1372,6 +1522,9 @@ def coverage_stats(
         source for source in sources
         if "recent-five-year-core" in source.get("collections", [])
     ]
+    analysis_summary = source_analysis_summary(
+        source_analysis_records(sources, entries)
+    )
     return {
         "entries": len(entries),
         "sources": len(sources),
@@ -1459,6 +1612,7 @@ def coverage_stats(
                 )
             ),
         },
+        "evidence_depth": analysis_summary,
     }
 
 
@@ -1473,6 +1627,126 @@ def cmd_stats(_: argparse.Namespace) -> int:
         return 1
     print(json.dumps(coverage_stats(sources, entries), ensure_ascii=False, indent=2))
     return 0
+
+
+def render_source_analysis_summary(
+    taxonomy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> str:
+    summary = source_analysis_summary(records)
+    base = raw_dist_base(taxonomy)
+    abstract = summary["abstract_status"]
+    full_text = summary["full_text_status"]
+    lines = [
+        "# Super Library paper-analysis ledger",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "This ledger separates paper inclusion from language-evidence depth. Metadata",
+        "coverage is not evidence that a paper contributed a reusable expression.",
+        "",
+        f"- Core papers: {summary['papers']}",
+        f"- Abstract analyzed: {abstract.get('analyzed', 0)}",
+        f"- Abstract unavailable to the bounded collector: {abstract.get('unavailable', 0)}",
+        f"- Full-paper structural samples: {full_text.get('structural_sample', 0)}",
+        f"- Papers directly linked from normalized library records: "
+        f"{summary['papers_with_direct_library_links']}",
+        f"- Papers with no direct normalized-record link: "
+        f"{summary['papers_without_direct_library_links']}",
+        "",
+        "Open the [machine-readable per-paper ledger]"
+        f"({base}/evidence/source-analysis.jsonl) only when auditing coverage.",
+        "For a literature claim, open the primary paper itself; neither this ledger",
+        "nor a topic evidence map is citable evidence.",
+    ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_analysis_status(args: argparse.Namespace) -> int:
+    try:
+        taxonomy, sources, entries = load_corpus()
+        records = source_analysis_records(sources, entries)
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    if args.source_id:
+        record = next(
+            (item for item in records if item["source_id"] == args.source_id), None
+        )
+        if record is None:
+            print(
+                f"ERROR: {args.source_id!r} is not in the recent-five-year core",
+                file=sys.stderr,
+            )
+            return 1
+        payload: Any = record
+    else:
+        payload = source_analysis_summary(records)
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    elif args.source_id:
+        links = payload["linked_entry_ids"]
+        print(f"# {payload['title']}")
+        print()
+        print(f"- Source ID: `{payload['source_id']}`")
+        print(f"- Venue/year: {payload['venue']} {payload['year']}")
+        print(f"- Abstract: {payload['abstract_status']}")
+        print(f"- Full text: {payload['full_text_status']}")
+        print(f"- Direct library links: {', '.join(links) if links else 'none'}")
+        print(f"- Outcome: {payload['outcome']}")
+        print(f"- Primary paper: {payload['official_url']}")
+    else:
+        print(render_source_analysis_summary(taxonomy, records), end="")
+    return 0
+
+
+def cmd_verify_sources(args: argparse.Namespace) -> int:
+    try:
+        _, sources, _ = load_corpus()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    selected = sorted(
+        (
+            public_record(source)
+            for source in sources
+            if args.collection in source.get("collections", [])
+        ),
+        key=lambda item: item["id"],
+    )
+    if args.limit is not None:
+        selected = selected[: args.limit]
+    results = verify_sources(
+        selected,
+        timeout=float(args.timeout),
+        workers=args.workers,
+    )
+    summary = health_summary(results)
+    payload = {
+        "collection": args.collection,
+        "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "policy": (
+            "404 and 410 are broken; access controls and transient failures are "
+            "reported separately and do not prove a dead source."
+        ),
+        "summary": summary,
+        "results": results,
+    }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(
+            "Source health: "
+            + ", ".join(f"{key}={value}" for key, value in summary.items())
+        )
+        for result in results:
+            if result["status"] == "reachable":
+                continue
+            http = result["http_status"] if result["http_status"] is not None else "-"
+            print(
+                f"{result['source_id']}: {result['status']} "
+                f"(HTTP {http}) {result['detail']}"
+            )
+    return 1 if args.strict and summary.get("broken", 0) else 0
 
 
 def writing_guides_by_id() -> Dict[str, Dict[str, Any]]:
@@ -1543,9 +1817,39 @@ def recommend_guide_id(
         return "abstract"
     if "introduction" in sections:
         return "introduction"
+    section_guides = {
+        "related_work": "related_work",
+        "method": "method",
+        "limitations": "limitations",
+        "conclusion": "conclusion",
+        "rebuttal": "rebuttal",
+        "translation": "translation",
+    }
+    for section, guide_id in section_guides.items():
+        if section in sections and guide_id in available:
+            return guide_id
     if "experiments" not in sections:
         return None
     query_lower = query.lower()
+    full_section_signals = (
+        "experiment section",
+        "experimental section",
+        "experimental setup",
+        "evaluation protocol",
+        "complete experiments",
+        "full experiments",
+        "real-robot experiment",
+        "real robot experiment",
+        "setup and analysis",
+        "实验章节",
+        "完整实验",
+        "实验设置",
+        "评测协议",
+        "真实机器人实验",
+        "设置与分析",
+    )
+    if any(signal in query_lower for signal in full_section_signals):
+        return "experiments"
     routes = (
         (
             "experiments.table.ablation",
@@ -2060,7 +2364,7 @@ def render_agent_index(
         "   contains the compact contract, one protocol when needed, and selected",
         "   records.",
         f"2. Otherwise, read the [universal core]({base}/core.md) once.",
-        f"3. For Abstract, Introduction, or Experiments, select one task-specific",
+        f"3. For a structured paper section, rebuttal, or translation task, select one",
         f"   [section protocol]({base}/guides/index.md). Do not load every guide.",
         "4. Read one section catalog for rhetoric and one small domain hub for",
         "   terminology; then follow at most one topic catalog. Indexes contain only",
@@ -2075,8 +2379,8 @@ def render_agent_index(
         "",
         "## Section protocols",
         "",
-        f"- [Protocol index]({base}/guides/index.md) — Abstract, Introduction,",
-        "  complete Experiments, results analysis, and five table types",
+        f"- [Protocol index]({base}/guides/index.md) — all principal paper sections,",
+        "  rebuttal, translation, results analysis, and five table types",
         f"- [LaTeX table assets]({base}/templates/tables/index.md) — five",
         "  self-contained reporting skeletons with auditable replacement tokens",
         "",
@@ -2104,6 +2408,8 @@ def render_agent_index(
             f"- [Machine router]({base}/router.json)",
             f"- [Thin JSONL catalog]({base}/catalog.jsonl)",
             f"- [Release manifest and checksums]({base}/manifest.json)",
+            f"- [Paper-analysis depth]({base}/evidence/source-analysis.md) — audit-only;",
+            "  not part of the default writing context",
             "",
             "With a checkout, avoid loading generated files and retrieve a bounded",
             "bundle directly:",
@@ -2878,6 +3184,7 @@ def cmd_build(_: argparse.Namespace) -> int:
     )
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in published_entries}
+    analysis_records = source_analysis_records(sources, entries)
 
     agent_index_path = DIST_DIR / "agent-index.md"
     agent_index_path.write_text(
@@ -2933,6 +3240,20 @@ def cmd_build(_: argparse.Namespace) -> int:
     legacy_compact_path = DIST_DIR / "super-library-compact.md"
     legacy_compact_path.write_text(
         render_compact(taxonomy, sources, published_entries), encoding="utf-8"
+    )
+    source_analysis_path = evidence_dir / "source-analysis.jsonl"
+    source_analysis_path.write_text(
+        "\n".join(
+            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            for record in analysis_records
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    source_analysis_summary_path = evidence_dir / "source-analysis.md"
+    source_analysis_summary_path.write_text(
+        render_source_analysis_summary(taxonomy, analysis_records),
+        encoding="utf-8",
     )
 
     domain_catalogs = {}
@@ -3032,6 +3353,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "task_routes": task_route_config,
         "table_templates": table_template_config,
         "section_study": section_study,
+        "corpus_report": read_json(CORPUS_REPORT_PATH),
         "taxonomy": taxonomy,
     }
     index_path = DIST_DIR / "index.json"
@@ -3105,6 +3427,11 @@ def cmd_build(_: argparse.Namespace) -> int:
             "sections": section_catalogs,
             "topics": topic_catalogs,
             "jsonl": "catalog.jsonl",
+        },
+        "evidence": {
+            "source_analysis_summary": "evidence/source-analysis.md",
+            "source_analysis_records": "evidence/source-analysis.jsonl",
+            "topic_maps": topic_evidence,
         },
         "cards": card_paths,
         "context_bytes": {
@@ -3195,6 +3522,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "schemas/table-templates.schema.json",
         "schemas/retrieval-eval.schema.json",
         "schemas/section-study.schema.json",
+        "schemas/corpus-report.schema.json",
         "evals/retrieval.json",
     ]
     manifest = {
@@ -3229,6 +3557,10 @@ def cmd_build(_: argparse.Namespace) -> int:
             "topics": topic_catalogs,
         },
         "evidence_maps": {"topics": topic_evidence},
+        "source_analysis": {
+            "summary": "evidence/source-analysis.md",
+            "records": "evidence/source-analysis.jsonl",
+        },
         "packs": {
             domain: f"packs/{domain}.md" for domain in taxonomy["domains"]
         },
@@ -3279,6 +3611,10 @@ def cmd_build(_: argparse.Namespace) -> int:
                     name: f"{raw_base}/{relative}"
                     for name, relative in topic_evidence.items()
                 }
+            },
+            "source_analysis": {
+                "summary": f"{raw_base}/evidence/source-analysis.md",
+                "records": f"{raw_base}/evidence/source-analysis.jsonl",
             },
             "packs": {
                 domain: f"{raw_base}/packs/{domain}.md"
@@ -3481,6 +3817,10 @@ def build_parser() -> argparse.ArgumentParser:
     guide_ids = [
         guide["id"] for guide in read_json(WRITING_GUIDES_PATH).get("guides", [])
     ]
+    collection_ids = [
+        collection["id"]
+        for collection in read_json(COLLECTIONS_PATH).get("collections", [])
+    ]
     parser = argparse.ArgumentParser(
         description="Retrieve and maintain the Super Library AI-writing corpus."
     )
@@ -3656,6 +3996,40 @@ def build_parser() -> argparse.ArgumentParser:
     stats_parser = subparsers.add_parser("stats", help="show coverage statistics")
     stats_parser.set_defaults(func=cmd_stats)
 
+    analysis_parser = subparsers.add_parser(
+        "analysis-status",
+        help="show per-paper or aggregate analysis depth for the 300-paper core",
+    )
+    analysis_parser.add_argument("source_id", nargs="?")
+    analysis_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    analysis_parser.set_defaults(func=cmd_analysis_status)
+
+    source_verify_parser = subparsers.add_parser(
+        "verify-sources",
+        help="perform a current network check of canonical source URLs",
+    )
+    source_verify_parser.add_argument(
+        "--collection",
+        choices=collection_ids,
+        default="recent-five-year-core",
+    )
+    source_verify_parser.add_argument(
+        "--limit", type=int, help="check only the first N source IDs"
+    )
+    source_verify_parser.add_argument("--timeout", type=float, default=15.0)
+    source_verify_parser.add_argument("--workers", type=int, default=12)
+    source_verify_parser.add_argument(
+        "--format", choices=["text", "json"], default="text"
+    )
+    source_verify_parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="exit nonzero only when an official URL returns 404 or 410",
+    )
+    source_verify_parser.set_defaults(func=cmd_verify_sources)
+
     build_subparser = subparsers.add_parser("build", help="generate agent artifacts")
     build_subparser.set_defaults(func=cmd_build)
     return parser
@@ -3676,10 +4050,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             parser.error("route accepts at most one --domain catalog")
         if len(args.topic) > 1:
             parser.error("route accepts at most one --topic catalog")
-    if hasattr(args, "limit") and args.limit < 1:
+    if hasattr(args, "limit") and args.limit is not None and args.limit < 1:
         parser.error("--limit must be at least 1")
     if hasattr(args, "max_chars") and args.max_chars < 2_000:
         parser.error("--max-chars must be at least 2000")
+    if hasattr(args, "timeout") and not 1 <= args.timeout <= 60:
+        parser.error("--timeout must be between 1 and 60 seconds")
+    if hasattr(args, "workers") and not 1 <= args.workers <= 32:
+        parser.error("--workers must be between 1 and 32")
     return args.func(args)
 
 

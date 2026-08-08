@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-07-30",
+  "as_of": "2026-08-09",
   "cards": {
     "emb.definition.3d-vla-world-model.001": "cards/embodied_ai/emb.definition.3d-vla-world-model.001.md",
     "emb.definition.action-chunking.001": "cards/embodied_ai/emb.definition.action-chunking.001.md",
@@ -279,10 +279,10 @@
     }
   },
   "context_bytes": {
-    "agent_index": 5128,
+    "agent_index": 5321,
     "average_card": 2210,
     "core": 10879,
-    "guide_index": 2489,
+    "guide_index": 3743,
     "largest_card": 3296,
     "largest_catalog": 19264,
     "largest_evidence_map": 6436,
@@ -290,14 +290,44 @@
     "largest_task_route": 17332,
     "legacy_compact": 58174
   },
-  "contract_version": "3.0",
+  "contract_version": "4.0",
   "core": "core.md",
-  "corpus_version": "0.3.0",
+  "corpus_version": "0.4.0",
   "entrypoint": "agent-index.md",
+  "evidence": {
+    "source_analysis_records": "evidence/source-analysis.jsonl",
+    "source_analysis_summary": "evidence/source-analysis.md",
+    "topic_maps": {
+      "action_representation": "evidence/topics/action_representation.md",
+      "dynamics_representation": "evidence/topics/dynamics_representation.md",
+      "egocentric_3d_grounding": "evidence/topics/egocentric_3d_grounding.md",
+      "embodied_navigation": "evidence/topics/embodied_navigation.md",
+      "embodied_reasoning_agents": "evidence/topics/embodied_reasoning_agents.md",
+      "exploration_skills_goals": "evidence/topics/exploration_skills_goals.md",
+      "imitation_sequence": "evidence/topics/imitation_sequence.md",
+      "language_conditioned_control": "evidence/topics/language_conditioned_control.md",
+      "locomotion_dexterity": "evidence/topics/locomotion_dexterity.md",
+      "model_based_rl": "evidence/topics/model_based_rl.md",
+      "multi_agent_rl": "evidence/topics/multi_agent_rl.md",
+      "offline_rl": "evidence/topics/offline_rl.md",
+      "planning_imagination": "evidence/topics/planning_imagination.md",
+      "policy_optimization": "evidence/topics/policy_optimization.md",
+      "rl_theory_evaluation": "evidence/topics/rl_theory_evaluation.md",
+      "robot_foundation": "evidence/topics/robot_foundation.md",
+      "robot_manipulation": "evidence/topics/robot_manipulation.md",
+      "safe_robust_rl": "evidence/topics/safe_robust_rl.md",
+      "sim_to_real_robot_learning": "evidence/topics/sim_to_real_robot_learning.md",
+      "value_learning": "evidence/topics/value_learning.md",
+      "video_occupancy_world_models": "evidence/topics/video_occupancy_world_models.md",
+      "vla_models": "evidence/topics/vla_models.md",
+      "world_model_general": "evidence/topics/world_model_general.md"
+    }
+  },
   "guides": {
     "index": "guides/index.md",
     "records": {
       "abstract": "guides/abstract.md",
+      "conclusion": "guides/conclusion.md",
       "experiments": "guides/experiments.md",
       "experiments.analysis": "guides/experiments.analysis.md",
       "experiments.table.ablation": "guides/experiments.table.ablation.md",
@@ -306,7 +336,12 @@
       "experiments.table.generalization": "guides/experiments.table.generalization.md",
       "experiments.table.main_results": "guides/experiments.table.main_results.md",
       "experiments.table.sensitivity": "guides/experiments.table.sensitivity.md",
-      "introduction": "guides/introduction.md"
+      "introduction": "guides/introduction.md",
+      "limitations": "guides/limitations.md",
+      "method": "guides/method.md",
+      "rebuttal": "guides/rebuttal.md",
+      "related_work": "guides/related_work.md",
+      "translation": "guides/translation.md"
     }
   },
   "load_policy": {
@@ -331,8 +366,8 @@
       "minimum": 3
     }
   },
-  "raw_base": "https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist",
-  "release_tag": "v0.3.0",
+  "raw_base": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist",
+  "release_tag": "v0.4.0",
   "schema_version": "1.0",
   "table_templates": {
     "index": "templates/tables/index.md",

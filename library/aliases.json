@@ -41,6 +41,8 @@
   "消融实验": ["ablation study", "ablation"],
   "消融": ["ablation component interaction"],
   "实验设置": ["experimental setup protocol metrics baselines"],
+  "真实机器人实验": ["real robot trials success criterion reset protocol"],
+  "真机实验": ["real robot trials success criterion reset protocol"],
   "局限性": ["limitation", "scope"],
   "局限": ["limitation scope boundary"],
   "显著提升": ["statistically significant versus substantial improvement"],

@@ -10,14 +10,17 @@ coverage across ICLR, ICML, NeurIPS,
 CVPR, ECCV, ICCV, RSS, ICRA, IROS, TPAMI, and AAAI. Venue is source metadata,
 not a claim that this seed corpus models a venue-specific house style.
 
-Version 0.3 adds an audited 300-paper 2021–2025 core from CVPR, ECCV, ICCV,
+Version 0.4 maintains an audited 300-paper 2021–2025 core from CVPR, ECCV, ICCV,
 NeurIPS, ICLR, ICML, and TPAMI. Papers are indexed into 23 topic families; their
 recurring terminology and writing moves are deduplicated into compact reusable
-records rather than copied once per paper. It also adds ten selectively loaded
-protocols for Abstract, Introduction, complete Experiments, result analysis, and
-five table types. Eighteen precomposed one-file routes keep common link-only
+records rather than copied once per paper. Sixteen selectively loaded protocols
+now cover Abstract, Introduction, Related Work, Method, complete Experiments,
+result analysis, Limitations, Conclusion, Rebuttal, Translation, and five table
+types. Eighteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
-editable reporting skeletons.
+editable reporting skeletons. A generated per-paper ledger separates metadata
+coverage, abstract analysis, full-paper structural sampling, and direct links to
+normalized records.
 
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
@@ -40,7 +43,7 @@ python3 scripts/superlib.py bundle \
 
 If an agent can only open a URL, give it this repository URL and ask it to read
 `llms.txt`, or link directly to the small
-[immutable v0.3.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md).
+[immutable v0.4.0 agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md).
 The index first offers one-file task routes for the four core domains. A matching
 route already contains the compact contract, one protocol when needed, and its
 selected records, so the Agent reads that file and stops. Unmatched tasks fall
@@ -51,7 +54,7 @@ Suggested prompt:
 
 ```text
 Use https://github.com/asimfish/super_library as the language authority. Read
-llms.txt and use the v0.3 selective-loading workflow. Prefer one matching
+llms.txt and use the v0.4 selective-loading workflow. Prefer one matching
 one-file task route and stop. If none matches, use core once, one relevant
 section protocol when needed, one section catalog and domain hub, at most one
 topic catalog, then only 3–8 cards. Preserve my claims and verify primary papers
@@ -82,7 +85,7 @@ The tools use only the Python standard library (Python 3.9+).
 python3 scripts/superlib.py route "ablation table for coupled components" \
   --domain world_models --section experiments
 
-# Inspect one experiment/table protocol without loading all ten
+# Inspect one experiment/table protocol without loading all sixteen
 python3 scripts/superlib.py guide --list
 python3 scripts/superlib.py guide experiments.table.ablation
 
@@ -112,6 +115,13 @@ python3 scripts/superlib.py build
 # Show coverage
 python3 scripts/superlib.py stats
 
+# Audit aggregate or per-paper analysis depth
+python3 scripts/superlib.py analysis-status
+python3 scripts/superlib.py analysis-status <source-id> --format json
+
+# Perform a current, bounded network check of canonical paper URLs
+python3 scripts/superlib.py verify-sources --limit 20
+
 # Execute deterministic top-k, guide, and task-pack routing cases
 python3 scripts/superlib.py eval-retrieval
 ```
@@ -133,13 +143,14 @@ llms.txt
     ├── dist/routes/<task>.md           # one-file fast path; stop when matched
     ├── dist/core.md                    # fallback evidence/writing guardrails
     ├── dist/guides/index.md            # choose exactly one section protocol
-    │   └── dist/guides/<guide-id>.md   # Abstract/Intro/Experiments/table standard
+    │   └── dist/guides/<guide-id>.md   # one section/rebuttal/translation/table protocol
     ├── dist/catalogs/sections/*.md     # thin rhetorical indexes
     ├── dist/catalogs/domains/*.md      # small technical routing hubs
     ├── dist/catalogs/topics/*.md       # bounded technical indexes
     └── dist/cards/<domain>/<id>.md     # one complete entry at a time
 
 dist/evidence/topics/*.md               # paper maps; verify claims only
+dist/evidence/source-analysis.*         # per-paper analysis-depth audit; not writing context
 dist/templates/tables/*.tex             # copy one experiment-table skeleton
 
 library/                                # canonical hand-reviewed source data
@@ -159,8 +170,8 @@ be queried by a script, not pasted into an Agent.
 - `library/sources.jsonl`: primary-paper metadata and stable links.
 - `library/topics.json`: 23 controlled topic families and query aliases.
 - `library/collections.json`: auditable paper-selection policies and minimums.
-- `library/writing_guides.json`: functional protocols for Abstract, Introduction,
-  Experiments, result analysis, and common experimental table types.
+- `library/writing_guides.json`: functional protocols for principal paper
+  sections, rebuttal, translation, result analysis, and experiment table types.
 - `library/task_routes.json`: 18 precomposed routes for common domain/section
   combinations; each rendered task pack is capped at 24,000 characters.
 - `library/table_templates.json` and `templates/tables/`: five source-controlled
@@ -173,8 +184,8 @@ be queried by a script, not pasted into an Agent.
 - `dist/agent-index.md`, `core.md`, `catalogs/`, and `cards/`: progressive Agent
   retrieval layers.
 - `skills/super-library/`: a self-contained skill with a bounded lookup script.
-- `scripts/superlib.py`: routing, bundle generation, search, validation, build,
-  statistics, and wording lint.
+- `scripts/superlib.py`: routing, bundle generation, search, analysis-depth audit,
+  validation, build, statistics, source-health checks, and wording lint.
 - `evals/`: fresh-Agent behavioral smoke cases for paper, rebuttal, and translation.
   `evals/retrieval.json` is executed directly to enforce top-k, guide, and
   one-file-route behavior.
@@ -190,8 +201,8 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.3 reviewed snapshot contains **228 gold entries** and **331 verified
-primary sources**. Exactly 300 sources form the recent five-year core: 125
+The v0.4 reviewed snapshot contains **228 gold entries** and **331 primary-source
+records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
 and 12 TPAMI papers. It is designed to grow through reviewed contributions rather
@@ -201,7 +212,12 @@ For recurring wording, 288 official conference abstracts were analyzed locally
 by document frequency; abstract text is not stored. Four cross-paper collocations
 survived manual screening and were promoted with source-level attestations. The
 remaining 12 TPAMI DOI pages are included in metadata/topic coverage but not in
-this abstract-level phrase analysis. See `library/corpus_report.json`.
+this abstract-level phrase analysis. Sixty core papers are directly referenced
+by one or more normalized library records; the other papers contribute collection
+and topic coverage or aggregate recurrence analysis, not paper-specific reusable
+wording. Inspect `dist/evidence/source-analysis.jsonl` or run `analysis-status`
+instead of inferring analysis depth from the 300-paper count. See
+`library/corpus_report.json`.
 
 To calibrate section organization rather than collect prose, 40 official
 full-paper PDFs were analyzed locally: ten each from reinforcement learning,

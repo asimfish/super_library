@@ -8,6 +8,7 @@
       "It is evaluated for planning, not for open-loop video generation.",
       "Use only citations that the writer verifies from the supplied source links."
     ],
+    "expected_guide_id": "related_work",
     "expected_retrieval_ids": [
       "general.sentence-pattern.position.001",
       "wm.term.latent-dynamics.001",
@@ -29,6 +30,7 @@
       "No statistical significance test was run.",
       "No additional experiment may be claimed."
     ],
+    "expected_guide_id": "rebuttal",
     "expected_retrieval_ids": [
       "general.sentence-pattern.rebuttal-answer.001",
       "general.sentence-pattern.rebuttal-evidence.001",
@@ -46,6 +48,7 @@
     "mode": "translation",
     "request": "Translate: 该方法在5个随机种子中的3个上有所提升，可能缓解模型误差累积，但差异不具有统计显著性；其对未见过的机器人形态的泛化能力仍有待验证。",
     "facts": [],
+    "expected_guide_id": "translation",
     "expected_retrieval_ids": [
       "general.usage-note.modality.001",
       "general.usage-note.significant.001",
@@ -68,6 +71,7 @@
       "It executes four actions before observing again and replanning.",
       "The language instruction and two camera views condition every policy query."
     ],
+    "expected_guide_id": "method",
     "expected_retrieval_ids": [
       "emb.definition.action-chunking.001",
       "emb.usage-note.chunking-feedback.001",

@@ -1,6 +1,6 @@
 # Super Library protocol: Efficiency and deployment table
 
-`experiments.table.efficiency` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/guides/index.md)
+`experiments.table.efficiency` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
 evidence reporting; it does not supply scientific facts or results.
@@ -60,17 +60,17 @@ Use when: Methods are compared for inference or control deployment.
 
 ## Reusable LaTeX asset
 
-- [Efficiency and deployment table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/efficiency.tex) — `efficiency.tex`; requires booktabs.
+- [Efficiency and deployment table](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/templates/tables/efficiency.tex) — `efficiency.tex`; requires booktabs.
 - Replace every `SL_*` token. Run the wording audit afterward;
   unresolved table tokens are reported as errors for manual repair.
 
 ## Retrieve related sentence cards only as needed
 
-- [At a matched {budget}, {method} yields {verified comparison}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.rebuttal-matched-budget.001.md) — `general.sentence-pattern.rebuttal-matched-budget.001`
-- [For a controlled comparison, we hold {factor} fixed and vary only {factor}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.fair-comparison.001.md) — `general.sentence-pattern.fair-comparison.001`
-- [policy inference latency and control frequency](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/vision_language_action/vla.usage-note.control-latency.001.md) — `vla.usage-note.control-latency.001`
-- [sample efficiency / data efficiency](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/reinforcement_learning/rl.term.sample-efficiency.001.md) — `rl.term.sample-efficiency.001`
+- [At a matched {budget}, {method} yields {verified comparison}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.rebuttal-matched-budget.001.md) — `general.sentence-pattern.rebuttal-matched-budget.001`
+- [For a controlled comparison, we hold {factor} fixed and vary only {factor}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.fair-comparison.001.md) — `general.sentence-pattern.fair-comparison.001`
+- [policy inference latency and control frequency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.usage-note.control-latency.001.md) — `vla.usage-note.control-latency.001`
+- [sample efficiency / data efficiency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.sample-efficiency.001.md) — `rl.term.sample-efficiency.001`
 
 Calibration and external-skill research are documented in the
-[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
+[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
 not stored.

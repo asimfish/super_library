@@ -3,18 +3,18 @@
 Purpose: source-traceable English retrieval for AI papers, rebuttals, related
 work, and Chinese–English technical translation.
 
-Pinned snapshot: v0.3.0 (2026-07-30)
+Pinned snapshot: v0.4.0 (2026-08-09)
 
 Default link-only entrypoint:
-https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md
+https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md
 
 Loading policy:
 1. Read agent-index.md.
 2. Prefer one matching route from routes/index.md. If selected, read that one
    route and stop; do not also load the core, guide, catalogs, or cards.
 3. If no route matches, read the universal core once.
-4. For Abstract, Introduction, or Experiments, read at most one protocol selected
-   through guides/index.md. Never load every protocol.
+4. For any structured section, rebuttal, translation, analysis, or table task,
+   read at most one protocol selected through guides/index.md.
 5. Read at most one relevant section catalog, one small domain hub, and one topic
    catalog.
 6. Open only 3–8 selected entry cards. Do not open every catalog or evidence link.
@@ -31,14 +31,15 @@ Loading policy:
 With a checkout, use:
 python3 scripts/superlib.py bundle --rhetoric-query "<need>" \
   --technical-query "<concept>" --domain <domain> --section <section>
-For Abstract, Introduction, or Experiments, append --guide <guide-id>.
+Append --guide <guide-id> whenever the task needs one protocol.
 
 Machine routes:
-- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/router.json
-- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/routes/index.md
-- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/index.md
-- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalog.jsonl
-- https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/manifest.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/router.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/index.md
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/templates/tables/index.md
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalog.jsonl
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/manifest.json
+- https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/source-analysis.md
 
 This release stores paraphrases, terminology, short multi-source-attested
 collocations, and original templates—not paper quotations. A static release

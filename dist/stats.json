@@ -141,5 +141,39 @@
       "vla_models": 14,
       "world_model_general": 14
     }
+  },
+  "evidence_depth": {
+    "papers": 300,
+    "abstract_status": {
+      "analyzed": 288,
+      "unavailable": 12
+    },
+    "full_text_status": {
+      "not_sampled": 260,
+      "structural_sample": 40
+    },
+    "papers_with_direct_library_links": 60,
+    "papers_without_direct_library_links": 240,
+    "outcomes": {
+      "abstract_analyzed_no_library_link": 197,
+      "library_links_without_full_text_sample": 51,
+      "metadata_only": 12,
+      "structural_sample_with_library_links": 9,
+      "structural_sample_without_library_links": 31
+    },
+    "direct_links_by_venue": {
+      "CVPR": 9,
+      "ECCV": 3,
+      "ICCV": 14,
+      "ICLR": 15,
+      "ICML": 10,
+      "NeurIPS": 9
+    },
+    "direct_links_by_domain": {
+      "embodied_ai": 12,
+      "reinforcement_learning": 16,
+      "vision_language_action": 14,
+      "world_models": 18
+    }
   }
 }
