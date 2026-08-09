@@ -64,6 +64,8 @@ The repository intentionally has no `quote` provenance type.
 - `dist/evidence/topics/*.md`: on-demand maps from a topic to recent primary papers.
 - `dist/evidence/source-analysis.{md,jsonl}`: aggregate and per-paper analysis-depth
   audit, excluded from default writing context.
+- `dist/evidence/promotion-queue.{md,jsonl}`: bounded, scored maintainer queue for
+  normalization and deduplication review; never writing evidence.
 - `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
 - `dist/router.json` and `dist/catalog.jsonl`: machine-readable routing metadata.
 - `dist/index.json`: complete machine index for scripts; do not paste it into an
@@ -111,3 +113,15 @@ related card IDs. Guides never supply scientific facts.
 document-level observations for the 40-paper full-text calibration sample.
 Validation checks its source membership and domain, venue, and year counts. Raw
 PDF text and extracted sentences are not stored.
+
+## Writing evaluation and coverage policy
+
+`evals/writing.json` stores blind requests, supplied facts, an evidence boundary,
+routing expectations, deterministic regular-expression checks, and a separate
+manual rubric. `eval-writing --case <id>` does not expose the checks or rubric.
+A machine pass establishes only the declared objective invariants.
+
+`library/coverage_policy.json` stores roadmap goals, ranking weights, the generated
+queue bound, and allowed review outcomes. Goals do not make validation fail merely
+because they have not yet been reached. Queue generation consumes the per-paper
+analysis ledger and never changes canonical entries automatically.

@@ -16,8 +16,10 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 if __package__:
     from .source_health import health_summary, verify_sources
+    from .writing_eval import CHECK_REGISTRY, evaluate_response
 else:
     from source_health import health_summary, verify_sources
+    from writing_eval import CHECK_REGISTRY, evaluate_response
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +37,7 @@ CORPUS_REPORT_PATH = LIBRARY / "corpus_report.json"
 WRITING_GUIDES_PATH = LIBRARY / "writing_guides.json"
 TASK_ROUTES_PATH = LIBRARY / "task_routes.json"
 TABLE_TEMPLATES_PATH = LIBRARY / "table_templates.json"
+COVERAGE_POLICY_PATH = LIBRARY / "coverage_policy.json"
 SECTION_STUDY_PATH = LIBRARY / "studies" / "section_writing_2026-07.json"
 DIST_DIR = ROOT / "dist"
 ENTRY_SCHEMA_PATH = ROOT / "schemas" / "entry.schema.json"
@@ -45,10 +48,13 @@ WRITING_GUIDES_SCHEMA_PATH = ROOT / "schemas" / "writing-guides.schema.json"
 TASK_ROUTES_SCHEMA_PATH = ROOT / "schemas" / "task-routes.schema.json"
 TABLE_TEMPLATES_SCHEMA_PATH = ROOT / "schemas" / "table-templates.schema.json"
 RETRIEVAL_EVAL_SCHEMA_PATH = ROOT / "schemas" / "retrieval-eval.schema.json"
+WRITING_EVAL_SCHEMA_PATH = ROOT / "schemas" / "writing-eval.schema.json"
+COVERAGE_POLICY_SCHEMA_PATH = ROOT / "schemas" / "coverage-policy.schema.json"
 SECTION_STUDY_SCHEMA_PATH = ROOT / "schemas" / "section-study.schema.json"
 CORPUS_REPORT_SCHEMA_PATH = ROOT / "schemas" / "corpus-report.schema.json"
 TABLE_TEMPLATE_DIR = ROOT / "templates" / "tables"
 RETRIEVAL_EVAL_PATH = ROOT / "evals" / "retrieval.json"
+WRITING_EVAL_PATH = ROOT / "evals" / "writing.json"
 SKILL_DIR = ROOT / "skills" / "super-library"
 SKILL_REFERENCES_DIR = SKILL_DIR / "references"
 SKILL_ASSETS_DIR = SKILL_DIR / "assets"
@@ -100,6 +106,20 @@ def read_jsonl(path: Path) -> List[Dict[str, Any]]:
     return records
 
 
+def remove_generated_tree(path: Path) -> None:
+    """Remove a rebuildable tree, retrying only cloud-sync disappearance races."""
+    for _ in range(3):
+        if not path.exists():
+            return
+        try:
+            shutil.rmtree(path)
+        except FileNotFoundError:
+            continue
+        return
+    if path.exists():
+        shutil.rmtree(path)
+
+
 def load_corpus() -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     taxonomy = read_json(TAXONOMY_PATH)
     sources = read_jsonl(SOURCES_PATH)
@@ -126,6 +146,16 @@ def load_task_routes() -> Dict[str, Any]:
 def load_table_templates() -> Dict[str, Any]:
     """Load the mapping from table protocols to reusable LaTeX assets."""
     return read_json(TABLE_TEMPLATES_PATH)
+
+
+def load_coverage_policy() -> Dict[str, Any]:
+    """Load roadmap goals and deterministic evidence-review priorities."""
+    return read_json(COVERAGE_POLICY_PATH)
+
+
+def load_writing_evals() -> Dict[str, Any]:
+    """Load blind behavior prompts and their separate evaluation contracts."""
+    return read_json(WRITING_EVAL_PATH)
 
 
 def source_analysis_records(
@@ -211,6 +241,176 @@ def source_analysis_summary(records: Sequence[Dict[str, Any]]) -> Dict[str, Any]
             )
         ),
     }
+
+
+def coverage_goal_status(
+    policy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> Dict[str, Any]:
+    """Compare current evidence depth with roadmap goals without enforcing them."""
+    linked = [record for record in records if record["linked_entry_ids"]]
+    domain_counts = collections.Counter(
+        domain for record in linked for domain in record["domains"]
+    )
+    venue_counts = collections.Counter(record["venue"] for record in linked)
+    full_text_count = sum(
+        record["full_text_status"] == "structural_sample" for record in records
+    )
+    writing_cases = len(load_writing_evals().get("cases", []))
+    goals = policy["goals"]
+
+    def goal_map(current: collections.Counter, targets: Dict[str, int]) -> Dict[str, Any]:
+        return {
+            key: {
+                "current": current.get(key, 0),
+                "goal": goal,
+                "remaining": max(0, goal - current.get(key, 0)),
+            }
+            for key, goal in sorted(targets.items())
+        }
+
+    return {
+        "collection": policy["collection"],
+        "core_papers": len(records),
+        "directly_linked_papers": len(linked),
+        "directly_linked_goal": goals["directly_linked_papers"],
+        "directly_linked_remaining": max(
+            0, goals["directly_linked_papers"] - len(linked)
+        ),
+        "full_text_structural_samples": full_text_count,
+        "full_text_structural_samples_goal": goals["full_text_structural_samples"],
+        "full_text_structural_samples_remaining": max(
+            0, goals["full_text_structural_samples"] - full_text_count
+        ),
+        "writing_behavior_cases": writing_cases,
+        "writing_behavior_cases_goal": goals["writing_behavior_cases"],
+        "writing_behavior_cases_remaining": max(
+            0, goals["writing_behavior_cases"] - writing_cases
+        ),
+        "direct_links_by_domain": goal_map(
+            domain_counts, goals["direct_links_by_domain"]
+        ),
+        "direct_links_by_venue": goal_map(
+            venue_counts, goals["direct_links_by_venue"]
+        ),
+    }
+
+
+def promotion_queue_records(
+    policy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> List[Dict[str, Any]]:
+    """Rank unlinked core papers for human normalization and dedup review."""
+    status = coverage_goal_status(policy, records)
+    weights = policy["weights"]
+    minimum_year = min((record["year"] for record in records), default=0)
+    queue: List[Dict[str, Any]] = []
+    for record in records:
+        if record["linked_entry_ids"]:
+            continue
+        outcome = record["outcome"]
+        if outcome == "structural_sample_without_library_links":
+            score = weights["full_text_without_link"]
+            priority = "P0"
+            reasons = ["full-text structural sample has no normalized-record link"]
+            recommended_action = (
+                "review sampled sections against existing records, then promote or "
+                "record a deduplicated no-promotion outcome"
+            )
+        elif outcome == "metadata_only":
+            score = weights["metadata_only"]
+            priority = "P1"
+            reasons = ["abstract was unavailable to the bounded collector"]
+            recommended_action = (
+                "obtain a verifiable primary-paper view before language review"
+            )
+        else:
+            score = weights["abstract_without_link"]
+            priority = "P2"
+            reasons = ["abstract was analyzed but no normalized record links this paper"]
+            recommended_action = (
+                "compare the verified paper wording with existing normalized records"
+            )
+        for domain in record["domains"]:
+            gap = status["direct_links_by_domain"].get(domain)
+            if gap and gap["remaining"]:
+                score += weights["domain_gap"]
+                reasons.append(
+                    f"{domain} direct-link goal has {gap['remaining']} remaining"
+                )
+        venue_gap = status["direct_links_by_venue"].get(record["venue"])
+        if venue_gap and venue_gap["remaining"]:
+            score += weights["venue_gap"]
+            reasons.append(
+                f"{record['venue']} direct-link goal has {venue_gap['remaining']} remaining"
+            )
+        recency = max(0, record["year"] - minimum_year)
+        score += recency * weights["recency_per_year"]
+        if recency:
+            reasons.append(f"recency bonus: {recency}")
+        queue.append(
+            {
+                "source_id": record["source_id"],
+                "title": record["title"],
+                "venue": record["venue"],
+                "year": record["year"],
+                "domains": record["domains"],
+                "topic_families": record["topic_families"],
+                "abstract_status": record["abstract_status"],
+                "full_text_status": record["full_text_status"],
+                "linked_entry_ids": record["linked_entry_ids"],
+                "outcome": outcome,
+                "priority": priority,
+                "score": score,
+                "reasons": reasons,
+                "recommended_action": recommended_action,
+                "allowed_review_outcomes": policy["review_outcomes"],
+                "official_url": record["official_url"],
+            }
+        )
+    queue.sort(key=lambda item: (-item["score"], item["source_id"]))
+    for rank, record in enumerate(queue, 1):
+        record["rank"] = rank
+    return queue
+
+
+def render_promotion_queue(
+    taxonomy: Dict[str, Any], policy: Dict[str, Any],
+    records: Sequence[Dict[str, Any]], limit: int,
+) -> str:
+    """Render a bounded maintainer report; this is never writing evidence."""
+    status = coverage_goal_status(policy, records)
+    queue = promotion_queue_records(policy, records)[:limit]
+    lines = [
+        "# Evidence-promotion queue",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "This is a maintainer work queue, not Agent writing context or citable",
+        "evidence. A review may validly conclude `record_no_promotion` when the",
+        "paper adds no nonredundant terminology, definition, or writing pattern.",
+        "",
+        "## Roadmap status",
+        "",
+        f"- Directly linked core papers: {status['directly_linked_papers']}/"
+        f"{status['directly_linked_goal']}",
+        f"- Full-text structural samples: {status['full_text_structural_samples']}/"
+        f"{status['full_text_structural_samples_goal']}",
+        f"- Writing behavior cases: {status['writing_behavior_cases']}/"
+        f"{status['writing_behavior_cases_goal']}",
+        "",
+        f"## Top {len(queue)} review candidates",
+        "",
+        "| Rank | Priority | Paper | Venue | Score | Why now |",
+        "|---:|:---:|---|:---:|---:|---|",
+    ]
+    for record in queue:
+        reason = "; ".join(record["reasons"])
+        title = record["title"].replace("|", "\\|")
+        lines.append(
+            f"| {record['rank']} | {record['priority']} | "
+            f"[{title}]({record['official_url']}) | {record['venue']} "
+            f"{record['year']} | {record['score']} | {reason} |"
+        )
+    return "\n".join(lines).rstrip() + "\n"
 
 
 def public_record(record: Dict[str, Any]) -> Dict[str, Any]:
@@ -624,6 +824,140 @@ def validate_retrieval_evals(
                 f"evals/retrieval.json: {case_id}: unknown expected task route "
                 f"{expected_route!r}"
             )
+    return errors
+
+
+def validate_writing_evals(
+    taxonomy: Dict[str, Any], entries: Sequence[Dict[str, Any]]
+) -> List[str]:
+    """Validate blind prompts, identifiers, and deterministic check contracts."""
+    errors: List[str] = []
+    try:
+        config = load_writing_evals()
+        schema = read_json(WRITING_EVAL_SCHEMA_PATH)
+        guide_config, _ = load_writing_guides()
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"evals/writing.json: schema: {error}"
+        for error in schema_validation_errors(config, schema)
+    )
+    cases = config.get("cases", [])
+    if not isinstance(cases, list):
+        return errors
+    known_entries = {entry.get("id") for entry in entries}
+    known_guides = {
+        guide.get("id")
+        for guide in guide_config.get("guides", [])
+        if isinstance(guide, dict)
+    }
+    controlled = {
+        "domain": set(taxonomy.get("domains", [])),
+        "topic": set(taxonomy.get("topic_families", [])),
+        "section": set(taxonomy.get("sections", [])),
+        "intent": set(taxonomy.get("intents", [])),
+    }
+    seen_cases = set()
+    for case in cases:
+        if not isinstance(case, dict):
+            continue
+        case_id = case.get("id")
+        if case_id in seen_cases:
+            errors.append(f"evals/writing.json: duplicate case id {case_id!r}")
+        seen_cases.add(case_id)
+        for field, allowed in controlled.items():
+            value = case.get(field)
+            if value is not None and value not in allowed:
+                errors.append(
+                    f"evals/writing.json: {case_id}: unknown {field} {value!r}"
+                )
+        expected_guide = case.get("expected_guide_id")
+        if expected_guide not in known_guides:
+            errors.append(
+                f"evals/writing.json: {case_id}: unknown expected guide "
+                f"{expected_guide!r}"
+            )
+        unknown_entries = set(case.get("expected_retrieval_ids", [])) - known_entries
+        if unknown_entries:
+            errors.append(
+                f"evals/writing.json: {case_id}: unknown expected entries "
+                f"{sorted(unknown_entries)}"
+            )
+        seen_checks = set()
+        for check in case.get("machine_checks", []):
+            if not isinstance(check, dict):
+                continue
+            check_id = check.get("id")
+            if check_id in seen_checks:
+                errors.append(
+                    f"evals/writing.json: {case_id}: duplicate check id {check_id!r}"
+                )
+            seen_checks.add(check_id)
+            check_type = check.get("type")
+            if check_type not in CHECK_REGISTRY:
+                errors.append(
+                    f"evals/writing.json: {case_id}: unknown check type "
+                    f"{check_type!r}"
+                )
+            try:
+                re.compile(check.get("pattern", ""))
+            except (re.error, TypeError) as exc:
+                errors.append(
+                    f"evals/writing.json: {case_id}/{check_id}: invalid regex: {exc}"
+                )
+    return errors
+
+
+def validate_coverage_policy(taxonomy: Dict[str, Any]) -> List[str]:
+    """Validate roadmap targets independently from current progress."""
+    errors: List[str] = []
+    try:
+        policy = load_coverage_policy()
+        schema = read_json(COVERAGE_POLICY_SCHEMA_PATH)
+        collections_config = read_json(COLLECTIONS_PATH)
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"library/coverage_policy.json: schema: {error}"
+        for error in schema_validation_errors(policy, schema)
+    )
+    known_collections = {
+        collection.get("id")
+        for collection in collections_config.get("collections", [])
+        if isinstance(collection, dict)
+    }
+    if policy.get("collection") not in known_collections:
+        errors.append(
+            "library/coverage_policy.json: unknown collection "
+            f"{policy.get('collection')!r}"
+        )
+    goals = policy.get("goals", {})
+    unknown_domains = set(goals.get("direct_links_by_domain", {})) - set(
+        taxonomy.get("domains", [])
+    )
+    unknown_venues = set(goals.get("direct_links_by_venue", {})) - set(
+        taxonomy.get("venues", [])
+    )
+    if unknown_domains:
+        errors.append(
+            "library/coverage_policy.json: unknown goal domains "
+            f"{sorted(unknown_domains)}"
+        )
+    if unknown_venues:
+        errors.append(
+            "library/coverage_policy.json: unknown goal venues "
+            f"{sorted(unknown_venues)}"
+        )
+    expected_outcomes = {
+        "promote_normalized_record",
+        "link_existing_record",
+        "record_no_promotion",
+    }
+    if set(policy.get("review_outcomes", [])) != expected_outcomes:
+        errors.append(
+            "library/coverage_policy.json: review_outcomes must preserve the "
+            "three explicit deduplication outcomes"
+        )
     return errors
 
 
@@ -1158,6 +1492,8 @@ def validate_corpus(
     errors.extend(validate_task_routes(taxonomy, entries))
     errors.extend(validate_table_templates())
     errors.extend(validate_retrieval_evals(taxonomy, entries))
+    errors.extend(validate_writing_evals(taxonomy, entries))
+    errors.extend(validate_coverage_policy(taxonomy))
     return errors
 
 
@@ -1522,9 +1858,9 @@ def coverage_stats(
         source for source in sources
         if "recent-five-year-core" in source.get("collections", [])
     ]
-    analysis_summary = source_analysis_summary(
-        source_analysis_records(sources, entries)
-    )
+    analysis_records = source_analysis_records(sources, entries)
+    analysis_summary = source_analysis_summary(analysis_records)
+    goal_status = coverage_goal_status(load_coverage_policy(), analysis_records)
     return {
         "entries": len(entries),
         "sources": len(sources),
@@ -1613,6 +1949,7 @@ def coverage_stats(
             ),
         },
         "evidence_depth": analysis_summary,
+        "roadmap_goals": goal_status,
     }
 
 
@@ -1696,6 +2033,62 @@ def cmd_analysis_status(args: argparse.Namespace) -> int:
         print(f"- Primary paper: {payload['official_url']}")
     else:
         print(render_source_analysis_summary(taxonomy, records), end="")
+    return 0
+
+
+def cmd_coverage_gaps(args: argparse.Namespace) -> int:
+    """Show the next evidence-review candidates without promoting them."""
+    try:
+        taxonomy, sources, entries = load_corpus()
+        policy = load_coverage_policy()
+        analysis_records = source_analysis_records(sources, entries)
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    queue = promotion_queue_records(policy, analysis_records)
+    if args.domain:
+        queue = [record for record in queue if args.domain[0] in record["domains"]]
+    if args.venue:
+        queue = [record for record in queue if record["venue"] == args.venue[0]]
+    selected = queue[: args.limit]
+    payload = {
+        "summary": coverage_goal_status(policy, analysis_records),
+        "filters": {
+            "domain": args.domain[0] if args.domain else None,
+            "venue": args.venue[0] if args.venue else None,
+        },
+        "candidate_count": len(queue),
+        "records": selected,
+        "notice": (
+            "This is a maintainer queue, not writing context or citable evidence; "
+            "record_no_promotion is a valid deduplication outcome."
+        ),
+    }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+    print("# Evidence-promotion queue")
+    print()
+    print(payload["notice"])
+    print()
+    print(
+        f"Directly linked: {payload['summary']['directly_linked_papers']}/"
+        f"{payload['summary']['directly_linked_goal']} · "
+        f"full-text samples: {payload['summary']['full_text_structural_samples']}/"
+        f"{payload['summary']['full_text_structural_samples_goal']} · "
+        f"writing cases: {payload['summary']['writing_behavior_cases']}/"
+        f"{payload['summary']['writing_behavior_cases_goal']}"
+    )
+    print()
+    print("| Rank | Priority | Paper | Venue | Score |")
+    print("|---:|:---:|---|:---:|---:|")
+    for record in selected:
+        title = record["title"].replace("|", "\\|")
+        print(
+            f"| {record['rank']} | {record['priority']} | "
+            f"[{title}]({record['official_url']}) | {record['venue']} "
+            f"{record['year']} | {record['score']} |"
+        )
     return 0
 
 
@@ -2297,6 +2690,195 @@ def cmd_eval_retrieval(args: argparse.Namespace) -> int:
     return 1 if failed else 0
 
 
+def writing_case_packet(case: Dict[str, Any]) -> Dict[str, Any]:
+    """Return prompt inputs without exposing checks, rubric, or expected records."""
+    classification = {
+        "domain": case["domain"],
+        "section": case["section"],
+        "intent": case["intent"],
+    }
+    if case.get("topic"):
+        classification["topic"] = case["topic"]
+    return {
+        "id": case["id"],
+        "mode": case["mode"],
+        "classification": classification,
+        "request": case["request"],
+        "facts": case["facts"],
+        "evidence_boundary": case["evidence_boundary"],
+        "instructions": [
+            "Use the repository workflow and retrieve before drafting.",
+            "Return only the requested prose, with no invented facts or citations.",
+            "The evaluation keeps its machine checks and manual rubric hidden.",
+        ],
+    }
+
+
+def render_writing_packet(case: Dict[str, Any]) -> str:
+    packet = writing_case_packet(case)
+    classification = packet["classification"]
+    lines = [
+        f"# Blind writing case: {packet['id']}",
+        "",
+        f"- Mode: `{packet['mode']}`",
+        f"- Domain: `{classification['domain']}`",
+        f"- Section: `{classification['section']}`",
+        f"- Intent: `{classification['intent']}`",
+    ]
+    if classification.get("topic"):
+        lines.append(f"- Topic: `{classification['topic']}`")
+    lines.extend(
+        [
+            "",
+            "## Request",
+            "",
+            packet["request"],
+            "",
+            "## Facts",
+            "",
+        ]
+    )
+    lines.extend(f"- {fact}" for fact in packet["facts"])
+    if not packet["facts"]:
+        lines.append("- The proposition is fully specified in the request.")
+    lines.extend(
+        [
+            "",
+            "## Evidence boundary",
+            "",
+            packet["evidence_boundary"],
+            "",
+            "## Instructions",
+            "",
+        ]
+    )
+    lines.extend(f"- {instruction}" for instruction in packet["instructions"])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_writing_eval_result(payload: Dict[str, Any]) -> str:
+    lines = [
+        "# Writing evaluation",
+        "",
+        f"- Cases: {payload['cases']}",
+        f"- Responses found: {payload['responses_found']}",
+        f"- Machine-pass responses: {payload['machine_passed']}",
+        f"- Machine-fail responses: {payload['machine_failed']}",
+        f"- Missing responses: {len(payload['missing'])}",
+        "- Manual review required: yes",
+        "",
+    ]
+    for result in payload["results"]:
+        marker = "PASS" if result["passed"] else "FAIL"
+        lines.append(
+            f"- `{result['id']}`: {marker} "
+            f"({result['machine_checks_passed']}/{result['machine_checks']})"
+        )
+        for check in result["check_results"]:
+            if not check["passed"]:
+                lines.append(f"  - {check['id']}: {check['message']}")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_eval_writing(args: argparse.Namespace) -> int:
+    """Emit blind cases or score response files with deterministic invariants."""
+    try:
+        taxonomy, _, entries = load_corpus()
+        config = load_writing_evals()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    validation_errors = validate_writing_evals(taxonomy, entries)
+    if validation_errors:
+        print("ERROR: writing evaluation is invalid; run validate", file=sys.stderr)
+        return 1
+    cases = config["cases"]
+    by_id = {case["id"]: case for case in cases}
+    if args.list or (not args.case and not args.responses):
+        records = [
+            {
+                "id": case["id"],
+                "mode": case["mode"],
+                "domain": case["domain"],
+                **({"topic": case["topic"]} if case.get("topic") else {}),
+                "section": case["section"],
+                "intent": case["intent"],
+                "machine_checks": len(case["machine_checks"]),
+                "manual_review_required": True,
+            }
+            for case in cases
+        ]
+        payload = {"schema_version": config["schema_version"], "cases": len(records), "records": records}
+        if args.format == "json":
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print("# Blind writing cases")
+            print()
+            for record in records:
+                print(
+                    f"- `{record['id']}` — {record['domain']}/"
+                    f"{record['section']} ({record['machine_checks']} machine checks)"
+                )
+        return 0
+    if args.case:
+        case = by_id.get(args.case)
+        if case is None:
+            print(f"ERROR: unknown writing case {args.case!r}", file=sys.stderr)
+            return 2
+        if not args.response_file:
+            if args.format == "json":
+                print(json.dumps(writing_case_packet(case), ensure_ascii=False, indent=2))
+            else:
+                print(render_writing_packet(case), end="")
+            return 0
+        try:
+            response_text = Path(args.response_file).read_text(encoding="utf-8")
+        except OSError as exc:
+            print(f"ERROR: cannot read response file: {exc}", file=sys.stderr)
+            return 2
+        result = evaluate_response(case, response_text)
+        payload = {
+            "cases": 1,
+            "responses_found": 1,
+            "machine_passed": int(result["passed"]),
+            "machine_failed": int(not result["passed"]),
+            "missing": [],
+            "manual_review_required": True,
+            "results": [result],
+        }
+    else:
+        response_dir = Path(args.responses)
+        if not response_dir.is_dir():
+            print(f"ERROR: response directory does not exist: {response_dir}", file=sys.stderr)
+            return 2
+        results = []
+        missing = []
+        for case in cases:
+            response_path = response_dir / f"{case['id']}.md"
+            if not response_path.is_file():
+                missing.append(case["id"])
+                continue
+            results.append(
+                evaluate_response(case, response_path.read_text(encoding="utf-8"))
+            )
+        failed = sum(not result["passed"] for result in results)
+        payload = {
+            "cases": len(cases),
+            "responses_found": len(results),
+            "machine_passed": len(results) - failed,
+            "machine_failed": failed,
+            "missing": missing,
+            "manual_review_required": True,
+            "results": results,
+        }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(render_writing_eval_result(payload), end="")
+    has_failure = bool(payload["machine_failed"] or payload["missing"])
+    return 1 if args.strict and has_failure else 0
+
+
 def cmd_guide(args: argparse.Namespace) -> int:
     try:
         taxonomy, sources, entries = load_corpus()
@@ -2364,7 +2946,7 @@ def render_agent_index(
         "   contains the compact contract, one protocol when needed, and selected",
         "   records.",
         f"2. Otherwise, read the [universal core]({base}/core.md) once.",
-        f"3. For a structured paper section, rebuttal, or translation task, select one",
+        "3. For a structured paper section, rebuttal, or translation task, select one",
         f"   [section protocol]({base}/guides/index.md). Do not load every guide.",
         "4. Read one section catalog for rhetoric and one small domain hub for",
         "   terminology; then follow at most one topic catalog. Indexes contain only",
@@ -3141,6 +3723,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         guide_config, section_study = load_writing_guides()
         task_route_config = load_task_routes()
         table_template_config = load_table_templates()
+        coverage_policy = load_coverage_policy()
     except CorpusError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
@@ -3165,8 +3748,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         routes_dir,
         templates_dir,
     ):
-        if generated_dir.exists():
-            shutil.rmtree(generated_dir)
+        remove_generated_tree(generated_dir)
     packs_dir.mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domains").mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domain-records").mkdir(parents=True, exist_ok=True)
@@ -3185,6 +3767,7 @@ def cmd_build(_: argparse.Namespace) -> int:
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in published_entries}
     analysis_records = source_analysis_records(sources, entries)
+    promotion_records = promotion_queue_records(coverage_policy, analysis_records)
 
     agent_index_path = DIST_DIR / "agent-index.md"
     agent_index_path.write_text(
@@ -3253,6 +3836,25 @@ def cmd_build(_: argparse.Namespace) -> int:
     source_analysis_summary_path = evidence_dir / "source-analysis.md"
     source_analysis_summary_path.write_text(
         render_source_analysis_summary(taxonomy, analysis_records),
+        encoding="utf-8",
+    )
+    promotion_queue_path = evidence_dir / "promotion-queue.jsonl"
+    promotion_queue_path.write_text(
+        "\n".join(
+            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            for record in promotion_records[: coverage_policy["generated_queue_limit"]]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    promotion_queue_summary_path = evidence_dir / "promotion-queue.md"
+    promotion_queue_summary_path.write_text(
+        render_promotion_queue(
+            taxonomy,
+            coverage_policy,
+            analysis_records,
+            coverage_policy["generated_queue_limit"],
+        ),
         encoding="utf-8",
     )
 
@@ -3354,6 +3956,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "table_templates": table_template_config,
         "section_study": section_study,
         "corpus_report": read_json(CORPUS_REPORT_PATH),
+        "coverage_policy": coverage_policy,
         "taxonomy": taxonomy,
     }
     index_path = DIST_DIR / "index.json"
@@ -3431,6 +4034,8 @@ def cmd_build(_: argparse.Namespace) -> int:
         "evidence": {
             "source_analysis_summary": "evidence/source-analysis.md",
             "source_analysis_records": "evidence/source-analysis.jsonl",
+            "promotion_queue_summary": "evidence/promotion-queue.md",
+            "promotion_queue_records": "evidence/promotion-queue.jsonl",
             "topic_maps": topic_evidence,
         },
         "cards": card_paths,
@@ -3472,16 +4077,13 @@ def cmd_build(_: argparse.Namespace) -> int:
     for name, source_path in skill_snapshot_paths.items():
         shutil.copyfile(source_path, SKILL_REFERENCES_DIR / name)
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
-    if skill_guides_dir.exists():
-        shutil.rmtree(skill_guides_dir)
+    remove_generated_tree(skill_guides_dir)
     shutil.copytree(guides_dir, skill_guides_dir)
     skill_routes_dir = SKILL_REFERENCES_DIR / "routes"
-    if skill_routes_dir.exists():
-        shutil.rmtree(skill_routes_dir)
+    remove_generated_tree(skill_routes_dir)
     shutil.copytree(routes_dir, skill_routes_dir)
     skill_table_assets_dir = SKILL_ASSETS_DIR / "tables"
-    if skill_table_assets_dir.exists():
-        shutil.rmtree(skill_table_assets_dir)
+    remove_generated_tree(skill_table_assets_dir)
     skill_table_assets_dir.parent.mkdir(parents=True, exist_ok=True)
     shutil.copytree(TABLE_TEMPLATE_DIR, skill_table_assets_dir)
 
@@ -3509,6 +4111,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/topics.json",
         "library/collections.json",
         "library/corpus_report.json",
+        "library/coverage_policy.json",
         "library/writing_guides.json",
         "library/task_routes.json",
         "library/table_templates.json",
@@ -3521,9 +4124,12 @@ def cmd_build(_: argparse.Namespace) -> int:
         "schemas/task-routes.schema.json",
         "schemas/table-templates.schema.json",
         "schemas/retrieval-eval.schema.json",
+        "schemas/writing-eval.schema.json",
+        "schemas/coverage-policy.schema.json",
         "schemas/section-study.schema.json",
         "schemas/corpus-report.schema.json",
         "evals/retrieval.json",
+        "evals/writing.json",
     ]
     manifest = {
         "schema_version": taxonomy["schema_version"],
@@ -3560,6 +4166,11 @@ def cmd_build(_: argparse.Namespace) -> int:
         "source_analysis": {
             "summary": "evidence/source-analysis.md",
             "records": "evidence/source-analysis.jsonl",
+        },
+        "promotion_queue": {
+            "summary": "evidence/promotion-queue.md",
+            "records": "evidence/promotion-queue.jsonl",
+            "generated_limit": coverage_policy["generated_queue_limit"],
         },
         "packs": {
             domain: f"packs/{domain}.md" for domain in taxonomy["domains"]
@@ -3615,6 +4226,10 @@ def cmd_build(_: argparse.Namespace) -> int:
             "source_analysis": {
                 "summary": f"{raw_base}/evidence/source-analysis.md",
                 "records": f"{raw_base}/evidence/source-analysis.jsonl",
+            },
+            "promotion_queue": {
+                "summary": f"{raw_base}/evidence/promotion-queue.md",
+                "records": f"{raw_base}/evidence/promotion-queue.jsonl",
             },
             "packs": {
                 domain: f"{raw_base}/packs/{domain}.md"
@@ -3971,6 +4586,29 @@ def build_parser() -> argparse.ArgumentParser:
     )
     retrieval_eval_parser.set_defaults(func=cmd_eval_retrieval)
 
+    writing_eval_parser = subparsers.add_parser(
+        "eval-writing",
+        help="emit blind writing cases or score response files deterministically",
+    )
+    writing_eval_mode = writing_eval_parser.add_mutually_exclusive_group()
+    writing_eval_mode.add_argument(
+        "--list", action="store_true", help="list case metadata without hidden checks"
+    )
+    writing_eval_mode.add_argument("--case", help="emit or score one case by ID")
+    writing_eval_mode.add_argument(
+        "--responses", help="score CASE_ID.md files in a directory"
+    )
+    writing_eval_parser.add_argument(
+        "--response-file", help="candidate response for the selected --case"
+    )
+    writing_eval_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    writing_eval_parser.add_argument(
+        "--strict", action="store_true", help="exit nonzero on failure or missing files"
+    )
+    writing_eval_parser.set_defaults(func=cmd_eval_writing)
+
     show_parser = subparsers.add_parser("show", help="show one entry by stable id")
     show_parser.add_argument("entry_id")
     show_parser.add_argument("--format", choices=["markdown", "json"], default="markdown")
@@ -4005,6 +4643,22 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=["markdown", "json"], default="markdown"
     )
     analysis_parser.set_defaults(func=cmd_analysis_status)
+
+    coverage_parser = subparsers.add_parser(
+        "coverage-gaps",
+        help="rank unlinked core papers for evidence normalization review",
+    )
+    add_multi_filter(
+        coverage_parser, "domain", taxonomy["domains"], "candidate domain"
+    )
+    add_multi_filter(
+        coverage_parser, "venue", taxonomy["venues"], "candidate venue"
+    )
+    coverage_parser.add_argument("--limit", type=int, default=30)
+    coverage_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    coverage_parser.set_defaults(func=cmd_coverage_gaps)
 
     source_verify_parser = subparsers.add_parser(
         "verify-sources",
@@ -4050,6 +4704,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             parser.error("route accepts at most one --domain catalog")
         if len(args.topic) > 1:
             parser.error("route accepts at most one --topic catalog")
+    if args.command == "coverage-gaps":
+        if len(args.domain) > 1:
+            parser.error("coverage-gaps accepts at most one --domain")
+        if len(args.venue) > 1:
+            parser.error("coverage-gaps accepts at most one --venue")
     if hasattr(args, "limit") and args.limit is not None and args.limit < 1:
         parser.error("--limit must be at least 1")
     if hasattr(args, "max_chars") and args.max_chars < 2_000:
@@ -4058,6 +4717,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         parser.error("--timeout must be between 1 and 60 seconds")
     if hasattr(args, "workers") and not 1 <= args.workers <= 32:
         parser.error("--workers must be between 1 and 32")
+    if getattr(args, "response_file", None) and not getattr(args, "case", None):
+        parser.error("--response-file requires --case")
     return args.func(args)
 
 

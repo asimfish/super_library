@@ -20,7 +20,9 @@ types. Eighteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
 editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
-normalized records.
+normalized records. A 12-case blind writing benchmark checks final-output facts
+and evidence boundaries, while a policy-driven promotion queue prioritizes the
+next nonredundant paper reviews without entering normal Agent context.
 
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
@@ -124,6 +126,14 @@ python3 scripts/superlib.py verify-sources --limit 20
 
 # Execute deterministic top-k, guide, and task-pack routing cases
 python3 scripts/superlib.py eval-retrieval
+
+# List blind writing cases, then score one response (manual review still required)
+python3 scripts/superlib.py eval-writing --list
+python3 scripts/superlib.py eval-writing --case rebuttal-existing-evidence \
+  --response-file response.md --strict
+
+# Rank the next papers for normalization/deduplication review
+python3 scripts/superlib.py coverage-gaps --limit 20
 ```
 
 Technical-domain searches automatically include matching `general` writing
@@ -151,6 +161,7 @@ llms.txt
 
 dist/evidence/topics/*.md               # paper maps; verify claims only
 dist/evidence/source-analysis.*         # per-paper analysis-depth audit; not writing context
+dist/evidence/promotion-queue.*         # maintainer review queue; not writing context
 dist/templates/tables/*.tex             # copy one experiment-table skeleton
 
 library/                                # canonical hand-reviewed source data
@@ -178,6 +189,8 @@ be queried by a script, not pasted into an Agent.
   LaTeX table assets with explicit `SL_*` replacement tokens.
 - `library/studies/section_writing_2026-07.json`: source IDs and aggregate
   structural observations from the bounded full-paper calibration study.
+- `library/coverage_policy.json`: review goals and deterministic scoring weights;
+  goals are roadmap targets, not release assertions.
 - `library/taxonomy.json`: controlled domains, sections, intents, venues, and kinds.
 - `library/core_ids.json`: the deliberately small universal-core selection.
 - `schemas/`: machine-readable data contracts.
@@ -186,9 +199,9 @@ be queried by a script, not pasted into an Agent.
 - `skills/super-library/`: a self-contained skill with a bounded lookup script.
 - `scripts/superlib.py`: routing, bundle generation, search, analysis-depth audit,
   validation, build, statistics, source-health checks, and wording lint.
-- `evals/`: fresh-Agent behavioral smoke cases for paper, rebuttal, and translation.
-  `evals/retrieval.json` is executed directly to enforce top-k, guide, and
-  one-file-route behavior.
+- `evals/`: deterministic retrieval cases and 12 blind writing cases for paper,
+  rebuttal, and translation. Machine checks cover objective invariants; a separate
+  manual rubric covers scientific and rhetorical quality.
 
 Each entry distinguishes:
 
@@ -218,6 +231,12 @@ and topic coverage or aggregate recurrence analysis, not paper-specific reusable
 wording. Inspect `dist/evidence/source-analysis.jsonl` or run `analysis-status`
 instead of inferring analysis depth from the 300-paper count. See
 `library/corpus_report.json`.
+
+The current roadmap targets 100 directly linked core papers, 80 full-text
+structural samples, and 20 writing-behavior cases. Current progress is 60, 40,
+and 12 respectively. These are transparent improvement targets, not claims that
+the corpus is already complete. `coverage-gaps` ranks the next review candidates;
+reviewers may record `record_no_promotion` when a paper adds only redundant wording.
 
 To calibrate section organization rather than collect prose, 40 official
 full-paper PDFs were analyzed locally: ten each from reinforcement learning,

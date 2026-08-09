@@ -13,6 +13,7 @@ library/
 ├── topics.json           controlled technical topic families
 ├── collections.json      audited paper-collection contracts
 ├── corpus_report.json    explicit abstract-analysis exceptions and audit policy
+├── coverage_policy.json  roadmap goals and evidence-review scoring
 ├── taxonomy.json         versions and controlled vocabularies
 ├── aliases.json          Chinese/common query expansion
 ├── core_ids.json         universal high-risk records
@@ -44,6 +45,7 @@ also validate the selective indexes during every build.
 | 5 | `dist/cards/**/*.md` | Load complete records | 3–8 cards |
 | evidence | `dist/evidence/topics/*.md` | Verify a literature claim in primary papers | only on demand |
 | audit | `dist/evidence/source-analysis.*` | Inspect per-paper analysis depth | never by default |
+| audit | `dist/evidence/promotion-queue.*` | Select the next normalization reviews | never by default |
 | asset | `dist/templates/tables/*.tex` | Start a standards-aware experiment table | one copied asset |
 
 Catalogs contain labels and routing metadata, not complete guidance. Domain
@@ -74,6 +76,18 @@ grow linearly. A generated per-paper ledger makes four states explicit: metadata
 membership, bounded abstract analysis, full-paper structural sampling, and direct
 links from normalized records. See
 [`ADR-001`](adr/ADR-001-curated-cards-and-analysis-ledger.md).
+
+The promotion queue is derived from that ledger and a versioned policy. It gives
+full-text samples without direct record links the highest base priority, then
+accounts for domain/venue gaps and recency. The queue is maintainer workflow, not
+language context, and a no-promotion deduplication decision is explicitly valid.
+
+Final-output evaluation is a separate boundary. `evals/writing.json` contains
+blind task facts, machine-checkable invariants, and manual rubrics. The CLI reveals
+only the prompt packet before drafting. Deterministic checks can catch dropped
+numbers, inflated scope, and forbidden assertions; they cannot certify scientific
+truth, citation validity, or professional prose. See
+[`ADR-002`](adr/ADR-002-deterministic-writing-evaluation-and-promotion-queue.md).
 
 ## Local retrieval
 
@@ -127,4 +141,7 @@ Tests enforce:
 - two-pass retrieval even when the target section is `rebuttal`;
 - deterministic retrieval cases covering domain, topic, section, intent, guide,
   and task-route selection;
+- validated blind writing cases with deterministic pass/fail behavior and an
+  explicit manual-review boundary;
+- a deterministic promotion queue whose candidates have no direct library links;
 - identical machine snapshots in the root distribution and standalone skill.

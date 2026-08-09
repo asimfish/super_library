@@ -295,6 +295,8 @@
   "corpus_version": "0.4.0",
   "entrypoint": "agent-index.md",
   "evidence": {
+    "promotion_queue_records": "evidence/promotion-queue.jsonl",
+    "promotion_queue_summary": "evidence/promotion-queue.md",
     "source_analysis_records": "evidence/source-analysis.jsonl",
     "source_analysis_summary": "evidence/source-analysis.md",
     "topic_maps": {

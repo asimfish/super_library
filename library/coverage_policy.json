@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "collection": "recent-five-year-core",
+  "goals": {
+    "directly_linked_papers": 100,
+    "full_text_structural_samples": 80,
+    "writing_behavior_cases": 20,
+    "direct_links_by_domain": {
+      "embodied_ai": 25,
+      "reinforcement_learning": 25,
+      "vision_language_action": 20,
+      "world_models": 25
+    },
+    "direct_links_by_venue": {
+      "CVPR": 10,
+      "ECCV": 8,
+      "ICCV": 10,
+      "ICLR": 12,
+      "ICML": 12,
+      "NeurIPS": 12,
+      "TPAMI": 5
+    }
+  },
+  "weights": {
+    "full_text_without_link": 100,
+    "metadata_only": 65,
+    "abstract_without_link": 40,
+    "domain_gap": 12,
+    "venue_gap": 8,
+    "recency_per_year": 1
+  },
+  "generated_queue_limit": 50,
+  "review_outcomes": [
+    "promote_normalized_record",
+    "link_existing_record",
+    "record_no_promotion"
+  ]
+}

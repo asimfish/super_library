@@ -126,7 +126,7 @@
     "evidence": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["source_analysis_summary", "source_analysis_records", "topic_maps"],
+      "required": ["source_analysis_summary", "source_analysis_records", "promotion_queue_summary", "promotion_queue_records", "topic_maps"],
       "properties": {
         "source_analysis_summary": {
           "type": "string",
@@ -135,6 +135,14 @@
         "source_analysis_records": {
           "type": "string",
           "enum": ["evidence/source-analysis.jsonl"]
+        },
+        "promotion_queue_summary": {
+          "type": "string",
+          "enum": ["evidence/promotion-queue.md"]
+        },
+        "promotion_queue_records": {
+          "type": "string",
+          "enum": ["evidence/promotion-queue.jsonl"]
         },
         "topic_maps": {
           "type": "object",

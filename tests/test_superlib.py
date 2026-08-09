@@ -275,6 +275,8 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "stats.json",
             ROOT / "dist" / "evidence" / "source-analysis.md",
             ROOT / "dist" / "evidence" / "source-analysis.jsonl",
+            ROOT / "dist" / "evidence" / "promotion-queue.md",
+            ROOT / "dist" / "evidence" / "promotion-queue.jsonl",
             ROOT / "dist" / "manifest.json",
             ROOT / "dist" / "packs" / "world_models.md",
             ROOT / "dist" / "packs" / "reinforcement_learning.md",
@@ -306,6 +308,28 @@ class SuperLibraryCliTests(unittest.TestCase):
         after = [path.read_bytes() for path in paths]
         self.assertEqual(before, after)
 
+    def test_generated_tree_cleanup_retries_disappearance_race(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            generated = Path(temp_dir) / "generated"
+            (generated / "child").mkdir(parents=True)
+            (generated / "child" / "artifact.txt").write_text("generated")
+            original_rmtree = superlib.shutil.rmtree
+            calls = []
+
+            def flaky_rmtree(path):
+                calls.append(Path(path))
+                if len(calls) == 1:
+                    raise FileNotFoundError("simulated cloud-sync race")
+                original_rmtree(path)
+
+            try:
+                superlib.shutil.rmtree = flaky_rmtree
+                superlib.remove_generated_tree(generated)
+            finally:
+                superlib.shutil.rmtree = original_rmtree
+            self.assertFalse(generated.exists())
+            self.assertEqual(len(calls), 2)
+
     def test_manifest_hashes_and_skill_snapshot(self):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -321,6 +345,14 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(
             manifest["source_analysis"]["records"],
             "evidence/source-analysis.jsonl",
+        )
+        self.assertEqual(
+            router["evidence"]["promotion_queue_records"],
+            "evidence/promotion-queue.jsonl",
+        )
+        self.assertEqual(
+            manifest["promotion_queue"]["records"],
+            "evidence/promotion-queue.jsonl",
         )
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
@@ -861,18 +893,116 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn(f"**{len(entries)} gold entries**", readme)
         self.assertIn(f"**{len(sources)} primary-source", readme)
 
-    def test_smoke_evals_reference_real_entries(self):
+    def test_writing_evals_reference_real_entries_and_valid_checks(self):
         _, _, entries = superlib.load_corpus()
         guide_config, _ = superlib.load_writing_guides()
         known_ids = {entry["id"] for entry in entries}
         known_guides = {guide["id"] for guide in guide_config["guides"]}
-        cases = json.loads((ROOT / "evals" / "smoke.json").read_text())
+        cases = json.loads((ROOT / "evals" / "writing.json").read_text())["cases"]
+        self.assertGreaterEqual(len(cases), 12)
         self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
         for case in cases:
-            self.assertTrue(case["invariants"])
+            self.assertTrue(case["manual_rubric"])
+            self.assertTrue(case["machine_checks"])
             self.assertTrue(set(case["expected_retrieval_ids"]).issubset(known_ids))
-            if "expected_guide_id" in case:
-                self.assertIn(case["expected_guide_id"], known_guides)
+            self.assertIn(case["expected_guide_id"], known_guides)
+
+    def test_writing_eval_lists_machine_checkable_cases(self):
+        result = run_cli("eval-writing", "--list", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertGreaterEqual(payload["cases"], 12)
+        self.assertTrue(all(item["machine_checks"] for item in payload["records"]))
+
+    def test_writing_eval_blinds_checks_and_scores_pass_and_failure(self):
+        case_id = "rebuttal-existing-evidence"
+        blind = run_cli("eval-writing", "--case", case_id, "--format", "json")
+        self.assertEqual(blind.returncode, 0, blind.stderr)
+        packet = json.loads(blind.stdout)
+        self.assertNotIn("machine_checks", packet)
+        self.assertNotIn("manual_rubric", packet)
+        self.assertNotIn("expected_retrieval_ids", packet)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            response = Path(temp_dir) / "response.md"
+            response.write_text(
+                "Yes. Table 4 averages five seeds and shows a mean improvement "
+                "of 3.2 points. No statistical significance test was run, so "
+                "this evidence supports consistency across the reported runs "
+                "but not a significance claim.",
+                encoding="utf-8",
+            )
+            passed = run_cli(
+                "eval-writing", "--case", case_id,
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(passed.returncode, 0, passed.stderr)
+            self.assertTrue(json.loads(passed.stdout)["results"][0]["passed"])
+            response.write_text("The result is robust.", encoding="utf-8")
+            failed = run_cli(
+                "eval-writing", "--case", case_id,
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(failed.returncode, 1, failed.stderr)
+            self.assertFalse(json.loads(failed.stdout)["results"][0]["passed"])
+
+    def test_writing_eval_accepts_equivalent_caption_protocol_wording(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            response = Path(temp_dir) / "response.md"
+            response.write_text(
+                "43 images/s and 21 ms on a single NVIDIA A100, using batch "
+                "size 1 and FP16. Timing excludes model loading and includes "
+                "preprocessing and action decoding. Values use 1,000 measured "
+                "iterations following 100 warm-up iterations; they do not imply "
+                "a hardware-independent ranking.",
+                encoding="utf-8",
+            )
+            result = run_cli(
+                "eval-writing", "--case", "paper-efficiency-table-caption",
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue(json.loads(result.stdout)["results"][0]["passed"])
+
+    def test_writing_eval_rejects_invalid_regex_contract(self):
+        taxonomy, _, entries = superlib.load_corpus()
+        bad_config = copy.deepcopy(superlib.load_writing_evals())
+        bad_config["cases"][0]["machine_checks"][0]["pattern"] = "["
+        original_loader = superlib.load_writing_evals
+        try:
+            superlib.load_writing_evals = lambda: bad_config
+            errors = superlib.validate_writing_evals(taxonomy, entries)
+        finally:
+            superlib.load_writing_evals = original_loader
+        self.assertTrue(any("invalid regex" in error for error in errors))
+
+    def test_coverage_gaps_prioritize_reviewed_unlinked_papers(self):
+        result = run_cli("coverage-gaps", "--limit", "10", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["summary"]["core_papers"], 300)
+        self.assertEqual(payload["summary"]["directly_linked_papers"], 60)
+        self.assertEqual(len(payload["records"]), 10)
+        self.assertTrue(
+            all(
+                record["outcome"] == "structural_sample_without_library_links"
+                for record in payload["records"]
+            )
+        )
+
+    def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
+        _, sources, entries = superlib.load_corpus()
+        policy = superlib.load_coverage_policy()
+        records = superlib.source_analysis_records(sources, entries)
+        first = superlib.promotion_queue_records(policy, records)
+        second = superlib.promotion_queue_records(policy, records)
+        self.assertEqual(first, second)
+        p0_count = sum(record["priority"] == "P0" for record in first)
+        self.assertEqual(p0_count, 31)
+        self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
+        self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
+        self.assertTrue(
+            all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)
+        )
 
     def test_retrieval_eval_executes_top_k_routes(self):
         cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())

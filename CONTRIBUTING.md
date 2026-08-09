@@ -51,6 +51,7 @@ python3 scripts/superlib.py validate
 python3 scripts/superlib.py search "<new concept>"
 python3 scripts/superlib.py route "<new concept>" --domain <domain>
 python3 scripts/superlib.py eval-retrieval
+python3 scripts/superlib.py eval-writing --list --format json
 python3 scripts/superlib.py build
 python3 -m unittest discover -s tests -v
 ```
@@ -81,3 +82,17 @@ records. Most new content should remain discoverable through catalogs and cards.
   explicit metric direction, explicit missing-value semantics, no color-only
   encoding, and only `SL_*` placeholders. Register every asset in
   `library/table_templates.json` and test that generated copies are byte-identical.
+
+## Promoting evidence from the core collection
+
+Run `python3 scripts/superlib.py coverage-gaps` before choosing the next paper.
+For each reviewed candidate, compare it with existing cards and record exactly one
+outcome: promote a nonredundant normalized record, link an existing record, or
+record that no promotion is warranted. The queue is a priority aid, not evidence;
+open the primary paper and verify every locator and claim.
+
+When adding a writing-behavior case, keep its prompt packet independent of its
+checks. Machine checks should target objective facts, units, scope, or forbidden
+claims. Put organization, fluency, terminology fit, source overlap, and scientific
+correctness in the manual rubric; do not add a gold paragraph or prose-similarity
+threshold.

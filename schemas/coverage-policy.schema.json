@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/coverage-policy.schema.json",
+  "title": "Super Library evidence-promotion policy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "collection", "goals", "weights", "generated_queue_limit", "review_outcomes"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "collection": {"type": "string"},
+    "goals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["directly_linked_papers", "full_text_structural_samples", "writing_behavior_cases", "direct_links_by_domain", "direct_links_by_venue"],
+      "properties": {
+        "directly_linked_papers": {"type": "integer", "minimum": 1},
+        "full_text_structural_samples": {"type": "integer", "minimum": 1},
+        "writing_behavior_cases": {"type": "integer", "minimum": 1},
+        "direct_links_by_domain": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "integer", "minimum": 1}},
+        "direct_links_by_venue": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "integer", "minimum": 1}}
+      }
+    },
+    "weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["full_text_without_link", "metadata_only", "abstract_without_link", "domain_gap", "venue_gap", "recency_per_year"],
+      "properties": {
+        "full_text_without_link": {"type": "integer", "minimum": 1},
+        "metadata_only": {"type": "integer", "minimum": 1},
+        "abstract_without_link": {"type": "integer", "minimum": 1},
+        "domain_gap": {"type": "integer", "minimum": 1},
+        "venue_gap": {"type": "integer", "minimum": 1},
+        "recency_per_year": {"type": "integer", "minimum": 0}
+      }
+    },
+    "generated_queue_limit": {"type": "integer", "minimum": 1, "maximum": 300},
+    "review_outcomes": {
+      "type": "array", "minItems": 3, "uniqueItems": true,
+      "items": {"type": "string"}
+    }
+  }
+}
