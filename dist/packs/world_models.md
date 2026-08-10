@@ -27,6 +27,28 @@ In 3D-VLA, a model that uses 3D scene information and language-conditioned repre
 
 - `zhen2024vla` — [3D-VLA: A 3D Vision-Language-Action Generative World Model](https://proceedings.mlr.press/v235/zhen24a.html) (ICML 2024)
 
+### diffusion-based trajectory planning / diffusion planning
+
+`rl.definition.diffusion-planning.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A decision-making approach that represents trajectories or related planning variables with a diffusion generative model and produces a plan through conditioned or guided iterative denoising.
+
+**Use:** State which states and actions are denoised, the trajectory horizon, conditioning or guidance objective, number of denoising steps, how a plan is selected, and which portion is executed before replanning. Report inference cost separately from task quality.
+
+**Avoid:** Do not conflate trajectory-level diffusion planning with a diffusion policy that predicts only actions conditioned on observations, and do not imply real-time execution without a measured latency protocol.
+
+**Patterns:**
+
+- The diffusion planner iteratively denoises length-{H} state–action trajectories conditioned on {return, goal, or constraint}.
+- At each decision point, we sample {number} trajectories, execute {portion}, and replan after {feedback event}.
+
+**Verify in primary sources:**
+
+- `janner2022-planning-diffusion-flexible-behavior` — [Planning with Diffusion for Flexible Behavior Synthesis](https://proceedings.mlr.press/v162/janner22a.html) (ICML 2022)
+- `huang2024-diffusion-models-optimizers-efficient` — [Diffusion Models as Optimizers for Efficient Planning in Offline RL](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6735_ECCV_2024_paper.php) (ECCV 2024)
+
 ### temporal-difference (TD) learning
 
 `rl.definition.temporal-difference.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
@@ -115,6 +137,29 @@ Forward dynamics predicts a future state or observation from a current state and
 
 - `zhu2025unifiedworld` — [Unified World Models: Coupling Video and Action Diffusion for Pretraining on Large Robotic Datasets](https://www.roboticsproceedings.org/rss21/p015.html) (RSS 2025)
 - `zhen2025embodiedworld` — [Learning 4D Embodied World Models](https://openaccess.thecvf.com/content/ICCV2025/html/Zhen_Learning_4D_Embodied_World_Models_ICCV_2025_paper.html) (ICCV 2025)
+
+### latent action representation
+
+`wm.definition.latent-action-representation.001` · definition · world_models, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A learned variable inferred from observation transitions or videos to encode action-like changes when the corresponding low-level action labels are absent, often for conditioning a predictive model or later alignment with executable controls.
+
+**Use:** State the inference inputs, temporal granularity, discrete or continuous parameterization, training objective, and how the latent variable is aligned with or decoded into the target robot action space.
+
+**Avoid:** Do not call a motion code an executable robot action before validating its alignment or decoder, and do not assume that a latent action is identifiable, causal, or embodiment-invariant by construction.
+
+**Patterns:**
+
+- An inverse model infers a latent action from adjacent observations, and the world model predicts the next observation conditioned on that code.
+- During robot fine-tuning, latent actions are aligned with {target control representation} using {paired supervision}.
+
+**Verify in primary sources:**
+
+- `zhang2024-prelar-world-model-pre` — [PreLAR: World Model Pre-training with Learnable Action Representation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/3363_ECCV_2024_paper.php) (ECCV 2024)
+- `schmidt2024-learning-act-without-actions` — [Learning to Act without Actions](https://openreview.net/forum?id=rvUq3cxpDF) (ICLR 2024)
+- `gao2025-adaworld-learning-adaptable-world-models` — [AdaWorld: Learning Adaptable World Models with Latent Actions](https://proceedings.mlr.press/v267/gao25u.html) (ICML 2025)
 
 ### latent state
 

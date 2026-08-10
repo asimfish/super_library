@@ -3,12 +3,13 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 11
+Entries: 12
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/offline_rl.md); it is not part of the default
 writing context.
 
 - [conservative Q-function learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.conservative-q.001.md) — `rl.definition.conservative-q.001` · definition · sections=related_work,method,translation · tags=CQL,pessimism
+- [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — `rl.definition.diffusion-planning.001` · definition · sections=introduction,related_work,method,translation · tags=diffusion planner,trajectory denoising
 - [distribution shift in offline RL](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-distribution-shift.001.md) — `rl.definition.offline-distribution-shift.001` · definition · sections=introduction,related_work,method,limitations,translation · tags=OOD actions,dataset support
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-rl.001.md) — `rl.definition.offline-rl.001` · definition · sections=abstract,introduction,related_work,translation · tags=batch RL,fixed dataset
 - [offline-to-online reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-to-online.001.md) — `rl.definition.offline-to-online.001` · definition · sections=introduction,related_work,method · tags=offline-to-online,fine-tuning

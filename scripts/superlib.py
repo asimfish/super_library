@@ -3378,9 +3378,10 @@ def render_catalog(
             route_metadata = f"sections={','.join(entry['sections'])}"
         else:
             route_metadata = f"domains={','.join(entry['domains'])}"
+        tag_metadata = "" if catalog_type == "domain" else f" · tags={tag_text}"
         lines.append(
             f"- [{entry['expression']}]({card_url}) — `{entry['id']}` · "
-            f"{entry['kind']} · {route_metadata} · tags={tag_text}"
+            f"{entry['kind']} · {route_metadata}{tag_metadata}"
         )
     return "\n".join(lines).rstrip() + "\n"
 

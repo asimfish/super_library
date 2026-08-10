@@ -768,8 +768,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(len(records), 300)
         self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
         self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
-        self.assertEqual(summary["papers_with_direct_library_links"], 71)
-        self.assertEqual(summary["papers_with_promotion_decisions"], 10)
+        self.assertEqual(summary["papers_with_direct_library_links"], 81)
+        self.assertEqual(summary["papers_with_promotion_decisions"], 20)
         self.assertEqual(len({record["source_id"] for record in records}), 300)
         result = run_cli("analysis-status", records[0]["source_id"], "--format", "json")
         self.assertEqual(result.returncode, 0, result.stderr)
@@ -778,7 +778,7 @@ class SuperLibraryCliTests(unittest.TestCase):
     def test_promotion_decisions_are_schema_valid_and_semantically_explicit(self):
         _, sources, entries = superlib.load_corpus()
         decisions = superlib.load_promotion_decisions()
-        self.assertEqual(len(decisions), 10)
+        self.assertEqual(len(decisions), 20)
         self.assertEqual(
             {decision["decision"] for decision in decisions},
             {
@@ -814,7 +814,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         decided_ids = {decision["source_id"] for decision in decisions}
         self.assertTrue(decided_ids.isdisjoint(item["source_id"] for item in queue))
         reviewed = [record for record in records if record["promotion_decision"]]
-        self.assertEqual(len(reviewed), 10)
+        self.assertEqual(len(reviewed), 20)
         self.assertTrue(
             any(
                 record["promotion_decision"]["decision"] == "link_existing_record"
@@ -828,8 +828,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         summary_result = run_cli("promotion-status", "--format", "json")
         self.assertEqual(summary_result.returncode, 0, summary_result.stderr)
         summary = json.loads(summary_result.stdout)
-        self.assertEqual(summary["reviewed_papers"], 10)
-        self.assertEqual(sum(summary["by_decision"].values()), 10)
+        self.assertEqual(summary["reviewed_papers"], 20)
+        self.assertEqual(sum(summary["by_decision"].values()), 20)
 
         decision = superlib.load_promotion_decisions()[0]
         detail_result = run_cli(
@@ -1006,7 +1006,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         known_ids = {entry["id"] for entry in entries}
         known_guides = {guide["id"] for guide in guide_config["guides"]}
         cases = json.loads((ROOT / "evals" / "writing.json").read_text())["cases"]
-        self.assertGreaterEqual(len(cases), 12)
+        self.assertGreaterEqual(len(cases), 20)
         self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
         for case in cases:
             self.assertTrue(case["manual_rubric"])
@@ -1018,7 +1018,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         result = run_cli("eval-writing", "--list", "--format", "json")
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
-        self.assertGreaterEqual(payload["cases"], 12)
+        self.assertGreaterEqual(payload["cases"], 20)
         self.assertTrue(all(item["machine_checks"] for item in payload["records"]))
 
     def test_writing_eval_blinds_checks_and_scores_pass_and_failure(self):
@@ -1087,7 +1087,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["summary"]["core_papers"], 300)
-        self.assertEqual(payload["summary"]["directly_linked_papers"], 71)
+        self.assertEqual(payload["summary"]["directly_linked_papers"], 81)
         self.assertEqual(len(payload["records"]), 10)
         self.assertTrue(
             all(
@@ -1104,7 +1104,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         second = superlib.promotion_queue_records(policy, records)
         self.assertEqual(first, second)
         p0_count = sum(record["priority"] == "P0" for record in first)
-        self.assertEqual(p0_count, 21)
+        self.assertEqual(p0_count, 11)
         self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
         self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
         self.assertTrue(

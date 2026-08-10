@@ -1209,6 +1209,55 @@
       ]
     },
     {
+      "avoid": "Do not call a dense occupancy grid or an arbitrary scene graph a topological memory unless nodes and edges support navigational connectivity or reachability.",
+      "domains": [
+        "embodied_ai"
+      ],
+      "examples": [
+        "The agent incrementally builds a topological memory whose nodes store {observation features} and whose edges represent {reachability criterion}.",
+        "Planning queries the memory for a path from {localized node} to {goal node or frontier}."
+      ],
+      "expression": "topological memory for visual navigation",
+      "guidance": "Specify how nodes are created and merged, what an edge means, how the agent localizes or retrieves in the graph, whether the memory is updated online, and whether unexplored or predicted locations are represented.",
+      "id": "emb.definition.topological-memory.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "A graph-based spatial memory whose nodes represent selected observations, places, or landmarks and whose edges encode reachability, adjacency, or local navigational transitions for planning.",
+      "provenance": {
+        "note": "Independent definition synthesized from recent topological-memory navigation papers.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "cui2024-frontier-enhanced-topological-memory",
+        "taniguchi2021-pose-invariant-topological-memory"
+      ],
+      "tags": [
+        "topological map",
+        "graph memory",
+        "reachability",
+        "visual navigation",
+        "frontier exploration"
+      ],
+      "topic_families": [
+        "embodied_navigation"
+      ]
+    },
+    {
       "avoid": "Do not call a pipeline visuomotor if vision only labels a dataset and is unavailable to the deployed controller.",
       "domains": [
         "robot_learning",
@@ -6692,6 +6741,57 @@
       ]
     },
     {
+      "avoid": "Do not conflate trajectory-level diffusion planning with a diffusion policy that predicts only actions conditioned on observations, and do not imply real-time execution without a measured latency protocol.",
+      "domains": [
+        "reinforcement_learning",
+        "world_models"
+      ],
+      "examples": [
+        "The diffusion planner iteratively denoises length-{H} state–action trajectories conditioned on {return, goal, or constraint}.",
+        "At each decision point, we sample {number} trajectories, execute {portion}, and replan after {feedback event}."
+      ],
+      "expression": "diffusion-based trajectory planning / diffusion planning",
+      "guidance": "State which states and actions are denoised, the trajectory horizon, conditioning or guidance objective, number of denoising steps, how a plan is selected, and which portion is executed before replanning. Report inference cost separately from task quality.",
+      "id": "rl.definition.diffusion-planning.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "A decision-making approach that represents trajectories or related planning variables with a diffusion generative model and produces a plan through conditioned or guided iterative denoising.",
+      "provenance": {
+        "note": "Independent definition synthesized from the Diffuser formulation and a recent efficient trajectory-optimization variant.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "janner2022-planning-diffusion-flexible-behavior",
+        "huang2024-diffusion-models-optimizers-efficient"
+      ],
+      "tags": [
+        "diffusion planner",
+        "trajectory denoising",
+        "offline RL",
+        "guided sampling",
+        "inference cost"
+      ],
+      "topic_families": [
+        "offline_rl",
+        "planning_imagination"
+      ]
+    },
+    {
       "avoid": "Do not equate a return distribution with epistemic uncertainty about the value estimate.",
       "domains": [
         "reinforcement_learning"
@@ -9080,6 +9180,59 @@
       ]
     },
     {
+      "avoid": "Do not call a motion code an executable robot action before validating its alignment or decoder, and do not assume that a latent action is identifiable, causal, or embodiment-invariant by construction.",
+      "domains": [
+        "world_models",
+        "robot_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "An inverse model infers a latent action from adjacent observations, and the world model predicts the next observation conditioned on that code.",
+        "During robot fine-tuning, latent actions are aligned with {target control representation} using {paired supervision}."
+      ],
+      "expression": "latent action representation",
+      "guidance": "State the inference inputs, temporal granularity, discrete or continuous parameterization, training objective, and how the latent variable is aligned with or decoded into the target robot action space.",
+      "id": "wm.definition.latent-action-representation.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "A learned variable inferred from observation transitions or videos to encode action-like changes when the corresponding low-level action labels are absent, often for conditioning a predictive model or later alignment with executable controls.",
+      "provenance": {
+        "note": "Independent definition synthesized across recent action-free video and adaptable world-model formulations.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "zhang2024-prelar-world-model-pre",
+        "schmidt2024-learning-act-without-actions",
+        "gao2025-adaworld-learning-adaptable-world-models"
+      ],
+      "tags": [
+        "latent action",
+        "action-free video",
+        "inverse dynamics",
+        "world-model pretraining",
+        "action alignment"
+      ],
+      "topic_families": [
+        "dynamics_representation",
+        "action_representation"
+      ]
+    },
+    {
       "avoid": "Do not call an arbitrary feature vector a state without explaining its temporal role.",
       "domains": [
         "world_models",
@@ -10835,6 +10988,23 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.term.3d-scene-memory.001",
+        "wm.definition.navigation-world-model.001",
+        "emb.definition.object-goal-navigation.001"
+      ],
+      "evidence_locator": "Official ECCV paper, Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.topological-memory.001"
+      ],
+      "rationale": "Topological memory is a recurring, architecture-independent navigation concept whose node and edge semantics differ from dense 3D scene memory, static maps, and predictive navigation world models; the corpus lacked this boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "cui2024-frontier-enhanced-topological-memory",
+      "verification_scope": "full_text_sections"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "emb.definition.embodied-ai.001",
@@ -10850,6 +11020,44 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "dang2025-ecbench-can-multi-modal",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "rationale": "The quadruped dataset and transformer are paper-specific, while the reusable language—visual and instruction inputs producing executable robot actions—is already captured by the VLA, multimodal-perception, and language-conditioned-policy records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "ding2024-quar-vla-vision-language",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.world-model.001",
+        "rl.definition.goal-conditioned-rl.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "wm.definition.world-model.001",
+        "rl.definition.goal-conditioned-rl.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "rationale": "The arbitrary-subgoal exploration algorithm is method-specific; its transferable formulation is already represented by world models, goal-conditioned reinforcement learning, and the distinction between planning and policy learning.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "duan2024-learning-world-models-unconstrained",
       "verification_scope": "official_abstract"
     },
     {
@@ -10905,6 +11113,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "han2025-roomtour3d-geometry-aware-video",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.diffusion-policy.001",
+        "wm.term.model-predictive-control.001",
+        "wm.usage-note.planning-vs-policy.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "rl.definition.diffusion-planning.001"
+      ],
+      "rationale": "Diffusion planning is a recurring offline-decision-making formulation with a trajectory-level denoising interface and inference-cost boundary that is not captured by diffusion policies, generic MPC, or offline-RL definitions.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "huang2024-diffusion-models-optimizers-efficient",
       "verification_scope": "official_abstract"
     },
     {
@@ -10979,6 +11205,25 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.multimodal-perception.001",
+        "emb.definition.vln.001",
+        "emb.definition.object-goal-navigation.001"
+      ],
+      "evidence_locator": "Official ICCV paper, Abstract, Section 1, and Section 4.2",
+      "linked_entry_ids": [
+        "emb.definition.multimodal-perception.001",
+        "emb.definition.vln.001",
+        "emb.definition.object-goal-navigation.001"
+      ],
+      "rationale": "Action-description prediction is a paper-specific auxiliary objective; the evaluated reusable task language is already covered by multimodal embodied perception, vision-and-language navigation, and object-goal navigation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "kondoh2025-embodied-navigation-auxiliary-task",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.offline-rl.001",
         "rl.definition.return-conditioned-sequence.001"
       ],
@@ -10991,6 +11236,93 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "kong2025-mastering-massive-multi-task",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.control-latency.001",
+        "emb.usage-note.vla-vs-elm.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.control-latency.001"
+      ],
+      "rationale": "Mamba integration and the pose-prediction head are architecture-specific; the reusable claims map to the VLA definition and the existing requirement to report inference latency separately from control frequency and deployment protocol.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2024-robomamba-efficient-vision-language",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.3d-scene-memory.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "The encoder, instruction data, and benchmark are paper-specific; the reusable formulation is a multimodal embodied language model operating on point-cloud and language inputs, already covered by existing language-model and multimodal-perception boundaries.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "qi2024-shapellm-universal-3d-object",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.policy-gradient-estimator.001",
+        "rl.term.policy.001",
+        "rl.definition.return.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.term.policy-gradient-estimator.001"
+      ],
+      "rationale": "PID parameterization is specific to this control-policy family, while the transferable RL writing concept—deriving and optimizing an exact policy gradient under stated guarantees—is already represented by the policy-gradient-estimator record.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "sharma2025-globally-optimal-policy-gradient",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.video-world-model.001",
+        "wm.definition.task-oriented-model.001",
+        "wm.term.action-conditioned-dynamics.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "wm.definition.video-world-model.001"
+      ],
+      "rationale": "Counterfactual prompting and the temporally factored masking policy are method-specific names; the reusable model class is already covered by the video-world-model record without implying action conditioning or causal intervention semantics.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "venkatesh2024-understanding-physical-dynamics-counterfactual",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.term.action-conditioned-dynamics.001",
+        "wm.definition.forward-inverse-dynamics.001",
+        "emb.term.action-tokenization.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "wm.definition.latent-action-representation.001"
+      ],
+      "rationale": "Latent action representation is a recurring bridge from action-free video to action-conditioned world-model or policy pretraining, and the corpus lacked its crucial inferred-code versus executable-control boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2024-prelar-world-model-pre",
       "verification_scope": "official_abstract"
     }
   ],
@@ -12913,6 +13245,36 @@
     },
     {
       "authors": [
+        "Shenyuan Gao",
+        "Siyuan Zhou",
+        "Yilun Du",
+        "Jun Zhang",
+        "Chuang Gan"
+      ],
+      "domains": [
+        "world_models"
+      ],
+      "id": "gao2025-adaworld-learning-adaptable-world-models",
+      "identifiers": {
+        "pmlr": "v267/gao25u"
+      },
+      "publication_status": "published",
+      "title": "AdaWorld: Learning Adaptable World Models with Latent Actions",
+      "topic_families": [
+        "dynamics_representation"
+      ],
+      "topics": [
+        "world_models",
+        "dynamics_representation",
+        "latent_actions"
+      ],
+      "url": "https://proceedings.mlr.press/v267/gao25u.html",
+      "venue": "ICML",
+      "verified_at": "2026-08-11",
+      "year": 2025
+    },
+    {
+      "authors": [
         "Jean-Baptiste Gaya",
         "Laure Soulier",
         "Ludovic Denoyer"
@@ -14351,6 +14713,38 @@
       "venue": "NeurIPS",
       "verified_at": "2026-07-30",
       "year": 2019
+    },
+    {
+      "authors": [
+        "Michael Janner",
+        "Yilun Du",
+        "Joshua Tenenbaum",
+        "Sergey Levine"
+      ],
+      "domains": [
+        "reinforcement_learning",
+        "world_models"
+      ],
+      "id": "janner2022-planning-diffusion-flexible-behavior",
+      "identifiers": {
+        "pmlr": "v162/janner22a"
+      },
+      "publication_status": "published",
+      "title": "Planning with Diffusion for Flexible Behavior Synthesis",
+      "topic_families": [
+        "offline_rl",
+        "planning_imagination"
+      ],
+      "topics": [
+        "reinforcement_learning",
+        "offline_rl",
+        "planning_imagination",
+        "diffusion_planning"
+      ],
+      "url": "https://proceedings.mlr.press/v162/janner22a.html",
+      "venue": "ICML",
+      "verified_at": "2026-08-11",
+      "year": 2022
     },
     {
       "authors": [
@@ -17590,6 +17984,33 @@
     },
     {
       "authors": [
+        "Dominik Schmidt",
+        "Minqi Jiang"
+      ],
+      "domains": [
+        "world_models"
+      ],
+      "id": "schmidt2024-learning-act-without-actions",
+      "identifiers": {
+        "openreview": "rvUq3cxpDF"
+      },
+      "publication_status": "published",
+      "title": "Learning to Act without Actions",
+      "topic_families": [
+        "dynamics_representation"
+      ],
+      "topics": [
+        "world_models",
+        "dynamics_representation",
+        "latent_actions"
+      ],
+      "url": "https://openreview.net/forum?id=rvUq3cxpDF",
+      "venue": "ICLR",
+      "verified_at": "2026-08-11",
+      "year": 2024
+    },
+    {
+      "authors": [
         "Moritz Schneider",
         "Robert Krug",
         "Narunas Vaskevicius"
@@ -18224,6 +18645,34 @@
       "venue": "NeurIPS",
       "verified_at": "2026-07-30",
       "year": 2024
+    },
+    {
+      "authors": [
+        "Asuto Taniguchi",
+        "Fumihiro Sasaki",
+        "Ryota Yamashina"
+      ],
+      "domains": [
+        "embodied_ai"
+      ],
+      "id": "taniguchi2021-pose-invariant-topological-memory",
+      "identifiers": {
+        "official_path": "/content/ICCV2021/html/Taniguchi_Pose_Invariant_Topological_Memory_for_Visual_Navigation_ICCV_2021_paper.html"
+      },
+      "publication_status": "published",
+      "title": "Pose Invariant Topological Memory for Visual Navigation",
+      "topic_families": [
+        "embodied_navigation"
+      ],
+      "topics": [
+        "embodied_ai",
+        "embodied_navigation",
+        "topological_memory"
+      ],
+      "url": "https://openaccess.thecvf.com/content/ICCV2021/html/Taniguchi_Pose_Invariant_Topological_Memory_for_Visual_Navigation_ICCV_2021_paper.html",
+      "venue": "ICCV",
+      "verified_at": "2026-08-11",
+      "year": 2021
     },
     {
       "authors": [

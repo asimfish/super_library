@@ -20,7 +20,7 @@ types. Eighteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
 editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
-normalized records. A 12-case blind writing benchmark checks final-output facts
+normalized records. A 20-case blind writing benchmark checks final-output facts
 and evidence boundaries, while a policy-driven promotion queue prioritizes the
 next nonredundant paper reviews without entering normal Agent context. A separate
 decision ledger records whether each reviewed paper promoted a new record, reused
@@ -208,7 +208,7 @@ be queried by a script, not pasted into an Agent.
 - `skills/super-library/`: a self-contained skill with a bounded lookup script.
 - `scripts/superlib.py`: routing, bundle generation, search, analysis-depth audit,
   validation, build, statistics, source-health checks, and wording lint.
-- `evals/`: deterministic retrieval cases and 12 blind writing cases for paper,
+- `evals/`: deterministic retrieval cases and 20 blind writing cases for paper,
   rebuttal, and translation. Machine checks cover objective invariants; a separate
   manual rubric covers scientific and rhetorical quality.
 
@@ -223,7 +223,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **230 gold entries** and **331 primary-source
+The v0.4 reviewed snapshot contains **233 gold entries** and **335 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -234,19 +234,19 @@ For recurring wording, 288 official conference abstracts were analyzed locally
 by document frequency; abstract text is not stored. Four cross-paper collocations
 survived manual screening and were promoted with source-level attestations. The
 remaining 12 TPAMI DOI pages are included in metadata/topic coverage but not in
-this abstract-level phrase analysis. Sixty-four core papers are representative
+this abstract-level phrase analysis. Sixty-seven core papers are representative
 sources cited directly by normalized records. Completed promotion reviews add
-audit-only links for seven more papers, bringing explicit normalized-record
-coverage to 71 without inserting every reviewed paper into default cards. Ten
-promotion decisions are recorded: two new normalized records, seven
+fourteen additional paper-level links, bringing explicit normalized-record
+coverage to 81 without inserting every reviewed paper into default cards. Twenty
+promotion decisions are recorded: five new normalized records, fourteen
 existing-record links, and one explicit no-promotion outcome. Inspect
 `dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
 `promotion-status` instead of inferring analysis depth from the 300-paper count.
 See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 71, 40,
-and 12 respectively. These are transparent improvement targets, not claims that
+structural samples, and 20 writing-behavior cases. Current progress is 81, 40,
+and 20 respectively. These are transparent improvement targets, not claims that
 the corpus is already complete. `coverage-gaps` ranks the next review candidates;
 reviewers may record `record_no_promotion` when a paper adds only redundant wording.
 

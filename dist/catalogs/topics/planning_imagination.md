@@ -3,11 +3,12 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 16
+Entries: 17
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/planning_imagination.md); it is not part of the default
 writing context.
 
+- [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — `rl.definition.diffusion-planning.001` · definition · sections=introduction,related_work,method,translation · tags=diffusion planner,trajectory denoising
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — `wm.definition.model-based-rl.001` · definition · sections=introduction,related_work,translation · tags=MBRL,planning
 - [navigation world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.navigation-world-model.001.md) — `wm.definition.navigation-world-model.001` · definition · sections=related_work,method · tags=navigation,planning
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — `wm.definition.branched-rollout.001` · definition · sections=related_work,method,translation · tags=MBPO,short rollout

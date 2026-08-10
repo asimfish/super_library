@@ -3,12 +3,13 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 18
+Entries: 19
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/dynamics_representation.md); it is not part of the default
 writing context.
 
 - [forward and inverse dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.forward-inverse-dynamics.001.md) — `wm.definition.forward-inverse-dynamics.001` · definition · sections=related_work,method,translation · tags=forward model,inverse model
+- [latent action representation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-action-representation.001.md) — `wm.definition.latent-action-representation.001` · definition · sections=introduction,related_work,method,translation · tags=latent action,action-free video
 - [latent state](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-state.001.md) — `wm.definition.latent-state.001` · definition · sections=method,related_work,translation · tags=state representation,belief state
 - [object-centric world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.object-centric-world-model.001.md) — `wm.definition.object-centric-world-model.001` · definition · sections=related_work,method · tags=object-centric,slots
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — `wm.definition.probabilistic-dynamics.001` · definition · sections=introduction,related_work,method,translation · tags=stochastic dynamics,predictive distribution

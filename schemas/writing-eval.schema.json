@@ -9,7 +9,7 @@
     "schema_version": {"type": "string", "enum": ["1.0"]},
     "cases": {
       "type": "array",
-      "minItems": 12,
+      "minItems": 20,
       "items": {
         "type": "object",
         "additionalProperties": false,

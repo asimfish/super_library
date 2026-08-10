@@ -28,13 +28,15 @@ For a complete run, store files as `<case-id>.md` and use
 pass. A human must apply every `manual_rubric` item and verify scientific claims,
 citations, terminology consistency, source overlap, and translation fidelity.
 
-The suite checks Related Work synthesis, rebuttal,
-Chinese–English technical translation, an action-chunking method description,
-real-robot setup, result analysis, Introduction alignment, and Abstract scope.
-It also covers Limitations, Conclusion, efficiency captions, and VLA
-generalization-table captions. Cases with `expected_guide_id` should load that
-one protocol without loading the entire guide directory. The suite does not
-measure venue-specific house style or certify scientific correctness.
+The 20-case suite checks Related Work synthesis, evidence-bounded rebuttal,
+Chinese–English technical translation, action-chunking and train/deployment
+method boundaries, real-robot setup, result analysis, Introduction alignment,
+and Abstract scope. It also covers mixed or null results, Limitations,
+Conclusion, main-result, efficiency, and generalization captions, factorial
+ablation interactions, and requests for experiments that were not run. Cases
+with `expected_guide_id` should load that one protocol without loading the entire
+guide directory. The suite does not measure venue-specific house style or
+certify scientific correctness.
 
 ## Deterministic retrieval evaluation
 

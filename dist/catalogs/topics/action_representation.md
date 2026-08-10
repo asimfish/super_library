@@ -3,13 +3,14 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 9
+Entries: 10
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/action_representation.md); it is not part of the default
 writing context.
 
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — `emb.definition.action-chunking.001` · definition · sections=introduction,related_work,method,translation · tags=action sequence,chunk horizon
 - [continuous action head](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.definition.continuous-action-head.001.md) — `vla.definition.continuous-action-head.001` · definition · sections=method,related_work · tags=continuous-control,action-decoder
+- [latent action representation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-action-representation.001.md) — `wm.definition.latent-action-representation.001` · definition · sections=introduction,related_work,method,translation · tags=latent action,action-free video
 - [action expert](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.term.action-expert.001.md) — `vla.term.action-expert.001` · term · sections=abstract,introduction,method,related_work · tags=policy-head,architecture
 - [action vocabulary / action-token vocabulary](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.term.action-vocabulary.001.md) — `vla.term.action-vocabulary.001` · term · sections=abstract,introduction,related_work,method · tags=action-tokenization,quantization
 - [embodiment-specific action decoder](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.term.embodiment-specific-decoder.001.md) — `vla.term.embodiment-specific-decoder.001` · term · sections=method,related_work · tags=cross-embodiment,decoder
