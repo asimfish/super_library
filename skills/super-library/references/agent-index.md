@@ -77,7 +77,7 @@ python3 scripts/superlib.py bundle \
   --domain world_models --section rebuttal --intent respond
 ```
 
-Reviewed catalog: 228 normalized entries backed by a 300-paper recent collection plus earlier canonical sources. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/super-library-compact.md) and full
+Reviewed catalog: 230 normalized entries backed by a 300-paper recent collection plus earlier canonical sources. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/super-library-compact.md) and full
 domain packs remain for compatibility, but they are not the default.
 A static release cannot establish what is currently latest or
 state-of-the-art.

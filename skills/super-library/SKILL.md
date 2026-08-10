@@ -1,6 +1,6 @@
 ---
 name: super-library
-description: Retrieve source-traceable terminology, definitions, sentence patterns, and bounded section protocols for professional AI/ML research writing. Use for drafting or revising abstracts, introductions, related work, methods, experiments, result analyses, tables, limitations, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
+description: Retrieve source-traceable terminology, definitions, sentence patterns, and bounded section protocols for professional AI/ML research writing. Use for drafting or revising abstracts, introductions, related work, methods, experiments, result analyses, tables, limitations, conclusions, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
 ---
 
 # Super Library

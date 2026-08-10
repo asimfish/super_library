@@ -91,6 +91,14 @@ outcome: promote a nonredundant normalized record, link an existing record, or
 record that no promotion is warranted. The queue is a priority aid, not evidence;
 open the primary paper and verify every locator and claim.
 
+Write that outcome to `library/promotion_decisions.jsonl`. Every decision requires
+a primary-paper locator, review scope, rationale, linked records, and the records
+checked for duplication. `promote_normalized_record` requires a newly normalized
+entry that cites the reviewed source; `link_existing_record` creates an audit-only
+coverage link and does not add the paper to that entry's representative citations;
+`record_no_promotion` must not declare a linked record. Run `promotion-status`
+to inspect the completed ledger.
+
 When adding a writing-behavior case, keep its prompt packet independent of its
 checks. Machine checks should target objective facts, units, scope, or forbidden
 claims. Put organization, fluency, terminology fit, source overlap, and scientific

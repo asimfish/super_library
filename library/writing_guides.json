@@ -728,7 +728,9 @@
         "Using average rank or an overall score to conceal regressions on important tasks."
       ],
       "related_entry_ids": [
+        "general.sentence-pattern.caption-main-results.001",
         "general.sentence-pattern.fair-comparison.001",
+        "general.sentence-pattern.latency-protocol.001",
         "general.sentence-pattern.rebuttal-matched-budget.001",
         "general.sentence-pattern.quantify.001"
       ]

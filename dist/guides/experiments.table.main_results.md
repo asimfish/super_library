@@ -65,7 +65,9 @@ Use when: The same methods are evaluated under a common protocol across multiple
 
 ## Retrieve related sentence cards only as needed
 
+- [Results on {dataset or task} under {protocol}. {Metric direction and units}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.caption-main-results.001.md) — `general.sentence-pattern.caption-main-results.001`
 - [For a controlled comparison, we hold {factor} fixed and vary only {factor}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.fair-comparison.001.md) — `general.sentence-pattern.fair-comparison.001`
+- [Latency is measured on {hardware} with {precision, batch, and timing boundary}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.latency-protocol.001.md) — `general.sentence-pattern.latency-protocol.001`
 - [At a matched {budget}, {method} yields {verified comparison}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.rebuttal-matched-budget.001.md) — `general.sentence-pattern.rebuttal-matched-budget.001`
 - [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
 

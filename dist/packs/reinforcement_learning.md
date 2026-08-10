@@ -50,6 +50,29 @@ The difference between the action value and the state value under a policy, meas
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
+### average-reward reinforcement learning
+
+`rl.definition.average-reward-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A continuing-task reinforcement-learning formulation that evaluates a policy by its long-run reward per time step rather than by a finite-horizon or geometrically discounted return.
+
+**Use:** State the limiting-average convention and assumptions such as ergodicity or unichain structure. Distinguish average reward from the differential value or bias function used for policy evaluation and optimization.
+
+**Avoid:** Do not use average-reward RL to mean the arithmetic mean of episodic returns across evaluation runs.
+
+**Patterns:**
+
+- We optimize the long-run average reward under {ergodicity or unichain assumptions}.
+- Unlike discounted RL, the average-reward objective evaluates continuing behavior without a geometric discount factor.
+
+**Verify in primary sources:**
+
+- `ganesh2025-sharper-global-convergence-analysis` — [A Sharper Global Convergence Analysis for Average Reward Reinforcement Learning via an Actor-Critic Approach](https://proceedings.mlr.press/v267/ganesh25b.html) (ICML 2025)
+- `suttle2023-beyond-exponentially-fast-mixing` — [Beyond Exponentially Fast Mixing in Average-Reward Reinforcement Learning via Multi-Level Monte Carlo Actor-Critic](https://proceedings.mlr.press/v202/suttle23a.html) (ICML 2023)
+- `hairi2022-finite-time-convergence-sample` — [Finite-Time Convergence and Sample Complexity of Multi-Agent Actor-Critic Reinforcement Learning with Average Reward](https://iclr.cc/virtual/2022/poster/6851) (ICLR 2022)
+
 ### conservative Q-function learning
 
 `rl.definition.conservative-q.001` · definition · reinforcement_learning · related_work, method, translation
@@ -391,6 +414,27 @@ The learning of a diverse set of temporally extended behaviors without task-spec
 **Verify in primary sources:**
 
 - `chalumeau2023-neuroevolution-competitive-alternative-reinforcement` — [Neuroevolution is a Competitive Alternative to Reinforcement Learning for Skill Discovery](https://iclr.cc/virtual/2023/poster/10722) (ICLR 2023)
+
+### state–action occupancy measure
+
+`rl.definition.state-action-occupancy-measure.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A measure of how frequently a policy visits each state–action pair under the environment dynamics, with the precise weighting determined by a discounted, finite-horizon, or stationary formulation.
+
+**Use:** State the horizon or discounting convention, normalization, initial-state distribution, and whether the measure is stationary. Use it to make a policy objective or coverage assumption explicit.
+
+**Avoid:** Do not confuse a policy occupancy measure with a spatial occupancy map or an occupancy-prediction world model.
+
+**Patterns:**
+
+- We express the objective as a utility of the discounted state–action occupancy measure induced by $\pi$.
+- The constraint is defined over the stationary occupancy measure under {ergodicity assumptions}.
+
+**Verify in primary sources:**
+
+- `barakat2025-global-optimality-policy-gradient` — [On the Global Optimality of Policy Gradient Methods in General Utility Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/72411ab2fd50c0d1f1a4489896d96489-Abstract-Conference.html) (NeurIPS 2025)
 
 ### temporal-difference (TD) learning
 

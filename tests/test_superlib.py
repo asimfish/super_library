@@ -308,27 +308,18 @@ class SuperLibraryCliTests(unittest.TestCase):
         after = [path.read_bytes() for path in paths]
         self.assertEqual(before, after)
 
-    def test_generated_tree_cleanup_retries_disappearance_race(self):
+    def test_generated_tree_pruning_preserves_expected_files(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             generated = Path(temp_dir) / "generated"
             (generated / "child").mkdir(parents=True)
-            (generated / "child" / "artifact.txt").write_text("generated")
-            original_rmtree = superlib.shutil.rmtree
-            calls = []
-
-            def flaky_rmtree(path):
-                calls.append(Path(path))
-                if len(calls) == 1:
-                    raise FileNotFoundError("simulated cloud-sync race")
-                original_rmtree(path)
-
-            try:
-                superlib.shutil.rmtree = flaky_rmtree
-                superlib.remove_generated_tree(generated)
-            finally:
-                superlib.shutil.rmtree = original_rmtree
-            self.assertFalse(generated.exists())
-            self.assertEqual(len(calls), 2)
+            expected = generated / "child" / "artifact.txt"
+            stale = generated / "child" / "artifact 2.txt"
+            expected.write_text("generated")
+            stale.write_text("cloud conflict")
+            superlib.prune_generated_tree(generated, {"child/artifact.txt"})
+            self.assertEqual(expected.read_text(), "generated")
+            self.assertFalse(stale.exists())
+            self.assertTrue(generated.exists())
 
     def test_manifest_hashes_and_skill_snapshot(self):
         result = run_cli("build")
@@ -345,6 +336,14 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(
             manifest["source_analysis"]["records"],
             "evidence/source-analysis.jsonl",
+        )
+        self.assertEqual(
+            router["evidence"]["promotion_decisions_records"],
+            "evidence/promotion-decisions.jsonl",
+        )
+        self.assertEqual(
+            manifest["promotion_decisions"]["records"],
+            "evidence/promotion-decisions.jsonl",
         )
         self.assertEqual(
             router["evidence"]["promotion_queue_records"],
@@ -486,6 +485,24 @@ class SuperLibraryCliTests(unittest.TestCase):
             "experiments.table.ablation",
         )
         self.assertIsNone(payload["load_order"]["task_pack"])
+
+    def test_explicit_main_results_table_outranks_secondary_latency_signal(self):
+        result = run_cli(
+            "route",
+            "main results table caption with success rate and A100 latency",
+            "--domain",
+            "world_models",
+            "--section",
+            "experiments",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(
+            payload["load_order"]["guide"]["id"],
+            "experiments.table.main_results",
+        )
 
     def test_route_prefers_one_file_task_pack_for_common_task(self):
         result = run_cli(
@@ -630,6 +647,11 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("quality–resource trade-off", guide.stdout)
         self.assertLess(len(guide.stdout), 12_000)
 
+    def test_main_results_guide_links_conditional_latency_reporting_card(self):
+        guide = run_cli("guide", "experiments.table.main_results")
+        self.assertEqual(guide.returncode, 0, guide.stderr)
+        self.assertIn("general.sentence-pattern.latency-protocol.001", guide.stdout)
+
     def test_experiment_guide_has_four_domain_overlays(self):
         guide = run_cli("guide", "experiments")
         self.assertEqual(guide.returncode, 0, guide.stderr)
@@ -746,11 +768,77 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(len(records), 300)
         self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
         self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
-        self.assertEqual(summary["papers_with_direct_library_links"], 60)
+        self.assertEqual(summary["papers_with_direct_library_links"], 71)
+        self.assertEqual(summary["papers_with_promotion_decisions"], 10)
         self.assertEqual(len({record["source_id"] for record in records}), 300)
         result = run_cli("analysis-status", records[0]["source_id"], "--format", "json")
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(json.loads(result.stdout)["source_id"], records[0]["source_id"])
+
+    def test_promotion_decisions_are_schema_valid_and_semantically_explicit(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        self.assertEqual(len(decisions), 10)
+        self.assertEqual(
+            {decision["decision"] for decision in decisions},
+            {
+                "link_existing_record",
+                "promote_normalized_record",
+                "record_no_promotion",
+            },
+        )
+        self.assertEqual(
+            superlib.validate_promotion_decisions(sources, entries, decisions), []
+        )
+        self.assertTrue(all(decision["dedup_entry_ids"] for decision in decisions))
+
+        bad_decisions = copy.deepcopy(decisions)
+        promoted = next(
+            decision
+            for decision in bad_decisions
+            if decision["decision"] == "promote_normalized_record"
+        )
+        promoted["linked_entry_ids"] = ["rl.definition.actor-critic.001"]
+        errors = superlib.validate_promotion_decisions(sources, entries, bad_decisions)
+        self.assertTrue(
+            any("must cite the promoted source" in error for error in errors), errors
+        )
+
+    def test_reviewed_papers_leave_queue_without_bloating_representative_sources(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        records = superlib.source_analysis_records(sources, entries, decisions)
+        queue = superlib.promotion_queue_records(
+            superlib.load_coverage_policy(), records
+        )
+        decided_ids = {decision["source_id"] for decision in decisions}
+        self.assertTrue(decided_ids.isdisjoint(item["source_id"] for item in queue))
+        reviewed = [record for record in records if record["promotion_decision"]]
+        self.assertEqual(len(reviewed), 10)
+        self.assertTrue(
+            any(
+                record["promotion_decision"]["decision"] == "link_existing_record"
+                and not record["representative_entry_ids"]
+                and record["promotion_entry_ids"]
+                for record in reviewed
+            )
+        )
+
+    def test_promotion_status_cli_exposes_auditable_summary_and_one_decision(self):
+        summary_result = run_cli("promotion-status", "--format", "json")
+        self.assertEqual(summary_result.returncode, 0, summary_result.stderr)
+        summary = json.loads(summary_result.stdout)
+        self.assertEqual(summary["reviewed_papers"], 10)
+        self.assertEqual(sum(summary["by_decision"].values()), 10)
+
+        decision = superlib.load_promotion_decisions()[0]
+        detail_result = run_cli(
+            "promotion-status", decision["source_id"], "--format", "json"
+        )
+        self.assertEqual(detail_result.returncode, 0, detail_result.stderr)
+        detail = json.loads(detail_result.stdout)
+        self.assertEqual(detail["source_id"], decision["source_id"])
+        self.assertIn("primary_paper", detail)
 
     def test_source_health_classification_and_concurrency_are_deterministic(self):
         self.assertEqual(source_health.classify_http_status(200), "reachable")
@@ -849,6 +937,25 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertIn("name: super-library", skill)
         self.assertNotIn("references/compact.md", skill)
         self.assertIn("scripts/lookup.py", skill)
+
+    def test_skill_governance_artifacts_define_activation_boundaries(self):
+        skill_dir = ROOT / "skills" / "super-library"
+        card = (skill_dir / "skill-card.md").read_text(encoding="utf-8")
+        activation = json.loads(
+            (skill_dir / "evals" / "activation.json").read_text(encoding="utf-8")
+        )
+        cases = activation["activation_cases"]
+        self.assertEqual(activation["skill"], "super-library")
+        self.assertGreaterEqual(sum(case["should_activate"] for case in cases), 2)
+        self.assertGreaterEqual(sum(not case["should_activate"] for case in cases), 2)
+        self.assertIn("Capability manifest", card)
+        self.assertIn("Credentials", card)
+        self.assertIn("External effects", card)
+        openai_yaml = (skill_dir / "agents" / "openai.yaml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("allow_implicit_invocation: true", openai_yaml)
+        self.assertIn("$super-library", openai_yaml)
 
     def test_schema_and_business_rules_are_both_enforced(self):
         taxonomy, sources, entries = superlib.load_corpus()
@@ -980,7 +1087,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
         self.assertEqual(payload["summary"]["core_papers"], 300)
-        self.assertEqual(payload["summary"]["directly_linked_papers"], 60)
+        self.assertEqual(payload["summary"]["directly_linked_papers"], 71)
         self.assertEqual(len(payload["records"]), 10)
         self.assertTrue(
             all(
@@ -997,7 +1104,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         second = superlib.promotion_queue_records(policy, records)
         self.assertEqual(first, second)
         p0_count = sum(record["priority"] == "P0" for record in first)
-        self.assertEqual(p0_count, 31)
+        self.assertEqual(p0_count, 21)
         self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
         self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
         self.assertTrue(

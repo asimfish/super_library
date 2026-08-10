@@ -22,7 +22,9 @@ editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
 normalized records. A 12-case blind writing benchmark checks final-output facts
 and evidence boundaries, while a policy-driven promotion queue prioritizes the
-next nonredundant paper reviews without entering normal Agent context.
+next nonredundant paper reviews without entering normal Agent context. A separate
+decision ledger records whether each reviewed paper promoted a new record, reused
+an existing record, or warranted no promotion.
 
 > 这不是“高级词汇替换表”。它把标准术语、可复用句式、定义语义、使用边界、
 > 反例和一级来源放在同一条记录里，让 Agent 先检索再写作，并在最后审计过度
@@ -121,6 +123,10 @@ python3 scripts/superlib.py stats
 python3 scripts/superlib.py analysis-status
 python3 scripts/superlib.py analysis-status <source-id> --format json
 
+# Inspect completed promotion/deduplication decisions
+python3 scripts/superlib.py promotion-status
+python3 scripts/superlib.py promotion-status <source-id> --format json
+
 # Perform a current, bounded network check of canonical paper URLs
 python3 scripts/superlib.py verify-sources --limit 20
 
@@ -161,6 +167,7 @@ llms.txt
 
 dist/evidence/topics/*.md               # paper maps; verify claims only
 dist/evidence/source-analysis.*         # per-paper analysis-depth audit; not writing context
+dist/evidence/promotion-decisions.*     # completed review decisions; not writing context
 dist/evidence/promotion-queue.*         # maintainer review queue; not writing context
 dist/templates/tables/*.tex             # copy one experiment-table skeleton
 
@@ -191,6 +198,8 @@ be queried by a script, not pasted into an Agent.
   structural observations from the bounded full-paper calibration study.
 - `library/coverage_policy.json`: review goals and deterministic scoring weights;
   goals are roadmap targets, not release assertions.
+- `library/promotion_decisions.jsonl`: primary-source locators, deduplication
+  comparisons, and explicit outcomes for completed evidence reviews.
 - `library/taxonomy.json`: controlled domains, sections, intents, venues, and kinds.
 - `library/core_ids.json`: the deliberately small universal-core selection.
 - `schemas/`: machine-readable data contracts.
@@ -214,7 +223,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **228 gold entries** and **331 primary-source
+The v0.4 reviewed snapshot contains **230 gold entries** and **331 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -225,15 +234,18 @@ For recurring wording, 288 official conference abstracts were analyzed locally
 by document frequency; abstract text is not stored. Four cross-paper collocations
 survived manual screening and were promoted with source-level attestations. The
 remaining 12 TPAMI DOI pages are included in metadata/topic coverage but not in
-this abstract-level phrase analysis. Sixty core papers are directly referenced
-by one or more normalized library records; the other papers contribute collection
-and topic coverage or aggregate recurrence analysis, not paper-specific reusable
-wording. Inspect `dist/evidence/source-analysis.jsonl` or run `analysis-status`
-instead of inferring analysis depth from the 300-paper count. See
-`library/corpus_report.json`.
+this abstract-level phrase analysis. Sixty-four core papers are representative
+sources cited directly by normalized records. Completed promotion reviews add
+audit-only links for seven more papers, bringing explicit normalized-record
+coverage to 71 without inserting every reviewed paper into default cards. Ten
+promotion decisions are recorded: two new normalized records, seven
+existing-record links, and one explicit no-promotion outcome. Inspect
+`dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
+`promotion-status` instead of inferring analysis depth from the 300-paper count.
+See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 60, 40,
+structural samples, and 20 writing-behavior cases. Current progress is 71, 40,
 and 12 respectively. These are transparent improvement targets, not claims that
 the corpus is already complete. `coverage-gaps` ranks the next review candidates;
 reviewers may record `record_no_promotion` when a paper adds only redundant wording.

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/promotion-decision.schema.json",
+  "title": "Super Library evidence-promotion decision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_id",
+    "decision",
+    "reviewed_at",
+    "reviewer",
+    "verification_scope",
+    "evidence_locator",
+    "rationale",
+    "linked_entry_ids",
+    "dedup_entry_ids"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "link_existing_record",
+        "promote_normalized_record",
+        "record_no_promotion"
+      ]
+    },
+    "reviewed_at": {
+      "type": "string",
+      "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+    },
+    "reviewer": {"type": "string", "minLength": 3},
+    "verification_scope": {
+      "type": "string",
+      "enum": ["official_abstract", "full_text_sections", "full_text"]
+    },
+    "evidence_locator": {"type": "string", "minLength": 3},
+    "rationale": {"type": "string", "minLength": 20},
+    "linked_entry_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"}
+    },
+    "dedup_entry_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"}
+    }
+  }
+}

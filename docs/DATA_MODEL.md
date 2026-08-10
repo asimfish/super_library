@@ -64,6 +64,8 @@ The repository intentionally has no `quote` provenance type.
 - `dist/evidence/topics/*.md`: on-demand maps from a topic to recent primary papers.
 - `dist/evidence/source-analysis.{md,jsonl}`: aggregate and per-paper analysis-depth
   audit, excluded from default writing context.
+- `dist/evidence/promotion-decisions.{md,jsonl}`: completed review outcomes and
+  verified source locators, excluded from default writing context.
 - `dist/evidence/promotion-queue.{md,jsonl}`: bounded, scored maintainer queue for
   normalization and deduplication review; never writing evidence.
 - `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
@@ -125,3 +127,10 @@ A machine pass establishes only the declared objective invariants.
 queue bound, and allowed review outcomes. Goals do not make validation fail merely
 because they have not yet been reached. Queue generation consumes the per-paper
 analysis ledger and never changes canonical entries automatically.
+
+`library/promotion_decisions.jsonl` stores one completed review per core paper.
+Each record declares the primary-source verification scope and locator, one of
+three outcomes, the normalized entries linked by that outcome, and the entries
+checked during deduplication. Audit-only links contribute to explicit evidence
+coverage without mutating an entry's representative `source_ids`. A promoted new
+record must cite the reviewed source; a no-promotion outcome has no linked entry.

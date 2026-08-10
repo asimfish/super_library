@@ -14,6 +14,7 @@ library/
 ├── collections.json      audited paper-collection contracts
 ├── corpus_report.json    explicit abstract-analysis exceptions and audit policy
 ├── coverage_policy.json  roadmap goals and evidence-review scoring
+├── promotion_decisions.jsonl completed review outcomes and source locators
 ├── taxonomy.json         versions and controlled vocabularies
 ├── aliases.json          Chinese/common query expansion
 ├── core_ids.json         universal high-risk records
@@ -45,6 +46,7 @@ also validate the selective indexes during every build.
 | 5 | `dist/cards/**/*.md` | Load complete records | 3–8 cards |
 | evidence | `dist/evidence/topics/*.md` | Verify a literature claim in primary papers | only on demand |
 | audit | `dist/evidence/source-analysis.*` | Inspect per-paper analysis depth | never by default |
+| audit | `dist/evidence/promotion-decisions.*` | Inspect completed dedup decisions | never by default |
 | audit | `dist/evidence/promotion-queue.*` | Select the next normalization reviews | never by default |
 | asset | `dist/templates/tables/*.tex` | Start a standards-aware experiment table | one copied asset |
 
@@ -81,6 +83,13 @@ The promotion queue is derived from that ledger and a versioned policy. It gives
 full-text samples without direct record links the highest base priority, then
 accounts for domain/venue gaps and recency. The queue is maintainer workflow, not
 language context, and a no-promotion deduplication decision is explicitly valid.
+
+Completed reviews live in a separate canonical decision ledger. An audit link can
+map a reviewed paper to an existing normalized record without adding that paper to
+the record's representative `source_ids`; this keeps default cards concise and
+preserves the semantic distinction between definition evidence and coverage review.
+Reviewed no-promotion papers also leave the queue. See
+[`ADR-003`](adr/ADR-003-separate-promotion-decisions-from-representative-citations.md).
 
 Final-output evaluation is a separate boundary. `evals/writing.json` contains
 blind task facts, machine-checkable invariants, and manual rubrics. The CLI reveals
@@ -144,4 +153,10 @@ Tests enforce:
 - validated blind writing cases with deterministic pass/fail behavior and an
   explicit manual-review boundary;
 - a deterministic promotion queue whose candidates have no direct library links;
+- schema- and outcome-validated promotion decisions that are excluded from the queue;
 - identical machine snapshots in the root distribution and standalone skill.
+
+Generated directories are reconciled in place: known files are overwritten and
+only stale paths are pruned. The build does not replace whole directories, which
+avoids cloud-sync conflict copies while retaining deterministic contents. See
+[`ADR-004`](adr/ADR-004-in-place-generated-artifact-reconciliation.md).

@@ -311,6 +311,16 @@
     "expected_task_pack_id": "experiments.embodied_ai"
   },
   {
+    "id": "experiment-main-results-with-latency",
+    "query": "main results table caption with success rate and A100 latency",
+    "domain": "world_models",
+    "section": "experiments",
+    "intent": "quantify",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.caption-main-results.001"],
+    "expected_guide_id": "experiments.table.main_results"
+  },
+  {
     "id": "conclusion-bounded-claim",
     "query": "conclude with the supported scope and trade-off",
     "domain": "general",

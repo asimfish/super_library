@@ -3,14 +3,16 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 8
+Entries: 10
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/rl_theory_evaluation.md); it is not part of the default
 writing context.
 
+- [average-reward reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.average-reward-rl.001.md) — `rl.definition.average-reward-rl.001` · definition · sections=introduction,related_work,method,translation · tags=average reward,continuing task
 - [experience replay / replay buffer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.experience-replay.001.md) — `rl.definition.experience-replay.001` · definition · sections=related_work,method,translation · tags=replay buffer,off policy data
 - [Markov decision process (MDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.mdp.001.md) — `rl.definition.mdp.001` · definition · sections=method,translation · tags=MDP,state
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — `rl.definition.reinforcement-learning.001` · definition · sections=introduction,related_work,translation · tags=RL,agent
+- [state–action occupancy measure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-action-occupancy-measure.001.md) — `rl.definition.state-action-occupancy-measure.001` · definition · sections=introduction,related_work,method,translation · tags=occupancy measure,visitation distribution
 - [RL literature should be organized by data regime, interaction budget, information structure, and optimization objective.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.sentence-pattern.related-work-regime.001.md) — `rl.sentence-pattern.related-work-regime.001` · sentence_pattern · sections=related_work · tags=related-work,comparison-axis
 - [RL methods should be compared at matched interaction, data, and evaluation budgets.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.sentence-pattern.related-work.001.md) — `rl.sentence-pattern.related-work.001` · sentence_pattern · sections=related_work · tags=fair comparison,sample efficiency
 - [deployment efficiency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.deployment-efficiency.001.md) — `rl.term.deployment-efficiency.001` · term · sections=related_work,experiments,method · tags=deployment,sample-complexity

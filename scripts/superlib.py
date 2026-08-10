@@ -15,9 +15,11 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 if __package__:
+    from .promotion import decision_links_by_source, validate_decision_semantics
     from .source_health import health_summary, verify_sources
     from .writing_eval import CHECK_REGISTRY, evaluate_response
 else:
+    from promotion import decision_links_by_source, validate_decision_semantics
     from source_health import health_summary, verify_sources
     from writing_eval import CHECK_REGISTRY, evaluate_response
 
@@ -38,6 +40,7 @@ WRITING_GUIDES_PATH = LIBRARY / "writing_guides.json"
 TASK_ROUTES_PATH = LIBRARY / "task_routes.json"
 TABLE_TEMPLATES_PATH = LIBRARY / "table_templates.json"
 COVERAGE_POLICY_PATH = LIBRARY / "coverage_policy.json"
+PROMOTION_DECISIONS_PATH = LIBRARY / "promotion_decisions.jsonl"
 SECTION_STUDY_PATH = LIBRARY / "studies" / "section_writing_2026-07.json"
 DIST_DIR = ROOT / "dist"
 ENTRY_SCHEMA_PATH = ROOT / "schemas" / "entry.schema.json"
@@ -50,6 +53,7 @@ TABLE_TEMPLATES_SCHEMA_PATH = ROOT / "schemas" / "table-templates.schema.json"
 RETRIEVAL_EVAL_SCHEMA_PATH = ROOT / "schemas" / "retrieval-eval.schema.json"
 WRITING_EVAL_SCHEMA_PATH = ROOT / "schemas" / "writing-eval.schema.json"
 COVERAGE_POLICY_SCHEMA_PATH = ROOT / "schemas" / "coverage-policy.schema.json"
+PROMOTION_DECISION_SCHEMA_PATH = ROOT / "schemas" / "promotion-decision.schema.json"
 SECTION_STUDY_SCHEMA_PATH = ROOT / "schemas" / "section-study.schema.json"
 CORPUS_REPORT_SCHEMA_PATH = ROOT / "schemas" / "corpus-report.schema.json"
 TABLE_TEMPLATE_DIR = ROOT / "templates" / "tables"
@@ -106,18 +110,29 @@ def read_jsonl(path: Path) -> List[Dict[str, Any]]:
     return records
 
 
-def remove_generated_tree(path: Path) -> None:
-    """Remove a rebuildable tree, retrying only cloud-sync disappearance races."""
-    for _ in range(3):
-        if not path.exists():
-            return
-        try:
-            shutil.rmtree(path)
-        except FileNotFoundError:
-            continue
+def prune_generated_tree(root: Path, expected_files: Iterable[str]) -> None:
+    """Prune stale generated files without replacing cloud-synced directories."""
+    if not root.exists():
         return
-    if path.exists():
-        shutil.rmtree(path)
+    expected = {Path(item).as_posix() for item in expected_files}
+    paths = sorted(root.rglob("*"), key=lambda item: len(item.parts), reverse=True)
+    for path in paths:
+        if not (path.is_file() or path.is_symlink()):
+            continue
+        relative = path.relative_to(root).as_posix()
+        if relative in expected:
+            continue
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            pass
+    for path in paths:
+        if not path.is_dir() or path.is_symlink():
+            continue
+        try:
+            path.rmdir()
+        except (FileNotFoundError, OSError):
+            pass
 
 
 def load_corpus() -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
@@ -153,13 +168,20 @@ def load_coverage_policy() -> Dict[str, Any]:
     return read_json(COVERAGE_POLICY_PATH)
 
 
+def load_promotion_decisions() -> List[Dict[str, Any]]:
+    """Load explicit human outcomes for reviewed promotion candidates."""
+    return read_jsonl(PROMOTION_DECISIONS_PATH)
+
+
 def load_writing_evals() -> Dict[str, Any]:
     """Load blind behavior prompts and their separate evaluation contracts."""
     return read_json(WRITING_EVAL_PATH)
 
 
 def source_analysis_records(
-    sources: Sequence[Dict[str, Any]], entries: Sequence[Dict[str, Any]]
+    sources: Sequence[Dict[str, Any]],
+    entries: Sequence[Dict[str, Any]],
+    promotion_decisions: Optional[Sequence[Dict[str, Any]]] = None,
 ) -> List[Dict[str, Any]]:
     """Build one transparent analysis-depth record for every core paper."""
     report = read_json(CORPUS_REPORT_PATH)
@@ -169,10 +191,18 @@ def source_analysis_records(
         report.get("abstracts_not_analyzed", {}).get("source_ids", [])
     )
     full_text_samples = set(study.get("sample_source_ids", []))
-    linked_entries: Dict[str, List[str]] = collections.defaultdict(list)
+    representative_entries: Dict[str, List[str]] = collections.defaultdict(list)
     for entry in entries:
         for source_id in entry.get("source_ids", []):
-            linked_entries[source_id].append(entry["id"])
+            representative_entries[source_id].append(entry["id"])
+    if promotion_decisions is None:
+        promotion_decisions = load_promotion_decisions()
+    promotion_entries = decision_links_by_source(promotion_decisions)
+    decisions_by_source = {
+        decision["source_id"]: decision
+        for decision in promotion_decisions
+        if decision.get("source_id")
+    }
 
     records = []
     for source in sorted(sources, key=lambda item: item["id"]):
@@ -185,7 +215,10 @@ def source_analysis_records(
         full_text_status = (
             "structural_sample" if source_id in full_text_samples else "not_sampled"
         )
-        direct_links = sorted(linked_entries.get(source_id, []))
+        representative_links = sorted(representative_entries.get(source_id, []))
+        review_links = sorted(promotion_entries.get(source_id, []))
+        direct_links = sorted(set(representative_links) | set(review_links))
+        promotion_decision = decisions_by_source.get(source_id)
         if full_text_status == "structural_sample" and direct_links:
             outcome = "structural_sample_with_library_links"
         elif full_text_status == "structural_sample":
@@ -207,7 +240,12 @@ def source_analysis_records(
                 "official_url": source["url"],
                 "abstract_status": abstract_status,
                 "full_text_status": full_text_status,
+                "representative_entry_ids": representative_links,
+                "promotion_entry_ids": review_links,
                 "linked_entry_ids": direct_links,
+                "promotion_decision": (
+                    public_record(promotion_decision) if promotion_decision else None
+                ),
                 "outcome": outcome,
             }
         )
@@ -217,6 +255,7 @@ def source_analysis_records(
 def source_analysis_summary(records: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
     """Summarize evidence depth without implying that metadata is language evidence."""
     linked = [record for record in records if record["linked_entry_ids"]]
+    reviewed = [record for record in records if record.get("promotion_decision")]
     return {
         "papers": len(records),
         "abstract_status": dict(
@@ -227,6 +266,20 @@ def source_analysis_summary(records: Sequence[Dict[str, Any]]) -> Dict[str, Any]
         ),
         "papers_with_direct_library_links": len(linked),
         "papers_without_direct_library_links": len(records) - len(linked),
+        "papers_with_representative_entry_links": sum(
+            bool(record.get("representative_entry_ids")) for record in records
+        ),
+        "papers_with_promotion_decision_links": sum(
+            bool(record.get("promotion_entry_ids")) for record in records
+        ),
+        "papers_with_promotion_decisions": len(reviewed),
+        "promotion_decisions": dict(
+            sorted(
+                collections.Counter(
+                    record["promotion_decision"]["decision"] for record in reviewed
+                ).items()
+            )
+        ),
         "outcomes": dict(
             sorted(collections.Counter(r["outcome"] for r in records).items())
         ),
@@ -304,7 +357,7 @@ def promotion_queue_records(
     minimum_year = min((record["year"] for record in records), default=0)
     queue: List[Dict[str, Any]] = []
     for record in records:
-        if record["linked_entry_ids"]:
+        if record["linked_entry_ids"] or record.get("promotion_decision"):
             continue
         outcome = record["outcome"]
         if outcome == "structural_sample_without_library_links":
@@ -961,6 +1014,59 @@ def validate_coverage_policy(taxonomy: Dict[str, Any]) -> List[str]:
     return errors
 
 
+def validate_promotion_decisions(
+    sources: Sequence[Dict[str, Any]],
+    entries: Sequence[Dict[str, Any]],
+    decisions: Optional[Sequence[Dict[str, Any]]] = None,
+) -> List[str]:
+    """Validate review provenance, references, and outcome-specific semantics."""
+    errors: List[str] = []
+    try:
+        if decisions is None:
+            decisions = load_promotion_decisions()
+        schema = read_json(PROMOTION_DECISION_SCHEMA_PATH)
+        policy = load_coverage_policy()
+    except CorpusError as exc:
+        return [str(exc)]
+    sources_by_id = {source["id"]: source for source in sources}
+    entries_by_id = {entry["id"]: entry for entry in entries}
+    core_collection = policy.get("collection")
+    seen_sources: Dict[str, str] = {}
+    for index, decision in enumerate(decisions, 1):
+        origin = decision.get(
+            "_origin", f"library/promotion_decisions.jsonl:{index}"
+        )
+        clean = public_record(decision)
+        errors.extend(
+            f"{origin}: schema: {error}"
+            for error in schema_validation_errors(clean, schema)
+        )
+        source_id = decision.get("source_id")
+        if source_id in seen_sources:
+            errors.append(
+                f"{origin}: duplicate source_id {source_id!r}; first at "
+                f"{seen_sources[source_id]}"
+            )
+        elif isinstance(source_id, str):
+            seen_sources[source_id] = origin
+        source = sources_by_id.get(source_id)
+        if source is None:
+            errors.append(f"{origin}: unknown source_id {source_id!r}")
+        elif core_collection not in source.get("collections", []):
+            errors.append(
+                f"{origin}: source_id {source_id!r} is outside {core_collection!r}"
+            )
+        if not valid_date(decision.get("reviewed_at")):
+            errors.append(f"{origin}: invalid reviewed_at date")
+        for field in ("linked_entry_ids", "dedup_entry_ids"):
+            unknown = set(decision.get(field, [])) - set(entries_by_id)
+            if unknown:
+                errors.append(f"{origin}: unknown {field}: {sorted(unknown)}")
+        for semantic_error in validate_decision_semantics(decision, entries_by_id):
+            errors.append(f"{origin}: {semantic_error}")
+    return errors
+
+
 def validate_corpus(
     taxonomy: Dict[str, Any],
     sources: Sequence[Dict[str, Any]],
@@ -1494,6 +1600,7 @@ def validate_corpus(
     errors.extend(validate_retrieval_evals(taxonomy, entries))
     errors.extend(validate_writing_evals(taxonomy, entries))
     errors.extend(validate_coverage_policy(taxonomy))
+    errors.extend(validate_promotion_decisions(sources, entries))
     return errors
 
 
@@ -1987,6 +2094,12 @@ def render_source_analysis_summary(
         f"- Full-paper structural samples: {full_text.get('structural_sample', 0)}",
         f"- Papers directly linked from normalized library records: "
         f"{summary['papers_with_direct_library_links']}",
+        f"- Papers cited as representative entry sources: "
+        f"{summary['papers_with_representative_entry_links']}",
+        f"- Papers linked by completed promotion reviews: "
+        f"{summary['papers_with_promotion_decision_links']}",
+        f"- Completed promotion reviews (including no-promotion): "
+        f"{summary['papers_with_promotion_decisions']}",
         f"- Papers with no direct normalized-record link: "
         f"{summary['papers_without_direct_library_links']}",
         "",
@@ -2022,17 +2135,139 @@ def cmd_analysis_status(args: argparse.Namespace) -> int:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
     elif args.source_id:
         links = payload["linked_entry_ids"]
+        representative_links = payload["representative_entry_ids"]
+        promotion_links = payload["promotion_entry_ids"]
         print(f"# {payload['title']}")
         print()
         print(f"- Source ID: `{payload['source_id']}`")
         print(f"- Venue/year: {payload['venue']} {payload['year']}")
         print(f"- Abstract: {payload['abstract_status']}")
         print(f"- Full text: {payload['full_text_status']}")
-        print(f"- Direct library links: {', '.join(links) if links else 'none'}")
+        print(
+            "- Representative entry links: "
+            f"{', '.join(representative_links) if representative_links else 'none'}"
+        )
+        print(
+            "- Promotion-review links: "
+            f"{', '.join(promotion_links) if promotion_links else 'none'}"
+        )
+        print(f"- Combined library links: {', '.join(links) if links else 'none'}")
+        if payload["promotion_decision"]:
+            print(
+                "- Promotion decision: "
+                f"{payload['promotion_decision']['decision']}"
+            )
         print(f"- Outcome: {payload['outcome']}")
         print(f"- Primary paper: {payload['official_url']}")
     else:
         print(render_source_analysis_summary(taxonomy, records), end="")
+    return 0
+
+
+def promotion_decision_summary(
+    decisions: Sequence[Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Summarize completed reviews without treating them as writing evidence."""
+    return {
+        "reviewed_papers": len(decisions),
+        "by_decision": dict(
+            sorted(collections.Counter(item["decision"] for item in decisions).items())
+        ),
+        "by_verification_scope": dict(
+            sorted(
+                collections.Counter(
+                    item["verification_scope"] for item in decisions
+                ).items()
+            )
+        ),
+        "papers_with_review_links": sum(
+            bool(item.get("linked_entry_ids")) for item in decisions
+        ),
+        "papers_without_promotion": sum(
+            item.get("decision") == "record_no_promotion" for item in decisions
+        ),
+    }
+
+
+def render_promotion_decisions(
+    taxonomy: Dict[str, Any],
+    sources: Sequence[Dict[str, Any]],
+    decisions: Sequence[Dict[str, Any]],
+) -> str:
+    summary = promotion_decision_summary(decisions)
+    sources_by_id = {source["id"]: source for source in sources}
+    lines = [
+        "# Evidence-promotion decisions",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "These are maintainer review outcomes, not Agent writing context or",
+        "citable evidence. Open the named primary paper before making a literature claim.",
+        "",
+        f"- Reviewed papers: {summary['reviewed_papers']}",
+        f"- Reviews linked to normalized records: {summary['papers_with_review_links']}",
+        f"- Explicit no-promotion outcomes: {summary['papers_without_promotion']}",
+        "",
+        "| Paper | Decision | Verification | Linked records |",
+        "|---|---|---|---|",
+    ]
+    for decision in sorted(decisions, key=lambda item: item["source_id"]):
+        source = sources_by_id[decision["source_id"]]
+        linked = ", ".join(f"`{item}`" for item in decision["linked_entry_ids"])
+        lines.append(
+            f"| [{source['title']}]({source['url']}) | "
+            f"`{decision['decision']}` | {decision['evidence_locator']} | "
+            f"{linked or 'none'} |"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_promotion_status(args: argparse.Namespace) -> int:
+    try:
+        taxonomy, sources, entries = load_corpus()
+        decisions = load_promotion_decisions()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    errors = validate_promotion_decisions(sources, entries, decisions)
+    if errors:
+        print("ERROR: promotion decisions are invalid; run validate", file=sys.stderr)
+        return 1
+    sources_by_id = {source["id"]: source for source in sources}
+    if args.source_id:
+        match = next(
+            (item for item in decisions if item["source_id"] == args.source_id), None
+        )
+        if match is None:
+            print(
+                f"ERROR: no promotion decision for {args.source_id!r}",
+                file=sys.stderr,
+            )
+            return 1
+        payload: Any = public_record(match)
+        source = sources_by_id[match["source_id"]]
+        payload["primary_paper"] = {
+            "title": source["title"],
+            "venue": source["venue"],
+            "year": source["year"],
+            "url": source["url"],
+        }
+    else:
+        payload = promotion_decision_summary(decisions)
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    elif args.source_id:
+        print(f"# {payload['primary_paper']['title']}")
+        print()
+        print(f"- Source ID: `{payload['source_id']}`")
+        print(f"- Decision: `{payload['decision']}`")
+        print(f"- Verification: {payload['evidence_locator']}")
+        print(f"- Rationale: {payload['rationale']}")
+        links = payload["linked_entry_ids"]
+        print(f"- Linked records: {', '.join(links) if links else 'none'}")
+        print(f"- Primary paper: {payload['primary_paper']['url']}")
+    else:
+        print(render_promotion_decisions(taxonomy, sources, decisions), end="")
     return 0
 
 
@@ -2245,6 +2480,10 @@ def recommend_guide_id(
         return "experiments"
     routes = (
         (
+            "experiments.table.main_results",
+            ("main results", "comparison table", "主结果", "主表"),
+        ),
+        (
             "experiments.table.ablation",
             ("ablation", "component study", "消融", "组件"),
         ),
@@ -2263,10 +2502,6 @@ def recommend_guide_id(
         (
             "experiments.analysis",
             ("analysis", "interpret", "observation", "分析", "结果段"),
-        ),
-        (
-            "experiments.table.main_results",
-            ("main results", "comparison table", "主结果", "主表"),
         ),
         (
             "experiments.table.common",
@@ -3724,6 +3959,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         task_route_config = load_task_routes()
         table_template_config = load_table_templates()
         coverage_policy = load_coverage_policy()
+        promotion_decisions = load_promotion_decisions()
     except CorpusError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
@@ -3740,15 +3976,6 @@ def cmd_build(_: argparse.Namespace) -> int:
     guides_dir = DIST_DIR / "guides"
     routes_dir = DIST_DIR / "routes"
     templates_dir = DIST_DIR / "templates"
-    for generated_dir in (
-        catalogs_dir,
-        cards_dir,
-        evidence_dir,
-        guides_dir,
-        routes_dir,
-        templates_dir,
-    ):
-        remove_generated_tree(generated_dir)
     packs_dir.mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domains").mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domain-records").mkdir(parents=True, exist_ok=True)
@@ -3766,7 +3993,7 @@ def cmd_build(_: argparse.Namespace) -> int:
     )
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in published_entries}
-    analysis_records = source_analysis_records(sources, entries)
+    analysis_records = source_analysis_records(sources, entries, promotion_decisions)
     promotion_records = promotion_queue_records(coverage_policy, analysis_records)
 
     agent_index_path = DIST_DIR / "agent-index.md"
@@ -3836,6 +4063,27 @@ def cmd_build(_: argparse.Namespace) -> int:
     source_analysis_summary_path = evidence_dir / "source-analysis.md"
     source_analysis_summary_path.write_text(
         render_source_analysis_summary(taxonomy, analysis_records),
+        encoding="utf-8",
+    )
+    promotion_decisions_path = evidence_dir / "promotion-decisions.jsonl"
+    promotion_decisions_path.write_text(
+        "\n".join(
+            json.dumps(
+                public_record(record),
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            for record in sorted(
+                promotion_decisions, key=lambda item: item["source_id"]
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    promotion_decisions_summary_path = evidence_dir / "promotion-decisions.md"
+    promotion_decisions_summary_path.write_text(
+        render_promotion_decisions(taxonomy, sources, promotion_decisions),
         encoding="utf-8",
     )
     promotion_queue_path = evidence_dir / "promotion-queue.jsonl"
@@ -3942,6 +4190,56 @@ def cmd_build(_: argparse.Namespace) -> int:
             encoding="utf-8",
         )
 
+    prune_generated_tree(
+        catalogs_dir,
+        {
+            *(str(Path(path).relative_to("catalogs")) for path in domain_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in domain_record_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in section_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in topic_catalogs.values()),
+        },
+    )
+    prune_generated_tree(
+        cards_dir,
+        {str(Path(path).relative_to("cards")) for path in card_paths.values()},
+    )
+    prune_generated_tree(
+        evidence_dir,
+        {
+            "source-analysis.jsonl",
+            "source-analysis.md",
+            "promotion-decisions.jsonl",
+            "promotion-decisions.md",
+            "promotion-queue.jsonl",
+            "promotion-queue.md",
+            *(str(Path(path).relative_to("evidence")) for path in topic_evidence.values()),
+        },
+    )
+    prune_generated_tree(
+        guides_dir,
+        {
+            "index.md",
+            *(str(Path(path).relative_to("guides")) for path in guide_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        routes_dir,
+        {
+            "index.md",
+            *(str(Path(path).relative_to("routes")) for path in task_route_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        templates_dir,
+        {
+            "tables/index.md",
+            *(str(Path(path).relative_to("templates")) for path in table_template_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        packs_dir, {f"{domain}.md" for domain in taxonomy["domains"]}
+    )
+
     index = {
         "schema_version": taxonomy["schema_version"],
         "entries": [public_record(entry) for entry in published_entries],
@@ -3957,6 +4255,12 @@ def cmd_build(_: argparse.Namespace) -> int:
         "section_study": section_study,
         "corpus_report": read_json(CORPUS_REPORT_PATH),
         "coverage_policy": coverage_policy,
+        "promotion_decisions": [
+            public_record(record)
+            for record in sorted(
+                promotion_decisions, key=lambda item: item["source_id"]
+            )
+        ],
         "taxonomy": taxonomy,
     }
     index_path = DIST_DIR / "index.json"
@@ -4034,6 +4338,8 @@ def cmd_build(_: argparse.Namespace) -> int:
         "evidence": {
             "source_analysis_summary": "evidence/source-analysis.md",
             "source_analysis_records": "evidence/source-analysis.jsonl",
+            "promotion_decisions_summary": "evidence/promotion-decisions.md",
+            "promotion_decisions_records": "evidence/promotion-decisions.jsonl",
             "promotion_queue_summary": "evidence/promotion-queue.md",
             "promotion_queue_records": "evidence/promotion-queue.jsonl",
             "topic_maps": topic_evidence,
@@ -4077,15 +4383,27 @@ def cmd_build(_: argparse.Namespace) -> int:
     for name, source_path in skill_snapshot_paths.items():
         shutil.copyfile(source_path, SKILL_REFERENCES_DIR / name)
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
-    remove_generated_tree(skill_guides_dir)
-    shutil.copytree(guides_dir, skill_guides_dir)
+    skill_guides_dir.mkdir(parents=True, exist_ok=True)
+    for generated_path in guides_dir.glob("*.md"):
+        shutil.copyfile(generated_path, skill_guides_dir / generated_path.name)
+    prune_generated_tree(
+        skill_guides_dir, {path.name for path in guides_dir.glob("*.md")}
+    )
     skill_routes_dir = SKILL_REFERENCES_DIR / "routes"
-    remove_generated_tree(skill_routes_dir)
-    shutil.copytree(routes_dir, skill_routes_dir)
+    skill_routes_dir.mkdir(parents=True, exist_ok=True)
+    for generated_path in routes_dir.glob("*.md"):
+        shutil.copyfile(generated_path, skill_routes_dir / generated_path.name)
+    prune_generated_tree(
+        skill_routes_dir, {path.name for path in routes_dir.glob("*.md")}
+    )
     skill_table_assets_dir = SKILL_ASSETS_DIR / "tables"
-    remove_generated_tree(skill_table_assets_dir)
     skill_table_assets_dir.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(TABLE_TEMPLATE_DIR, skill_table_assets_dir)
+    skill_table_assets_dir.mkdir(parents=True, exist_ok=True)
+    for source_path in TABLE_TEMPLATE_DIR.glob("*.tex"):
+        shutil.copyfile(source_path, skill_table_assets_dir / source_path.name)
+    prune_generated_tree(
+        skill_table_assets_dir, {path.name for path in TABLE_TEMPLATE_DIR.glob("*.tex")}
+    )
 
     artifact_paths = sorted(
         [
@@ -4112,6 +4430,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/collections.json",
         "library/corpus_report.json",
         "library/coverage_policy.json",
+        "library/promotion_decisions.jsonl",
         "library/writing_guides.json",
         "library/task_routes.json",
         "library/table_templates.json",
@@ -4126,6 +4445,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "schemas/retrieval-eval.schema.json",
         "schemas/writing-eval.schema.json",
         "schemas/coverage-policy.schema.json",
+        "schemas/promotion-decision.schema.json",
         "schemas/section-study.schema.json",
         "schemas/corpus-report.schema.json",
         "evals/retrieval.json",
@@ -4166,6 +4486,10 @@ def cmd_build(_: argparse.Namespace) -> int:
         "source_analysis": {
             "summary": "evidence/source-analysis.md",
             "records": "evidence/source-analysis.jsonl",
+        },
+        "promotion_decisions": {
+            "summary": "evidence/promotion-decisions.md",
+            "records": "evidence/promotion-decisions.jsonl",
         },
         "promotion_queue": {
             "summary": "evidence/promotion-queue.md",
@@ -4226,6 +4550,10 @@ def cmd_build(_: argparse.Namespace) -> int:
             "source_analysis": {
                 "summary": f"{raw_base}/evidence/source-analysis.md",
                 "records": f"{raw_base}/evidence/source-analysis.jsonl",
+            },
+            "promotion_decisions": {
+                "summary": f"{raw_base}/evidence/promotion-decisions.md",
+                "records": f"{raw_base}/evidence/promotion-decisions.jsonl",
             },
             "promotion_queue": {
                 "summary": f"{raw_base}/evidence/promotion-queue.md",
@@ -4643,6 +4971,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=["markdown", "json"], default="markdown"
     )
     analysis_parser.set_defaults(func=cmd_analysis_status)
+
+    promotion_status_parser = subparsers.add_parser(
+        "promotion-status",
+        help="show completed evidence-promotion reviews without loading writing context",
+    )
+    promotion_status_parser.add_argument("source_id", nargs="?")
+    promotion_status_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    promotion_status_parser.set_defaults(func=cmd_promotion_status)
 
     coverage_parser = subparsers.add_parser(
         "coverage-gaps",
