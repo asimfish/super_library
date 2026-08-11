@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 51
+Entries: 54
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -27,13 +27,16 @@ Entries: 51
 - [multimodal embodied perception](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-perception.001.md) — definition · sections=introduction,related_work,method,translation
 - [multimodal task prompt](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-prompt.001.md) — definition · sections=introduction,related_work,method,translation
 - [navigation world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.navigation-world-model.001.md) — definition · sections=related_work,method
+- [object rearrangement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.rearrangement.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [object-goal navigation (ObjectNav)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.object-goal-navigation.001.md) — definition · sections=abstract,introduction,related_work,method
 - [occupancy world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.occupancy-world-model.001.md) — definition · sections=abstract,introduction,related_work,method
 - [open-vocabulary manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.open-vocabulary-manipulation.001.md) — definition · sections=introduction,related_work,experiments
 - [simulation-to-real (sim-to-real) transfer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.sim-to-real.001.md) — definition · sections=abstract,introduction,related_work,experiments,translation
+- [social navigation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.social-navigation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [synthetic data generation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.synthetic-data-generation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [topological memory for visual navigation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.topological-memory.001.md) — definition · sections=introduction,related_work,method,translation
 - [vision-and-language navigation (VLN)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vln.001.md) — definition · sections=abstract,introduction,related_work,translation
+- [vision-language reward](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vision-language-reward.001.md) — definition · sections=introduction,related_work,method,translation
 - [vision-language-action (VLA) model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vla.001.md) — definition · sections=introduction,related_work,method,translation
 - [visual world model for embodied agents](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.visual-world-model.001.md) — definition · sections=introduction,related_work,translation
 - [visuomotor policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.visuomotor-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation

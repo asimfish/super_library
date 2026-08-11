@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 35
+Entries: 36
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/world_model_general.md); it is not part of the default
 writing context.
@@ -15,6 +15,7 @@ writing context.
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — definition · sections=introduction,related_work,translation · tags=MBRL,planning
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — definition · sections=introduction,related_work,method,translation · tags=stochastic dynamics,predictive distribution
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — definition · sections=related_work,method,translation · tags=MBPO,short rollout
+- [task-irrelevant distractors](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-irrelevant-distraction.001.md) — definition · sections=introduction,related_work,method,limitations,translation · tags=task-irrelevant distractors,visual distraction
 - [task-oriented latent dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-oriented-model.001.md) — definition · sections=introduction,related_work,method · tags=decoder-free world model,representation
 - [temporal-difference (TD) learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.temporal-difference.001.md) — definition · sections=introduction,related_work,method,translation · tags=TD learning,Bellman target
 - [uncertainty-aware model-based planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.uncertainty-aware-planning.001.md) — definition · sections=introduction,related_work,method,translation · tags=uncertainty aware,model based planning

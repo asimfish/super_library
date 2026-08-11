@@ -415,6 +415,27 @@ Manipulation conditioned on object or task descriptions whose evaluation vocabul
 - `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
 - `zhang2025-vlabench-large-scale-benchmark` — [VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.html) (ICCV 2025)
 
+### object rearrangement
+
+`emb.definition.rearrangement.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied task family in which an agent changes the state of an environment to a specified goal configuration by locating, picking, moving, and placing objects, typically combining navigation with manipulation over long horizons.
+
+**Use:** Specify the goal-specification format, the skills composed (navigate, pick, place), success criteria per stage and overall, and whether the setting is simulated or real. Report stage-wise failures because long-horizon success compounds errors.
+
+**Avoid:** Do not report single-skill results as rearrangement, and do not omit the goal-specification format, since geometric, semantic, and language goals differ in difficulty.
+
+**Patterns:**
+
+- The agent rearranges {objects} from {initial configuration} to {goal specification} by composing {skills}.
+- We report per-stage success for {navigate, pick, place} together with end-to-end success on {benchmark}.
+
+**Verify in primary sources:**
+
+- `berges2023-galactic-scaling-end-end` — [Galactic: Scaling End-to-End Reinforcement Learning for Rearrangement at 100k Steps-per-Second](https://openaccess.thecvf.com/content/CVPR2023/html/Berges_Galactic_Scaling_End-to-End_Reinforcement_Learning_for_Rearrangement_at_100k_Steps-per-Second_CVPR_2023_paper.html) (CVPR 2023)
+
 ### simulation-to-real (sim-to-real) transfer
 
 `emb.definition.sim-to-real.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, experiments, translation
@@ -436,6 +457,27 @@ Training or developing a model in simulation and deploying or adapting it to a p
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
+
+### social navigation
+
+`emb.definition.social-navigation.001` · definition · embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Embodied navigation among humans in which the agent must reach its goal while respecting human comfort and social conventions, so evaluation considers interaction quality, such as collisions, proximity, and yielding, in addition to goal success.
+
+**Use:** State how humans are modeled or replayed, which social criteria are measured (collision rate, personal-space violations, encounter outcomes), and whether social behavior comes from auxiliary objectives, rewards, or demonstrations.
+
+**Avoid:** Do not call navigation social merely because moving obstacles exist; the evaluation must measure human-aware behavior, not only goal success.
+
+**Patterns:**
+
+- The policy navigates to {goal} among {human models}, penalizing {social violation measure}.
+- We evaluate encounters with {metric set} beyond success rate on {benchmark}.
+
+**Verify in primary sources:**
+
+- `cancelli2023-exploiting-proximity-aware-tasks` — [Exploiting Proximity-Aware Tasks for Embodied Social Navigation](https://openaccess.thecvf.com/content/ICCV2023/html/Cancelli_Exploiting_Proximity-Aware_Tasks_for_Embodied_Social_Navigation_ICCV_2023_paper.html) (ICCV 2023)
 
 ### synthetic data generation
 
@@ -479,6 +521,28 @@ A graph-based spatial memory whose nodes represent selected observations, places
 
 - `cui2024-frontier-enhanced-topological-memory` — [Frontier-enhanced Topological Memory with Improved Exploration Awareness for Embodied Visual Navigation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8905_ECCV_2024_paper.php) (ECCV 2024)
 - `taniguchi2021-pose-invariant-topological-memory` — [Pose Invariant Topological Memory for Visual Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Taniguchi_Pose_Invariant_Topological_Memory_for_Visual_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+
+### vision-language reward
+
+`emb.definition.vision-language-reward.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.
+
+**Use:** State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.
+
+**Avoid:** Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.
+
+**Patterns:**
+
+- The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.
+- We verify the learned reward against {task success metric} before policy training on {tasks}.
+
+**Verify in primary sources:**
+
+- `ma2023-liv-language-image-representations` — [LIV: Language-Image Representations and Rewards for Robotic Control](https://proceedings.mlr.press/v202/ma23b.html) (ICML 2023)
+- `li2024-decisionnce-embodied-multimodal-representations` — [DecisionNCE: Embodied Multimodal Representations via Implicit Preference Learning](https://proceedings.mlr.press/v235/li24cr.html) (ICML 2024)
 
 ### visuomotor policy
 

@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 44
+Entries: 46
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — definition · sections=introduction,related_work,method,translation
@@ -14,10 +14,12 @@ Entries: 44
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — definition · sections=introduction,related_work,translation
 - [navigation world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.navigation-world-model.001.md) — definition · sections=related_work,method
 - [object-centric world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.object-centric-world-model.001.md) — definition · sections=related_work,method
+- [objective mismatch (model-based RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.objective-mismatch.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [occupancy world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.occupancy-world-model.001.md) — definition · sections=abstract,introduction,related_work,method
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — definition · sections=introduction,related_work,method,translation
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — definition · sections=related_work,method,translation
 - [state abstraction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-abstraction.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [task-irrelevant distractors](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-irrelevant-distraction.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [task-oriented latent dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-oriented-model.001.md) — definition · sections=introduction,related_work,method
 - [temporal-difference (TD) learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.temporal-difference.001.md) — definition · sections=introduction,related_work,method,translation
 - [uncertainty-aware model-based planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.uncertainty-aware-planning.001.md) — definition · sections=introduction,related_work,method,translation

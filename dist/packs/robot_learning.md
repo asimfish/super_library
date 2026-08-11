@@ -372,6 +372,27 @@ Updating an internal estimate, context, or behavior during deployment from a sho
 
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
 
+### object rearrangement
+
+`emb.definition.rearrangement.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied task family in which an agent changes the state of an environment to a specified goal configuration by locating, picking, moving, and placing objects, typically combining navigation with manipulation over long horizons.
+
+**Use:** Specify the goal-specification format, the skills composed (navigate, pick, place), success criteria per stage and overall, and whether the setting is simulated or real. Report stage-wise failures because long-horizon success compounds errors.
+
+**Avoid:** Do not report single-skill results as rearrangement, and do not omit the goal-specification format, since geometric, semantic, and language goals differ in difficulty.
+
+**Patterns:**
+
+- The agent rearranges {objects} from {initial configuration} to {goal specification} by composing {skills}.
+- We report per-stage success for {navigate, pick, place} together with end-to-end success on {benchmark}.
+
+**Verify in primary sources:**
+
+- `berges2023-galactic-scaling-end-end` — [Galactic: Scaling End-to-End Reinforcement Learning for Rearrangement at 100k Steps-per-Second](https://openaccess.thecvf.com/content/CVPR2023/html/Berges_Galactic_Scaling_End-to-End_Reinforcement_Learning_for_Rearrangement_at_100k_Steps-per-Second_CVPR_2023_paper.html) (CVPR 2023)
+
 ### simulation-to-real (sim-to-real) transfer
 
 `emb.definition.sim-to-real.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, experiments, translation
@@ -414,6 +435,28 @@ Producing training scenes, trajectories, or annotations with generative or proce
 **Verify in primary sources:**
 
 - `lee2025-dynscene-scalable-generation-dynamic` — [DynScene: Scalable Generation of Dynamic Robotic Manipulation Scenes for Embodied AI](https://openaccess.thecvf.com/content/CVPR2025/html/Lee_DynScene_Scalable_Generation_of_Dynamic_Robotic_Manipulation_Scenes_for_Embodied_CVPR_2025_paper.html) (CVPR 2025)
+
+### vision-language reward
+
+`emb.definition.vision-language-reward.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.
+
+**Use:** State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.
+
+**Avoid:** Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.
+
+**Patterns:**
+
+- The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.
+- We verify the learned reward against {task success metric} before policy training on {tasks}.
+
+**Verify in primary sources:**
+
+- `ma2023-liv-language-image-representations` — [LIV: Language-Image Representations and Rewards for Robotic Control](https://proceedings.mlr.press/v202/ma23b.html) (ICML 2023)
+- `li2024-decisionnce-embodied-multimodal-representations` — [DecisionNCE: Embodied Multimodal Representations via Implicit Preference Learning](https://proceedings.mlr.press/v235/li24cr.html) (ICML 2024)
 
 ### visuomotor policy
 
@@ -503,6 +546,27 @@ A mechanism that stores previously collected transitions or trajectories and res
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
+
+### hindsight relabeling
+
+`rl.definition.hindsight-relabeling.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Reusing collected trajectories by replacing the intended goal with a goal actually achieved in hindsight, so failed episodes still supply positive examples for goal-conditioned learning without new environment interaction or manual reward design.
+
+**Use:** State the relabeling distribution (final state, future states, or learned goals), the fraction of relabeled data, and how relabeled rewards are computed. Note interactions with offline settings where support constraints still apply.
+
+**Avoid:** Do not present hindsight relabeling as a general fix for exploration; it only densifies learning signal for goals already covered by collected behavior.
+
+**Patterns:**
+
+- Transitions are relabeled with goals sampled from {relabeling distribution}, turning failures into positive examples for {learned quantity}.
+- We combine hindsight relabeling with {method} to learn {skill set} from reward-free offline data.
+
+**Verify in primary sources:**
+
+- `chebotar2021-actionable-models-unsupervised-offline` — [Actionable Models: Unsupervised Offline Reinforcement Learning of Robotic Skills](https://proceedings.mlr.press/v139/chebotar21a.html) (ICML 2021)
 
 ### offline reinforcement learning
 

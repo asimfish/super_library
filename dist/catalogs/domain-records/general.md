@@ -3,8 +3,9 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 8
+Entries: 9
 
+- [inductive bias](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.term.inductive-bias.001.md) — term · sections=introduction,related_work,method,translation
 - [A dash denotes an unreported value, not a measured zero.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.missing-zero-na.001.md) — usage_note · sections=experiments
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · sections=abstract,introduction,related_work,experiments,limitations,rebuttal,translation
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · sections=abstract,introduction,experiments,limitations,conclusion,rebuttal,translation

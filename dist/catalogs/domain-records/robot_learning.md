@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 63
+Entries: 66
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -22,15 +22,18 @@ Entries: 63
 - [forward and inverse dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.forward-inverse-dynamics.001.md) — definition · sections=related_work,method,translation
 - [generalist robot policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.generalist-policy.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [grounded instruction following](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.grounded-instruction.001.md) — definition · sections=introduction,related_work,method,translation
+- [hindsight relabeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hindsight-relabeling.001.md) — definition · sections=introduction,related_work,method,translation
 - [latent action representation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-action-representation.001.md) — definition · sections=introduction,related_work,method,translation
 - [mobile manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.mobile-manipulation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [multimodal embodied perception](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-perception.001.md) — definition · sections=introduction,related_work,method,translation
 - [multimodal task prompt](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-prompt.001.md) — definition · sections=introduction,related_work,method,translation
+- [object rearrangement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.rearrangement.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-rl.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [open-vocabulary manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.open-vocabulary-manipulation.001.md) — definition · sections=introduction,related_work,experiments
 - [rapid online adaptation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.rapid-adaptation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [simulation-to-real (sim-to-real) transfer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.sim-to-real.001.md) — definition · sections=abstract,introduction,related_work,experiments,translation
 - [synthetic data generation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.synthetic-data-generation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [vision-language reward](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vision-language-reward.001.md) — definition · sections=introduction,related_work,method,translation
 - [vision-language-action (VLA) model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vla.001.md) — definition · sections=introduction,related_work,method,translation
 - [visuomotor policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.visuomotor-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [6-DoF grasp pose](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.term.grasp-pose.001.md) — term · sections=introduction,related_work,method,experiments,translation

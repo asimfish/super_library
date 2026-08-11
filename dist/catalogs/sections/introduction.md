@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 30
+Entries: 31
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -32,6 +32,7 @@ Entries: 30
 - [We introduce {method}, which {mechanism} to {objective}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-method.001.md) — sentence_pattern · domains=general · tags=abstract method sentence,method overview
 - [We use {term} to denote {operational meaning}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.define.001.md) — sentence_pattern · domains=general · tags=definition,terminology
 - [Within {scope}, the closest approaches can be compared along {axis one} and {axis two}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.intro-approach-axes.001.md) — sentence_pattern · domains=general · tags=introduction taxonomy,approach families
+- [inductive bias](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.term.inductive-bias.001.md) — term · domains=general · tags=inductive bias,architectural prior
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split
 - [state-of-the-art performance on {benchmark} under {protocol}](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.state-of-the-art.001.md) — usage_note · domains=general · tags=SOTA,state of the art

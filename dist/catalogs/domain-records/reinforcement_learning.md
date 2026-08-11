@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 73
+Entries: 78
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — definition · sections=related_work,method,translation
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition · sections=introduction,related_work,method,translation
@@ -20,25 +20,30 @@ Entries: 73
 - [experience replay / replay buffer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.experience-replay.001.md) — definition · sections=related_work,method,translation
 - [goal-conditioned reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.goal-conditioned-rl.001.md) — definition · sections=abstract,introduction,related_work,method
 - [hierarchical policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hierarchical-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [hindsight relabeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hindsight-relabeling.001.md) — definition · sections=introduction,related_work,method,translation
 - [human-in-the-loop reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.human-in-the-loop-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [latent state](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-state.001.md) — definition · sections=method,related_work,translation
 - [Markov decision process (MDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.mdp.001.md) — definition · sections=method,translation
 - [maximum-entropy reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.maximum-entropy.001.md) — definition · sections=introduction,related_work,method,translation
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — definition · sections=introduction,related_work,translation
 - [multi-agent credit assignment](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.credit-assignment.001.md) — definition · sections=introduction,related_work,method,translation
+- [objective mismatch (model-based RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.objective-mismatch.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-rl.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [offline-to-online reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-to-online.001.md) — definition · sections=introduction,related_work,method
+- [parameter sharing (multi-agent RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.parameter-sharing.001.md) — definition · sections=introduction,related_work,method,translation
 - [partially observable Markov decision process (POMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.pomdp.001.md) — definition · sections=method,translation
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — definition · sections=introduction,related_work,method,translation
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — definition · sections=introduction,related_work,translation
 - [return-conditioned sequence modeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.return-conditioned-sequence.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [reward-free exploration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reward-free-exploration.001.md) — definition · sections=abstract,introduction,related_work,method
+- [risk-sensitive reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.risk-sensitive-rl.001.md) — definition · sections=introduction,related_work,method,translation
 - [self-supervised representation learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.self-supervised-representation-learning.001.md) — definition · sections=introduction,related_work,method,translation
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — definition · sections=related_work,method,translation
 - [state abstraction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-abstraction.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [state-value and action-value functions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.value-functions.001.md) — definition · sections=related_work,method,translation
 - [state–action occupancy measure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-action-occupancy-measure.001.md) — definition · sections=introduction,related_work,method,translation
 - [symbolic policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.symbolic-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [task-irrelevant distractors](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-irrelevant-distraction.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [task-oriented latent dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-oriented-model.001.md) — definition · sections=introduction,related_work,method
 - [temporal-difference (TD) learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.temporal-difference.001.md) — definition · sections=introduction,related_work,method,translation
 - [uncertainty-aware model-based planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.uncertainty-aware-planning.001.md) — definition · sections=introduction,related_work,method,translation

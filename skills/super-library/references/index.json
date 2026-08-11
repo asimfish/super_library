@@ -1312,6 +1312,57 @@
       ]
     },
     {
+      "avoid": "Do not report single-skill results as rearrangement, and do not omit the goal-specification format, since geometric, semantic, and language goals differ in difficulty.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "The agent rearranges {objects} from {initial configuration} to {goal specification} by composing {skills}.",
+        "We report per-stage success for {navigate, pick, place} together with end-to-end success on {benchmark}."
+      ],
+      "expression": "object rearrangement",
+      "guidance": "Specify the goal-specification format, the skills composed (navigate, pick, place), success criteria per stage and overall, and whether the setting is simulated or real. Report stage-wise failures because long-horizon success compounds errors.",
+      "id": "emb.definition.rearrangement.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "An embodied task family in which an agent changes the state of an environment to a specified goal configuration by locating, picking, moving, and placing objects, typically combining navigation with manipulation over long horizons.",
+      "provenance": {
+        "note": "Independent paraphrase of the rearrangement task family as instantiated by large-scale mobile-manipulation training; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "berges2023-galactic-scaling-end-end"
+      ],
+      "tags": [
+        "object rearrangement",
+        "long-horizon task",
+        "pick and place",
+        "home environments",
+        "skill composition"
+      ],
+      "topic_families": [
+        "robot_manipulation",
+        "embodied_navigation"
+      ]
+    },
+    {
       "avoid": "Do not claim zero-shot sim-to-real if any real-world fine-tuning or calibration materially updates the policy.",
       "domains": [
         "embodied_ai",
@@ -1360,6 +1411,55 @@
       ],
       "topic_families": [
         "sim_to_real_robot_learning"
+      ]
+    },
+    {
+      "avoid": "Do not call navigation social merely because moving obstacles exist; the evaluation must measure human-aware behavior, not only goal success.",
+      "domains": [
+        "embodied_ai"
+      ],
+      "examples": [
+        "The policy navigates to {goal} among {human models}, penalizing {social violation measure}.",
+        "We evaluate encounters with {metric set} beyond success rate on {benchmark}."
+      ],
+      "expression": "social navigation",
+      "guidance": "State how humans are modeled or replayed, which social criteria are measured (collision rate, personal-space violations, encounter outcomes), and whether social behavior comes from auxiliary objectives, rewards, or demonstrations.",
+      "id": "emb.definition.social-navigation.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "Embodied navigation among humans in which the agent must reach its goal while respecting human comfort and social conventions, so evaluation considers interaction quality, such as collisions, proximity, and yielding, in addition to goal success.",
+      "provenance": {
+        "note": "Independent paraphrase of proximity-aware social navigation and encounter-level evaluation; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "cancelli2023-exploiting-proximity-aware-tasks"
+      ],
+      "tags": [
+        "social navigation",
+        "human-aware navigation",
+        "personal space",
+        "collision avoidance",
+        "indoor navigation"
+      ],
+      "topic_families": [
+        "embodied_navigation"
       ]
     },
     {
@@ -1461,6 +1561,59 @@
       ],
       "topic_families": [
         "embodied_navigation"
+      ]
+    },
+    {
+      "avoid": "Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.",
+        "We verify the learned reward against {task success metric} before policy training on {tasks}."
+      ],
+      "expression": "vision-language reward",
+      "guidance": "State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.",
+      "id": "emb.definition.vision-language-reward.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.",
+      "provenance": {
+        "note": "Independent definition synthesized from language-image value learning and implicit-preference multimodal representation learning.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "ma2023-liv-language-image-representations",
+        "li2024-decisionnce-embodied-multimodal-representations"
+      ],
+      "tags": [
+        "vision-language reward",
+        "dense reward",
+        "goal-image alignment",
+        "language-specified goals",
+        "reward pretraining"
+      ],
+      "topic_families": [
+        "language_conditioned_control",
+        "robot_foundation"
       ]
     },
     {
@@ -6317,6 +6470,52 @@
       ]
     },
     {
+      "avoid": "Do not credit an unspecified inductive bias for empirical gains, and do not present a bias as universally helpful without noting the tasks where its assumption fails.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{Architecture choice} encodes an inductive bias toward {assumed structure}, improving {metric} in {regime}.",
+        "Ablating {bias source} isolates its contribution to {sample-efficiency or transfer result}."
+      ],
+      "expression": "inductive bias",
+      "guidance": "Name the bias concretely (architecture, symmetry, prior connectivity, or objective structure), state the assumption it encodes about the task, and support claimed benefits with sample-efficiency, transfer, or ablation evidence rather than intuition.",
+      "id": "general.term.inductive-bias.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "term",
+      "meaning": "A structural assumption built into an architecture, objective, or algorithm that restricts or prefers certain solutions before observing data, shaping what is learned and how much experience is required.",
+      "provenance": {
+        "note": "Independent paraphrase of architectural priors for embodied control; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "bhattasali2022-neural-circuit-architectural-priors"
+      ],
+      "tags": [
+        "inductive bias",
+        "architectural prior",
+        "structural assumption",
+        "sample efficiency",
+        "transfer"
+      ]
+    },
+    {
       "avoid": "Avoid 'the experiments prove the effectiveness and superiority of our method.'",
       "domains": [
         "general"
@@ -7344,6 +7543,56 @@
       ]
     },
     {
+      "avoid": "Do not present hindsight relabeling as a general fix for exploration; it only densifies learning signal for goals already covered by collected behavior.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "Transitions are relabeled with goals sampled from {relabeling distribution}, turning failures into positive examples for {learned quantity}.",
+        "We combine hindsight relabeling with {method} to learn {skill set} from reward-free offline data."
+      ],
+      "expression": "hindsight relabeling",
+      "guidance": "State the relabeling distribution (final state, future states, or learned goals), the fraction of relabeled data, and how relabeled rewards are computed. Note interactions with offline settings where support constraints still apply.",
+      "id": "rl.definition.hindsight-relabeling.001",
+      "intents": [
+        "define",
+        "describe",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Reusing collected trajectories by replacing the intended goal with a goal actually achieved in hindsight, so failed episodes still supply positive examples for goal-conditioned learning without new environment interaction or manual reward design.",
+      "provenance": {
+        "note": "Independent paraphrase of hindsight goal relabeling for reward-free offline skill learning; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chebotar2021-actionable-models-unsupervised-offline"
+      ],
+      "tags": [
+        "hindsight relabeling",
+        "goal relabeling",
+        "goal-conditioned learning",
+        "reward-free data reuse",
+        "hindsight experience replay"
+      ],
+      "topic_families": [
+        "exploration_skills_goals",
+        "offline_rl"
+      ]
+    },
+    {
       "avoid": "Do not conflate human-in-the-loop training with offline imitation from fixed demonstrations or with preference-based reward learning from post-hoc comparisons; state the interaction protocol explicitly.",
       "domains": [
         "reinforcement_learning",
@@ -7630,6 +7879,54 @@
       ]
     },
     {
+      "avoid": "Do not assume shared parameters imply identical behavior, and do not generalize sharing benefits across environments without checking agent heterogeneity.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "All {agent group} policies share parameters and condition on {distinguishing input}.",
+        "We partition agents into {groups} by {criterion} and share parameters within each group."
+      ],
+      "expression": "parameter sharing (multi-agent RL)",
+      "guidance": "State which components are shared, how agents are distinguished (identifiers, observations, or roles), and whether sharing is full, selective, or partitioned by ability and goal. Report effects on both training efficiency and converged returns, since indiscriminate sharing can hurt heterogeneous agents.",
+      "id": "rl.definition.parameter-sharing.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "Training multiple agents' policies or critics with one shared set of network parameters, so experience aggregates across agents and the trainable-parameter count stays constant as the number of agents grows.",
+      "provenance": {
+        "note": "Independent paraphrase of selective parameter sharing for scalable multi-agent RL; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "christianos2021-scaling-multi-agent-reinforcement"
+      ],
+      "tags": [
+        "parameter sharing",
+        "multi-agent RL",
+        "selective sharing",
+        "agent heterogeneity",
+        "scalability"
+      ],
+      "topic_families": [
+        "multi_agent_rl"
+      ]
+    },
+    {
       "avoid": "Do not analyze a partially observed system under fully observed MDP assumptions, and do not use POMDP loosely for any difficult RL problem.",
       "domains": [
         "reinforcement_learning"
@@ -7859,6 +8156,57 @@
       ],
       "topic_families": [
         "exploration_skills_goals"
+      ]
+    },
+    {
+      "avoid": "Do not use risk-sensitive as a synonym for safe RL with explicit constraints, and do not report improved tail metrics without disclosing the change in expected return.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We optimize {risk measure} at level {alpha} of the return distribution instead of expected return.",
+        "The learned policy improves {tail metric} while retaining {fraction} of the risk-neutral return on {tasks}."
+      ],
+      "expression": "risk-sensitive reinforcement learning",
+      "guidance": "Name the risk measure and its level, state whether risk applies to returns or per-step costs, and report both the risk metric and expected return. Say how the method avoids the conservatism or local-optimum pathologies of ignoring high-return behavior.",
+      "id": "rl.definition.risk-sensitive-rl.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A formulation that optimizes a risk measure of the return distribution, such as CVaR or other tail-sensitive criteria, instead of expected return, so policies trade average performance for protection against poor outcomes.",
+      "provenance": {
+        "note": "Independent definition synthesized from CVaR regret analysis and soft-risk policy optimization.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "bastani2022-regret-bounds-risk-sensitive",
+        "greenberg2022-efficient-risk-averse-reinforcement"
+      ],
+      "tags": [
+        "risk-sensitive RL",
+        "CVaR",
+        "risk measure",
+        "tail outcomes",
+        "risk-averse policy"
+      ],
+      "topic_families": [
+        "safe_robust_rl",
+        "rl_theory_evaluation"
       ]
     },
     {
@@ -10080,6 +10428,57 @@
       ]
     },
     {
+      "avoid": "Do not report model accuracy alone as evidence of control quality, and do not use objective mismatch loosely for any underperformance unrelated to the model-policy interface.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.",
+        "We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy."
+      ],
+      "expression": "objective mismatch (model-based RL)",
+      "guidance": "State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.",
+      "id": "wm.definition.objective-mismatch.001",
+      "intents": [
+        "define",
+        "describe",
+        "limit",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.",
+      "provenance": {
+        "note": "Independent paraphrase of the model-policy objective mismatch as analyzed through causal representation for offline model-based RL; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "lin2024-because-bilinear-causal-representation"
+      ],
+      "tags": [
+        "objective mismatch",
+        "model-policy alignment",
+        "value-aware model learning",
+        "offline model-based RL",
+        "confounding"
+      ],
+      "topic_families": [
+        "model_based_rl"
+      ]
+    },
+    {
       "avoid": "Do not equate occupancy accuracy with collision-free or task-success performance without downstream evaluation.",
       "domains": [
         "world_models",
@@ -10173,6 +10572,59 @@
       "topic_families": [
         "world_model_general",
         "dynamics_representation"
+      ]
+    },
+    {
+      "avoid": "Do not equate low reconstruction error with a useful world model under distraction, and do not call every hard visual scene a distractor setting without separating task-relevant from irrelevant content.",
+      "domains": [
+        "world_models",
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "In {environment}, {distractor content} is predictable but irrelevant to {task}, degrading {reconstruction-based method}.",
+        "We steer model capacity toward task-relevant dynamics with {mechanism}, improving {control metric} under distraction."
+      ],
+      "expression": "task-irrelevant distractors",
+      "guidance": "Name the distractor source (backgrounds, textures, or dynamics), state whether the training objective is reconstruction-based, and report control performance alongside prediction quality under distraction. Say how capacity is steered toward task-relevant content, for example task-aware losses, prototypes, or reconstruction-free objectives.",
+      "id": "wm.definition.task-irrelevant-distraction.001",
+      "intents": [
+        "define",
+        "describe",
+        "limit",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Observation content that is predictable or salient but has no bearing on reward or action selection, so models or encoders that spend capacity on it degrade downstream control even when prediction metrics look good.",
+      "provenance": {
+        "note": "Independent definition synthesized from policy-shaped prediction and reconstruction-free world-model training under visual distraction.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "hutson2024-policy-shaped-prediction-avoiding",
+        "deng2022-dreamerpro-reconstruction-free-model"
+      ],
+      "tags": [
+        "task-irrelevant distractors",
+        "visual distraction",
+        "reconstruction objective",
+        "model capacity",
+        "distractor robustness"
+      ],
+      "topic_families": [
+        "world_model_general",
+        "model_based_rl"
       ]
     },
     {
@@ -11649,6 +12101,105 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.usage-note.safe-robust.001",
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "rationale": "The optimistic MDP construction and regret analysis are contribution-specific, but optimizing risk measures such as CVaR instead of expected return is a recurring formulation the corpus lacked, distinct from the safety-versus-robustness usage note.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "bastani2022-regret-bounds-risk-sensitive",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.mobile-manipulation.001",
+        "emb.definition.object-goal-navigation.001",
+        "emb.definition.open-vocabulary-manipulation.001"
+      ],
+      "evidence_locator": "Official CVPR paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.rearrangement.001"
+      ],
+      "rationale": "The Galactic simulator and its throughput engineering are platform-specific, but object rearrangement as a navigation-plus-manipulation task family recurs across embodied AI and had no normalized task definition alongside the existing navigation and manipulation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "berges2023-galactic-scaling-end-end",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "general.usage-note.generalization-axis.001",
+        "rl.term.sample-efficiency.001",
+        "emb.term.proprioception.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "general.term.inductive-bias.001"
+      ],
+      "rationale": "The C. elegans-derived circuit model is architecture-specific, but inductive bias as a named structural assumption recurs across the corpus domains and lacked a normalized term with evidence discipline for claimed benefits.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "bhattasali2022-neural-circuit-architectural-priors",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "record_no_promotion",
+      "dedup_entry_ids": [
+        "rl.term.sample-efficiency.001",
+        "rl.definition.actor-critic.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [],
+      "rationale": "The six numerical-stability modifications for low-precision SAC are valid engineering contributions, but the reviewed wording adds no broadly reusable writing concept beyond existing efficiency and actor-critic records; numerical precision is out of the corpus's normalized scope.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "bjorck2021-low-precision-reinforcement-learning",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.object-goal-navigation.001",
+        "emb.definition.vln.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "evidence_locator": "Official ICCV paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.social-navigation.001"
+      ],
+      "rationale": "Proximity-aware auxiliary tasks and the encounter protocol are method-specific, but navigation among humans under social conventions is a recurring task family with evaluation semantics not covered by the existing goal-driven navigation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "cancelli2023-exploiting-proximity-aware-tasks",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "emb.definition.action-chunking.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "emb.definition.action-chunking.001"
+      ],
+      "rationale": "The routine-space construction is method-specific; the reusable concepts, temporally extended high-level actions and predicting blocks of low-level actions, are covered by the hierarchical-policy and action-chunking records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "cetin2021-learning-routines-effective-off",
+      "verification_scope": "full_text_sections"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "wm.definition.world-model.001",
@@ -11667,6 +12218,113 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.active-perception.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "emb.term.3d-scene-memory.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.active-perception.001",
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "3D-consistency pseudo-labeling is method-specific; the reusable concepts, exploration policies that improve perception through interaction and self-supervised representation objectives, are covered by the active-perception and self-supervised representation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chaplot2021-seal-self-supervised-embodied",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.bimanual-manipulation.001",
+        "emb.usage-note.imitation-bc.001",
+        "emb.term.prehensile-nonprehensile.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.bimanual-manipulation.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "The trajectory-optimisation algorithm is method-specific; the reusable concepts, two-hand dexterous manipulation tasks and combining suboptimal demonstrations with off-policy RL, are covered by the bimanual-manipulation and imitation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "charlesworth2021-solving-challenging-dexterous-manipulation",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "general.usage-note.generalization-axis.001",
+        "emb.definition.object-goal-navigation.001",
+        "rl.usage-note.safe-robust.001",
+        "emb.definition.domain-randomization.001"
+      ],
+      "evidence_locator": "Official ICCV paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "general.usage-note.generalization-axis.001",
+        "emb.definition.object-goal-navigation.001"
+      ],
+      "rationale": "The corruption suite is benchmark-specific; the reusable concepts, naming the exact robustness axis under visual and dynamics shift and goal-driven navigation tasks, are covered by the generalization-axis and object-goal-navigation records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chattopadhyay2021-robustnav-benchmarking-robustness-embodied",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.definition.goal-conditioned-rl.001",
+        "rl.definition.offline-rl.001",
+        "rl.definition.reward-free-exploration.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.hindsight-relabeling.001"
+      ],
+      "rationale": "Goal chaining and the specific conservative strategies are method-specific, but hindsight goal relabeling as reward-free reuse of collected trajectories recurs across goal-conditioned and offline robot learning and had no normalized record.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chebotar2021-actionable-models-unsupervised-offline",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.egocentric-observation.001"
+      ],
+      "evidence_locator": "Official ICCV paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "The YouRefIt dataset is contribution-specific; the reusable concepts, grounding referential language with gesture in shared physical scenes and multimodal embodied perception, are covered by the grounded-instruction and multimodal-perception records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chen2021-yourefit-embodied-reference-understanding",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.bimanual-manipulation.001",
+        "emb.term.prehensile-nonprehensile.001",
+        "emb.term.grasp-pose.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.bimanual-manipulation.001"
+      ],
+      "rationale": "The Bi-DexHands benchmark and its cognitive-science task ladder are dataset-specific; the reusable task formulation, coordinated two-hand dexterous manipulation, is covered by the bimanual-manipulation record.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chen2022-human-level-bimanual-dexterous",
+      "verification_scope": "full_text_sections"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.usage-note.imitation-bc.001",
@@ -11682,6 +12340,60 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "chen2023-imitation-learning-state-matching",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.open-closed-loop.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.open-closed-loop.001"
+      ],
+      "rationale": "The corner-case taxonomy and dataset curation are contribution-specific; the paper's reusable writing concepts, action-outputting vision-language models and the open-loop versus closed-loop evaluation boundary, are already normalized.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chi2025-impromptu-vla-open-weights",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.synthetic-data-generation.001",
+        "rl.definition.offline-distribution-shift.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.synthetic-data-generation.001",
+        "rl.definition.offline-distribution-shift.001"
+      ],
+      "rationale": "State-to-pixel synthesis is method-specific; the reusable concepts, generative augmentation of training data and offline distribution shift, are covered by the synthetic-data-generation and offline-distribution-shift records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "cho2022-s2p-state-conditioned-image",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.rapid-adaptation.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.rapid-adaptation.001",
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "The contrastive prompt ensemble is method-specific; the reusable concepts, rapid policy adaptation to unseen visual domains and self-supervised construction of robust state representations, are covered by existing records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "choi2023-efficient-policy-adaptation-contrastive",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "promote_normalized_record",
@@ -11703,6 +12415,22 @@
     {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
+        "rl.usage-note.marl-observability.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.parameter-sharing.001"
+      ],
+      "rationale": "Ability-based agent partitioning is method-specific, but parameter sharing as the standard scaling mechanism in multi-agent RL recurs widely and had no normalized record; the existing MARL note covers observability language only.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "christianos2021-scaling-multi-agent-reinforcement",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
         "emb.term.3d-scene-memory.001",
         "wm.definition.navigation-world-model.001",
         "emb.definition.object-goal-navigation.001"
@@ -11715,6 +12443,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "cui2024-frontier-enhanced-topological-memory",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.offline-dataset-coverage.001",
+        "rl.usage-note.support-generalization.001",
+        "rl.definition.state-abstraction.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.term.offline-dataset-coverage.001",
+        "rl.usage-note.support-generalization.001"
+      ],
+      "rationale": "The pseudometric bonus is method-specific; the reusable concepts, keeping the learned policy near the support of logged transitions and dataset-coverage language, are covered by the offline-dataset-coverage and support-generalization records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "dadashi2021-offline-reinforcement-learning-pseudometric",
       "verification_scope": "full_text_sections"
     },
     {
@@ -11734,6 +12480,23 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "dang2025-ecbench-can-multi-modal",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.task-irrelevant-distraction.001",
+        "wm.definition.task-oriented-model.001",
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "wm.definition.task-irrelevant-distraction.001"
+      ],
+      "rationale": "Prototype distillation into recurrent states is method-specific; the reusable concept, reconstruction objectives wasting capacity on task-irrelevant distractors, is covered by the new distraction record, which cites this paper as an attesting source.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "deng2022-dreamerpro-reconstruction-free-model",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "link_existing_record",
@@ -11812,6 +12575,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.conservative-q.001",
+        "rl.term.offline-dataset-coverage.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.conservative-q.001",
+        "rl.term.offline-dataset-coverage.001"
+      ],
+      "rationale": "The expected-max backup operator is contribution-specific; the reusable concepts, behavior-constrained conservative value learning within dataset support, are covered by the conservative-Q and offline-dataset-coverage records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "ghasemipour2021-emaq-expected-max-q",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.state-abstraction.001",
         "wm.definition.latent-state.001"
       ],
@@ -11824,6 +12605,40 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "gomez2022-information-optimization-transferable-state",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001",
+        "rl.usage-note.safe-robust.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "rationale": "Soft risk scheduling and the cross-entropy sampler are method-specific; the reusable formulation, optimizing risk measures of return with attention to their conservatism pathologies, is covered by the new risk-sensitive record, which cites this paper as an attesting source.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "greenberg2022-efficient-risk-averse-reinforcement",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001",
+        "rl.definition.symbolic-policy.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "rationale": "Using LLMs to draft and repair PDDL domain models is contribution-specific; the reusable concepts, an explicit world model consumed by external planners and the planning-versus-policy boundary, are already normalized.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "guan2023-leveraging-pre-trained-large",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "link_existing_record",
@@ -11860,6 +12675,24 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "hong2024-model-based-reinforcement-learning",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.action-tokenization.001"
+      ],
+      "evidence_locator": "Official CVPR paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "The Multisensory Universe dataset and token scheme are paper-specific; the reusable formulation, an embodied language model over object-centric multisensory percepts with action and state tokens, is covered by the embodied-language-model, multimodal-perception, and action-tokenization records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hong2024-multiply-multisensory-object-centric",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "promote_normalized_record",
@@ -11915,6 +12748,23 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "huang2025-otter-vision-language-action",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.definition.task-oriented-model.001",
+        "wm.definition.visual-world-model.001",
+        "wm.term.model-bias.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "wm.definition.task-irrelevant-distraction.001"
+      ],
+      "rationale": "Segmentation-guided task-aware reconstruction is method-specific, but predictable-yet-irrelevant observation content wasting world-model capacity is a recurring failure mode that motivates task-oriented models and had no normalized record naming its boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hutson2024-policy-shaped-prediction-avoiding",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "record_no_promotion",
@@ -12071,6 +12921,22 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vision-language-reward.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.vision-language-reward.001"
+      ],
+      "rationale": "The Bradley-Terry reparameterization is contribution-specific; the reusable concept, pretrained vision-language alignment acting as representations and dense rewards for control, is covered by the new vision-language-reward record, which cites this paper as an attesting source.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2024-decisionnce-embodied-multimodal-representations",
+      "verification_scope": "full_text_sections"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "wm.term.learned-reward-model.001",
@@ -12086,6 +12952,41 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "li2025-larm-large-auto-regressive",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "emb.term.long-horizon-interaction.001",
+        "emb.definition.diffusion-policy.001"
+      ],
+      "evidence_locator": "Official ICCV paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "emb.term.long-horizon-interaction.001"
+      ],
+      "rationale": "The skill-expert mixture and sand-environment datasets are system-specific; the reusable concepts, hierarchical decomposition between reasoning and acting layers and long-horizon interaction, are covered by existing records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2025-long-horizon-vision-language",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.term.model-bias.001",
+        "rl.definition.offline-distribution-shift.001",
+        "wm.definition.model-based-rl.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "wm.definition.objective-mismatch.001"
+      ],
+      "rationale": "The bilinear causal representation is method-specific, but the objective mismatch between model training and policy performance is a recurring model-based RL concept the corpus lacked, distinct from model bias and offline distribution shift.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lin2024-because-bilinear-causal-representation",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "link_existing_record",
@@ -12120,6 +13021,59 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "liu2024-robomamba-efficient-vision-language",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.term.learned-reward-model.001",
+        "rl.definition.ai-feedback.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "emb.definition.vision-language-reward.001"
+      ],
+      "rationale": "The dual-RL and mutual-information derivation is contribution-specific, but dense rewards computed from pretrained observation-goal vision-language alignment recur across robot learning and had no normalized record separating them from environment-reward models and generative AI feedback.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "ma2023-liv-language-image-representations",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "wm.definition.model-based-rl.001",
+        "wm.usage-note.rollout-horizon.001"
+      ],
+      "evidence_locator": "Official ICML paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "wm.definition.model-based-rl.001"
+      ],
+      "rationale": "S5-layer world models and subactor stacking are architecture-specific; the reusable concepts, hierarchical policies over temporally abstracted representations and training in model imagination, are covered by the hierarchical-policy and model-based RL records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "mattes2024-hieros-hierarchical-imagination-structured",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.definition.model-based-rl.001",
+        "rl.definition.mdp.001"
+      ],
+      "evidence_locator": "Official NeurIPS paper (PDF text), Abstract and Section 1",
+      "linked_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.definition.model-based-rl.001"
+      ],
+      "rationale": "Conditional mean embeddings and the POWR convergence analysis are contribution-specific; the reusable concepts, learning a world model and deriving action values from it, are covered by the world-model and model-based RL records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "novelli2024-operator-world-models-reinforcement",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "link_existing_record",

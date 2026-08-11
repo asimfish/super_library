@@ -3,13 +3,14 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 6
+Entries: 7
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/robot_foundation.md); it is not part of the default
 writing context.
 
 - [embodied multimodal language model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-language-model.001.md) — definition · sections=introduction,related_work,method,translation · tags=PaLM-E,embodied language model
 - [generalist robot policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.generalist-policy.001.md) — definition · sections=abstract,introduction,related_work,translation · tags=general-purpose robot policy,multi-task policy
+- [vision-language reward](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vision-language-reward.001.md) — definition · sections=introduction,related_work,method,translation · tags=vision-language reward,dense reward
 - [vision-language-action (VLA) model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vla.001.md) — definition · sections=introduction,related_work,method,translation · tags=VLA,vision language action
 - [embodiment-specific action decoder](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.term.embodiment-specific-decoder.001.md) — term · sections=method,related_work · tags=cross-embodiment,decoder
 - [distinguish VLA policies from embodied language models](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.vla-vs-elm.001.md) — usage_note · sections=related_work,method,translation · tags=VLA versus VLM,embodied language model

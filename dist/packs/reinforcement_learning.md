@@ -310,6 +310,27 @@ A control architecture that decomposes decision making across levels, where a hi
 - `shi2025-hi-robot-open-ended` — [Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://proceedings.mlr.press/v267/shi25d.html) (ICML 2025)
 - `zhang2023-adjacency-constraint-efficient-hierarchical` — [Adjacency Constraint for Efficient Hierarchical Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3192418) (TPAMI 2023)
 
+### hindsight relabeling
+
+`rl.definition.hindsight-relabeling.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Reusing collected trajectories by replacing the intended goal with a goal actually achieved in hindsight, so failed episodes still supply positive examples for goal-conditioned learning without new environment interaction or manual reward design.
+
+**Use:** State the relabeling distribution (final state, future states, or learned goals), the fraction of relabeled data, and how relabeled rewards are computed. Note interactions with offline settings where support constraints still apply.
+
+**Avoid:** Do not present hindsight relabeling as a general fix for exploration; it only densifies learning signal for goals already covered by collected behavior.
+
+**Patterns:**
+
+- Transitions are relabeled with goals sampled from {relabeling distribution}, turning failures into positive examples for {learned quantity}.
+- We combine hindsight relabeling with {method} to learn {skill set} from reward-free offline data.
+
+**Verify in primary sources:**
+
+- `chebotar2021-actionable-models-unsupervised-offline` — [Actionable Models: Unsupervised Offline Reinforcement Learning of Robotic Skills](https://proceedings.mlr.press/v139/chebotar21a.html) (ICML 2021)
+
 ### human-in-the-loop reinforcement learning
 
 `rl.definition.human-in-the-loop-rl.001` · definition · reinforcement_learning, embodied_ai · abstract, introduction, related_work, method, translation
@@ -439,6 +460,27 @@ A learning protocol that initializes from a fixed offline dataset and subsequent
 - `wagenmaker2023-leveraging-offline-data-online` — [Leveraging Offline Data in Online Reinforcement Learning](https://proceedings.mlr.press/v202/wagenmaker23a.html) (ICML 2023)
 - `wang2024-making-offline-rl-online` — [Making Offline RL Online: Collaborative World Models for Offline Visual Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b041cbfcc3f282a9b3c8eb9c16177529-Abstract-Conference.html) (NeurIPS 2024)
 
+### parameter sharing (multi-agent RL)
+
+`rl.definition.parameter-sharing.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training multiple agents' policies or critics with one shared set of network parameters, so experience aggregates across agents and the trainable-parameter count stays constant as the number of agents grows.
+
+**Use:** State which components are shared, how agents are distinguished (identifiers, observations, or roles), and whether sharing is full, selective, or partitioned by ability and goal. Report effects on both training efficiency and converged returns, since indiscriminate sharing can hurt heterogeneous agents.
+
+**Avoid:** Do not assume shared parameters imply identical behavior, and do not generalize sharing benefits across environments without checking agent heterogeneity.
+
+**Patterns:**
+
+- All {agent group} policies share parameters and condition on {distinguishing input}.
+- We partition agents into {groups} by {criterion} and share parameters within each group.
+
+**Verify in primary sources:**
+
+- `christianos2021-scaling-multi-agent-reinforcement` — [Scaling Multi-Agent Reinforcement Learning with Selective Parameter Sharing](https://proceedings.mlr.press/v139/christianos21a.html) (ICML 2021)
+
 ### partially observable Markov decision process (POMDP)
 
 `rl.definition.pomdp.001` · definition · reinforcement_learning · method, translation
@@ -545,6 +587,28 @@ An exploration setting in which an agent collects information without knowing th
 
 - `cheng2023-improved-sample-complexity-reward` — [Improved Sample Complexity for Reward-free Reinforcement Learning under Low-rank MDPs](https://iclr.cc/virtual/2023/poster/11380) (ICLR 2023)
 - `qiao2023-near-optimal-deployment-efficiency` — [Near-Optimal Deployment Efficiency in Reward-Free Reinforcement Learning with Linear Function Approximation](https://iclr.cc/virtual/2023/poster/11300) (ICLR 2023)
+
+### risk-sensitive reinforcement learning
+
+`rl.definition.risk-sensitive-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A formulation that optimizes a risk measure of the return distribution, such as CVaR or other tail-sensitive criteria, instead of expected return, so policies trade average performance for protection against poor outcomes.
+
+**Use:** Name the risk measure and its level, state whether risk applies to returns or per-step costs, and report both the risk metric and expected return. Say how the method avoids the conservatism or local-optimum pathologies of ignoring high-return behavior.
+
+**Avoid:** Do not use risk-sensitive as a synonym for safe RL with explicit constraints, and do not report improved tail metrics without disclosing the change in expected return.
+
+**Patterns:**
+
+- We optimize {risk measure} at level {alpha} of the return distribution instead of expected return.
+- The learned policy improves {tail metric} while retaining {fraction} of the risk-neutral return on {tasks}.
+
+**Verify in primary sources:**
+
+- `bastani2022-regret-bounds-risk-sensitive` — [Regret Bounds for Risk-Sensitive Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/eb4898d622e9a48b5f9713ea1fcff2bf-Abstract-Conference.html) (NeurIPS 2022)
+- `greenberg2022-efficient-risk-averse-reinforcement` — [Efficient Risk-Averse Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/d2511dfb731fa336739782ba825cd98c-Abstract-Conference.html) (NeurIPS 2022)
 
 ### self-supervised representation learning
 
@@ -764,6 +828,27 @@ Reinforcement learning that uses a model of environment dynamics, learned or kno
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### objective mismatch (model-based RL)
+
+`wm.definition.objective-mismatch.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.
+
+**Use:** State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.
+
+**Avoid:** Do not report model accuracy alone as evidence of control quality, and do not use objective mismatch loosely for any underperformance unrelated to the model-policy interface.
+
+**Patterns:**
+
+- Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.
+- We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy.
+
+**Verify in primary sources:**
+
+- `lin2024-because-bilinear-causal-representation` — [BECAUSE: Bilinear Causal Representation for Generalizable Offline Model-based Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/cff98e0b76e05fd1df5c9256724b3af1-Abstract-Conference.html) (NeurIPS 2024)
+
 ### probabilistic dynamics model
 
 `wm.definition.probabilistic-dynamics.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, translation
@@ -785,6 +870,28 @@ A dynamics model that represents a conditional distribution over future states o
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
+
+### task-irrelevant distractors
+
+`wm.definition.task-irrelevant-distraction.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Observation content that is predictable or salient but has no bearing on reward or action selection, so models or encoders that spend capacity on it degrade downstream control even when prediction metrics look good.
+
+**Use:** Name the distractor source (backgrounds, textures, or dynamics), state whether the training objective is reconstruction-based, and report control performance alongside prediction quality under distraction. Say how capacity is steered toward task-relevant content, for example task-aware losses, prototypes, or reconstruction-free objectives.
+
+**Avoid:** Do not equate low reconstruction error with a useful world model under distraction, and do not call every hard visual scene a distractor setting without separating task-relevant from irrelevant content.
+
+**Patterns:**
+
+- In {environment}, {distractor content} is predictable but irrelevant to {task}, degrading {reconstruction-based method}.
+- We steer model capacity toward task-relevant dynamics with {mechanism}, improving {control metric} under distraction.
+
+**Verify in primary sources:**
+
+- `hutson2024-policy-shaped-prediction-avoiding` — [Policy-shaped prediction: avoiding distractions in model-based reinforcement learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/17af43527227c5c96db0f8d4c6aadc4e-Abstract-Conference.html) (NeurIPS 2024)
+- `deng2022-dreamerpro-reconstruction-free-model` — [DreamerPro: Reconstruction-Free Model-Based Reinforcement Learning with Prototypical Representations](https://proceedings.mlr.press/v162/deng22a.html) (ICML 2022)
 
 ### task-oriented latent dynamics model
 

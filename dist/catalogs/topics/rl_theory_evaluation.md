@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 13
+Entries: 14
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/rl_theory_evaluation.md); it is not part of the default
 writing context.
@@ -13,6 +13,7 @@ writing context.
 - [Markov decision process (MDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.mdp.001.md) — definition · sections=method,translation · tags=MDP,state
 - [partially observable Markov decision process (POMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.pomdp.001.md) — definition · sections=method,translation · tags=POMDP,partial observability
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — definition · sections=introduction,related_work,translation · tags=RL,agent
+- [risk-sensitive reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.risk-sensitive-rl.001.md) — definition · sections=introduction,related_work,method,translation · tags=risk-sensitive RL,CVaR
 - [state abstraction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-abstraction.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=state abstraction,abstract state space
 - [state–action occupancy measure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-action-occupancy-measure.001.md) — definition · sections=introduction,related_work,method,translation · tags=occupancy measure,visitation distribution
 - [symbolic policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.symbolic-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=symbolic reinforcement learning,symbolic expression

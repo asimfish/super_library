@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 23
+Entries: 24
 
 - [In contrast to {comparison class}, {difference}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.in-contrast.001.md) — phrase · domains=general · tags=contrast,difference
 - [We compare {method} to {baselines}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.compare-to.001.md) — phrase · domains=general · tags=baseline comparison,compare with
@@ -27,4 +27,5 @@ Entries: 23
 - [We use {term} to denote {operational meaning}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.define.001.md) — sentence_pattern · domains=general · tags=definition,terminology
 - [Within {scope}, the closest approaches can be compared along {axis one} and {axis two}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.intro-approach-axes.001.md) — sentence_pattern · domains=general · tags=introduction taxonomy,approach families
 - [World-model methods can be organized by {representation}, {training objective}, and {decision mechanism}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.sentence-pattern.related-work.001.md) — sentence_pattern · domains=world_models · tags=related work,taxonomy
+- [inductive bias](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.term.inductive-bias.001.md) — term · domains=general · tags=inductive bias,architectural prior
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality

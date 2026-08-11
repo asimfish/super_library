@@ -3,13 +3,15 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 6
+Entries: 8
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/embodied_navigation.md); it is not part of the default
 writing context.
 
 - [navigation world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.navigation-world-model.001.md) — definition · sections=related_work,method · tags=navigation,planning
+- [object rearrangement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.rearrangement.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=object rearrangement,long-horizon task
 - [object-goal navigation (ObjectNav)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.object-goal-navigation.001.md) — definition · sections=abstract,introduction,related_work,method · tags=ObjectNav,navigation
+- [social navigation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.social-navigation.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=social navigation,human-aware navigation
 - [topological memory for visual navigation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.topological-memory.001.md) — definition · sections=introduction,related_work,method,translation · tags=topological map,graph memory
 - [vision-and-language navigation (VLN)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vln.001.md) — definition · sections=abstract,introduction,related_work,translation · tags=instruction following,visual grounding
 - [visual world model for embodied agents](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.visual-world-model.001.md) — definition · sections=introduction,related_work,translation · tags=embodied world model,visual prediction
