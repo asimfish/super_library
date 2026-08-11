@@ -9,4 +9,4 @@ rhetorical moves.
 - [action representation and tokenization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/action_representation.md) — `action_representation` · 10 normalized entries
 - [language-conditioned control](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/language_conditioned_control.md) — `language_conditioned_control` · 5 normalized entries
 - [robot foundation models and generalist policies](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/robot_foundation.md) — `robot_foundation` · 6 normalized entries
-- [vision-language-action models](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/vla_models.md) — `vla_models` · 11 normalized entries
+- [vision-language-action models](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/vla_models.md) — `vla_models` · 13 normalized entries

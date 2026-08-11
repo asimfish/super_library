@@ -288,6 +288,27 @@ Mapping linguistic instructions to actions by relating language to perceived ent
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
 
+### mobile manipulation
+
+`emb.definition.mobile-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A robot task family in which a mobile base and a manipulator are controlled together, so task success depends on coordinating base placement or motion with arm trajectories rather than manipulating from a fixed base.
+
+**Use:** State how base and arm are coordinated (a joint policy, decoupled planning, or bi-level optimization), what determines base placement, and which fixed-base assumptions still hold. Report navigation and manipulation outcomes separately when the evaluation allows it.
+
+**Avoid:** Do not present fixed-base manipulation results as mobile manipulation, and do not silently reduce the problem to navigation followed by independent manipulation without stating that decoupling.
+
+**Patterns:**
+
+- The mobile manipulation policy coordinates {base motion} with {end-effector trajectory} to accomplish {task goal}.
+- Base waypoints are selected to satisfy {feasibility criterion}, after which the arm executes {manipulation primitive}.
+
+**Verify in primary sources:**
+
+- `wu2025-momanipvla-transferring-vision-language` — [MoManipVLA: Transferring Vision-language-action Models for General Mobile Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_MoManipVLA_Transferring_Vision-language-action_Models_for_General_Mobile_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
+
 ### multimodal embodied perception
 
 `emb.definition.multimodal-perception.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
@@ -482,6 +503,48 @@ A task in which an embodied agent follows a natural-language route instruction b
 **Verify in primary sources:**
 
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
+
+### AI feedback
+
+`rl.definition.ai-feedback.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training signal, such as rewards, preferences, or critiques, produced by a separate pretrained model that evaluates the learner's behavior, used in place of or in addition to environment reward or human feedback.
+
+**Use:** Identify the evaluator model, what it scores, and how often it is queried; state how its judgments are validated and how exploitation of evaluator weaknesses is detected. Keep AI feedback distinct from reward models fit to environment reward and from direct human feedback.
+
+**Avoid:** Do not present evaluator scores as ground-truth task success, and do not report gains from AI feedback without stating the evaluator's known failure modes.
+
+**Patterns:**
+
+- A {evaluator model} scores {agent behavior}, and the score is used as {reward or preference signal} during training.
+- We validate AI feedback against {human labels or task metrics} on {validation set}.
+
+**Verify in primary sources:**
+
+- `li2025-larm-large-auto-regressive` — [LARM: Large Auto-Regressive Model for Long-Horizon Embodied Intelligence](https://proceedings.mlr.press/v267/li25dj.html) (ICML 2025)
+
+### human-in-the-loop reinforcement learning
+
+`rl.definition.human-in-the-loop-rl.001` · definition · reinforcement_learning, embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training regime in which humans participate during learning, for example by intervening in control, providing demonstrations on demand, or shaping rewards, so the policy is optimized from both autonomous interaction and human guidance.
+
+**Use:** Specify when and how humans intervene, how their input enters the objective (auxiliary loss, replay prioritization, or reward shaping), the amount of human effort required, and how performance behaves once guidance is withdrawn.
+
+**Avoid:** Do not conflate human-in-the-loop training with offline imitation from fixed demonstrations or with preference-based reward learning from post-hoc comparisons; state the interaction protocol explicitly.
+
+**Patterns:**
+
+- A human supervisor intervenes when {trigger condition}, and the intervention is incorporated through {mechanism}.
+- We report performance as a function of {human effort measure} to quantify the cost of guidance.
+
+**Verify in primary sources:**
+
+- `wu2023-human-guided-reinforcement-learning` — [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://doi.org/10.1109/tpami.2023.3314762) (TPAMI 2023)
 
 ### chain-of-affordance reasoning
 

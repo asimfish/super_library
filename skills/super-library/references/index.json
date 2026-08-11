@@ -970,6 +970,59 @@
       ]
     },
     {
+      "avoid": "Do not present fixed-base manipulation results as mobile manipulation, and do not silently reduce the problem to navigation followed by independent manipulation without stating that decoupling.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "The mobile manipulation policy coordinates {base motion} with {end-effector trajectory} to accomplish {task goal}.",
+        "Base waypoints are selected to satisfy {feasibility criterion}, after which the arm executes {manipulation primitive}."
+      ],
+      "expression": "mobile manipulation",
+      "guidance": "State how base and arm are coordinated (a joint policy, decoupled planning, or bi-level optimization), what determines base placement, and which fixed-base assumptions still hold. Report navigation and manipulation outcomes separately when the evaluation allows it.",
+      "id": "emb.definition.mobile-manipulation.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A robot task family in which a mobile base and a manipulator are controlled together, so task success depends on coordinating base placement or motion with arm trajectories rather than manipulating from a fixed base.",
+      "provenance": {
+        "note": "Independent paraphrase of coordinated base-arm control for transferring fixed-base VLA policies; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "wu2025-momanipvla-transferring-vision-language"
+      ],
+      "tags": [
+        "mobile manipulation",
+        "base placement",
+        "whole-body coordination",
+        "mobile base",
+        "manipulation feasibility"
+      ],
+      "topic_families": [
+        "robot_manipulation",
+        "vla_models"
+      ]
+    },
+    {
       "avoid": "Do not use multimodal to describe multiple views from the same modality without clarification.",
       "domains": [
         "embodied_ai",
@@ -6603,6 +6656,57 @@
       ]
     },
     {
+      "avoid": "Do not present evaluator scores as ground-truth task success, and do not report gains from AI feedback without stating the evaluator's known failure modes.",
+      "domains": [
+        "reinforcement_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "A {evaluator model} scores {agent behavior}, and the score is used as {reward or preference signal} during training.",
+        "We validate AI feedback against {human labels or task metrics} on {validation set}."
+      ],
+      "expression": "AI feedback",
+      "guidance": "Identify the evaluator model, what it scores, and how often it is queried; state how its judgments are validated and how exploitation of evaluator weaknesses is detected. Keep AI feedback distinct from reward models fit to environment reward and from direct human feedback.",
+      "id": "rl.definition.ai-feedback.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A training signal, such as rewards, preferences, or critiques, produced by a separate pretrained model that evaluates the learner's behavior, used in place of or in addition to environment reward or human feedback.",
+      "provenance": {
+        "note": "Independent paraphrase of referee-based reward for long-horizon embodied training; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "li2025-larm-large-auto-regressive"
+      ],
+      "tags": [
+        "AI feedback",
+        "RLAIF",
+        "referee model",
+        "model-generated supervision",
+        "evaluator model"
+      ],
+      "topic_families": [
+        "embodied_reasoning_agents",
+        "policy_optimization"
+      ]
+    },
+    {
       "avoid": "Do not use average-reward RL to mean the arithmetic mean of episodic returns across evaluation runs.",
       "domains": [
         "reinforcement_learning"
@@ -6842,6 +6946,56 @@
       ]
     },
     {
+      "avoid": "Do not treat simulation gradients as automatically well behaved; long-horizon or contact-rich rollouts can make them ill-conditioned, and claims should acknowledge this when applicable.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "We backpropagate {task objective} through the differentiable simulator to update {policy parameters}.",
+        "Gradients across {contact or discontinuous events} are handled by {smoothing or relaxation scheme}."
+      ],
+      "expression": "differentiable physics simulation",
+      "guidance": "State which quantities gradients flow through, the horizon over which backpropagation remains stable, and how nonsmooth events such as contact are handled. Distinguish analytic differentiable dynamics from learned dynamics models used for the same optimization purpose.",
+      "id": "rl.definition.differentiable-simulation.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "definition",
+      "meaning": "A simulator whose state transitions are implemented as differentiable operations, so gradients of task objectives with respect to actions, policy parameters, or physical parameters can be computed by backpropagating through the simulated dynamics.",
+      "provenance": {
+        "note": "Independent paraphrase of the differentiable-physics optimization substrate used for single-loop state-matching imitation; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "chen2023-imitation-learning-state-matching"
+      ],
+      "tags": [
+        "differentiable physics",
+        "differentiable simulator",
+        "analytic gradients",
+        "backpropagation through dynamics",
+        "physics prior"
+      ],
+      "topic_families": [
+        "policy_optimization",
+        "imitation_sequence"
+      ]
+    },
+    {
       "avoid": "Do not conflate trajectory-level diffusion planning with a diffusion policy that predicts only actions conditioned on observations, and do not imply real-time execution without a measured latency protocol.",
       "domains": [
         "reinforcement_learning",
@@ -7031,6 +7185,110 @@
       ],
       "topic_families": [
         "exploration_skills_goals"
+      ]
+    },
+    {
+      "avoid": "Do not call a pipeline hierarchical merely because it contains multiple modules; the levels must operate at different decision timescales or abstraction levels with a defined interface.",
+      "domains": [
+        "reinforcement_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "The high-level policy proposes {subgoal or command} every {decision interval}, and the low-level policy executes {primitive actions} conditioned on it.",
+        "We restrict the high-level action space to {reachable or grounded set} so that low-level execution remains feasible."
+      ],
+      "expression": "hierarchical policy",
+      "guidance": "Specify what the high level outputs (subgoals, skills, or language commands), the timescales of the levels, how each level is trained (jointly, separately, or with frozen components), and how the interface between levels is constrained or grounded so low-level execution stays feasible.",
+      "id": "rl.definition.hierarchical-policy.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A control architecture that decomposes decision making across levels, where a high-level policy selects subgoals, skills, or intermediate commands at a coarser timescale and one or more low-level policies execute them as primitive actions.",
+      "provenance": {
+        "note": "Independent definition synthesized from goal-conditioned hierarchical RL and hierarchical vision-language-action instruction following.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "shi2025-hi-robot-open-ended",
+        "zhang2023-adjacency-constraint-efficient-hierarchical"
+      ],
+      "tags": [
+        "hierarchical policy",
+        "hierarchical reinforcement learning",
+        "subgoal",
+        "high-level policy",
+        "low-level controller"
+      ],
+      "topic_families": [
+        "exploration_skills_goals",
+        "vla_models"
+      ]
+    },
+    {
+      "avoid": "Do not conflate human-in-the-loop training with offline imitation from fixed demonstrations or with preference-based reward learning from post-hoc comparisons; state the interaction protocol explicitly.",
+      "domains": [
+        "reinforcement_learning",
+        "embodied_ai"
+      ],
+      "examples": [
+        "A human supervisor intervenes when {trigger condition}, and the intervention is incorporated through {mechanism}.",
+        "We report performance as a function of {human effort measure} to quantify the cost of guidance."
+      ],
+      "expression": "human-in-the-loop reinforcement learning",
+      "guidance": "Specify when and how humans intervene, how their input enters the objective (auxiliary loss, replay prioritization, or reward shaping), the amount of human effort required, and how performance behaves once guidance is withdrawn.",
+      "id": "rl.definition.human-in-the-loop-rl.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A training regime in which humans participate during learning, for example by intervening in control, providing demonstrations on demand, or shaping rewards, so the policy is optimized from both autonomous interaction and human guidance.",
+      "provenance": {
+        "note": "Independent paraphrase of intervention-based human-guided RL; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "wu2023-human-guided-reinforcement-learning"
+      ],
+      "tags": [
+        "human-in-the-loop",
+        "human intervention",
+        "human guidance",
+        "interactive learning",
+        "reward shaping"
+      ],
+      "topic_families": [
+        "safe_robust_rl"
       ]
     },
     {
@@ -7269,6 +7527,51 @@
       ]
     },
     {
+      "avoid": "Do not analyze a partially observed system under fully observed MDP assumptions, and do not use POMDP loosely for any difficult RL problem.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We model the task as a POMDP in which {unobserved factor} is hidden and the agent receives only {observation}.",
+        "The policy conditions on {history or belief representation} rather than on the underlying state."
+      ],
+      "expression": "partially observable Markov decision process (POMDP)",
+      "guidance": "State the observation model and what the agent conditions on (history, belief, or a learned latent state). Say which quantities are unobserved and whether evaluation assumes privileged state access. Reserve plain MDP language for fully observed settings.",
+      "id": "rl.definition.pomdp.001",
+      "intents": [
+        "define",
+        "describe"
+      ],
+      "kind": "definition",
+      "meaning": "A sequential decision process in which observations do not fully reveal the underlying state, specified by states, actions, transition dynamics, rewards, and an observation model, so optimal behavior may depend on the interaction history or a belief over states.",
+      "provenance": {
+        "note": "Independent paraphrase of the standard partially observable formulation as instantiated in confounded-POMDP offline RL; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "hong2024-model-based-reinforcement-learning"
+      ],
+      "tags": [
+        "POMDP",
+        "partial observability",
+        "belief state",
+        "observation model",
+        "hidden state"
+      ],
+      "topic_families": [
+        "rl_theory_evaluation"
+      ]
+    },
+    {
       "avoid": "Do not describe supervised imitation from a fixed dataset as reinforcement learning unless a reward-based objective or RL update is used.",
       "domains": [
         "reinforcement_learning"
@@ -7456,6 +7759,56 @@
       ]
     },
     {
+      "avoid": "Do not describe reward-driven end-to-end encoder training as self-supervised, and do not claim representation quality from task return alone.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The encoder is trained with {auxiliary objective} that enforces {structural constraint} across {frames or views}.",
+        "Representation and policy learning are {decoupled or alternated} to prevent instability induced by {bootstrapped targets}."
+      ],
+      "expression": "self-supervised representation learning",
+      "guidance": "Name the auxiliary objective and the structure it captures (local correspondence, global semantics, or future prediction), and state how representation learning interacts with policy or value training, including whether the two are decoupled or alternated for stability.",
+      "id": "rl.definition.self-supervised-representation-learning.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Training an observation encoder with auxiliary objectives derived from the data itself, such as correspondence, prediction, or consistency targets, instead of relying only on reward or temporal-difference signals to shape the representation.",
+      "provenance": {
+        "note": "Independent definition synthesized from paired-similarity self-supervision and decoupled encoder-policy training for visual RL.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "choi2023-local-guided-global-paired",
+        "zhai2023-stabilizing-visual-reinforcement-learning"
+      ],
+      "tags": [
+        "self-supervised learning",
+        "auxiliary objective",
+        "visual representation",
+        "encoder stability",
+        "correspondence learning"
+      ],
+      "topic_families": [
+        "dynamics_representation"
+      ]
+    },
+    {
       "avoid": "Do not equate visually different trajectories with useful or controllable skills without a downstream criterion.",
       "domains": [
         "reinforcement_learning"
@@ -7496,6 +7849,59 @@
       ],
       "topic_families": [
         "exploration_skills_goals"
+      ]
+    },
+    {
+      "avoid": "Do not call every learned encoder a state abstraction without stating the equivalence or information criterion it enforces, and do not equate abstraction quality with task return alone.",
+      "domains": [
+        "reinforcement_learning",
+        "world_models"
+      ],
+      "examples": [
+        "The state abstraction maps {raw observations} to {compact representation} while preserving {decision-relevant quantity}.",
+        "We learn the abstraction with {objective} and reuse it across {downstream tasks}, improving sample efficiency over {no-abstraction baseline}."
+      ],
+      "expression": "state abstraction",
+      "guidance": "State what information the abstraction preserves (for example values, dynamics, or temporal distances), how it is learned or constructed, and which downstream component consumes it. Report whether the abstraction is fixed or trained jointly, and support transfer or sample-efficiency claims with a no-abstraction baseline.",
+      "id": "rl.definition.state-abstraction.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A mapping from raw states or observations to a more compact representation that groups states carrying equivalent decision-relevant information, so that policies, values, or models can be learned over the abstract space.",
+      "provenance": {
+        "note": "Independent definition synthesized from temporal-distance abstraction for offline model-based RL and information-theoretic transferable abstractions.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "lee2025-temporal-distance-aware-transition",
+        "gomez2022-information-optimization-transferable-state"
+      ],
+      "tags": [
+        "state abstraction",
+        "abstract state space",
+        "representation grouping",
+        "transferable representation",
+        "temporal distance"
+      ],
+      "topic_families": [
+        "rl_theory_evaluation",
+        "dynamics_representation"
       ]
     },
     {
@@ -11142,6 +11548,40 @@
     {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
+        "emb.usage-note.imitation-bc.001",
+        "emb.definition.sim-to-real.001",
+        "wm.term.learned-dynamics.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "rl.definition.differentiable-simulation.001"
+      ],
+      "rationale": "Single-loop state-matching imitation is method-specific, but differentiable physics simulation as an optimization substrate recurs across policy learning and system identification and had no normalized record fixing the gradients-through-dynamics boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chen2023-imitation-learning-state-matching",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.definition.visual-world-model.001",
+        "wm.definition.latent-state.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "Paired-similarity latent volumes are architecture-specific, but self-supervised auxiliary representation learning for visual RL recurs widely and had no normalized record distinguishing data-derived objectives from reward-driven encoder training.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "choi2023-local-guided-global-paired",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
         "emb.term.3d-scene-memory.001",
         "wm.definition.navigation-world-model.001",
         "emb.definition.object-goal-navigation.001"
@@ -11251,6 +11691,22 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.state-abstraction.001",
+        "wm.definition.latent-state.001"
+      ],
+      "evidence_locator": "Official IEEE abstract for the TPAMI article",
+      "linked_entry_ids": [
+        "rl.definition.state-abstraction.001"
+      ],
+      "rationale": "Information-theoretic discrete abstractions attest the transfer-oriented reading of the new state-abstraction record, while the specific information-optimization objective remains method detail, so the paper links to that record instead of warranting another card.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "gomez2022-information-optimization-transferable-state",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "emb.definition.vln.001",
         "emb.term.egocentric-observation.001",
         "general.usage-note.generalization-axis.001"
@@ -11265,6 +11721,23 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "han2025-roomtour3d-geometry-aware-video",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.definition.mdp.001",
+        "wm.definition.latent-state.001",
+        "wm.term.observation-model.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.pomdp.001"
+      ],
+      "rationale": "Confounded-POMDP identification and conservative policy optimization are contribution-specific, but the corpus lacked the fundamental partially-observable decision-process definition needed to reserve plain MDP language for fully observed settings.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hong2024-model-based-reinforcement-learning",
       "verification_scope": "official_abstract"
     },
     {
@@ -11408,6 +11881,23 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.definition.latent-state.001",
+        "wm.definition.forward-inverse-dynamics.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.state-abstraction.001"
+      ],
+      "rationale": "Transition augmentation in a temporal-distance representation space is method-specific, but the underlying state-abstraction concept recurs across offline model-based RL and transfer studies and had no normalized record fixing its preserved-information boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lee2025-temporal-distance-aware-transition",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "general.usage-note.generalization-axis.001",
@@ -11424,6 +11914,39 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "li2023-metadrive-composing-diverse-driving",
       "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "wm.term.learned-reward-model.001",
+        "rl.definition.reinforcement-learning.001",
+        "rl.definition.reward-free-exploration.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.ai-feedback.001"
+      ],
+      "rationale": "The referee-RL recipe and Minecraft milestones are system-specific, but reward or critique signals produced by a separate pretrained evaluator recur across embodied and alignment literature and had no normalized record separating them from environment reward and learned reward models.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2025-larm-large-auto-regressive",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.credit-assignment.001",
+        "wm.term.learned-reward-model.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "rl.definition.credit-assignment.001"
+      ],
+      "rationale": "Return prediction with mask-based sensitivity for extracting critical states is method-specific; the reusable notion it serves, attributing outcomes to specific decisions, is already normalized as temporal credit assignment, so the paper links there rather than adding a near-duplicate card.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2023-learning-identify-critical-states",
+      "verification_scope": "official_abstract"
     },
     {
       "decision": "link_existing_record",
@@ -11501,6 +12024,23 @@
     {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.term.language-conditioned-policy.001",
+        "rl.term.policy.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.hierarchical-policy.001"
+      ],
+      "rationale": "Open-ended instruction following with a vision-language planner is system-specific, but hierarchical decomposition between a high-level reasoner and low-level executors recurs across HRL and VLA systems and had no normalized record fixing the timescale-and-interface boundary.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "shi2025-hi-robot-open-ended",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
         "emb.definition.active-perception.001",
         "emb.term.3d-scene-memory.001",
         "emb.definition.embodied-language-model.001"
@@ -11533,6 +12073,89 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001"
+      ],
+      "rationale": "Second-order variance-dependent bounds are a theory contribution about distributional RL rather than a new reusable writing concept; the distributional-RL and return-distribution records already fix the distribution-versus-expectation boundary the paper builds on.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2024-more-benefits-being-distributional",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.sim-to-real.001",
+        "emb.usage-note.imitation-bc.001",
+        "emb.definition.domain-randomization.001"
+      ],
+      "evidence_locator": "Official IEEE abstract for the TPAMI article",
+      "linked_entry_ids": [
+        "rl.definition.human-in-the-loop-rl.001"
+      ],
+      "rationale": "Prioritized human experience replay and intervention-based shaping are mechanism-specific, but human participation during RL training recurs across interactive robotics and had no normalized record fixing the boundary against offline imitation and preference-based reward learning; the paper's sim-to-real pipeline is already covered by existing records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wu2023-human-guided-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.open-vocabulary-manipulation.001",
+        "emb.definition.bimanual-manipulation.001",
+        "emb.definition.vla.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "emb.definition.mobile-manipulation.001"
+      ],
+      "rationale": "Bi-level waypoint optimization for transferring fixed-base VLA policies is method-specific, but mobile manipulation as coordinated base-arm control is a recurring task family distinct from the fixed-base manipulation records already in the corpus.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wu2025-momanipvla-transferring-vision-language",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.self-supervised-representation-learning.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "Asymmetric encoder cooperation and greedy bootstrapping are method-specific stabilizers; the reusable concept they operationalize, decoupling representation objectives from TD-driven policy training, is covered by the new self-supervised representation record, which cites this paper as an attesting source.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhai2023-stabilizing-visual-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.hierarchical-policy.001",
+        "rl.definition.mdp.001"
+      ],
+      "evidence_locator": "Official IEEE abstract for the TPAMI article",
+      "linked_entry_ids": [
+        "rl.definition.hierarchical-policy.001"
+      ],
+      "rationale": "The k-step adjacency constraint on subgoal spaces is a method-level contribution within goal-conditioned HRL; the reusable hierarchical-policy concept it instantiates is covered by the new normalized record, which the paper attests from the RL side.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2023-adjacency-constraint-efficient-hierarchical",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "wm.term.action-conditioned-dynamics.001",
@@ -11547,6 +12170,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "zhang2024-prelar-world-model-pre",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "wm.definition.visual-world-model.001",
+        "wm.definition.latent-action-representation.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "wm.definition.visual-world-model.001"
+      ],
+      "rationale": "Joint understanding-and-prediction training for VLAs is a training-recipe contribution; its reusable concepts, action-outputting vision-language models and future visual prediction as a representation objective, are already normalized, so the paper links to those records without adding a near-duplicate card.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2025-up-vla-unified-understanding",
       "verification_scope": "official_abstract"
     },
     {

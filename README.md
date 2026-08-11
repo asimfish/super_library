@@ -231,7 +231,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **236 gold entries** and **336 primary-source
+The v0.4 reviewed snapshot contains **244 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -242,20 +242,22 @@ For recurring wording, 288 official conference abstracts were analyzed locally
 by document frequency; abstract text is not stored. Four cross-paper collocations
 survived manual screening and were promoted with source-level attestations. All
 12 TPAMI papers remain excluded from this abstract-level phrase-frequency study;
-five were subsequently reviewed through their primary paper text for normalized
-definitions or explicit deduplication decisions. Seventy-two core papers are
-representative sources cited directly by normalized records. Completed promotion reviews add
-sixteen unique paper-level links, bringing explicit normalized-record coverage
-to 88 without inserting every reviewed paper into default cards. Twenty-five
-promotion decisions are recorded: eight new normalized records, sixteen
+eight were subsequently reviewed—five through their primary paper text and
+three through their official abstracts—for normalized definitions or explicit
+deduplication decisions. Eighty-three core papers are representative sources
+cited directly by normalized records. Completed promotion reviews add
+nineteen unique paper-level links, bringing explicit normalized-record coverage
+to 102 without inserting every reviewed paper into default cards. Thirty-nine
+promotion decisions are recorded: sixteen new normalized records, twenty-two
 existing-record links, and one explicit no-promotion outcome. Inspect
 `dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
 `promotion-status` instead of inferring analysis depth from the 300-paper count.
 See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 88, 40,
-and 20 respectively. These are transparent improvement targets, not claims that
+structural samples, and 20 writing-behavior cases. Current progress is 102, 40,
+and 20 respectively, so the direct-link target is met while full-text sampling
+remains open. These are transparent improvement targets, not claims that
 the corpus is already complete. `coverage-gaps` ranks the next review candidates;
 reviewers may record `record_no_promotion` when a paper adds only redundant wording.
 

@@ -8,4 +8,4 @@ Entries: 1
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/locomotion_dexterity.md); it is not part of the default
 writing context.
 
-- [rapid online adaptation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.rapid-adaptation.001.md) — `emb.definition.rapid-adaptation.001` · definition · sections=abstract,introduction,related_work,method,translation · tags=RMA,online adaptation
+- [rapid online adaptation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.rapid-adaptation.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=RMA,online adaptation
