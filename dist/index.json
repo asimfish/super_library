@@ -13827,6 +13827,60 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.usage-note.rollout-horizon.001",
+        "rl.term.bootstrapped-target.001",
+        "rl.definition.offline-distribution-shift.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "wm.usage-note.rollout-horizon.001",
+        "rl.term.bootstrapped-target.001"
+      ],
+      "rationale": "The edge-of-reach diagnosis is contribution-specific; the reusable concepts, truncated model rollouts trading coverage against error and pathologies of bootstrapped targets at rollout boundaries, are covered by the rollout-horizon and bootstrapped-target records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "sims2024-edge-reach-problem-offline",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "vla.usage-note.control-latency.001",
+        "rl.definition.multi-task-rl.001",
+        "emb.definition.rapid-adaptation.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "vla.usage-note.control-latency.001",
+        "rl.definition.multi-task-rl.001"
+      ],
+      "rationale": "The modular dynamic-routing framework is method-specific; the reusable concepts, inference-latency limits governing embodied control and multi-task objectives across operational conditions, are covered by the control-latency and multi-task-RL records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "song2024-model-adaptation-time-constrained",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001"
+      ],
+      "rationale": "The Sinkhorn divergence choice and contraction analysis are contribution-specific; the reusable concepts, modeling return distributions and matching current to target distributions in Bellman updates, are covered by the distributional-RL and return-distribution records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "sun2024-distributional-reinforcement-learning-regularized",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.definition.active-perception.001",
@@ -13859,6 +13913,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "tan2025-scenediffuser-city-scale-traffic",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001",
+        "rl.definition.symbolic-policy.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "rationale": "Program synthesis with an optimism constraint is method-specific; the reusable concepts, an explicit world model consumed by a planner and the planning-versus-policy boundary, are covered by existing records, matching the treatment of the PDDL-based LLM world-model paper.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "tang2024-worldcoder-model-based-llm",
       "verification_scope": "official_abstract"
     },
     {
@@ -13915,6 +13987,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.meta-rl.001",
+        "rl.definition.return-conditioned-sequence.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.definition.meta-rl.001",
+        "rl.definition.return-conditioned-sequence.001"
+      ],
+      "rationale": "World-model disentanglement for task context is method-specific; the reusable concepts, offline meta-RL adaptation across a task distribution and return-conditioned sequence modeling, are covered by the meta-RL and return-conditioned-sequence records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2024-meta-dt-offline-meta",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.distributional-rl.001",
         "rl.term.return-distribution.001"
       ],
@@ -13927,6 +14017,42 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "wang2024-more-benefits-being-distributional",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.term.action-tokenization.001",
+        "emb.definition.embodied-language-model.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.term.action-tokenization.001"
+      ],
+      "rationale": "Unified interaction tokenization is architecture-specific; the reusable concepts, discretizing behavior into action tokens inside a multimodal language model that outputs control, are covered by the VLA and action-tokenization records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2024-omnijarvis-unified-vision-language",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "rl.term.sample-efficiency.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "rationale": "Sequence-parallel world-model training and eligibility-trace estimation are engineering contributions; the reusable concepts, model-based RL and its sample-efficiency claims, are covered by existing records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2024-parallelizing-model-based-reinforcement",
       "verification_scope": "official_abstract"
     },
     {
@@ -13984,6 +14110,24 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.definition.temporal-difference.001",
+        "rl.term.return-distribution.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "rationale": "Multivariate distributional dynamic programming and the signed-measure projection are theory contributions; the reusable concepts, distributional RL and temporal-difference learning, are covered by existing records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wiltzer2024-foundations-multivariate-distributional-reinforcement",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.definition.sim-to-real.001",
@@ -14020,6 +14164,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.mobile-manipulation.001",
+        "emb.term.affordance-grounding.001",
+        "emb.term.3d-scene-memory.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.mobile-manipulation.001",
+        "emb.term.affordance-grounding.001"
+      ],
+      "rationale": "Differentiable scene semantics and coarse-to-fine controls are method-specific; the reusable concepts, coordinated navigation-plus-interaction mobile manipulation and affordance grounding for planning, are covered by the mobile-manipulation and affordance-grounding records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "xu2024-disco-embodied-navigation-interaction",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "emb.definition.multimodal-perception.001",
         "emb.term.3d-scene-memory.001",
         "emb.definition.active-perception.001"
@@ -14051,6 +14213,78 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "xu2025-optimal-discriminator-weighted-imitation",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.ai-feedback.001",
+        "emb.usage-note.imitation-bc.001",
+        "emb.definition.embodied-language-model.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "rl.definition.ai-feedback.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "The parallel text-world training recipe is method-specific; the reusable concepts, corrective supervision distilled from a stronger pretrained model and imitation-based finetuning of an embodied agent, are covered by the AI-feedback and imitation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "yang2024-embodied-multi-modal-agent",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.usage-note.safe-robust.001",
+        "wm.definition.model-based-rl.001",
+        "rl.definition.offline-distribution-shift.001"
+      ],
+      "evidence_locator": "Official ICML abstract",
+      "linked_entry_ids": [
+        "rl.usage-note.safe-robust.001",
+        "wm.definition.model-based-rl.001"
+      ],
+      "rationale": "Corruption-robust optimistic MLE and its regret analysis are contribution-specific; the reusable concepts, robustness of performance under adversarial perturbations distinct from safety constraints and model-based RL, are covered by existing records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "ye2024-robust-model-based-reinforcement",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.control-latency.001",
+        "emb.definition.embodied-language-model.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "vla.usage-note.control-latency.001"
+      ],
+      "rationale": "Dynamic early-exit inference is method-specific; the reusable concepts, action-outputting multimodal language models and reporting inference latency and compute against robot platform limits, are covered by the VLA and control-latency records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "yue2024-deer-vla-dynamic-inference",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "general.term.inductive-bias.001",
+        "wm.usage-note.aleatoric-epistemic.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "general.term.inductive-bias.001"
+      ],
+      "rationale": "Projection ensembles are method-specific; the reusable concepts, distributional RL and the framing of representation and projection choices as inductive biases affecting generalization, are covered by the distributional-RL record and the inductive-bias term.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zanger2024-diverse-projection-ensembles-distributional",
       "verification_scope": "official_abstract"
     },
     {

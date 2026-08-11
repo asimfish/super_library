@@ -246,16 +246,16 @@ all twelve were subsequently reviewed—eight through their primary paper text
 and four through their official abstracts—for normalized definitions or explicit
 deduplication decisions. One hundred four core papers are representative sources
 cited directly by normalized records. Completed promotion reviews add
-seventy unique paper-level links, bringing explicit normalized-record coverage
-to 174 without inserting every reviewed paper into default cards. One hundred
-thirteen promotion decisions are recorded: thirty-two new normalized records,
-seventy-eight existing-record links, and three explicit no-promotion outcomes. Inspect
+eighty-three unique paper-level links, bringing explicit normalized-record coverage
+to 187 without inserting every reviewed paper into default cards. One hundred
+twenty-six promotion decisions are recorded: thirty-two new normalized records,
+ninety-one existing-record links, and three explicit no-promotion outcomes. Inspect
 `dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
 `promotion-status` instead of inferring analysis depth from the 300-paper count.
 See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 174, 80,
+structural samples, and 20 writing-behavior cases. Current progress is 187, 80,
 and 20 respectively, so every roadmap target is met, and all 80 sampled papers
 now carry reviewed normalized-record links. Meeting the targets is not
 a claim that the corpus is complete: newly sampled papers without normalized
