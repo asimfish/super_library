@@ -212,6 +212,7 @@
       "domain": "world_models",
       "section": "related_work",
       "intent": "position",
+      "guide_id": "related_work",
       "aliases": ["world model related work", "世界模型相关工作"],
       "entry_ids": [
         "general.sentence-pattern.position.001",
@@ -228,6 +229,7 @@
       "domain": "reinforcement_learning",
       "section": "related_work",
       "intent": "position",
+      "guide_id": "related_work",
       "aliases": ["RL related work", "强化学习相关工作"],
       "entry_ids": [
         "general.sentence-pattern.position.001",
@@ -244,6 +246,7 @@
       "domain": "embodied_ai",
       "section": "related_work",
       "intent": "position",
+      "guide_id": "related_work",
       "aliases": ["embodied related work", "具身智能相关工作"],
       "entry_ids": [
         "general.sentence-pattern.position.001",
@@ -260,6 +263,7 @@
       "domain": "vision_language_action",
       "section": "related_work",
       "intent": "position",
+      "guide_id": "related_work",
       "aliases": ["VLA related work", "视觉语言动作相关工作"],
       "entry_ids": [
         "general.sentence-pattern.position.001",
@@ -276,6 +280,7 @@
       "domain": "general",
       "section": "rebuttal",
       "intent": "respond",
+      "guide_id": "rebuttal",
       "aliases": ["reviewer rebuttal", "审稿回复"],
       "entry_ids": [
         "general.sentence-pattern.rebuttal-answer.001",
@@ -291,6 +296,7 @@
       "domain": "general",
       "section": "translation",
       "intent": "clarify",
+      "guide_id": "translation",
       "aliases": ["technical translation", "中英论文翻译"],
       "entry_ids": [
         "general.sentence-pattern.translation-preserve.001",

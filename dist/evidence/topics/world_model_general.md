@@ -2,7 +2,7 @@
 
 Navigation aid only. Open the linked primary paper before making a
 definition, historical statement, comparison, or Related Work claim.
-Return to the [topic catalog](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/topics/world_model_general.md).
+Return to the [topic catalog](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/world_model_general.md).
 
 Papers in the audited 2021–2025 collection: 14
 

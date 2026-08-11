@@ -1,6 +1,6 @@
 # Super Library card: rl.sentence-pattern.related-work-regime.001
 
-Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
+Corpus `0.4.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -22,6 +22,6 @@ A Related Work scaffold for avoiding comparisons between methods that solve mate
 - These methods share {objective}, but differ in their data regime ({regimes}), interaction budget ({budgets}), information structure ({information}), and optimization objective ({objectives}).
 
 Catalog routes:
-- [domain: reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/reinforcement_learning.md)
-- [section: related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/related_work.md)
-- [topic: rl_theory_evaluation](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/topics/rl_theory_evaluation.md)
+- [domain: reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/domains/reinforcement_learning.md)
+- [section: related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/related_work.md)
+- [topic: rl_theory_evaluation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/rl_theory_evaluation.md)

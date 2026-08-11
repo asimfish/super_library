@@ -1,6 +1,6 @@
 # Super Library protocol: Experimental analysis: evidence before interpretation
 
-`experiments.analysis` · `analysis_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/guides/index.md)
+`experiments.analysis` · `analysis_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
 evidence reporting; it does not supply scientific facts or results.
@@ -84,12 +84,12 @@ Use when: Failures are categorized qualitatively or quantitatively.
 
 ## Retrieve related sentence cards only as needed
 
-- [Our results suggest that {bounded interpretation}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.phrase.results-suggest.001.md) — `general.phrase.results-suggest.001`
-- [These results are consistent with the hypothesis that {mechanism}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.causal-caution.001.md) — `general.sentence-pattern.causal-caution.001`
-- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
-- [statistically significant versus substantial improvement](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.significant.001.md) — `general.usage-note.significant.001`
-- [replace vague effectiveness claims with the observed outcome](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.effectiveness.001.md) — `general.usage-note.effectiveness.001`
+- [Our results suggest that {bounded interpretation}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.results-suggest.001.md) — `general.phrase.results-suggest.001`
+- [These results are consistent with the hypothesis that {mechanism}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.causal-caution.001.md) — `general.sentence-pattern.causal-caution.001`
+- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
+- [statistically significant versus substantial improvement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.significant.001.md) — `general.usage-note.significant.001`
+- [replace vague effectiveness claims with the observed outcome](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.effectiveness.001.md) — `general.usage-note.effectiveness.001`
 
 Calibration and external-skill research are documented in the
-[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
+[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
 not stored.

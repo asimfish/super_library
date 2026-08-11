@@ -1,10 +1,10 @@
 # Super Library pack: embodied_ai
 
-Corpus `0.3.0` · snapshot `2026-07-30`.
+Corpus `0.4.0` · snapshot `2026-08-09`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) before using this exhaustive pack.
 
 ### 3D vision-language-action generative world model (paper-specific usage)
 
@@ -221,6 +221,28 @@ A language-model-based system that directly incorporates continuous or encoded s
 
 - `driess2023palme` — [PaLM-E: An Embodied Multimodal Language Model](https://proceedings.mlr.press/v202/driess23a.html) (ICML 2023)
 
+### embodied question answering (EQA)
+
+`emb.definition.embodied-question-answering.001` · definition · embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied-agent task in which a system uses observations acquired from an environment, through a provided observation history or active exploration, to answer natural-language questions about that environment.
+
+**Use:** Specify whether the agent receives episodic memory or explores actively, the observation modalities, question and answer format, environment split, exploration budget, memory access, and scoring protocol. For knowledge-based EQA, distinguish evidence observed in the environment from external knowledge used for reasoning.
+
+**Avoid:** Do not call static image question answering EQA when the system has no embodied observation history, exploration process, or environment-grounded evidence acquisition.
+
+**Patterns:**
+
+- The EQA agent explores {environment} for at most {budget} steps before producing a natural-language answer.
+- We evaluate episodic-memory and active-exploration EQA under {environment split and scoring protocol}.
+
+**Verify in primary sources:**
+
+- `tan2023-knowledge-based-embodied-question` — [Knowledge-Based Embodied Question Answering](https://doi.org/10.1109/tpami.2023.3277206) (TPAMI 2023)
+- `majumdar2024-openeqa-embodied-question-answering` — [OpenEQA: Embodied Question Answering in the Era of Foundation Models](https://openaccess.thecvf.com/content/CVPR2024/html/Majumdar_OpenEQA_Embodied_Question_Answering_in_the_Era_of_Foundation_Models_CVPR_2024_paper.html) (CVPR 2024)
+
 ### generalist robot policy
 
 `emb.definition.generalist-policy.001` · definition · robot_learning, embodied_ai · abstract, introduction, related_work, translation
@@ -372,6 +394,28 @@ Training or developing a model in simulation and deploying or adapting it to a p
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
+
+### topological memory for visual navigation
+
+`emb.definition.topological-memory.001` · definition · embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A graph-based spatial memory whose nodes represent selected observations, places, or landmarks and whose edges encode reachability, adjacency, or local navigational transitions for planning.
+
+**Use:** Specify how nodes are created and merged, what an edge means, how the agent localizes or retrieves in the graph, whether the memory is updated online, and whether unexplored or predicted locations are represented.
+
+**Avoid:** Do not call a dense occupancy grid or an arbitrary scene graph a topological memory unless nodes and edges support navigational connectivity or reachability.
+
+**Patterns:**
+
+- The agent incrementally builds a topological memory whose nodes store {observation features} and whose edges represent {reachability criterion}.
+- Planning queries the memory for a path from {localized node} to {goal node or frontier}.
+
+**Verify in primary sources:**
+
+- `cui2024-frontier-enhanced-topological-memory` — [Frontier-enhanced Topological Memory with Improved Exploration Awareness for Embodied Visual Navigation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8905_ECCV_2024_paper.php) (ECCV 2024)
+- `taniguchi2021-pose-invariant-topological-memory` — [Pose Invariant Topological Memory for Visual Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Taniguchi_Pose_Invariant_Topological_Memory_for_Visual_Navigation_ICCV_2021_paper.html) (ICCV 2021)
 
 ### visuomotor policy
 

@@ -1,6 +1,6 @@
 # Super Library card: rl.term.action-gap.001
 
-Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
+Corpus `0.4.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -26,7 +26,7 @@ The difference between the value of a preferred action and that of an alternativ
 - `wiltzer2024-action-gaps-advantages-continuous` — [Action Gaps and Advantages in Continuous-Time Distributional Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/55769e1208c7f45e9acc98f06279c10c-Abstract-Conference.html) (NeurIPS 2024)
 
 Catalog routes:
-- [domain: reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/reinforcement_learning.md)
-- [section: related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/related_work.md)
-- [section: method](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/method.md)
-- [topic: value_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/topics/value_learning.md)
+- [domain: reinforcement_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/domains/reinforcement_learning.md)
+- [section: related_work](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/related_work.md)
+- [section: method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/method.md)
+- [topic: value_learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/value_learning.md)

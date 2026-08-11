@@ -1,6 +1,6 @@
 # Super Library card: general.sentence-pattern.intro-nongoal.001
 
-Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
+Corpus `0.4.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -23,6 +23,6 @@ States an explicit boundary that prevents an overbroad reading of the contributi
 - Our analysis concerns {formal regime} and does not establish {broader guarantee}.
 
 Catalog routes:
-- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/general.md)
-- [section: introduction](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/introduction.md)
-- [section: limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/limitations.md)
+- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/domains/general.md)
+- [section: introduction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/introduction.md)
+- [section: limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/limitations.md)

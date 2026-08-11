@@ -1,6 +1,6 @@
 # Super Library protocol: Sensitivity, sweep, and scaling table
 
-`experiments.table.sensitivity` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/guides/index.md)
+`experiments.table.sensitivity` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
 evidence reporting; it does not supply scientific facts or results.
@@ -61,16 +61,16 @@ Use when: One ordered variable is varied.
 
 ## Reusable LaTeX asset
 
-- [Sensitivity, sweep, and scaling table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/sensitivity.tex) — `sensitivity.tex`; requires booktabs.
+- [Sensitivity, sweep, and scaling table](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/templates/tables/sensitivity.tex) — `sensitivity.tex`; requires booktabs.
 - Replace every `SL_*` token. Run the wording audit afterward;
   unresolved table tokens are reported as errors for manual repair.
 
 ## Retrieve related sentence cards only as needed
 
-- [Unless otherwise specified, we use {default configuration} in all experiments.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.reproducibility-default.001.md) — `general.sentence-pattern.reproducibility-default.001`
-- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
-- [These results are consistent with the hypothesis that {mechanism}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.causal-caution.001.md) — `general.sentence-pattern.causal-caution.001`
+- [Unless otherwise specified, we use {default configuration} in all experiments.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.reproducibility-default.001.md) — `general.sentence-pattern.reproducibility-default.001`
+- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
+- [These results are consistent with the hypothesis that {mechanism}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.causal-caution.001.md) — `general.sentence-pattern.causal-caution.001`
 
 Calibration and external-skill research are documented in the
-[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
+[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
 not stored.

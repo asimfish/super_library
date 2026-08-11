@@ -1,4 +1,4 @@
-.PHONY: validate build eval test check stats
+.PHONY: validate build eval eval-writing benchmark test check stats
 
 validate:
 	python3 scripts/superlib.py validate
@@ -12,7 +12,13 @@ test:
 eval:
 	python3 scripts/superlib.py eval-retrieval
 
-check: validate eval test build
+eval-writing:
+	python3 scripts/superlib.py eval-writing --list --format json >/dev/null
+
+benchmark:
+	python3 scripts/superlib.py benchmark list --format json >/dev/null
+
+check: validate eval eval-writing benchmark test build
 	git diff --exit-code -- dist \
 		skills/super-library/references/agent-index.md \
 		skills/super-library/references/core.md \

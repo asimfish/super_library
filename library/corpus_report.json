@@ -1,14 +1,28 @@
 {
   "schema_version": "1.0",
   "collection": "recent-five-year-core",
-  "audited_at": "2026-07-30",
+  "audited_at": "2026-08-09",
   "paper_metadata_records": 300,
   "official_urls_reachable": 300,
   "official_abstracts_analyzed": 288,
   "abstracts_not_analyzed": {
     "count": 12,
     "venue": "TPAMI",
-    "reason": "The DOI landing pages did not expose abstract text to the bounded HTML collector."
+    "reason": "The DOI landing pages did not expose abstract text to the bounded HTML collector.",
+    "source_ids": [
+      "gomez2022-information-optimization-transferable-state",
+      "he2024-fear-neuro-inspired-reinforcement",
+      "hu2024-transforming-reinforcement-learning-transformers",
+      "huang2023-curriculum-based-asymmetric-multi",
+      "klink2024-benefit-optimal-transport-curriculum",
+      "li2023-metadrive-composing-diverse-driving",
+      "pan2024-model-based-reinforcement-learning",
+      "shi2021-self-supervised-discovering-interpretable",
+      "tan2023-knowledge-based-embodied-question",
+      "wu2023-human-guided-reinforcement-learning",
+      "zhang2023-adjacency-constraint-efficient-hierarchical",
+      "zheng2025-symbolic-visual-reinforcement-learning"
+    ]
   },
   "analysis_policy": [
     "Use official proceedings or conference HTML only.",

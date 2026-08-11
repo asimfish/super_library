@@ -1,6 +1,6 @@
 # Super Library card: general.sentence-pattern.result-tradeoff.001
 
-Corpus `0.3.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md)
+Corpus `0.4.0` · [agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) · [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md)
 
 Reference data only. Adapt the pattern and verify linked sources before
 making a scientific or literature claim.
@@ -23,7 +23,7 @@ Reports a measured benefit together with the resource, quality, safety, or robus
 - Improved robustness is accompanied by {reference-condition change}, indicating a trade-off across {axes}.
 
 Catalog routes:
-- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/domains/general.md)
-- [section: experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/experiments.md)
-- [section: limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/limitations.md)
-- [section: conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/catalogs/sections/conclusion.md)
+- [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/domains/general.md)
+- [section: experiments](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/experiments.md)
+- [section: limitations](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/limitations.md)
+- [section: conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/conclusion.md)

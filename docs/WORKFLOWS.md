@@ -3,8 +3,8 @@
 ## Paper or related work
 
 1. Extract propositions, entities, comparison axes, and uncertainty from the notes.
-2. For Abstract, Introduction, or Experiments, use `route` to select exactly one
-   section protocol. Do not load all guides.
+2. For a structured section, rebuttal, translation, analysis, or table task, use
+   `route` to select exactly one protocol. Do not load all guides.
 3. Retrieve rhetorical moves by section and intent, then retrieve technical terms
    and definitions by domain and, when known, one topic family without a section
    filter.
@@ -22,12 +22,17 @@ core, one section catalog, one domain hub, one topic catalog, and only the
 selected cards. Open the topic's paper evidence map only when a literature claim
 requires primary-source verification.
 
-## Abstract, Introduction, and Experiments
+## Structured sections and experiments
 
 - Abstract: build the completed-paper claim ledger first, then select the
   empirical, resource, or theory template from `guide abstract`.
 - Introduction: align limitation → challenge → design → contribution → evidence;
   use functional moves instead of enforcing a paragraph count.
+- Related Work: verify primary papers, group them by a task-relevant comparison
+  axis, synthesize across families, and position the present work without ranking
+  incompatible settings.
+- Method: make formulation, component interfaces, objectives, gradient boundaries,
+  training, and inference independently traceable.
 - Experiments: build a claim–evidence matrix before prose. Use `guide experiments`
   for the full section, `guide experiments.analysis` for result paragraphs, or one
   `experiments.table.*` guide for a table task. Select exactly one domain overlay
@@ -36,6 +41,8 @@ requires primary-source verification.
 - Tables: use `template --list`, then copy one of `main_results`, `ablation`,
   `generalization`, `efficiency`, or `sensitivity`. Replace every `SL_*` token,
   keep metric direction and denominators explicit, and run `audit` before use.
+- Limitations and Conclusion: distinguish untested conditions, measured failures,
+  and supported findings; do not introduce a new claim while closing the paper.
 - Retrieve sentence cards after choosing the protocol. The protocol and cards
   solve different problems and should not be bulk-loaded together.
 
@@ -44,7 +51,8 @@ requires primary-source verification.
 1. Split each review into answerable concerns.
 2. Classify each as misunderstanding, missing evidence, limitation, presentation,
    or requested experiment.
-3. Retrieve `section=rebuttal` entries with `respond`, `clarify`, `acknowledge`,
+3. Select `guide rebuttal`, then retrieve `section=rebuttal` entries with
+   `respond`, `clarify`, `acknowledge`,
    or `scope`, then run a separate domain-only query for the technical concept.
 4. Lead with the direct answer, then evidence, then the concrete manuscript change.
 5. Do not claim a new experiment was run unless results are available.
@@ -52,7 +60,7 @@ requires primary-source verification.
 ## Chinese-to-English technical translation
 
 1. Recover the scientific proposition rather than Chinese word order.
-2. Lock terminology with `kind=term` records.
+2. Select `guide translation` and lock terminology with `kind=term` records.
 3. Retrieve patterns for the target section and intent.
 4. Reconstruct concise English, preserving modality (`may`, `can`, `is`) and
    comparison scope.

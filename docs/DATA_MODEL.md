@@ -56,12 +56,18 @@ The repository intentionally has no `quote` provenance type.
 - `dist/agent-index.md`: smallest link-only route table and loading contract.
 - `dist/core.md`: universal high-risk writing and evidence rules.
 - `dist/guides/index.md`: thin route table for section and table protocols.
-- `dist/guides/<guide-id>.md`: one bounded Abstract, Introduction, Experiments,
+- `dist/guides/<guide-id>.md`: one bounded section, rebuttal, translation,
   results-analysis, or table-construction protocol.
 - `dist/catalogs/sections/*.md`: thin rhetoric catalogs.
 - `dist/catalogs/domains/*.md`: small technical-domain hubs.
 - `dist/catalogs/topics/*.md`: bounded technical-concept catalogs.
 - `dist/evidence/topics/*.md`: on-demand maps from a topic to recent primary papers.
+- `dist/evidence/source-analysis.{md,jsonl}`: aggregate and per-paper analysis-depth
+  audit, excluded from default writing context.
+- `dist/evidence/promotion-decisions.{md,jsonl}`: completed review outcomes and
+  verified source locators, excluded from default writing context.
+- `dist/evidence/promotion-queue.{md,jsonl}`: bounded, scored maintainer queue for
+  normalization and deduplication review; never writing evidence.
 - `dist/cards/<domain>/<entry-id>.md`: one complete record per loadable card.
 - `dist/router.json` and `dist/catalog.jsonl`: machine-readable routing metadata.
 - `dist/index.json`: complete machine index for scripts; do not paste it into an
@@ -109,3 +115,22 @@ related card IDs. Guides never supply scientific facts.
 document-level observations for the 40-paper full-text calibration sample.
 Validation checks its source membership and domain, venue, and year counts. Raw
 PDF text and extracted sentences are not stored.
+
+## Writing evaluation and coverage policy
+
+`evals/writing.json` stores blind requests, supplied facts, an evidence boundary,
+routing expectations, deterministic regular-expression checks, and a separate
+manual rubric. `eval-writing --case <id>` does not expose the checks or rubric.
+A machine pass establishes only the declared objective invariants.
+
+`library/coverage_policy.json` stores roadmap goals, ranking weights, the generated
+queue bound, and allowed review outcomes. Goals do not make validation fail merely
+because they have not yet been reached. Queue generation consumes the per-paper
+analysis ledger and never changes canonical entries automatically.
+
+`library/promotion_decisions.jsonl` stores one completed review per core paper.
+Each record declares the primary-source verification scope and locator, one of
+three outcomes, the normalized entries linked by that outcome, and the entries
+checked during deduplication. Audit-only links contribute to explicit evidence
+coverage without mutating an entry's representative `source_ids`. A promoted new
+record must cite the reviewed source; a no-promotion outcome has no linked entry.

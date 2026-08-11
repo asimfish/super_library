@@ -1,10 +1,10 @@
 # Super Library pack: reinforcement_learning
 
-Corpus `0.3.0` · snapshot `2026-07-30`.
+Corpus `0.4.0` · snapshot `2026-08-09`.
 
 These are paraphrases, canonical terms, and original sentence patterns.
 Verify technical claims in the linked primary sources before citing them.
-Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/core.md) before using this exhaustive pack.
+Read the [selective agent index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/agent-index.md) and [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) before using this exhaustive pack.
 
 ### actor–critic method
 
@@ -49,6 +49,29 @@ The difference between the action value and the state value under a policy, meas
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
+### average-reward reinforcement learning
+
+`rl.definition.average-reward-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A continuing-task reinforcement-learning formulation that evaluates a policy by its long-run reward per time step rather than by a finite-horizon or geometrically discounted return.
+
+**Use:** State the limiting-average convention and assumptions such as ergodicity or unichain structure. Distinguish average reward from the differential value or bias function used for policy evaluation and optimization.
+
+**Avoid:** Do not use average-reward RL to mean the arithmetic mean of episodic returns across evaluation runs.
+
+**Patterns:**
+
+- We optimize the long-run average reward under {ergodicity or unichain assumptions}.
+- Unlike discounted RL, the average-reward objective evaluates continuing behavior without a geometric discount factor.
+
+**Verify in primary sources:**
+
+- `ganesh2025-sharper-global-convergence-analysis` — [A Sharper Global Convergence Analysis for Average Reward Reinforcement Learning via an Actor-Critic Approach](https://proceedings.mlr.press/v267/ganesh25b.html) (ICML 2025)
+- `suttle2023-beyond-exponentially-fast-mixing` — [Beyond Exponentially Fast Mixing in Average-Reward Reinforcement Learning via Multi-Level Monte Carlo Actor-Critic](https://proceedings.mlr.press/v202/suttle23a.html) (ICML 2023)
+- `hairi2022-finite-time-convergence-sample` — [Finite-Time Convergence and Sample Complexity of Multi-Agent Actor-Critic Reinforcement Learning with Average Reward](https://iclr.cc/virtual/2022/poster/6851) (ICLR 2022)
 
 ### conservative Q-function learning
 
@@ -112,6 +135,51 @@ The problem of determining how individual agents' actions contribute to a shared
 **Verify in primary sources:**
 
 - `foerster2018coma` — [Counterfactual Multi-Agent Policy Gradients](https://ojs.aaai.org/index.php/AAAI/article/view/11794) (AAAI 2018)
+
+### curriculum reinforcement learning (CRL)
+
+`rl.definition.curriculum-reinforcement-learning.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A reinforcement-learning training paradigm that selects or adapts a sequence of tasks or task distributions so that an agent learns on intermediate conditions before or while progressing toward a target task distribution.
+
+**Use:** Specify the task or context space, what the curriculum changes, how tasks are selected or ordered, the pacing or adaptation signal, the target distribution, and whether evaluation uses a fixed held-out distribution. Difficulty need not be a single scalar or increase monotonically.
+
+**Avoid:** Do not label ordinary shuffling, a fixed benchmark suite, or goal conditioning alone as curriculum reinforcement learning; identify the mechanism that changes the training-task distribution over learning.
+
+**Patterns:**
+
+- The curriculum updates the training-task distribution from {initial distribution} toward {target distribution} according to {progress signal}.
+- At iteration {i}, the agent trains on tasks sampled from {p_i(c)}, while evaluation remains fixed on {target distribution}.
+
+**Verify in primary sources:**
+
+- `klink2024-benefit-optimal-transport-curriculum` — [On the Benefit of Optimal Transport for Curriculum Reinforcement Learning](https://doi.org/10.1109/tpami.2024.3390051) (TPAMI 2024)
+- `cho2023-outcome-directed-reinforcement-learning` — [Outcome-directed Reinforcement Learning by Uncertainty \& Temporal Distance-Aware Curriculum Goal Generation](https://iclr.cc/virtual/2023/poster/11888) (ICLR 2023)
+- `ao2021-co-pilot-collaborative-planning` — [CO-PILOT: COllaborative Planning and reInforcement Learning On sub-Task curriculum](https://proceedings.neurips.cc/paper_files/paper/2021/hash/56577889b3c1cd083b6d7b32d32f99d5-Abstract.html) (NeurIPS 2021)
+
+### diffusion-based trajectory planning / diffusion planning
+
+`rl.definition.diffusion-planning.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A decision-making approach that represents trajectories or related planning variables with a diffusion generative model and produces a plan through conditioned or guided iterative denoising.
+
+**Use:** State which states and actions are denoised, the trajectory horizon, conditioning or guidance objective, number of denoising steps, how a plan is selected, and which portion is executed before replanning. Report inference cost separately from task quality.
+
+**Avoid:** Do not conflate trajectory-level diffusion planning with a diffusion policy that predicts only actions conditioned on observations, and do not imply real-time execution without a measured latency protocol.
+
+**Patterns:**
+
+- The diffusion planner iteratively denoises length-{H} state–action trajectories conditioned on {return, goal, or constraint}.
+- At each decision point, we sample {number} trajectories, execute {portion}, and replan after {feedback event}.
+
+**Verify in primary sources:**
+
+- `janner2022-planning-diffusion-flexible-behavior` — [Planning with Diffusion for Flexible Behavior Synthesis](https://proceedings.mlr.press/v162/janner22a.html) (ICML 2022)
+- `huang2024-diffusion-models-optimizers-efficient` — [Diffusion Models as Optimizers for Efficient Planning in Offline RL](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6735_ECCV_2024_paper.php) (ECCV 2024)
 
 ### distributional reinforcement learning
 
@@ -391,6 +459,49 @@ The learning of a diverse set of temporally extended behaviors without task-spec
 **Verify in primary sources:**
 
 - `chalumeau2023-neuroevolution-competitive-alternative-reinforcement` — [Neuroevolution is a Competitive Alternative to Reinforcement Learning for Skill Discovery](https://iclr.cc/virtual/2023/poster/10722) (ICLR 2023)
+
+### state–action occupancy measure
+
+`rl.definition.state-action-occupancy-measure.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A measure of how frequently a policy visits each state–action pair under the environment dynamics, with the precise weighting determined by a discounted, finite-horizon, or stationary formulation.
+
+**Use:** State the horizon or discounting convention, normalization, initial-state distribution, and whether the measure is stationary. Use it to make a policy objective or coverage assumption explicit.
+
+**Avoid:** Do not confuse a policy occupancy measure with a spatial occupancy map or an occupancy-prediction world model.
+
+**Patterns:**
+
+- We express the objective as a utility of the discounted state–action occupancy measure induced by $\pi$.
+- The constraint is defined over the stationary occupancy measure under {ergodicity assumptions}.
+
+**Verify in primary sources:**
+
+- `barakat2025-global-optimality-policy-gradient` — [On the Global Optimality of Policy Gradient Methods in General Utility Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/72411ab2fd50c0d1f1a4489896d96489-Abstract-Conference.html) (NeurIPS 2025)
+
+### symbolic policy
+
+`rl.definition.symbolic-policy.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A control policy represented by an explicit symbolic expression, program, or rule structure that maps a specified state or feature representation to actions.
+
+**Use:** State the symbol vocabulary or grammar, input representation, search or optimization procedure, action-space support, expression complexity, and whether the policy is learned directly or distilled from a neural policy. Evaluate comprehensibility separately from task return.
+
+**Avoid:** Do not claim that a policy is interpretable merely because it contains symbols, and do not call a neural policy symbolic when only an auxiliary explanation or latent representation is symbolic.
+
+**Patterns:**
+
+- The symbolic policy maps {structured state features} to {actions} through an expression drawn from {grammar or primitive set}.
+- We report task return together with expression length and fidelity to {teacher policy, if applicable}.
+
+**Verify in primary sources:**
+
+- `landajuela2021-discovering-symbolic-policies` — [Discovering Symbolic Policies With Deep Reinforcement Learning](https://proceedings.mlr.press/v139/landajuela21a.html) (ICML 2021)
+- `zheng2025-symbolic-visual-reinforcement-learning` — [Symbolic Visual Reinforcement Learning: A Scalable Framework With Object-Level Abstraction and Differentiable Expression Search](https://doi.org/10.1109/tpami.2024.3469053) (TPAMI 2025)
 
 ### temporal-difference (TD) learning
 

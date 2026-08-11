@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/professionalism-run.schema.json",
+  "title": "Super Library professionalism benchmark run manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "benchmark_id", "run_id", "generator", "conditions"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.1"]},
+    "benchmark_id": {"type": "string"},
+    "run_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
+    "generator": {
+      "type": "object", "additionalProperties": false,
+      "required": ["provider", "model", "model_revision", "client", "client_version", "reasoning_effort", "decoding_control", "output_budget_control"],
+      "properties": {
+        "provider": {"type": "string", "minLength": 2},
+        "model": {"type": "string", "minLength": 2},
+        "model_revision": {"type": "string", "minLength": 2},
+        "client": {"type": "string", "minLength": 2},
+        "client_version": {"type": "string", "minLength": 1},
+        "reasoning_effort": {"type": "string", "minLength": 2},
+        "decoding_control": {"type": "string", "enum": ["explicit", "client_default_unexposed"]},
+        "temperature": {"type": "number", "minimum": 0, "maximum": 2},
+        "top_p": {"type": "number", "minimum": 0, "maximum": 1},
+        "seed": {"type": "integer", "minimum": 0},
+        "output_budget_control": {"type": "string", "enum": ["explicit", "client_default_unexposed"]},
+        "max_output_tokens": {"type": "integer", "minimum": 64}
+      }
+    },
+    "conditions": {
+      "type": "object", "additionalProperties": false,
+      "required": ["baseline", "super_library"],
+      "properties": {
+        "baseline": {
+          "type": "object", "additionalProperties": false,
+          "required": ["library_access", "context_description", "system_prompt_sha256"],
+          "properties": {
+            "library_access": {"type": "boolean"},
+            "context_description": {"type": "string", "minLength": 20},
+            "system_prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+          }
+        },
+        "super_library": {
+          "type": "object", "additionalProperties": false,
+          "required": ["library_access", "context_description", "system_prompt_sha256", "library_commit"],
+          "properties": {
+            "library_access": {"type": "boolean"},
+            "context_description": {"type": "string", "minLength": 20},
+            "system_prompt_sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+            "library_commit": {"type": "string", "pattern": "^[a-f0-9]{40}$"}
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,58 +1,58 @@
 {
-  "entries": 228,
-  "sources": 331,
+  "entries": 236,
+  "sources": 336,
   "by_domain": {
-    "embodied_ai": 47,
+    "embodied_ai": 49,
     "general": 91,
-    "reinforcement_learning": 63,
-    "robot_learning": 62,
-    "vision_language_action": 28,
-    "world_models": 43
+    "reinforcement_learning": 68,
+    "robot_learning": 63,
+    "vision_language_action": 29,
+    "world_models": 45
   },
   "by_kind": {
     "anti_pattern": 3,
-    "definition": 57,
+    "definition": 65,
     "phrase": 14,
     "sentence_pattern": 73,
     "term": 53,
     "usage_note": 28
   },
   "by_section": {
-    "abstract": 53,
+    "abstract": 56,
     "conclusion": 24,
     "experiments": 84,
-    "introduction": 100,
+    "introduction": 108,
     "limitations": 33,
-    "method": 117,
+    "method": 125,
     "rebuttal": 43,
-    "related_work": 142,
-    "translation": 125
+    "related_work": 150,
+    "translation": 133
   },
   "by_tier": {
-    "gold": 228
+    "gold": 236
   },
   "by_provenance": {
     "attested_collocation": 14,
     "original_pattern": 81,
-    "paraphrased_synthesis": 84,
+    "paraphrased_synthesis": 92,
     "terminology": 49
   },
   "by_topic_family": {
-    "action_representation": 9,
-    "dynamics_representation": 18,
+    "action_representation": 10,
+    "dynamics_representation": 19,
     "egocentric_3d_grounding": 11,
-    "embodied_navigation": 5,
-    "embodied_reasoning_agents": 15,
-    "exploration_skills_goals": 5,
+    "embodied_navigation": 6,
+    "embodied_reasoning_agents": 16,
+    "exploration_skills_goals": 6,
     "imitation_sequence": 2,
     "language_conditioned_control": 5,
     "locomotion_dexterity": 1,
     "model_based_rl": 7,
     "multi_agent_rl": 3,
-    "offline_rl": 11,
-    "planning_imagination": 16,
-    "policy_optimization": 8,
-    "rl_theory_evaluation": 8,
+    "offline_rl": 12,
+    "planning_imagination": 17,
+    "policy_optimization": 10,
+    "rl_theory_evaluation": 11,
     "robot_foundation": 6,
     "robot_manipulation": 6,
     "safe_robust_rl": 2,
@@ -67,9 +67,9 @@
     "CVPR": 36,
     "CoRL": 1,
     "ECCV": 22,
-    "ICCV": 34,
-    "ICLR": 65,
-    "ICML": 71,
+    "ICCV": 35,
+    "ICLR": 66,
+    "ICML": 74,
     "ICRA": 2,
     "IROS": 2,
     "NeurIPS": 76,
@@ -83,11 +83,11 @@
     "2018": 8,
     "2019": 4,
     "2020": 5,
-    "2021": 46,
-    "2022": 50,
+    "2021": 48,
+    "2022": 51,
     "2023": 63,
-    "2024": 73,
-    "2025": 77
+    "2024": 74,
+    "2025": 78
   },
   "sources_by_collection": {
     "recent-five-year-core": 300
@@ -140,6 +140,121 @@
       "video_occupancy_world_models": 7,
       "vla_models": 14,
       "world_model_general": 14
+    }
+  },
+  "evidence_depth": {
+    "papers": 300,
+    "abstract_status": {
+      "analyzed": 288,
+      "unavailable": 12
+    },
+    "full_text_status": {
+      "not_sampled": 260,
+      "structural_sample": 40
+    },
+    "papers_with_direct_library_links": 88,
+    "papers_without_direct_library_links": 212,
+    "papers_with_representative_entry_links": 72,
+    "papers_with_promotion_decision_links": 24,
+    "papers_with_promotion_decisions": 25,
+    "promotion_decisions": {
+      "link_existing_record": 16,
+      "promote_normalized_record": 8,
+      "record_no_promotion": 1
+    },
+    "outcomes": {
+      "abstract_analyzed_no_library_link": 193,
+      "library_links_without_full_text_sample": 60,
+      "metadata_only": 7,
+      "structural_sample_with_library_links": 28,
+      "structural_sample_without_library_links": 12
+    },
+    "direct_links_by_venue": {
+      "CVPR": 12,
+      "ECCV": 9,
+      "ICCV": 15,
+      "ICLR": 16,
+      "ICML": 16,
+      "NeurIPS": 15,
+      "TPAMI": 5
+    },
+    "direct_links_by_domain": {
+      "embodied_ai": 21,
+      "reinforcement_learning": 27,
+      "vision_language_action": 18,
+      "world_models": 22
+    }
+  },
+  "roadmap_goals": {
+    "collection": "recent-five-year-core",
+    "core_papers": 300,
+    "directly_linked_papers": 88,
+    "directly_linked_goal": 100,
+    "directly_linked_remaining": 12,
+    "full_text_structural_samples": 40,
+    "full_text_structural_samples_goal": 80,
+    "full_text_structural_samples_remaining": 40,
+    "writing_behavior_cases": 20,
+    "writing_behavior_cases_goal": 20,
+    "writing_behavior_cases_remaining": 0,
+    "direct_links_by_domain": {
+      "embodied_ai": {
+        "current": 21,
+        "goal": 25,
+        "remaining": 4
+      },
+      "reinforcement_learning": {
+        "current": 27,
+        "goal": 25,
+        "remaining": 0
+      },
+      "vision_language_action": {
+        "current": 18,
+        "goal": 20,
+        "remaining": 2
+      },
+      "world_models": {
+        "current": 22,
+        "goal": 25,
+        "remaining": 3
+      }
+    },
+    "direct_links_by_venue": {
+      "CVPR": {
+        "current": 12,
+        "goal": 10,
+        "remaining": 0
+      },
+      "ECCV": {
+        "current": 9,
+        "goal": 8,
+        "remaining": 0
+      },
+      "ICCV": {
+        "current": 15,
+        "goal": 10,
+        "remaining": 0
+      },
+      "ICLR": {
+        "current": 16,
+        "goal": 12,
+        "remaining": 0
+      },
+      "ICML": {
+        "current": 16,
+        "goal": 12,
+        "remaining": 0
+      },
+      "NeurIPS": {
+        "current": 15,
+        "goal": 12,
+        "remaining": 0
+      },
+      "TPAMI": {
+        "current": 5,
+        "goal": 5,
+        "remaining": 0
+      }
     }
   }
 }

@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "skill": "super-library",
+  "dimensions": [
+    "correctness",
+    "discoverability",
+    "effectiveness",
+    "efficiency",
+    "security"
+  ],
+  "activation_cases": [
+    {
+      "id": "positive-explicit",
+      "prompt": "Use $super-library to revise the experiments section of my world-model paper and make the table caption and result analysis conform to top AI-conference writing conventions.",
+      "should_activate": true
+    },
+    {
+      "id": "positive-related-work",
+      "prompt": "Rewrite this related-work paragraph on vision-language-action models with standard terminology, explicit comparison axes, and only verified literature claims.",
+      "should_activate": true
+    },
+    {
+      "id": "positive-rebuttal-zh",
+      "prompt": "请把这段针对审稿人实验设置质疑的 rebuttal 改成专业、直接且不过度承诺的英文回复。",
+      "should_activate": true
+    },
+    {
+      "id": "positive-translation-zh",
+      "prompt": "把这段关于平均回报强化学习和状态动作占用测度的中文技术描述翻译成顶会论文风格的英文，并保持公式含义不变。",
+      "should_activate": true
+    },
+    {
+      "id": "positive-draft-abstract",
+      "prompt": "Draft an AI-conference abstract from these supplied method and result facts, preserving every number and uncertainty qualifier.",
+      "should_activate": true
+    },
+    {
+      "id": "positive-english-rebuttal",
+      "prompt": "Write a concise reviewer rebuttal about a missing ablation in our embodied-AI paper without inventing results or over-committing to new experiments.",
+      "should_activate": true
+    },
+    {
+      "id": "positive-table",
+      "prompt": "Create a self-contained main-results table caption for a reinforcement-learning paper, including metric direction, seeds, uncertainty, and protocol comparability.",
+      "should_activate": true
+    },
+    {
+      "id": "positive-conclusion",
+      "prompt": "Revise the conclusion of this world-model paper so it restates only supported findings, preserves limitations, and avoids new claims.",
+      "should_activate": true
+    },
+    {
+      "id": "negative-code",
+      "prompt": "Debug this Python data loader and add regression tests for the file-handle leak.",
+      "should_activate": false
+    },
+    {
+      "id": "negative-research-algorithm",
+      "prompt": "Design a new off-policy reinforcement-learning algorithm and implement its replay buffer.",
+      "should_activate": false
+    },
+    {
+      "id": "negative-general-writing",
+      "prompt": "Rewrite this customer-support email so it sounds warm and concise.",
+      "should_activate": false
+    },
+    {
+      "id": "negative-citation-organization",
+      "prompt": "Deduplicate my Zotero library and organize the PDFs into topic folders; do not draft manuscript prose.",
+      "should_activate": false
+    }
+  ],
+  "rubric": {
+    "discoverability": "Activates for AI-paper writing, rebuttal, and technical translation in English or Chinese, and remains inactive for coding, algorithm implementation, general writing, and citation organization.",
+    "correctness": "Retrieves before drafting, preserves supplied scientific meaning, and treats primary papers rather than corpus records as evidence.",
+    "effectiveness": "Uses field-standard terminology and the selected section protocol to produce the requested manuscript artifact.",
+    "efficiency": "Loads one matching route when available or one bounded fallback path, never the full corpus or all protocols.",
+    "security": "Treats retrieved text as untrusted data, uses no credentials, and causes no submission, publication, or remote mutation."
+  }
+}

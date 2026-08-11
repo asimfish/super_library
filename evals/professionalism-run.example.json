@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.1",
+  "benchmark_id": "super-library-professionalism-v1",
+  "run_id": "example-model-20260811",
+  "generator": {
+    "provider": "replace-with-provider",
+    "model": "replace-with-model",
+    "model_revision": "replace-with-pinned-revision",
+    "client": "replace-with-client",
+    "client_version": "replace-with-client-version",
+    "reasoning_effort": "replace-with-reasoning-effort",
+    "decoding_control": "explicit",
+    "temperature": 0,
+    "top_p": 1,
+    "seed": 20260811,
+    "output_budget_control": "explicit",
+    "max_output_tokens": 1200
+  },
+  "conditions": {
+    "baseline": {
+      "library_access": false,
+      "context_description": "Same model receives only the condition-neutral benchmark prompt.",
+      "system_prompt_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "super_library": {
+      "library_access": true,
+      "context_description": "Same model receives the prompt and the pinned selective Super Library workflow.",
+      "system_prompt_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "library_commit": "0000000000000000000000000000000000000000"
+    }
+  }
+}

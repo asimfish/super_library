@@ -6,7 +6,8 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["wm.term.latent-dynamics.001"]
+    "expected_entry_ids": ["wm.term.latent-dynamics.001"],
+    "expected_guide_id": "method"
   },
   {
     "id": "wm-probabilistic-dynamics",
@@ -15,7 +16,8 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["wm.definition.probabilistic-dynamics.001"]
+    "expected_entry_ids": ["wm.definition.probabilistic-dynamics.001"],
+    "expected_guide_id": "method"
   },
   {
     "id": "wm-rollout-horizon",
@@ -36,6 +38,7 @@
     "intent": "compare",
     "limit": 6,
     "expected_entry_ids": ["wm.usage-note.planning-vs-policy.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.world_models"
   },
   {
@@ -45,7 +48,8 @@
     "section": "limitations",
     "intent": "limit",
     "limit": 6,
-    "expected_entry_ids": ["wm.term.compounding-model-error.001"]
+    "expected_entry_ids": ["wm.term.compounding-model-error.001"],
+    "expected_guide_id": "limitations"
   },
   {
     "id": "rl-offline-definition",
@@ -55,6 +59,7 @@
     "intent": "define",
     "limit": 6,
     "expected_entry_ids": ["rl.definition.offline-rl.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.reinforcement_learning"
   },
   {
@@ -75,6 +80,7 @@
     "intent": "compare",
     "limit": 6,
     "expected_entry_ids": ["rl.usage-note.on-off-policy.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.reinforcement_learning"
   },
   {
@@ -84,7 +90,8 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["rl.definition.advantage-function.001"]
+    "expected_entry_ids": ["rl.definition.advantage-function.001"],
+    "expected_guide_id": "method"
   },
   {
     "id": "rl-dataset-coverage",
@@ -104,7 +111,8 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["emb.definition.action-chunking.001"]
+    "expected_entry_ids": ["emb.definition.action-chunking.001"],
+    "expected_guide_id": "method"
   },
   {
     "id": "emb-task-success-rate",
@@ -146,6 +154,7 @@
     "intent": "define",
     "limit": 6,
     "expected_entry_ids": ["emb.definition.vla.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
   },
   {
@@ -165,7 +174,8 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["vla.term.action-vocabulary.001"]
+    "expected_entry_ids": ["vla.term.action-vocabulary.001"],
+    "expected_guide_id": "method"
   },
   {
     "id": "vla-open-closed-loop",
@@ -186,6 +196,7 @@
     "intent": "compare",
     "limit": 6,
     "expected_entry_ids": ["vla.usage-note.pretrain-finetune.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
   },
   {
@@ -199,6 +210,7 @@
       "general.sentence-pattern.rebuttal-answer.001",
       "general.sentence-pattern.rebuttal-evidence.001"
     ],
+    "expected_guide_id": "rebuttal",
     "expected_task_pack_id": "rebuttal.general"
   },
   {
@@ -209,6 +221,7 @@
     "intent": "clarify",
     "limit": 6,
     "expected_entry_ids": ["general.usage-note.significant.001"],
+    "expected_guide_id": "rebuttal",
     "expected_task_pack_id": "rebuttal.general"
   },
   {
@@ -272,6 +285,7 @@
     "intent": "clarify",
     "limit": 6,
     "expected_entry_ids": ["general.usage-note.modality.001"],
+    "expected_guide_id": "translation",
     "expected_task_pack_id": "translation.general"
   },
   {
@@ -282,6 +296,38 @@
     "intent": "position",
     "limit": 6,
     "expected_entry_ids": ["general.sentence-pattern.position.001"],
+    "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
+  },
+  {
+    "id": "experiment-mixed-real-robot-zh",
+    "query": "真实机器人实验设置与结果分析",
+    "domain": "embodied_ai",
+    "section": "experiments",
+    "intent": "evidence",
+    "limit": 6,
+    "expected_entry_ids": ["emb.term.task-success-rate.001"],
+    "expected_guide_id": "experiments",
+    "expected_task_pack_id": "experiments.embodied_ai"
+  },
+  {
+    "id": "experiment-main-results-with-latency",
+    "query": "main results table caption with success rate and A100 latency",
+    "domain": "world_models",
+    "section": "experiments",
+    "intent": "quantify",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.caption-main-results.001"],
+    "expected_guide_id": "experiments.table.main_results"
+  },
+  {
+    "id": "conclusion-bounded-claim",
+    "query": "conclude with the supported scope and trade-off",
+    "domain": "general",
+    "section": "conclusion",
+    "intent": "scope",
+    "limit": 6,
+    "expected_entry_ids": ["general.sentence-pattern.result-boundary.001"],
+    "expected_guide_id": "conclusion"
   }
 ]

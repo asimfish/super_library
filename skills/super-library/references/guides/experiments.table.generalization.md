@@ -1,6 +1,6 @@
 # Super Library protocol: Generalization and robustness table
 
-`experiments.table.generalization` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/guides/index.md)
+`experiments.table.generalization` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
 evidence reporting; it does not supply scientific facts or results.
@@ -59,16 +59,16 @@ Use when: Methods are compared across seen and one or more unseen conditions.
 
 ## Reusable LaTeX asset
 
-- [Generalization and robustness table](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/templates/tables/generalization.tex) — `generalization.tex`; requires booktabs.
+- [Generalization and robustness table](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/templates/tables/generalization.tex) — `generalization.tex`; requires booktabs.
 - Replace every `SL_*` token. Run the wording audit afterward;
   unresolved table tokens are reported as errors for manual repair.
 
 ## Retrieve related sentence cards only as needed
 
-- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — `general.usage-note.generalization-axis.001`
-- [Under {evaluated setting}, {method} consistently {measured outcome}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.scope.001.md) — `general.sentence-pattern.scope.001`
-- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — `general.usage-note.generalization-axis.001`
+- [Under {evaluated setting}, {method} consistently {measured outcome}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.scope.001.md) — `general.sentence-pattern.scope.001`
+- [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — `general.sentence-pattern.quantify.001`
 
 Calibration and external-skill research are documented in the
-[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.3.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
+[writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
 not stored.

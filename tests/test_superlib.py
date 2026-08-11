@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 from scripts import superlib
+from scripts import source_health
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,6 +24,33 @@ def run_cli(*args):
         capture_output=True,
         check=False,
     )
+
+
+def valid_professionalism_manifest():
+    manifest = json.loads(
+        (ROOT / "evals" / "professionalism-run.example.json").read_text()
+    )
+    manifest["run_id"] = "fixture-model-20260811"
+    manifest["generator"].update(
+        {
+            "provider": "fixture-provider",
+            "model": "fixture-model",
+            "model_revision": "fixture-revision-20260811",
+            "client": "fixture-client",
+            "client_version": "1.0",
+            "reasoning_effort": "medium",
+        }
+    )
+    manifest["conditions"]["baseline"]["system_prompt_sha256"] = hashlib.sha256(
+        b"baseline-system-prompt"
+    ).hexdigest()
+    manifest["conditions"]["super_library"]["system_prompt_sha256"] = hashlib.sha256(
+        b"super-library-system-prompt"
+    ).hexdigest()
+    manifest["conditions"]["super_library"]["library_commit"] = (
+        "0123456789abcdef0123456789abcdef01234567"
+    )
+    return manifest
 
 
 class SuperLibraryCliTests(unittest.TestCase):
@@ -272,6 +300,10 @@ class SuperLibraryCliTests(unittest.TestCase):
             ROOT / "dist" / "super-library-compact.md",
             ROOT / "dist" / "index.json",
             ROOT / "dist" / "stats.json",
+            ROOT / "dist" / "evidence" / "source-analysis.md",
+            ROOT / "dist" / "evidence" / "source-analysis.jsonl",
+            ROOT / "dist" / "evidence" / "promotion-queue.md",
+            ROOT / "dist" / "evidence" / "promotion-queue.jsonl",
             ROOT / "dist" / "manifest.json",
             ROOT / "dist" / "packs" / "world_models.md",
             ROOT / "dist" / "packs" / "reinforcement_learning.md",
@@ -303,13 +335,51 @@ class SuperLibraryCliTests(unittest.TestCase):
         after = [path.read_bytes() for path in paths]
         self.assertEqual(before, after)
 
+    def test_generated_tree_pruning_preserves_expected_files(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            generated = Path(temp_dir) / "generated"
+            (generated / "child").mkdir(parents=True)
+            expected = generated / "child" / "artifact.txt"
+            stale = generated / "child" / "artifact 2.txt"
+            expected.write_text("generated")
+            stale.write_text("cloud conflict")
+            superlib.prune_generated_tree(generated, {"child/artifact.txt"})
+            self.assertEqual(expected.read_text(), "generated")
+            self.assertFalse(stale.exists())
+            self.assertTrue(generated.exists())
+
     def test_manifest_hashes_and_skill_snapshot(self):
         result = run_cli("build")
         self.assertEqual(result.returncode, 0, result.stderr)
         manifest = json.loads((ROOT / "dist" / "manifest.json").read_text())
-        self.assertEqual(manifest["corpus_version"], "0.3.0")
-        self.assertEqual(manifest["release_tag"], "v0.3.0")
+        self.assertEqual(manifest["corpus_version"], "0.4.0")
+        self.assertEqual(manifest["release_tag"], "v0.4.0")
         self.assertEqual(manifest["data_license"], "CC0-1.0")
+        router = json.loads((ROOT / "dist" / "router.json").read_text())
+        self.assertEqual(
+            router["evidence"]["source_analysis_records"],
+            "evidence/source-analysis.jsonl",
+        )
+        self.assertEqual(
+            manifest["source_analysis"]["records"],
+            "evidence/source-analysis.jsonl",
+        )
+        self.assertEqual(
+            router["evidence"]["promotion_decisions_records"],
+            "evidence/promotion-decisions.jsonl",
+        )
+        self.assertEqual(
+            manifest["promotion_decisions"]["records"],
+            "evidence/promotion-decisions.jsonl",
+        )
+        self.assertEqual(
+            router["evidence"]["promotion_queue_records"],
+            "evidence/promotion-queue.jsonl",
+        )
+        self.assertEqual(
+            manifest["promotion_queue"]["records"],
+            "evidence/promotion-queue.jsonl",
+        )
         for relative_path, expected in manifest["sha256"].items():
             actual = hashlib.sha256(
                 (ROOT / "dist" / relative_path).read_bytes()
@@ -366,7 +436,7 @@ class SuperLibraryCliTests(unittest.TestCase):
             for path in (ROOT / "dist" / "guides").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(guides), 10)
+        self.assertEqual(len(guides), 16)
         self.assertLess(max(path.stat().st_size for path in guides), 12_000)
         routes = [
             path
@@ -443,6 +513,24 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         self.assertIsNone(payload["load_order"]["task_pack"])
 
+    def test_explicit_main_results_table_outranks_secondary_latency_signal(self):
+        result = run_cli(
+            "route",
+            "main results table caption with success rate and A100 latency",
+            "--domain",
+            "world_models",
+            "--section",
+            "experiments",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(
+            payload["load_order"]["guide"]["id"],
+            "experiments.table.main_results",
+        )
+
     def test_route_prefers_one_file_task_pack_for_common_task(self):
         result = run_cli(
             "route",
@@ -459,6 +547,46 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(
             payload["load_order"]["task_pack"]["id"],
             "experiments.world_models",
+        )
+
+    def test_mixed_real_robot_experiment_routes_to_complete_protocol(self):
+        result = run_cli(
+            "route",
+            "真实机器人实验设置与结果分析",
+            "--domain",
+            "embodied_ai",
+            "--section",
+            "experiments",
+            "--intent",
+            "evidence",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["load_order"]["guide"]["id"], "experiments")
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "experiments.embodied_ai",
+        )
+
+    def test_related_work_route_embeds_related_work_protocol(self):
+        result = run_cli(
+            "route",
+            "world model related work",
+            "--domain",
+            "world_models",
+            "--section",
+            "related_work",
+            "--format",
+            "json",
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["load_order"]["guide"]["id"], "related_work")
+        self.assertEqual(
+            payload["load_order"]["task_pack"]["id"],
+            "related_work.world_models",
         )
 
     def test_bundle_is_bounded_and_contains_both_passes(self):
@@ -539,12 +667,17 @@ class SuperLibraryCliTests(unittest.TestCase):
         listing = run_cli("guide", "--list", "--format", "json")
         self.assertEqual(listing.returncode, 0, listing.stderr)
         payload = json.loads(listing.stdout)
-        self.assertEqual(len(payload), 10)
+        self.assertEqual(len(payload), 16)
         guide = run_cli("guide", "experiments.table.efficiency")
         self.assertEqual(guide.returncode, 0, guide.stderr)
         self.assertIn("Define the resource", guide.stdout)
         self.assertIn("quality–resource trade-off", guide.stdout)
         self.assertLess(len(guide.stdout), 12_000)
+
+    def test_main_results_guide_links_conditional_latency_reporting_card(self):
+        guide = run_cli("guide", "experiments.table.main_results")
+        self.assertEqual(guide.returncode, 0, guide.stderr)
+        self.assertIn("general.sentence-pattern.latency-protocol.001", guide.stdout)
 
     def test_experiment_guide_has_four_domain_overlays(self):
         guide = run_cli("guide", "experiments")
@@ -638,6 +771,65 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         self.assertTrue(all(source.get("topic_families") for source in recent))
 
+    def test_tpami_review_milestone_is_met_without_inflating_phrase_counts(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        summary = superlib.source_analysis_summary(
+            superlib.source_analysis_records(sources, entries, decisions)
+        )
+        policy = superlib.load_coverage_policy()
+        self.assertGreaterEqual(
+            summary["direct_links_by_venue"]["TPAMI"],
+            policy["goals"]["direct_links_by_venue"]["TPAMI"],
+        )
+        tpami_decisions = {
+            decision["source_id"]
+            for decision in decisions
+            if next(
+                source for source in sources if source["id"] == decision["source_id"]
+            )["venue"]
+            == "TPAMI"
+        }
+        self.assertTrue(
+            {
+                "klink2024-benefit-optimal-transport-curriculum",
+                "li2023-metadrive-composing-diverse-driving",
+                "pan2024-model-based-reinforcement-learning",
+                "tan2023-knowledge-based-embodied-question",
+                "zheng2025-symbolic-visual-reinforcement-learning",
+            }.issubset(tpami_decisions),
+        )
+
+    def test_new_tpami_backed_records_are_retrievable_with_bounded_queries(self):
+        cases = (
+            (
+                "curriculum reinforcement learning task distribution",
+                "reinforcement_learning",
+                "rl.definition.curriculum-reinforcement-learning.001",
+            ),
+            (
+                "embodied question answering active exploration",
+                "embodied_ai",
+                "emb.definition.embodied-question-answering.001",
+            ),
+            (
+                "symbolic policy expression",
+                "reinforcement_learning",
+                "rl.definition.symbolic-policy.001",
+            ),
+        )
+        for query, domain, expected_id in cases:
+            with self.subTest(query=query):
+                result = run_cli(
+                    "search", query, "--domain", domain,
+                    "--limit", "3", "--format", "json",
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn(
+                    expected_id,
+                    [entry["id"] for entry in json.loads(result.stdout)],
+                )
+
     def test_section_writing_study_is_bounded_and_balanced(self):
         _, sources, _ = superlib.load_corpus()
         _, study = superlib.load_writing_guides()
@@ -654,6 +846,116 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         known = {source["id"] for source in sources}
         self.assertTrue(set(study["sample_source_ids"]).issubset(known))
+
+    def test_source_analysis_ledger_is_complete_and_explicit(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        records = superlib.source_analysis_records(sources, entries)
+        summary = superlib.source_analysis_summary(records)
+        self.assertEqual(len(records), 300)
+        self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
+        self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
+        self.assertEqual(
+            summary["papers_with_direct_library_links"],
+            sum(bool(record["linked_entry_ids"]) for record in records),
+        )
+        self.assertEqual(summary["papers_with_promotion_decisions"], len(decisions))
+        self.assertEqual(len({record["source_id"] for record in records}), 300)
+        result = run_cli("analysis-status", records[0]["source_id"], "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(json.loads(result.stdout)["source_id"], records[0]["source_id"])
+
+    def test_promotion_decisions_are_schema_valid_and_semantically_explicit(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        self.assertGreaterEqual(len(decisions), 20)
+        self.assertEqual(
+            {decision["decision"] for decision in decisions},
+            {
+                "link_existing_record",
+                "promote_normalized_record",
+                "record_no_promotion",
+            },
+        )
+        self.assertEqual(
+            superlib.validate_promotion_decisions(sources, entries, decisions), []
+        )
+        self.assertTrue(all(decision["dedup_entry_ids"] for decision in decisions))
+
+        bad_decisions = copy.deepcopy(decisions)
+        promoted = next(
+            decision
+            for decision in bad_decisions
+            if decision["decision"] == "promote_normalized_record"
+        )
+        promoted["linked_entry_ids"] = ["rl.definition.actor-critic.001"]
+        errors = superlib.validate_promotion_decisions(sources, entries, bad_decisions)
+        self.assertTrue(
+            any("must cite the promoted source" in error for error in errors), errors
+        )
+
+    def test_reviewed_papers_leave_queue_without_bloating_representative_sources(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        records = superlib.source_analysis_records(sources, entries, decisions)
+        queue = superlib.promotion_queue_records(
+            superlib.load_coverage_policy(), records
+        )
+        decided_ids = {decision["source_id"] for decision in decisions}
+        self.assertTrue(decided_ids.isdisjoint(item["source_id"] for item in queue))
+        reviewed = [record for record in records if record["promotion_decision"]]
+        self.assertEqual(len(reviewed), len(decisions))
+        self.assertTrue(
+            any(
+                record["promotion_decision"]["decision"] == "link_existing_record"
+                and not record["representative_entry_ids"]
+                and record["promotion_entry_ids"]
+                for record in reviewed
+            )
+        )
+
+    def test_promotion_status_cli_exposes_auditable_summary_and_one_decision(self):
+        summary_result = run_cli("promotion-status", "--format", "json")
+        self.assertEqual(summary_result.returncode, 0, summary_result.stderr)
+        summary = json.loads(summary_result.stdout)
+        decision_count = len(superlib.load_promotion_decisions())
+        self.assertEqual(summary["reviewed_papers"], decision_count)
+        self.assertEqual(sum(summary["by_decision"].values()), decision_count)
+
+        decision = superlib.load_promotion_decisions()[0]
+        detail_result = run_cli(
+            "promotion-status", decision["source_id"], "--format", "json"
+        )
+        self.assertEqual(detail_result.returncode, 0, detail_result.stderr)
+        detail = json.loads(detail_result.stdout)
+        self.assertEqual(detail["source_id"], decision["source_id"])
+        self.assertIn("primary_paper", detail)
+
+    def test_source_health_classification_and_concurrency_are_deterministic(self):
+        self.assertEqual(source_health.classify_http_status(200), "reachable")
+        self.assertEqual(source_health.classify_http_status(403), "blocked")
+        self.assertEqual(source_health.classify_http_status(404), "broken")
+        self.assertEqual(source_health.classify_http_status(503), "transient")
+        sources = [
+            {"id": "paper-b", "url": "https://example.org/b"},
+            {"id": "paper-a", "url": "https://example.org/a"},
+        ]
+
+        def fake_checker(source, timeout):
+            self.assertEqual(timeout, 2.0)
+            return {
+                "source_id": source["id"],
+                "url": source["url"],
+                "final_url": source["url"],
+                "http_status": 200,
+                "status": "reachable",
+                "detail": "",
+            }
+
+        results = source_health.verify_sources(
+            sources, timeout=2.0, workers=2, checker=fake_checker
+        )
+        self.assertEqual([item["source_id"] for item in results], ["paper-a", "paper-b"])
 
     def test_topic_route_is_bounded(self):
         result = run_cli(
@@ -727,6 +1029,28 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertNotIn("references/compact.md", skill)
         self.assertIn("scripts/lookup.py", skill)
 
+    def test_skill_governance_artifacts_define_activation_boundaries(self):
+        skill_dir = ROOT / "skills" / "super-library"
+        card = (skill_dir / "skill-card.md").read_text(encoding="utf-8")
+        benchmark = (skill_dir / "BENCHMARK.md").read_text(encoding="utf-8")
+        activation = json.loads(
+            (skill_dir / "evals" / "activation.json").read_text(encoding="utf-8")
+        )
+        cases = activation["activation_cases"]
+        self.assertEqual(activation["skill"], "super-library")
+        self.assertGreaterEqual(sum(case["should_activate"] for case in cases), 2)
+        self.assertGreaterEqual(sum(not case["should_activate"] for case in cases), 2)
+        self.assertIn("Capability manifest", card)
+        self.assertIn("Credentials", card)
+        self.assertIn("External effects", card)
+        self.assertIn("No measured\neffectiveness claim", benchmark)
+        self.assertIn("same pinned model", benchmark)
+        openai_yaml = (skill_dir / "agents" / "openai.yaml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("allow_implicit_invocation: true", openai_yaml)
+        self.assertIn("$super-library", openai_yaml)
+
     def test_schema_and_business_rules_are_both_enforced(self):
         taxonomy, sources, entries = superlib.load_corpus()
         bad_entries = copy.deepcopy(entries)
@@ -768,20 +1092,500 @@ class SuperLibraryCliTests(unittest.TestCase):
         _, sources, entries = superlib.load_corpus()
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(f"**{len(entries)} gold entries**", readme)
-        self.assertIn(f"**{len(sources)} verified", readme)
+        self.assertIn(f"**{len(sources)} primary-source", readme)
 
-    def test_smoke_evals_reference_real_entries(self):
+    def test_writing_evals_reference_real_entries_and_valid_checks(self):
         _, _, entries = superlib.load_corpus()
         guide_config, _ = superlib.load_writing_guides()
         known_ids = {entry["id"] for entry in entries}
         known_guides = {guide["id"] for guide in guide_config["guides"]}
-        cases = json.loads((ROOT / "evals" / "smoke.json").read_text())
+        cases = json.loads((ROOT / "evals" / "writing.json").read_text())["cases"]
+        self.assertGreaterEqual(len(cases), 20)
         self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
         for case in cases:
-            self.assertTrue(case["invariants"])
+            self.assertTrue(case["manual_rubric"])
+            self.assertTrue(case["machine_checks"])
             self.assertTrue(set(case["expected_retrieval_ids"]).issubset(known_ids))
-            if "expected_guide_id" in case:
-                self.assertIn(case["expected_guide_id"], known_guides)
+            self.assertIn(case["expected_guide_id"], known_guides)
+
+    def test_writing_eval_lists_machine_checkable_cases(self):
+        result = run_cli("eval-writing", "--list", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertGreaterEqual(payload["cases"], 20)
+        self.assertTrue(all(item["machine_checks"] for item in payload["records"]))
+
+    def test_writing_eval_blinds_checks_and_scores_pass_and_failure(self):
+        case_id = "rebuttal-existing-evidence"
+        blind = run_cli("eval-writing", "--case", case_id, "--format", "json")
+        self.assertEqual(blind.returncode, 0, blind.stderr)
+        packet = json.loads(blind.stdout)
+        self.assertNotIn("machine_checks", packet)
+        self.assertNotIn("manual_rubric", packet)
+        self.assertNotIn("expected_retrieval_ids", packet)
+        with tempfile.TemporaryDirectory() as temp_dir:
+            response = Path(temp_dir) / "response.md"
+            response.write_text(
+                "Yes. Table 4 averages five seeds and shows a mean improvement "
+                "of 3.2 points. No statistical significance test was run, so "
+                "this evidence supports consistency across the reported runs "
+                "but not a significance claim.",
+                encoding="utf-8",
+            )
+            passed = run_cli(
+                "eval-writing", "--case", case_id,
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(passed.returncode, 0, passed.stderr)
+            self.assertTrue(json.loads(passed.stdout)["results"][0]["passed"])
+            response.write_text("The result is robust.", encoding="utf-8")
+            failed = run_cli(
+                "eval-writing", "--case", case_id,
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(failed.returncode, 1, failed.stderr)
+            self.assertFalse(json.loads(failed.stdout)["results"][0]["passed"])
+
+    def test_writing_eval_accepts_equivalent_caption_protocol_wording(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            response = Path(temp_dir) / "response.md"
+            response.write_text(
+                "43 images/s and 21 ms on a single NVIDIA A100, using batch "
+                "size 1 and FP16. Timing excludes model loading and includes "
+                "preprocessing and action decoding. Values use 1,000 measured "
+                "iterations following 100 warm-up iterations; they do not imply "
+                "a hardware-independent ranking.",
+                encoding="utf-8",
+            )
+            result = run_cli(
+                "eval-writing", "--case", "paper-efficiency-table-caption",
+                "--response-file", str(response), "--format", "json", "--strict",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertTrue(json.loads(result.stdout)["results"][0]["passed"])
+
+    def test_writing_eval_accepts_negated_test_and_reversed_timing_order(self):
+        fixtures = {
+            "rebuttal-existing-evidence": (
+                "Table 4 reports five random seeds and a mean improvement of "
+                "3.2 points. We did not conduct a statistical significance test, "
+                "so the evidence does not establish robustness beyond these seeds."
+            ),
+            "paper-efficiency-table-caption": (
+                "43 images/s and 21 ms on one NVIDIA A100 with batch size 1 and "
+                "FP16 inference. Timing includes preprocessing and action decoding "
+                "but excludes model loading. Each value uses 1,000 measured "
+                "iterations after 100 warm-up iterations and does not imply a "
+                "hardware-independent ranking."
+            ),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            for case_id, text in fixtures.items():
+                response = Path(temp_dir) / f"{case_id}.md"
+                response.write_text(text, encoding="utf-8")
+                result = run_cli(
+                    "eval-writing", "--case", case_id,
+                    "--response-file", str(response), "--format", "json", "--strict",
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertTrue(json.loads(result.stdout)["results"][0]["passed"])
+
+    def test_writing_eval_rejects_invalid_regex_contract(self):
+        taxonomy, _, entries = superlib.load_corpus()
+        bad_config = copy.deepcopy(superlib.load_writing_evals())
+        bad_config["cases"][0]["machine_checks"][0]["pattern"] = "["
+        original_loader = superlib.load_writing_evals
+        try:
+            superlib.load_writing_evals = lambda: bad_config
+            errors = superlib.validate_writing_evals(taxonomy, entries)
+        finally:
+            superlib.load_writing_evals = original_loader
+        self.assertTrue(any("invalid regex" in error for error in errors))
+
+    def test_professional_benchmark_contract_covers_all_writing_cases(self):
+        config = superlib.load_professionalism_benchmark()
+        writing = superlib.load_writing_evals()
+        self.assertEqual(superlib.validate_professionalism_benchmark(), [])
+        suites = {suite["id"]: suite for suite in config["suites"]}
+        self.assertEqual(
+            set(suites["full"]["case_ids"]),
+            {case["id"] for case in writing["cases"]},
+        )
+        self.assertEqual(len(config["rubric_dimensions"]), 6)
+        self.assertGreaterEqual(len(config["critical_errors"]), 5)
+
+    def test_professional_benchmark_example_manifest_requires_real_pins(self):
+        config = superlib.load_professionalism_benchmark()
+        manifest = json.loads(
+            (ROOT / "evals" / "professionalism-run.example.json").read_text()
+        )
+        errors = superlib.validate_professionalism_run(config, manifest)
+        self.assertTrue(any("example placeholder" in error for error in errors))
+        self.assertTrue(any("system_prompt_sha256 is a placeholder" in error for error in errors))
+        self.assertTrue(any("40-character commit SHA" in error for error in errors))
+        self.assertEqual(
+            superlib.validate_professionalism_run(
+                config, valid_professionalism_manifest()
+            ),
+            [],
+        )
+
+    def test_professional_benchmark_allows_unexposed_controls_only_for_smoke(self):
+        config = superlib.load_professionalism_benchmark()
+        manifest = valid_professionalism_manifest()
+        generator = manifest["generator"]
+        generator["decoding_control"] = "client_default_unexposed"
+        generator["output_budget_control"] = "client_default_unexposed"
+        for field in ("temperature", "top_p", "seed", "max_output_tokens"):
+            generator.pop(field)
+        self.assertEqual(
+            superlib.validate_professionalism_run(config, manifest, suite_id="smoke"),
+            [],
+        )
+        errors = superlib.validate_professionalism_run(
+            config, manifest, suite_id="full"
+        )
+        self.assertTrue(any("require explicit decoding" in error for error in errors))
+
+    def test_professional_benchmark_prompt_is_condition_neutral_and_blind(self):
+        result = run_cli(
+            "benchmark", "prompt", "rebuttal-existing-evidence", "--format", "json"
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        packet = json.loads(result.stdout)
+        serialized = json.dumps(packet, sort_keys=True)
+        self.assertNotIn("machine_checks", packet)
+        self.assertNotIn("manual_rubric", packet)
+        self.assertNotIn("expected_retrieval_ids", packet)
+        self.assertNotIn("super_library", serialized)
+        self.assertNotIn("Use the repository workflow", serialized)
+
+    def test_professional_benchmark_machine_report_scores_both_conditions(self):
+        responses = {
+            "rebuttal-existing-evidence": (
+                "Table 4 reports five seeds and a mean improvement of 3.2 points. "
+                "No statistical significance test was run, so this evidence does "
+                "not establish robustness beyond the reported seeds."
+            ),
+            "paper-efficiency-table-caption": (
+                "43 images/s and 21 ms on one NVIDIA A100 with batch size 1 and "
+                "FP16 inference. Timing includes preprocessing and action decoding "
+                "but excludes model loading. Values use 1,000 measured iterations "
+                "after 100 warm-up iterations and do not imply a hardware-independent ranking."
+            ),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            for condition in ("baseline", "super_library"):
+                (root / condition).mkdir()
+                for case_id, response in responses.items():
+                    (root / condition / f"{case_id}.md").write_text(
+                        response, encoding="utf-8"
+                    )
+            output = root / "machine.json"
+            result = run_cli(
+                "benchmark", "machine", "--suite", "smoke",
+                "--responses", str(root), "--output", str(output),
+                "--format", "json", "--strict",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertTrue(payload["passed"])
+            self.assertEqual(
+                payload["conditions"]["super_library"]["response_pass_rate"], 1.0
+            )
+            self.assertEqual(json.loads(output.read_text()), payload)
+            self.assertEqual(output.stat().st_mode & 0o077, 0)
+
+    def test_professional_benchmark_review_sheet_remains_condition_blind(self):
+        config = superlib.load_professionalism_benchmark()
+        case = next(
+            item for item in superlib.load_writing_evals()["cases"]
+            if item["id"] == "rebuttal-existing-evidence"
+        )
+        blind = {
+            "benchmark_id": config["benchmark_id"],
+            "rubric_dimensions": config["rubric_dimensions"],
+            "critical_errors": config["critical_errors"],
+            "pairs": [{
+                "pair_id": "pair-001-fixture",
+                "prompt": superlib.neutral_prompt_packet(case),
+                "response_a": "Response A fixture.",
+                "response_b": "Response B fixture.",
+            }],
+        }
+        sheet = superlib.render_blind_review_sheet(blind)
+        self.assertIn("pair-001-fixture", sheet)
+        self.assertIn("Scientific fidelity", sheet)
+        self.assertIn("```text\nResponse A fixture.\n```", sheet)
+        self.assertNotIn("super_library", sheet)
+        self.assertNotIn("baseline", sheet)
+
+    def test_professional_benchmark_review_sheet_refuses_symlink_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            target = root / "existing.md"
+            target.write_text("unchanged", encoding="utf-8")
+            link = root / "sheet.md"
+            link.symlink_to(target)
+            with self.assertRaisesRegex(
+                superlib.ProfessionalBenchmarkError, "symbolic link"
+            ):
+                superlib._write_benchmark_text(str(link), "replacement", True)
+            self.assertEqual(target.read_text(encoding="utf-8"), "unchanged")
+
+    def test_professional_benchmark_prepare_rejects_missing_pairs(self):
+        manifest = valid_professionalism_manifest()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            manifest_path = temp / "run.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            result = run_cli(
+                "benchmark", "prepare", "--suite", "smoke",
+                "--responses", str(temp / "responses"),
+                "--run-manifest", str(manifest_path),
+                "--blind-output", str(temp / "blind.json"),
+                "--key-output", str(temp / "key.json"),
+            )
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("missing or empty benchmark responses", result.stderr)
+
+    def test_professional_benchmark_refuses_private_key_symlink(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            target = temp / "existing-secret.json"
+            target.write_text("unchanged", encoding="utf-8")
+            key_link = temp / "private-key.json"
+            key_link.symlink_to(target)
+            with self.assertRaisesRegex(
+                superlib.ProfessionalBenchmarkError, "symbolic link"
+            ):
+                superlib._write_benchmark_json(
+                    str(key_link), {"secret": True}, True, private=True
+                )
+            self.assertEqual(target.read_text(encoding="utf-8"), "unchanged")
+
+    def test_professional_benchmark_blinding_and_scoring_end_to_end(self):
+        config = superlib.load_professionalism_benchmark()
+        dimension_ids = [item["id"] for item in config["rubric_dimensions"]]
+        strong = {
+            "rebuttal-existing-evidence": (
+                "Yes. Table 4 averages five seeds and shows a mean improvement "
+                "of 3.2 points. No statistical significance test was run, so "
+                "this evidence supports consistency across the reported runs "
+                "but not a significance claim."
+            ),
+            "paper-efficiency-table-caption": (
+                "43 images/s and 21 ms on a single NVIDIA A100, using batch "
+                "size 1 and FP16. Timing excludes model loading and includes "
+                "preprocessing and action decoding. Values use 1,000 measured "
+                "iterations following 100 warm-up iterations; they do not imply "
+                "a hardware-independent ranking."
+            ),
+        }
+        weak = {
+            case_id: "Our method is clearly state-of-the-art and robust."
+            for case_id in strong
+        }
+        manifest = valid_professionalism_manifest()
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            response_root = temp / "responses"
+            for condition, responses in (
+                ("baseline", weak), ("super_library", strong)
+            ):
+                directory = response_root / condition
+                directory.mkdir(parents=True)
+                for case_id, text in responses.items():
+                    (directory / f"{case_id}.md").write_text(text, encoding="utf-8")
+            manifest_path = temp / "run.json"
+            manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+            blind_path = temp / "blind.json"
+            key_path = temp / "private-key.json"
+            prepared = run_cli(
+                "benchmark", "prepare", "--suite", "smoke",
+                "--responses", str(response_root),
+                "--run-manifest", str(manifest_path),
+                "--blind-output", str(blind_path),
+                "--key-output", str(key_path),
+                "--seed", "17",
+            )
+            self.assertEqual(prepared.returncode, 0, prepared.stderr)
+            blind = json.loads(blind_path.read_text())
+            key = json.loads(key_path.read_text())
+            self.assertEqual(len(blind["pairs"]), 2)
+            self.assertEqual(len(blind["rubric_dimensions"]), 6)
+            self.assertTrue(blind["critical_errors"])
+            self.assertTrue(all("assignment" not in pair for pair in blind["pairs"]))
+            self.assertTrue(all("response_a" not in pair for pair in key["pairs"]))
+            self.assertEqual(key_path.stat().st_mode & 0o077, 0)
+            first_blind = blind_path.read_text()
+            blind_path.unlink()
+            key_path.unlink()
+            repeated = run_cli(
+                "benchmark", "prepare", "--suite", "smoke",
+                "--responses", str(response_root),
+                "--run-manifest", str(manifest_path),
+                "--blind-output", str(blind_path),
+                "--key-output", str(key_path),
+                "--seed", "17",
+            )
+            self.assertEqual(repeated.returncode, 0, repeated.stderr)
+            self.assertEqual(first_blind, blind_path.read_text())
+            blind = json.loads(blind_path.read_text())
+            key = json.loads(key_path.read_text())
+            assignments = {item["pair_id"]: item["assignment"] for item in key["pairs"]}
+            ratings = {
+                "schema_version": "1.0",
+                "benchmark_id": config["benchmark_id"],
+                "raters": [
+                    {
+                        "id": "rater-01",
+                        "qualification": "AI paper author and reviewer",
+                        "independent": True,
+                    },
+                    {
+                        "id": "rater-02",
+                        "qualification": "AI paper author and reviewer",
+                        "independent": True,
+                    },
+                ],
+                "ratings": [],
+            }
+            for pair in blind["pairs"]:
+                assignment = assignments[pair["pair_id"]]
+                preferred = "a" if assignment["a"] == "super_library" else "b"
+                for rater_id in ("rater-01", "rater-02"):
+                    side_ratings = {}
+                    for side in ("a", "b"):
+                        is_library = assignment[side] == "super_library"
+                        side_ratings[side] = {
+                            "scores": {
+                                dimension_id: 5 if is_library else 2
+                                for dimension_id in dimension_ids
+                            },
+                            "critical_errors": [] if is_library else [
+                                "unsupported_scope_causality_or_ranking"
+                            ],
+                        }
+                    ratings["ratings"].append(
+                        {
+                            "pair_id": pair["pair_id"],
+                            "rater_id": rater_id,
+                            "a": side_ratings["a"],
+                            "b": side_ratings["b"],
+                            "preference": preferred,
+                            "rationale": "The preferred response is precise and evidence bounded.",
+                        }
+                    )
+            ratings_path = temp / "ratings.json"
+            ratings_path.write_text(json.dumps(ratings), encoding="utf-8")
+            scored = run_cli(
+                "benchmark", "score",
+                "--blind-file", str(blind_path),
+                "--key-file", str(key_path),
+                "--ratings-file", str(ratings_path),
+                "--format", "json", "--strict",
+            )
+            self.assertEqual(scored.returncode, 0, scored.stderr)
+            report = json.loads(scored.stdout)
+            self.assertTrue(report["passed"])
+            self.assertEqual(report["conditions"]["super_library"]["mean_professionalism"], 5)
+            self.assertEqual(report["comparison"]["paired_mean_delta"], 3)
+            self.assertEqual(report["agreement"]["within_one_score_agreement"], 1)
+
+            failing_ratings = copy.deepcopy(ratings)
+            for rating in failing_ratings["ratings"]:
+                assignment = assignments[rating["pair_id"]]
+                library_side = "a" if assignment["a"] == "super_library" else "b"
+                rating[library_side]["scores"] = {
+                    dimension_id: 3 for dimension_id in dimension_ids
+                }
+                rating[library_side]["critical_errors"] = [
+                    "numeric_negation_or_modality_drift"
+                ]
+                rating["preference"] = "tie"
+            failing_path = temp / "failing-ratings.json"
+            failing_path.write_text(json.dumps(failing_ratings), encoding="utf-8")
+            below_gate = run_cli(
+                "benchmark", "score",
+                "--blind-file", str(blind_path),
+                "--key-file", str(key_path),
+                "--ratings-file", str(failing_path),
+                "--format", "json", "--strict",
+            )
+            self.assertEqual(below_gate.returncode, 1, below_gate.stderr)
+            self.assertFalse(json.loads(below_gate.stdout)["passed"])
+
+            blind["pairs"][0]["response_a"] += " tampered"
+            blind_path.write_text(json.dumps(blind), encoding="utf-8")
+            tampered = run_cli(
+                "benchmark", "score",
+                "--blind-file", str(blind_path),
+                "--key-file", str(key_path),
+                "--ratings-file", str(ratings_path),
+                "--strict",
+            )
+            self.assertEqual(tampered.returncode, 2)
+            self.assertIn("checksum", tampered.stderr)
+
+    def test_professional_benchmark_rejects_nonindependent_or_malformed_ratings(self):
+        config = superlib.load_professionalism_benchmark()
+        blind = {"pairs": [{"pair_id": "pair-001"}]}
+        dimensions = {item["id"]: 4 for item in config["rubric_dimensions"]}
+        ratings = {
+            "benchmark_id": config["benchmark_id"],
+            "raters": [
+                {"id": "rater-01", "independent": False},
+                {"id": "rater-02", "independent": True},
+            ],
+            "ratings": [
+                {
+                    "pair_id": "pair-001",
+                    "rater_id": "rater-01",
+                    "a": {"scores": dimensions, "critical_errors": []},
+                    "b": {"scores": {"scientific_fidelity": 4}, "critical_errors": []},
+                    "preference": "a",
+                }
+            ],
+        }
+        from scripts import professional_benchmark
+        errors = professional_benchmark.validate_ratings(config, blind, ratings)
+        self.assertTrue(any("independent=true" in error for error in errors))
+        self.assertTrue(any("scores must contain exactly" in error for error in errors))
+
+    def test_coverage_gaps_prioritize_reviewed_unlinked_papers(self):
+        result = run_cli("coverage-gaps", "--limit", "10", "--format", "json")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        payload = json.loads(result.stdout)
+        self.assertEqual(payload["summary"]["core_papers"], 300)
+        _, sources, entries = superlib.load_corpus()
+        expected_links = superlib.source_analysis_summary(
+            superlib.source_analysis_records(sources, entries)
+        )["papers_with_direct_library_links"]
+        self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
+        self.assertEqual(len(payload["records"]), 10)
+        self.assertTrue(
+            all(
+                record["outcome"] == "structural_sample_without_library_links"
+                for record in payload["records"]
+            )
+        )
+
+    def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
+        _, sources, entries = superlib.load_corpus()
+        policy = superlib.load_coverage_policy()
+        records = superlib.source_analysis_records(sources, entries)
+        first = superlib.promotion_queue_records(policy, records)
+        second = superlib.promotion_queue_records(policy, records)
+        self.assertEqual(first, second)
+        p0_count = sum(record["priority"] == "P0" for record in first)
+        self.assertEqual(p0_count, 11)
+        self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
+        self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
+        self.assertTrue(
+            all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)
+        )
 
     def test_retrieval_eval_executes_top_k_routes(self):
         cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())

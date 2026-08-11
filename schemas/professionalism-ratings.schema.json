@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/professionalism-ratings.schema.json",
+  "title": "Super Library blind professionalism ratings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "benchmark_id", "raters", "ratings"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "benchmark_id": {"type": "string"},
+    "raters": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "qualification", "independent"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
+          "qualification": {"type": "string", "minLength": 10},
+          "independent": {"type": "boolean"}
+        }
+      }
+    },
+    "ratings": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["pair_id", "rater_id", "a", "b", "preference", "rationale"],
+        "properties": {
+          "pair_id": {"type": "string"},
+          "rater_id": {"type": "string"},
+          "a": {
+            "type": "object", "additionalProperties": false,
+            "required": ["scores", "critical_errors"],
+            "properties": {
+              "scores": {
+                "type": "object", "minProperties": 5,
+                "additionalProperties": {"type": "integer", "minimum": 1, "maximum": 5}
+              },
+              "critical_errors": {
+                "type": "array", "uniqueItems": true,
+                "items": {"type": "string"}
+              }
+            }
+          },
+          "b": {
+            "type": "object", "additionalProperties": false,
+            "required": ["scores", "critical_errors"],
+            "properties": {
+              "scores": {
+                "type": "object", "minProperties": 5,
+                "additionalProperties": {"type": "integer", "minimum": 1, "maximum": 5}
+              },
+              "critical_errors": {
+                "type": "array", "uniqueItems": true,
+                "items": {"type": "string"}
+              }
+            }
+          },
+          "preference": {"type": "string", "enum": ["a", "b", "tie"]},
+          "rationale": {"type": "string", "minLength": 10}
+        }
+      }
+    }
+  }
+}

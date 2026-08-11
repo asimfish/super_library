@@ -8,11 +8,35 @@ import collections
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import shutil
 import sys
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+
+if __package__:
+    from .professional_benchmark import (
+        ProfessionalBenchmarkError,
+        neutral_prompt_packet,
+        prepare_blind_pairs,
+        score_benchmark,
+        suite_case_ids,
+    )
+    from .promotion import decision_links_by_source, validate_decision_semantics
+    from .source_health import health_summary, verify_sources
+    from .writing_eval import CHECK_REGISTRY, evaluate_response
+else:
+    from professional_benchmark import (
+        ProfessionalBenchmarkError,
+        neutral_prompt_packet,
+        prepare_blind_pairs,
+        score_benchmark,
+        suite_case_ids,
+    )
+    from promotion import decision_links_by_source, validate_decision_semantics
+    from source_health import health_summary, verify_sources
+    from writing_eval import CHECK_REGISTRY, evaluate_response
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +54,8 @@ CORPUS_REPORT_PATH = LIBRARY / "corpus_report.json"
 WRITING_GUIDES_PATH = LIBRARY / "writing_guides.json"
 TASK_ROUTES_PATH = LIBRARY / "task_routes.json"
 TABLE_TEMPLATES_PATH = LIBRARY / "table_templates.json"
+COVERAGE_POLICY_PATH = LIBRARY / "coverage_policy.json"
+PROMOTION_DECISIONS_PATH = LIBRARY / "promotion_decisions.jsonl"
 SECTION_STUDY_PATH = LIBRARY / "studies" / "section_writing_2026-07.json"
 DIST_DIR = ROOT / "dist"
 ENTRY_SCHEMA_PATH = ROOT / "schemas" / "entry.schema.json"
@@ -40,9 +66,24 @@ WRITING_GUIDES_SCHEMA_PATH = ROOT / "schemas" / "writing-guides.schema.json"
 TASK_ROUTES_SCHEMA_PATH = ROOT / "schemas" / "task-routes.schema.json"
 TABLE_TEMPLATES_SCHEMA_PATH = ROOT / "schemas" / "table-templates.schema.json"
 RETRIEVAL_EVAL_SCHEMA_PATH = ROOT / "schemas" / "retrieval-eval.schema.json"
+WRITING_EVAL_SCHEMA_PATH = ROOT / "schemas" / "writing-eval.schema.json"
+PROFESSIONALISM_BENCHMARK_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-benchmark.schema.json"
+)
+PROFESSIONALISM_RUN_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-run.schema.json"
+)
+PROFESSIONALISM_RATINGS_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-ratings.schema.json"
+)
+COVERAGE_POLICY_SCHEMA_PATH = ROOT / "schemas" / "coverage-policy.schema.json"
+PROMOTION_DECISION_SCHEMA_PATH = ROOT / "schemas" / "promotion-decision.schema.json"
 SECTION_STUDY_SCHEMA_PATH = ROOT / "schemas" / "section-study.schema.json"
+CORPUS_REPORT_SCHEMA_PATH = ROOT / "schemas" / "corpus-report.schema.json"
 TABLE_TEMPLATE_DIR = ROOT / "templates" / "tables"
 RETRIEVAL_EVAL_PATH = ROOT / "evals" / "retrieval.json"
+WRITING_EVAL_PATH = ROOT / "evals" / "writing.json"
+PROFESSIONALISM_BENCHMARK_PATH = ROOT / "evals" / "professionalism.json"
 SKILL_DIR = ROOT / "skills" / "super-library"
 SKILL_REFERENCES_DIR = SKILL_DIR / "references"
 SKILL_ASSETS_DIR = SKILL_DIR / "assets"
@@ -94,6 +135,31 @@ def read_jsonl(path: Path) -> List[Dict[str, Any]]:
     return records
 
 
+def prune_generated_tree(root: Path, expected_files: Iterable[str]) -> None:
+    """Prune stale generated files without replacing cloud-synced directories."""
+    if not root.exists():
+        return
+    expected = {Path(item).as_posix() for item in expected_files}
+    paths = sorted(root.rglob("*"), key=lambda item: len(item.parts), reverse=True)
+    for path in paths:
+        if not (path.is_file() or path.is_symlink()):
+            continue
+        relative = path.relative_to(root).as_posix()
+        if relative in expected:
+            continue
+        try:
+            path.unlink()
+        except FileNotFoundError:
+            pass
+    for path in paths:
+        if not path.is_dir() or path.is_symlink():
+            continue
+        try:
+            path.rmdir()
+        except (FileNotFoundError, OSError):
+            pass
+
+
 def load_corpus() -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, Any]]]:
     taxonomy = read_json(TAXONOMY_PATH)
     sources = read_jsonl(SOURCES_PATH)
@@ -122,6 +188,314 @@ def load_table_templates() -> Dict[str, Any]:
     return read_json(TABLE_TEMPLATES_PATH)
 
 
+def load_coverage_policy() -> Dict[str, Any]:
+    """Load roadmap goals and deterministic evidence-review priorities."""
+    return read_json(COVERAGE_POLICY_PATH)
+
+
+def load_promotion_decisions() -> List[Dict[str, Any]]:
+    """Load explicit human outcomes for reviewed promotion candidates."""
+    return read_jsonl(PROMOTION_DECISIONS_PATH)
+
+
+def load_writing_evals() -> Dict[str, Any]:
+    """Load blind behavior prompts and their separate evaluation contracts."""
+    return read_json(WRITING_EVAL_PATH)
+
+
+def load_professionalism_benchmark() -> Dict[str, Any]:
+    """Load the blind paired evaluation design and professional rubric."""
+    return read_json(PROFESSIONALISM_BENCHMARK_PATH)
+
+
+def source_analysis_records(
+    sources: Sequence[Dict[str, Any]],
+    entries: Sequence[Dict[str, Any]],
+    promotion_decisions: Optional[Sequence[Dict[str, Any]]] = None,
+) -> List[Dict[str, Any]]:
+    """Build one transparent analysis-depth record for every core paper."""
+    report = read_json(CORPUS_REPORT_PATH)
+    study = read_json(SECTION_STUDY_PATH)
+    collection_id = report["collection"]
+    unavailable_abstracts = set(
+        report.get("abstracts_not_analyzed", {}).get("source_ids", [])
+    )
+    full_text_samples = set(study.get("sample_source_ids", []))
+    representative_entries: Dict[str, List[str]] = collections.defaultdict(list)
+    for entry in entries:
+        for source_id in entry.get("source_ids", []):
+            representative_entries[source_id].append(entry["id"])
+    if promotion_decisions is None:
+        promotion_decisions = load_promotion_decisions()
+    promotion_entries = decision_links_by_source(promotion_decisions)
+    decisions_by_source = {
+        decision["source_id"]: decision
+        for decision in promotion_decisions
+        if decision.get("source_id")
+    }
+
+    records = []
+    for source in sorted(sources, key=lambda item: item["id"]):
+        if collection_id not in source.get("collections", []):
+            continue
+        source_id = source["id"]
+        abstract_status = (
+            "unavailable" if source_id in unavailable_abstracts else "analyzed"
+        )
+        full_text_status = (
+            "structural_sample" if source_id in full_text_samples else "not_sampled"
+        )
+        representative_links = sorted(representative_entries.get(source_id, []))
+        review_links = sorted(promotion_entries.get(source_id, []))
+        direct_links = sorted(set(representative_links) | set(review_links))
+        promotion_decision = decisions_by_source.get(source_id)
+        if full_text_status == "structural_sample" and direct_links:
+            outcome = "structural_sample_with_library_links"
+        elif full_text_status == "structural_sample":
+            outcome = "structural_sample_without_library_links"
+        elif direct_links:
+            outcome = "library_links_without_full_text_sample"
+        elif abstract_status == "analyzed":
+            outcome = "abstract_analyzed_no_library_link"
+        else:
+            outcome = "metadata_only"
+        records.append(
+            {
+                "source_id": source_id,
+                "title": source["title"],
+                "venue": source["venue"],
+                "year": source["year"],
+                "domains": source.get("domains", []),
+                "topic_families": source.get("topic_families", []),
+                "official_url": source["url"],
+                "abstract_status": abstract_status,
+                "full_text_status": full_text_status,
+                "representative_entry_ids": representative_links,
+                "promotion_entry_ids": review_links,
+                "linked_entry_ids": direct_links,
+                "promotion_decision": (
+                    public_record(promotion_decision) if promotion_decision else None
+                ),
+                "outcome": outcome,
+            }
+        )
+    return records
+
+
+def source_analysis_summary(records: Sequence[Dict[str, Any]]) -> Dict[str, Any]:
+    """Summarize evidence depth without implying that metadata is language evidence."""
+    linked = [record for record in records if record["linked_entry_ids"]]
+    reviewed = [record for record in records if record.get("promotion_decision")]
+    return {
+        "papers": len(records),
+        "abstract_status": dict(
+            sorted(collections.Counter(r["abstract_status"] for r in records).items())
+        ),
+        "full_text_status": dict(
+            sorted(collections.Counter(r["full_text_status"] for r in records).items())
+        ),
+        "papers_with_direct_library_links": len(linked),
+        "papers_without_direct_library_links": len(records) - len(linked),
+        "papers_with_representative_entry_links": sum(
+            bool(record.get("representative_entry_ids")) for record in records
+        ),
+        "papers_with_promotion_decision_links": sum(
+            bool(record.get("promotion_entry_ids")) for record in records
+        ),
+        "papers_with_promotion_decisions": len(reviewed),
+        "promotion_decisions": dict(
+            sorted(
+                collections.Counter(
+                    record["promotion_decision"]["decision"] for record in reviewed
+                ).items()
+            )
+        ),
+        "outcomes": dict(
+            sorted(collections.Counter(r["outcome"] for r in records).items())
+        ),
+        "direct_links_by_venue": dict(
+            sorted(collections.Counter(r["venue"] for r in linked).items())
+        ),
+        "direct_links_by_domain": dict(
+            sorted(
+                collections.Counter(
+                    domain for record in linked for domain in record["domains"]
+                ).items()
+            )
+        ),
+    }
+
+
+def coverage_goal_status(
+    policy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> Dict[str, Any]:
+    """Compare current evidence depth with roadmap goals without enforcing them."""
+    linked = [record for record in records if record["linked_entry_ids"]]
+    domain_counts = collections.Counter(
+        domain for record in linked for domain in record["domains"]
+    )
+    venue_counts = collections.Counter(record["venue"] for record in linked)
+    full_text_count = sum(
+        record["full_text_status"] == "structural_sample" for record in records
+    )
+    writing_cases = len(load_writing_evals().get("cases", []))
+    goals = policy["goals"]
+
+    def goal_map(current: collections.Counter, targets: Dict[str, int]) -> Dict[str, Any]:
+        return {
+            key: {
+                "current": current.get(key, 0),
+                "goal": goal,
+                "remaining": max(0, goal - current.get(key, 0)),
+            }
+            for key, goal in sorted(targets.items())
+        }
+
+    return {
+        "collection": policy["collection"],
+        "core_papers": len(records),
+        "directly_linked_papers": len(linked),
+        "directly_linked_goal": goals["directly_linked_papers"],
+        "directly_linked_remaining": max(
+            0, goals["directly_linked_papers"] - len(linked)
+        ),
+        "full_text_structural_samples": full_text_count,
+        "full_text_structural_samples_goal": goals["full_text_structural_samples"],
+        "full_text_structural_samples_remaining": max(
+            0, goals["full_text_structural_samples"] - full_text_count
+        ),
+        "writing_behavior_cases": writing_cases,
+        "writing_behavior_cases_goal": goals["writing_behavior_cases"],
+        "writing_behavior_cases_remaining": max(
+            0, goals["writing_behavior_cases"] - writing_cases
+        ),
+        "direct_links_by_domain": goal_map(
+            domain_counts, goals["direct_links_by_domain"]
+        ),
+        "direct_links_by_venue": goal_map(
+            venue_counts, goals["direct_links_by_venue"]
+        ),
+    }
+
+
+def promotion_queue_records(
+    policy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> List[Dict[str, Any]]:
+    """Rank unlinked core papers for human normalization and dedup review."""
+    status = coverage_goal_status(policy, records)
+    weights = policy["weights"]
+    minimum_year = min((record["year"] for record in records), default=0)
+    queue: List[Dict[str, Any]] = []
+    for record in records:
+        if record["linked_entry_ids"] or record.get("promotion_decision"):
+            continue
+        outcome = record["outcome"]
+        if outcome == "structural_sample_without_library_links":
+            score = weights["full_text_without_link"]
+            priority = "P0"
+            reasons = ["full-text structural sample has no normalized-record link"]
+            recommended_action = (
+                "review sampled sections against existing records, then promote or "
+                "record a deduplicated no-promotion outcome"
+            )
+        elif outcome == "metadata_only":
+            score = weights["metadata_only"]
+            priority = "P1"
+            reasons = ["abstract was unavailable to the bounded collector"]
+            recommended_action = (
+                "obtain a verifiable primary-paper view before language review"
+            )
+        else:
+            score = weights["abstract_without_link"]
+            priority = "P2"
+            reasons = ["abstract was analyzed but no normalized record links this paper"]
+            recommended_action = (
+                "compare the verified paper wording with existing normalized records"
+            )
+        for domain in record["domains"]:
+            gap = status["direct_links_by_domain"].get(domain)
+            if gap and gap["remaining"]:
+                score += weights["domain_gap"]
+                reasons.append(
+                    f"{domain} direct-link goal has {gap['remaining']} remaining"
+                )
+        venue_gap = status["direct_links_by_venue"].get(record["venue"])
+        if venue_gap and venue_gap["remaining"]:
+            score += weights["venue_gap"]
+            reasons.append(
+                f"{record['venue']} direct-link goal has {venue_gap['remaining']} remaining"
+            )
+        recency = max(0, record["year"] - minimum_year)
+        score += recency * weights["recency_per_year"]
+        if recency:
+            reasons.append(f"recency bonus: {recency}")
+        queue.append(
+            {
+                "source_id": record["source_id"],
+                "title": record["title"],
+                "venue": record["venue"],
+                "year": record["year"],
+                "domains": record["domains"],
+                "topic_families": record["topic_families"],
+                "abstract_status": record["abstract_status"],
+                "full_text_status": record["full_text_status"],
+                "linked_entry_ids": record["linked_entry_ids"],
+                "outcome": outcome,
+                "priority": priority,
+                "score": score,
+                "reasons": reasons,
+                "recommended_action": recommended_action,
+                "allowed_review_outcomes": policy["review_outcomes"],
+                "official_url": record["official_url"],
+            }
+        )
+    queue.sort(key=lambda item: (-item["score"], item["source_id"]))
+    for rank, record in enumerate(queue, 1):
+        record["rank"] = rank
+    return queue
+
+
+def render_promotion_queue(
+    taxonomy: Dict[str, Any], policy: Dict[str, Any],
+    records: Sequence[Dict[str, Any]], limit: int,
+) -> str:
+    """Render a bounded maintainer report; this is never writing evidence."""
+    status = coverage_goal_status(policy, records)
+    queue = promotion_queue_records(policy, records)[:limit]
+    lines = [
+        "# Evidence-promotion queue",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "This is a maintainer work queue, not Agent writing context or citable",
+        "evidence. A review may validly conclude `record_no_promotion` when the",
+        "paper adds no nonredundant terminology, definition, or writing pattern.",
+        "",
+        "## Roadmap status",
+        "",
+        f"- Directly linked core papers: {status['directly_linked_papers']}/"
+        f"{status['directly_linked_goal']}",
+        f"- Full-text structural samples: {status['full_text_structural_samples']}/"
+        f"{status['full_text_structural_samples_goal']}",
+        f"- Writing behavior cases: {status['writing_behavior_cases']}/"
+        f"{status['writing_behavior_cases_goal']}",
+        "",
+        f"## Top {len(queue)} review candidates",
+        "",
+        "| Rank | Priority | Paper | Venue | Score | Why now |",
+        "|---:|:---:|---|:---:|---:|---|",
+    ]
+    for record in queue:
+        reason = "; ".join(record["reasons"])
+        title = record["title"].replace("|", "\\|")
+        lines.append(
+            f"| {record['rank']} | {record['priority']} | "
+            f"[{title}]({record['official_url']}) | {record['venue']} "
+            f"{record['year']} | {record['score']} | {reason} |"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
 def public_record(record: Dict[str, Any]) -> Dict[str, Any]:
     return {key: value for key, value in record.items() if not key.startswith("_")}
 
@@ -148,6 +522,8 @@ def schema_validation_errors(
         "array": lambda item: isinstance(item, list),
         "string": lambda item: isinstance(item, str),
         "integer": lambda item: isinstance(item, int) and not isinstance(item, bool),
+        "number": lambda item: isinstance(item, (int, float))
+        and not isinstance(item, bool),
         "boolean": lambda item: isinstance(item, bool),
     }
     if expected_type in type_checks and not type_checks[expected_type](value):
@@ -199,7 +575,7 @@ def schema_validation_errors(
                 errors.extend(
                     schema_validation_errors(item, additional, f"{path}.{key}")
                 )
-    elif isinstance(value, int) and not isinstance(value, bool):
+    elif isinstance(value, (int, float)) and not isinstance(value, bool):
         if "minimum" in schema and value < schema["minimum"]:
             errors.append(f"{path}: integer is below minimum")
         if "maximum" in schema and value > schema["maximum"]:
@@ -534,6 +910,358 @@ def validate_retrieval_evals(
     return errors
 
 
+def validate_writing_evals(
+    taxonomy: Dict[str, Any], entries: Sequence[Dict[str, Any]]
+) -> List[str]:
+    """Validate blind prompts, identifiers, and deterministic check contracts."""
+    errors: List[str] = []
+    try:
+        config = load_writing_evals()
+        schema = read_json(WRITING_EVAL_SCHEMA_PATH)
+        guide_config, _ = load_writing_guides()
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"evals/writing.json: schema: {error}"
+        for error in schema_validation_errors(config, schema)
+    )
+    cases = config.get("cases", [])
+    if not isinstance(cases, list):
+        return errors
+    known_entries = {entry.get("id") for entry in entries}
+    known_guides = {
+        guide.get("id")
+        for guide in guide_config.get("guides", [])
+        if isinstance(guide, dict)
+    }
+    controlled = {
+        "domain": set(taxonomy.get("domains", [])),
+        "topic": set(taxonomy.get("topic_families", [])),
+        "section": set(taxonomy.get("sections", [])),
+        "intent": set(taxonomy.get("intents", [])),
+    }
+    seen_cases = set()
+    for case in cases:
+        if not isinstance(case, dict):
+            continue
+        case_id = case.get("id")
+        if case_id in seen_cases:
+            errors.append(f"evals/writing.json: duplicate case id {case_id!r}")
+        seen_cases.add(case_id)
+        for field, allowed in controlled.items():
+            value = case.get(field)
+            if value is not None and value not in allowed:
+                errors.append(
+                    f"evals/writing.json: {case_id}: unknown {field} {value!r}"
+                )
+        expected_guide = case.get("expected_guide_id")
+        if expected_guide not in known_guides:
+            errors.append(
+                f"evals/writing.json: {case_id}: unknown expected guide "
+                f"{expected_guide!r}"
+            )
+        unknown_entries = set(case.get("expected_retrieval_ids", [])) - known_entries
+        if unknown_entries:
+            errors.append(
+                f"evals/writing.json: {case_id}: unknown expected entries "
+                f"{sorted(unknown_entries)}"
+            )
+        seen_checks = set()
+        for check in case.get("machine_checks", []):
+            if not isinstance(check, dict):
+                continue
+            check_id = check.get("id")
+            if check_id in seen_checks:
+                errors.append(
+                    f"evals/writing.json: {case_id}: duplicate check id {check_id!r}"
+                )
+            seen_checks.add(check_id)
+            check_type = check.get("type")
+            if check_type not in CHECK_REGISTRY:
+                errors.append(
+                    f"evals/writing.json: {case_id}: unknown check type "
+                    f"{check_type!r}"
+                )
+            try:
+                re.compile(check.get("pattern", ""))
+            except (re.error, TypeError) as exc:
+                errors.append(
+                    f"evals/writing.json: {case_id}/{check_id}: invalid regex: {exc}"
+                )
+    return errors
+
+
+def validate_professionalism_benchmark() -> List[str]:
+    """Validate the paired benchmark design against the writing case suite."""
+    errors: List[str] = []
+    try:
+        config = load_professionalism_benchmark()
+        schema = read_json(PROFESSIONALISM_BENCHMARK_SCHEMA_PATH)
+        writing_config = load_writing_evals()
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"evals/professionalism.json: schema: {error}"
+        for error in schema_validation_errors(config, schema)
+    )
+    writing_cases = {
+        case.get("id")
+        for case in writing_config.get("cases", [])
+        if isinstance(case, dict)
+    }
+    if config.get("writing_suite_schema_version") != writing_config.get(
+        "schema_version"
+    ):
+        errors.append(
+            "evals/professionalism.json: writing suite schema version mismatch"
+        )
+    conditions = config.get("conditions", [])
+    condition_ids = [item.get("id") for item in conditions if isinstance(item, dict)]
+    if len(condition_ids) != len(set(condition_ids)):
+        errors.append("evals/professionalism.json: duplicate condition IDs")
+    if set(condition_ids) != {"baseline", "super_library"}:
+        errors.append(
+            "evals/professionalism.json: conditions must be baseline and super_library"
+        )
+    access_by_condition = {
+        item.get("id"): item.get("library_access")
+        for item in conditions
+        if isinstance(item, dict)
+    }
+    if access_by_condition.get("baseline") is not False:
+        errors.append(
+            "evals/professionalism.json: baseline must disable library access"
+        )
+    if access_by_condition.get("super_library") is not True:
+        errors.append(
+            "evals/professionalism.json: super_library must enable library access"
+        )
+    suites = config.get("suites", [])
+    suite_ids = [item.get("id") for item in suites if isinstance(item, dict)]
+    if len(suite_ids) != len(set(suite_ids)):
+        errors.append("evals/professionalism.json: duplicate suite IDs")
+    required_suites = {"smoke", "core", "experiments", "full"}
+    if not required_suites.issubset(set(suite_ids)):
+        errors.append(
+            "evals/professionalism.json: missing required benchmark suites"
+        )
+    for suite in suites:
+        if not isinstance(suite, dict):
+            continue
+        unknown = set(suite.get("case_ids", [])) - writing_cases
+        if unknown:
+            errors.append(
+                f"evals/professionalism.json: {suite.get('id')}: unknown cases "
+                f"{sorted(unknown)}"
+            )
+    full_suite = next(
+        (suite for suite in suites if suite.get("id") == "full"), {}
+    )
+    if set(full_suite.get("case_ids", [])) != writing_cases:
+        errors.append(
+            "evals/professionalism.json: full suite must contain every writing case"
+        )
+    for field in ("rubric_dimensions", "critical_errors"):
+        identifiers = [
+            item.get("id")
+            for item in config.get(field, [])
+            if isinstance(item, dict)
+        ]
+        if len(identifiers) != len(set(identifiers)):
+            errors.append(f"evals/professionalism.json: duplicate {field} IDs")
+    return errors
+
+
+def validate_professionalism_run(
+    config: Dict[str, Any], manifest: Dict[str, Any], suite_id: Optional[str] = None
+) -> List[str]:
+    """Validate reproducibility metadata for a paired generation run."""
+    try:
+        schema = read_json(PROFESSIONALISM_RUN_SCHEMA_PATH)
+    except CorpusError as exc:
+        return [str(exc)]
+    errors = [
+        f"run manifest: schema: {error}"
+        for error in schema_validation_errors(manifest, schema)
+    ]
+    if manifest.get("benchmark_id") != config.get("benchmark_id"):
+        errors.append("run manifest: benchmark_id does not match")
+    conditions = manifest.get("conditions", {})
+    baseline = conditions.get("baseline", {})
+    library = conditions.get("super_library", {})
+    if baseline.get("library_access") is not False:
+        errors.append("run manifest: baseline must record library_access=false")
+    if library.get("library_access") is not True:
+        errors.append(
+            "run manifest: super_library must record library_access=true"
+        )
+    generator = manifest.get("generator", {})
+    for field in (
+        "provider", "model", "model_revision", "client", "client_version",
+        "reasoning_effort",
+    ):
+        value = str(generator.get(field, ""))
+        if value.startswith("replace-with-"):
+            errors.append(
+                f"run manifest: generator.{field} must replace the example placeholder"
+            )
+    decoding_control = generator.get("decoding_control")
+    decoding_fields = ("temperature", "top_p", "seed")
+    if decoding_control == "explicit":
+        for field in decoding_fields:
+            if field not in generator:
+                errors.append(
+                    f"run manifest: generator.{field} is required when decoding_control=explicit"
+                )
+    elif decoding_control == "client_default_unexposed":
+        for field in decoding_fields:
+            if field in generator:
+                errors.append(
+                    f"run manifest: generator.{field} must be omitted when decoding controls are unexposed"
+                )
+    output_control = generator.get("output_budget_control")
+    if output_control == "explicit" and "max_output_tokens" not in generator:
+        errors.append(
+            "run manifest: generator.max_output_tokens is required when output_budget_control=explicit"
+        )
+    elif (
+        output_control == "client_default_unexposed"
+        and "max_output_tokens" in generator
+    ):
+        errors.append(
+            "run manifest: generator.max_output_tokens must be omitted when the output budget is unexposed"
+        )
+    if suite_id and suite_id != "smoke" and (
+        decoding_control != "explicit" or output_control != "explicit"
+    ):
+        errors.append(
+            "run manifest: core, experiments, and full suites require explicit decoding and output-budget controls"
+        )
+    for condition_id, condition in (
+        ("baseline", baseline),
+        ("super_library", library),
+    ):
+        prompt_hash = str(condition.get("system_prompt_sha256", ""))
+        if prompt_hash and len(set(prompt_hash)) == 1:
+            errors.append(
+                f"run manifest: {condition_id}.system_prompt_sha256 is a placeholder"
+            )
+    library_commit = str(library.get("library_commit", ""))
+    if library_commit and (
+        len(library_commit) != 40 or len(set(library_commit)) == 1
+    ):
+        errors.append(
+            "run manifest: super_library.library_commit must be a full, non-placeholder 40-character commit SHA"
+        )
+    return errors
+
+
+def validate_coverage_policy(taxonomy: Dict[str, Any]) -> List[str]:
+    """Validate roadmap targets independently from current progress."""
+    errors: List[str] = []
+    try:
+        policy = load_coverage_policy()
+        schema = read_json(COVERAGE_POLICY_SCHEMA_PATH)
+        collections_config = read_json(COLLECTIONS_PATH)
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"library/coverage_policy.json: schema: {error}"
+        for error in schema_validation_errors(policy, schema)
+    )
+    known_collections = {
+        collection.get("id")
+        for collection in collections_config.get("collections", [])
+        if isinstance(collection, dict)
+    }
+    if policy.get("collection") not in known_collections:
+        errors.append(
+            "library/coverage_policy.json: unknown collection "
+            f"{policy.get('collection')!r}"
+        )
+    goals = policy.get("goals", {})
+    unknown_domains = set(goals.get("direct_links_by_domain", {})) - set(
+        taxonomy.get("domains", [])
+    )
+    unknown_venues = set(goals.get("direct_links_by_venue", {})) - set(
+        taxonomy.get("venues", [])
+    )
+    if unknown_domains:
+        errors.append(
+            "library/coverage_policy.json: unknown goal domains "
+            f"{sorted(unknown_domains)}"
+        )
+    if unknown_venues:
+        errors.append(
+            "library/coverage_policy.json: unknown goal venues "
+            f"{sorted(unknown_venues)}"
+        )
+    expected_outcomes = {
+        "promote_normalized_record",
+        "link_existing_record",
+        "record_no_promotion",
+    }
+    if set(policy.get("review_outcomes", [])) != expected_outcomes:
+        errors.append(
+            "library/coverage_policy.json: review_outcomes must preserve the "
+            "three explicit deduplication outcomes"
+        )
+    return errors
+
+
+def validate_promotion_decisions(
+    sources: Sequence[Dict[str, Any]],
+    entries: Sequence[Dict[str, Any]],
+    decisions: Optional[Sequence[Dict[str, Any]]] = None,
+) -> List[str]:
+    """Validate review provenance, references, and outcome-specific semantics."""
+    errors: List[str] = []
+    try:
+        if decisions is None:
+            decisions = load_promotion_decisions()
+        schema = read_json(PROMOTION_DECISION_SCHEMA_PATH)
+        policy = load_coverage_policy()
+    except CorpusError as exc:
+        return [str(exc)]
+    sources_by_id = {source["id"]: source for source in sources}
+    entries_by_id = {entry["id"]: entry for entry in entries}
+    core_collection = policy.get("collection")
+    seen_sources: Dict[str, str] = {}
+    for index, decision in enumerate(decisions, 1):
+        origin = decision.get(
+            "_origin", f"library/promotion_decisions.jsonl:{index}"
+        )
+        clean = public_record(decision)
+        errors.extend(
+            f"{origin}: schema: {error}"
+            for error in schema_validation_errors(clean, schema)
+        )
+        source_id = decision.get("source_id")
+        if source_id in seen_sources:
+            errors.append(
+                f"{origin}: duplicate source_id {source_id!r}; first at "
+                f"{seen_sources[source_id]}"
+            )
+        elif isinstance(source_id, str):
+            seen_sources[source_id] = origin
+        source = sources_by_id.get(source_id)
+        if source is None:
+            errors.append(f"{origin}: unknown source_id {source_id!r}")
+        elif core_collection not in source.get("collections", []):
+            errors.append(
+                f"{origin}: source_id {source_id!r} is outside {core_collection!r}"
+            )
+        if not valid_date(decision.get("reviewed_at")):
+            errors.append(f"{origin}: invalid reviewed_at date")
+        for field in ("linked_entry_ids", "dedup_entry_ids"):
+            unknown = set(decision.get(field, [])) - set(entries_by_id)
+            if unknown:
+                errors.append(f"{origin}: unknown {field}: {sorted(unknown)}")
+        for semantic_error in validate_decision_semantics(decision, entries_by_id):
+            errors.append(f"{origin}: {semantic_error}")
+    return errors
+
+
 def validate_corpus(
     taxonomy: Dict[str, Any],
     sources: Sequence[Dict[str, Any]],
@@ -598,8 +1326,13 @@ def validate_corpus(
         topic_config = read_json(TOPICS_PATH)
         collection_config = read_json(COLLECTIONS_PATH)
         corpus_report = read_json(CORPUS_REPORT_PATH)
+        corpus_report_schema = read_json(CORPUS_REPORT_SCHEMA_PATH)
     except CorpusError as exc:
         return [*errors, str(exc)]
+    errors.extend(
+        f"library/corpus_report.json: schema: {error}"
+        for error in schema_validation_errors(corpus_report, corpus_report_schema)
+    )
     topics = {
         item.get("id"): item for item in topic_config.get("topics", [])
         if isinstance(item, dict) and isinstance(item.get("id"), str)
@@ -941,11 +1674,63 @@ def validate_corpus(
             "collection membership"
         )
     analyzed = corpus_report.get("official_abstracts_analyzed", 0)
-    not_analyzed = corpus_report.get("abstracts_not_analyzed", {}).get("count", 0)
+    not_analyzed_record = corpus_report.get("abstracts_not_analyzed", {})
+    not_analyzed = not_analyzed_record.get("count", 0)
+    not_analyzed_ids = not_analyzed_record.get("source_ids", [])
     if analyzed + not_analyzed != len(reported_members):
         errors.append(
             "library/corpus_report.json: abstract analysis counts do not sum to "
             "collection membership"
+        )
+    if not_analyzed != len(not_analyzed_ids):
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed.count does not "
+            "match source_ids"
+        )
+    reported_member_ids = {source["id"] for source in reported_members}
+    unknown_not_analyzed = set(not_analyzed_ids) - reported_member_ids
+    if unknown_not_analyzed:
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed has unknown or "
+            f"out-of-collection source IDs: {sorted(unknown_not_analyzed)}"
+        )
+    venue = not_analyzed_record.get("venue")
+    wrong_venue = sorted(
+        source["id"]
+        for source in reported_members
+        if source["id"] in set(not_analyzed_ids) and source["venue"] != venue
+    )
+    if wrong_venue:
+        errors.append(
+            "library/corpus_report.json: abstracts_not_analyzed venue does not "
+            f"match source metadata: {wrong_venue}"
+        )
+    try:
+        analysis_records = source_analysis_records(sources, entries)
+        declared_samples = set(
+            read_json(SECTION_STUDY_PATH).get("sample_source_ids", [])
+        )
+    except CorpusError as exc:
+        errors.append(str(exc))
+        analysis_records = []
+        declared_samples = set()
+    if len(analysis_records) != len(reported_members):
+        errors.append(
+            "generated source-analysis ledger does not cover the reported collection"
+        )
+    if len({record["source_id"] for record in analysis_records}) != len(
+        analysis_records
+    ):
+        errors.append("generated source-analysis ledger contains duplicate papers")
+    structural_samples = {
+        record["source_id"]
+        for record in analysis_records
+        if record["full_text_status"] == "structural_sample"
+    }
+    if structural_samples != declared_samples:
+        errors.append(
+            "section-writing full-paper samples must all belong to the reported "
+            "core collection"
         )
     unknown_promoted = set(corpus_report.get("promoted_collocation_ids", [])) - set(
         entries_by_id
@@ -1008,6 +1793,10 @@ def validate_corpus(
     errors.extend(validate_task_routes(taxonomy, entries))
     errors.extend(validate_table_templates())
     errors.extend(validate_retrieval_evals(taxonomy, entries))
+    errors.extend(validate_writing_evals(taxonomy, entries))
+    errors.extend(validate_professionalism_benchmark())
+    errors.extend(validate_coverage_policy(taxonomy))
+    errors.extend(validate_promotion_decisions(sources, entries))
     return errors
 
 
@@ -1372,6 +2161,9 @@ def coverage_stats(
         source for source in sources
         if "recent-five-year-core" in source.get("collections", [])
     ]
+    analysis_records = source_analysis_records(sources, entries)
+    analysis_summary = source_analysis_summary(analysis_records)
+    goal_status = coverage_goal_status(load_coverage_policy(), analysis_records)
     return {
         "entries": len(entries),
         "sources": len(sources),
@@ -1459,6 +2251,8 @@ def coverage_stats(
                 )
             ),
         },
+        "evidence_depth": analysis_summary,
+        "roadmap_goals": goal_status,
     }
 
 
@@ -1473,6 +2267,310 @@ def cmd_stats(_: argparse.Namespace) -> int:
         return 1
     print(json.dumps(coverage_stats(sources, entries), ensure_ascii=False, indent=2))
     return 0
+
+
+def render_source_analysis_summary(
+    taxonomy: Dict[str, Any], records: Sequence[Dict[str, Any]]
+) -> str:
+    summary = source_analysis_summary(records)
+    base = raw_dist_base(taxonomy)
+    abstract = summary["abstract_status"]
+    full_text = summary["full_text_status"]
+    lines = [
+        "# Super Library paper-analysis ledger",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "This ledger separates paper inclusion from language-evidence depth. Metadata",
+        "coverage is not evidence that a paper contributed a reusable expression.",
+        "",
+        f"- Core papers: {summary['papers']}",
+        f"- Abstract analyzed: {abstract.get('analyzed', 0)}",
+        f"- Abstract unavailable to the bounded collector: {abstract.get('unavailable', 0)}",
+        f"- Full-paper structural samples: {full_text.get('structural_sample', 0)}",
+        f"- Papers directly linked from normalized library records: "
+        f"{summary['papers_with_direct_library_links']}",
+        f"- Papers cited as representative entry sources: "
+        f"{summary['papers_with_representative_entry_links']}",
+        f"- Papers linked by completed promotion reviews: "
+        f"{summary['papers_with_promotion_decision_links']}",
+        f"- Completed promotion reviews (including no-promotion): "
+        f"{summary['papers_with_promotion_decisions']}",
+        f"- Papers with no direct normalized-record link: "
+        f"{summary['papers_without_direct_library_links']}",
+        "",
+        "Open the [machine-readable per-paper ledger]"
+        f"({base}/evidence/source-analysis.jsonl) only when auditing coverage.",
+        "For a literature claim, open the primary paper itself; neither this ledger",
+        "nor a topic evidence map is citable evidence.",
+    ]
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_analysis_status(args: argparse.Namespace) -> int:
+    try:
+        taxonomy, sources, entries = load_corpus()
+        records = source_analysis_records(sources, entries)
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    if args.source_id:
+        record = next(
+            (item for item in records if item["source_id"] == args.source_id), None
+        )
+        if record is None:
+            print(
+                f"ERROR: {args.source_id!r} is not in the recent-five-year core",
+                file=sys.stderr,
+            )
+            return 1
+        payload: Any = record
+    else:
+        payload = source_analysis_summary(records)
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    elif args.source_id:
+        links = payload["linked_entry_ids"]
+        representative_links = payload["representative_entry_ids"]
+        promotion_links = payload["promotion_entry_ids"]
+        print(f"# {payload['title']}")
+        print()
+        print(f"- Source ID: `{payload['source_id']}`")
+        print(f"- Venue/year: {payload['venue']} {payload['year']}")
+        print(f"- Abstract: {payload['abstract_status']}")
+        print(f"- Full text: {payload['full_text_status']}")
+        print(
+            "- Representative entry links: "
+            f"{', '.join(representative_links) if representative_links else 'none'}"
+        )
+        print(
+            "- Promotion-review links: "
+            f"{', '.join(promotion_links) if promotion_links else 'none'}"
+        )
+        print(f"- Combined library links: {', '.join(links) if links else 'none'}")
+        if payload["promotion_decision"]:
+            print(
+                "- Promotion decision: "
+                f"{payload['promotion_decision']['decision']}"
+            )
+        print(f"- Outcome: {payload['outcome']}")
+        print(f"- Primary paper: {payload['official_url']}")
+    else:
+        print(render_source_analysis_summary(taxonomy, records), end="")
+    return 0
+
+
+def promotion_decision_summary(
+    decisions: Sequence[Dict[str, Any]],
+) -> Dict[str, Any]:
+    """Summarize completed reviews without treating them as writing evidence."""
+    return {
+        "reviewed_papers": len(decisions),
+        "by_decision": dict(
+            sorted(collections.Counter(item["decision"] for item in decisions).items())
+        ),
+        "by_verification_scope": dict(
+            sorted(
+                collections.Counter(
+                    item["verification_scope"] for item in decisions
+                ).items()
+            )
+        ),
+        "papers_with_review_links": sum(
+            bool(item.get("linked_entry_ids")) for item in decisions
+        ),
+        "papers_without_promotion": sum(
+            item.get("decision") == "record_no_promotion" for item in decisions
+        ),
+    }
+
+
+def render_promotion_decisions(
+    taxonomy: Dict[str, Any],
+    sources: Sequence[Dict[str, Any]],
+    decisions: Sequence[Dict[str, Any]],
+) -> str:
+    summary = promotion_decision_summary(decisions)
+    sources_by_id = {source["id"]: source for source in sources}
+    lines = [
+        "# Evidence-promotion decisions",
+        "",
+        f"Corpus `{taxonomy['corpus_version']}` · snapshot `{taxonomy['as_of']}`.",
+        "",
+        "These are maintainer review outcomes, not Agent writing context or",
+        "citable evidence. Open the named primary paper before making a literature claim.",
+        "",
+        f"- Reviewed papers: {summary['reviewed_papers']}",
+        f"- Reviews linked to normalized records: {summary['papers_with_review_links']}",
+        f"- Explicit no-promotion outcomes: {summary['papers_without_promotion']}",
+        "",
+        "| Paper | Decision | Verification | Linked records |",
+        "|---|---|---|---|",
+    ]
+    for decision in sorted(decisions, key=lambda item: item["source_id"]):
+        source = sources_by_id[decision["source_id"]]
+        linked = ", ".join(f"`{item}`" for item in decision["linked_entry_ids"])
+        lines.append(
+            f"| [{source['title']}]({source['url']}) | "
+            f"`{decision['decision']}` | {decision['evidence_locator']} | "
+            f"{linked or 'none'} |"
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_promotion_status(args: argparse.Namespace) -> int:
+    try:
+        taxonomy, sources, entries = load_corpus()
+        decisions = load_promotion_decisions()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    errors = validate_promotion_decisions(sources, entries, decisions)
+    if errors:
+        print("ERROR: promotion decisions are invalid; run validate", file=sys.stderr)
+        return 1
+    sources_by_id = {source["id"]: source for source in sources}
+    if args.source_id:
+        match = next(
+            (item for item in decisions if item["source_id"] == args.source_id), None
+        )
+        if match is None:
+            print(
+                f"ERROR: no promotion decision for {args.source_id!r}",
+                file=sys.stderr,
+            )
+            return 1
+        payload: Any = public_record(match)
+        source = sources_by_id[match["source_id"]]
+        payload["primary_paper"] = {
+            "title": source["title"],
+            "venue": source["venue"],
+            "year": source["year"],
+            "url": source["url"],
+        }
+    else:
+        payload = promotion_decision_summary(decisions)
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    elif args.source_id:
+        print(f"# {payload['primary_paper']['title']}")
+        print()
+        print(f"- Source ID: `{payload['source_id']}`")
+        print(f"- Decision: `{payload['decision']}`")
+        print(f"- Verification: {payload['evidence_locator']}")
+        print(f"- Rationale: {payload['rationale']}")
+        links = payload["linked_entry_ids"]
+        print(f"- Linked records: {', '.join(links) if links else 'none'}")
+        print(f"- Primary paper: {payload['primary_paper']['url']}")
+    else:
+        print(render_promotion_decisions(taxonomy, sources, decisions), end="")
+    return 0
+
+
+def cmd_coverage_gaps(args: argparse.Namespace) -> int:
+    """Show the next evidence-review candidates without promoting them."""
+    try:
+        taxonomy, sources, entries = load_corpus()
+        policy = load_coverage_policy()
+        analysis_records = source_analysis_records(sources, entries)
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    queue = promotion_queue_records(policy, analysis_records)
+    if args.domain:
+        queue = [record for record in queue if args.domain[0] in record["domains"]]
+    if args.venue:
+        queue = [record for record in queue if record["venue"] == args.venue[0]]
+    selected = queue[: args.limit]
+    payload = {
+        "summary": coverage_goal_status(policy, analysis_records),
+        "filters": {
+            "domain": args.domain[0] if args.domain else None,
+            "venue": args.venue[0] if args.venue else None,
+        },
+        "candidate_count": len(queue),
+        "records": selected,
+        "notice": (
+            "This is a maintainer queue, not writing context or citable evidence; "
+            "record_no_promotion is a valid deduplication outcome."
+        ),
+    }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+    print("# Evidence-promotion queue")
+    print()
+    print(payload["notice"])
+    print()
+    print(
+        f"Directly linked: {payload['summary']['directly_linked_papers']}/"
+        f"{payload['summary']['directly_linked_goal']} · "
+        f"full-text samples: {payload['summary']['full_text_structural_samples']}/"
+        f"{payload['summary']['full_text_structural_samples_goal']} · "
+        f"writing cases: {payload['summary']['writing_behavior_cases']}/"
+        f"{payload['summary']['writing_behavior_cases_goal']}"
+    )
+    print()
+    print("| Rank | Priority | Paper | Venue | Score |")
+    print("|---:|:---:|---|:---:|---:|")
+    for record in selected:
+        title = record["title"].replace("|", "\\|")
+        print(
+            f"| {record['rank']} | {record['priority']} | "
+            f"[{title}]({record['official_url']}) | {record['venue']} "
+            f"{record['year']} | {record['score']} |"
+        )
+    return 0
+
+
+def cmd_verify_sources(args: argparse.Namespace) -> int:
+    try:
+        _, sources, _ = load_corpus()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    selected = sorted(
+        (
+            public_record(source)
+            for source in sources
+            if args.collection in source.get("collections", [])
+        ),
+        key=lambda item: item["id"],
+    )
+    if args.limit is not None:
+        selected = selected[: args.limit]
+    results = verify_sources(
+        selected,
+        timeout=float(args.timeout),
+        workers=args.workers,
+    )
+    summary = health_summary(results)
+    payload = {
+        "collection": args.collection,
+        "checked_at": dt.datetime.now(dt.timezone.utc).isoformat(),
+        "policy": (
+            "404 and 410 are broken; access controls and transient failures are "
+            "reported separately and do not prove a dead source."
+        ),
+        "summary": summary,
+        "results": results,
+    }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(
+            "Source health: "
+            + ", ".join(f"{key}={value}" for key, value in summary.items())
+        )
+        for result in results:
+            if result["status"] == "reachable":
+                continue
+            http = result["http_status"] if result["http_status"] is not None else "-"
+            print(
+                f"{result['source_id']}: {result['status']} "
+                f"(HTTP {http}) {result['detail']}"
+            )
+    return 1 if args.strict and summary.get("broken", 0) else 0
 
 
 def writing_guides_by_id() -> Dict[str, Dict[str, Any]]:
@@ -1543,10 +2641,44 @@ def recommend_guide_id(
         return "abstract"
     if "introduction" in sections:
         return "introduction"
+    section_guides = {
+        "related_work": "related_work",
+        "method": "method",
+        "limitations": "limitations",
+        "conclusion": "conclusion",
+        "rebuttal": "rebuttal",
+        "translation": "translation",
+    }
+    for section, guide_id in section_guides.items():
+        if section in sections and guide_id in available:
+            return guide_id
     if "experiments" not in sections:
         return None
     query_lower = query.lower()
+    full_section_signals = (
+        "experiment section",
+        "experimental section",
+        "experimental setup",
+        "evaluation protocol",
+        "complete experiments",
+        "full experiments",
+        "real-robot experiment",
+        "real robot experiment",
+        "setup and analysis",
+        "实验章节",
+        "完整实验",
+        "实验设置",
+        "评测协议",
+        "真实机器人实验",
+        "设置与分析",
+    )
+    if any(signal in query_lower for signal in full_section_signals):
+        return "experiments"
     routes = (
+        (
+            "experiments.table.main_results",
+            ("main results", "comparison table", "主结果", "主表"),
+        ),
         (
             "experiments.table.ablation",
             ("ablation", "component study", "消融", "组件"),
@@ -1566,10 +2698,6 @@ def recommend_guide_id(
         (
             "experiments.analysis",
             ("analysis", "interpret", "observation", "分析", "结果段"),
-        ),
-        (
-            "experiments.table.main_results",
-            ("main results", "comparison table", "主结果", "主表"),
         ),
         (
             "experiments.table.common",
@@ -1993,6 +3121,634 @@ def cmd_eval_retrieval(args: argparse.Namespace) -> int:
     return 1 if failed else 0
 
 
+def writing_case_packet(case: Dict[str, Any]) -> Dict[str, Any]:
+    """Return prompt inputs without exposing checks, rubric, or expected records."""
+    classification = {
+        "domain": case["domain"],
+        "section": case["section"],
+        "intent": case["intent"],
+    }
+    if case.get("topic"):
+        classification["topic"] = case["topic"]
+    return {
+        "id": case["id"],
+        "mode": case["mode"],
+        "classification": classification,
+        "request": case["request"],
+        "facts": case["facts"],
+        "evidence_boundary": case["evidence_boundary"],
+        "instructions": [
+            "Use the repository workflow and retrieve before drafting.",
+            "Return only the requested prose, with no invented facts or citations.",
+            "The evaluation keeps its machine checks and manual rubric hidden.",
+        ],
+    }
+
+
+def render_writing_packet(case: Dict[str, Any]) -> str:
+    packet = writing_case_packet(case)
+    classification = packet["classification"]
+    lines = [
+        f"# Blind writing case: {packet['id']}",
+        "",
+        f"- Mode: `{packet['mode']}`",
+        f"- Domain: `{classification['domain']}`",
+        f"- Section: `{classification['section']}`",
+        f"- Intent: `{classification['intent']}`",
+    ]
+    if classification.get("topic"):
+        lines.append(f"- Topic: `{classification['topic']}`")
+    lines.extend(
+        [
+            "",
+            "## Request",
+            "",
+            packet["request"],
+            "",
+            "## Facts",
+            "",
+        ]
+    )
+    lines.extend(f"- {fact}" for fact in packet["facts"])
+    if not packet["facts"]:
+        lines.append("- The proposition is fully specified in the request.")
+    lines.extend(
+        [
+            "",
+            "## Evidence boundary",
+            "",
+            packet["evidence_boundary"],
+            "",
+            "## Instructions",
+            "",
+        ]
+    )
+    lines.extend(f"- {instruction}" for instruction in packet["instructions"])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_writing_eval_result(payload: Dict[str, Any]) -> str:
+    lines = [
+        "# Writing evaluation",
+        "",
+        f"- Cases: {payload['cases']}",
+        f"- Responses found: {payload['responses_found']}",
+        f"- Machine-pass responses: {payload['machine_passed']}",
+        f"- Machine-fail responses: {payload['machine_failed']}",
+        f"- Missing responses: {len(payload['missing'])}",
+        "- Manual review required: yes",
+        "",
+    ]
+    for result in payload["results"]:
+        marker = "PASS" if result["passed"] else "FAIL"
+        lines.append(
+            f"- `{result['id']}`: {marker} "
+            f"({result['machine_checks_passed']}/{result['machine_checks']})"
+        )
+        for check in result["check_results"]:
+            if not check["passed"]:
+                lines.append(f"  - {check['id']}: {check['message']}")
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_eval_writing(args: argparse.Namespace) -> int:
+    """Emit blind cases or score response files with deterministic invariants."""
+    try:
+        taxonomy, _, entries = load_corpus()
+        config = load_writing_evals()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    validation_errors = validate_writing_evals(taxonomy, entries)
+    if validation_errors:
+        print("ERROR: writing evaluation is invalid; run validate", file=sys.stderr)
+        return 1
+    cases = config["cases"]
+    by_id = {case["id"]: case for case in cases}
+    if args.list or (not args.case and not args.responses):
+        records = [
+            {
+                "id": case["id"],
+                "mode": case["mode"],
+                "domain": case["domain"],
+                **({"topic": case["topic"]} if case.get("topic") else {}),
+                "section": case["section"],
+                "intent": case["intent"],
+                "machine_checks": len(case["machine_checks"]),
+                "manual_review_required": True,
+            }
+            for case in cases
+        ]
+        payload = {"schema_version": config["schema_version"], "cases": len(records), "records": records}
+        if args.format == "json":
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print("# Blind writing cases")
+            print()
+            for record in records:
+                print(
+                    f"- `{record['id']}` — {record['domain']}/"
+                    f"{record['section']} ({record['machine_checks']} machine checks)"
+                )
+        return 0
+    if args.case:
+        case = by_id.get(args.case)
+        if case is None:
+            print(f"ERROR: unknown writing case {args.case!r}", file=sys.stderr)
+            return 2
+        if not args.response_file:
+            if args.format == "json":
+                print(json.dumps(writing_case_packet(case), ensure_ascii=False, indent=2))
+            else:
+                print(render_writing_packet(case), end="")
+            return 0
+        try:
+            response_text = Path(args.response_file).read_text(encoding="utf-8")
+        except OSError as exc:
+            print(f"ERROR: cannot read response file: {exc}", file=sys.stderr)
+            return 2
+        result = evaluate_response(case, response_text)
+        payload = {
+            "cases": 1,
+            "responses_found": 1,
+            "machine_passed": int(result["passed"]),
+            "machine_failed": int(not result["passed"]),
+            "missing": [],
+            "manual_review_required": True,
+            "results": [result],
+        }
+    else:
+        response_dir = Path(args.responses)
+        if not response_dir.is_dir():
+            print(f"ERROR: response directory does not exist: {response_dir}", file=sys.stderr)
+            return 2
+        results = []
+        missing = []
+        for case in cases:
+            response_path = response_dir / f"{case['id']}.md"
+            if not response_path.is_file():
+                missing.append(case["id"])
+                continue
+            results.append(
+                evaluate_response(case, response_path.read_text(encoding="utf-8"))
+            )
+        failed = sum(not result["passed"] for result in results)
+        payload = {
+            "cases": len(cases),
+            "responses_found": len(results),
+            "machine_passed": len(results) - failed,
+            "machine_failed": failed,
+            "missing": missing,
+            "manual_review_required": True,
+            "results": results,
+        }
+    if args.format == "json":
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+    else:
+        print(render_writing_eval_result(payload), end="")
+    has_failure = bool(payload["machine_failed"] or payload["missing"])
+    return 1 if args.strict and has_failure else 0
+
+
+def _read_benchmark_json(path_value: str, label: str) -> Dict[str, Any]:
+    path = Path(path_value)
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(f"cannot read {label}: {exc}") from exc
+    except json.JSONDecodeError as exc:
+        raise ProfessionalBenchmarkError(
+            f"invalid JSON in {label} at {exc.lineno}:{exc.colno}: {exc.msg}"
+        ) from exc
+    if not isinstance(value, dict):
+        raise ProfessionalBenchmarkError(f"{label} must contain a JSON object")
+    return value
+
+
+def _write_benchmark_json(
+    path_value: str,
+    value: Dict[str, Any],
+    force: bool,
+    *,
+    private: bool = False,
+) -> None:
+    path = Path(path_value)
+    if path.is_symlink():
+        raise ProfessionalBenchmarkError(
+            f"refusing to write benchmark output through a symbolic link: {path}"
+        )
+    if path.exists() and not force:
+        raise ProfessionalBenchmarkError(
+            f"refusing to replace existing file without --force: {path}"
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    serialized = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+    try:
+        if private:
+            flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+            if hasattr(os, "O_NOFOLLOW"):
+                flags |= os.O_NOFOLLOW
+            descriptor = os.open(path, flags, 0o600)
+            try:
+                os.fchmod(descriptor, 0o600)
+                with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                    descriptor = -1
+                    stream.write(serialized)
+            finally:
+                if descriptor >= 0:
+                    os.close(descriptor)
+        else:
+            path.write_text(serialized, encoding="utf-8")
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(
+            f"cannot write benchmark output {path}: {exc}"
+        ) from exc
+
+
+def _write_benchmark_text(path_value: str, value: str, force: bool) -> None:
+    path = Path(path_value)
+    if path.is_symlink():
+        raise ProfessionalBenchmarkError(
+            f"refusing to write benchmark output through a symbolic link: {path}"
+        )
+    if path.exists() and not force:
+        raise ProfessionalBenchmarkError(
+            f"refusing to replace existing file without --force: {path}"
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        descriptor = os.open(path, flags, 0o644)
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                descriptor = -1
+                stream.write(value.rstrip() + "\n")
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(
+            f"cannot write benchmark output {path}: {exc}"
+        ) from exc
+
+
+def render_professional_prompt(packet: Dict[str, Any]) -> str:
+    classification = packet["classification"]
+    lines = [
+        f"# Professional writing benchmark: {packet['case_id']}",
+        "",
+        f"- Mode: `{packet['mode']}`",
+        f"- Domain: `{classification['domain']}`",
+        f"- Section: `{classification['section']}`",
+        f"- Intent: `{classification['intent']}`",
+    ]
+    if classification.get("topic"):
+        lines.append(f"- Topic: `{classification['topic']}`")
+    lines.extend(["", "## Request", "", packet["request"], "", "## Facts", ""])
+    lines.extend(f"- {fact}" for fact in packet["facts"])
+    if not packet["facts"]:
+        lines.append("- The proposition is fully specified in the request.")
+    lines.extend(
+        ["", "## Evidence boundary", "", packet["evidence_boundary"], "", "## Instructions", ""]
+    )
+    lines.extend(f"- {instruction}" for instruction in packet["instructions"])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_blind_review_sheet(blind: Dict[str, Any]) -> str:
+    """Render a condition-blind, human-readable scoring worksheet."""
+    def fenced_text(value: str) -> List[str]:
+        fence = "```"
+        while fence in value:
+            fence += "`"
+        return [f"{fence}text", value, fence]
+
+    lines = [
+        "# Blind AI-paper writing review",
+        "",
+        "Score A and B independently before choosing a preference. Do not infer",
+        "or discuss which system produced either response.",
+        "",
+        "## Score anchors",
+        "",
+    ]
+    for dimension in blind.get("rubric_dimensions", []):
+        anchors = dimension["anchors"]
+        lines.extend(
+            [
+                f"### {dimension['label']} (`{dimension['id']}`)",
+                "",
+                dimension["question"],
+                "",
+                f"- **1:** {anchors['1']}",
+                f"- **3:** {anchors['3']}",
+                f"- **5:** {anchors['5']}",
+                "",
+            ]
+        )
+    lines.extend(["## Critical errors", ""])
+    for error in blind.get("critical_errors", []):
+        lines.append(
+            f"- `{error['id']}` — **{error['label']}:** {error['description']}"
+        )
+    dimension_ids = [
+        item["id"] for item in blind.get("rubric_dimensions", [])
+    ]
+    for pair in blind.get("pairs", []):
+        lines.extend(
+            [
+                "",
+                f"## Pair `{pair['pair_id']}`",
+                "",
+                "### Task",
+                "",
+                render_professional_prompt(pair["prompt"]).rstrip(),
+                "",
+                "### Response A",
+                "",
+            ]
+        )
+        lines.extend(fenced_text(pair["response_a"]))
+        lines.extend(["", "### Response B", ""])
+        lines.extend(fenced_text(pair["response_b"]))
+        lines.extend(
+            [
+                "",
+                "### Scores",
+                "",
+                "| Dimension | A (1–5) | B (1–5) |",
+                "|---|---:|---:|",
+            ]
+        )
+        lines.extend(f"| `{dimension_id}` |  |  |" for dimension_id in dimension_ids)
+        lines.extend(
+            [
+                "",
+                "Critical errors for A: ",
+                "",
+                "Critical errors for B: ",
+                "",
+                "Preference (A / B / tie): ",
+                "",
+                "Rationale: ",
+            ]
+        )
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_professional_report(report: Dict[str, Any]) -> str:
+    marker = "PASS" if report["passed"] else "FAIL"
+    baseline = report["conditions"]["baseline"]
+    library = report["conditions"]["super_library"]
+    comparison = report["comparison"]
+    agreement = report["agreement"]
+    interval = comparison["paired_delta_bootstrap_interval"]
+    lines = [
+        "# Super Library professionalism benchmark",
+        "",
+        f"- Result: **{marker}**",
+        f"- Run: `{report['run_id']}`",
+        f"- Suite: `{report['suite_id']}` ({report['cases']} cases)",
+        f"- Independent raters: {report['raters']}",
+        f"- Complete rating coverage: {report['rating_coverage']:.1%}",
+        "",
+        "## Absolute quality",
+        "",
+        f"- Baseline: mean {baseline['mean_professionalism']:.2f}/5; "
+        f"machine pass {baseline['machine_pass_rate']:.1%}; critical-error "
+        f"rate {baseline['critical_error_rate']:.1%}.",
+        f"- Super Library: mean {library['mean_professionalism']:.2f}/5; "
+        f"machine pass {library['machine_pass_rate']:.1%}; critical-error "
+        f"rate {library['critical_error_rate']:.1%}.",
+        "",
+        "## Paired effect",
+        "",
+        f"- Mean Super Library minus baseline: {comparison['paired_mean_delta']:+.3f} points.",
+        f"- {comparison['bootstrap_confidence_level']:.0%} paired-case bootstrap interval: "
+        f"[{interval[0]:+.3f}, {interval[1]:+.3f}].",
+        f"- Super Library preference win rate excluding ties: "
+        f"{comparison['super_library_win_rate_excluding_ties']:.1%}.",
+        "",
+        "## Rater agreement",
+        "",
+        f"- Exact dimension-score agreement: {agreement['exact_score_agreement']:.1%}.",
+        f"- Within-one agreement: {agreement['within_one_score_agreement']:.1%}.",
+        f"- Unanimous pairwise preference: {agreement['unanimous_preference_rate']:.1%}.",
+        "",
+        "## Quality gates",
+        "",
+    ]
+    for gate in report["quality_gates"]:
+        gate_marker = "PASS" if gate["passed"] else "FAIL"
+        lines.append(
+            f"- {gate_marker} `{gate['id']}`: {gate['value']} "
+            f"{gate['operator']} {gate['threshold']}"
+        )
+    lines.extend(["", "## Interpretation boundary", "", report["interpretation_boundary"]])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_benchmark_professionalism(args: argparse.Namespace) -> int:
+    """Prepare and score a reproducible blind A/B professionalism benchmark."""
+    try:
+        config = load_professionalism_benchmark()
+        writing_config = load_writing_evals()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    validation_errors = validate_professionalism_benchmark()
+    if validation_errors:
+        for error in validation_errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    cases_by_id = {case["id"]: case for case in writing_config["cases"]}
+
+    if args.benchmark_action == "list":
+        payload = {
+            "schema_version": config["schema_version"],
+            "benchmark_id": config["benchmark_id"],
+            "conditions": [condition["id"] for condition in config["conditions"]],
+            "suites": [
+                {
+                    "id": suite["id"],
+                    "label": suite["label"],
+                    "cases": len(suite["case_ids"]),
+                }
+                for suite in config["suites"]
+            ],
+            "rubric_dimensions": config["rubric_dimensions"],
+            "critical_errors": config["critical_errors"],
+            "quality_gates": config["quality_gates"],
+        }
+        if args.format == "json":
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print("# Super Library professionalism benchmark")
+            print()
+            for suite in payload["suites"]:
+                print(f"- `{suite['id']}`: {suite['cases']} cases — {suite['label']}")
+            print()
+            print(f"Rubric dimensions: {len(payload['rubric_dimensions'])}")
+            print(f"Critical-error classes: {len(payload['critical_errors'])}")
+        return 0
+
+    if args.benchmark_action == "prompt":
+        case = cases_by_id.get(args.case_id)
+        if case is None:
+            print(f"ERROR: unknown writing case {args.case_id!r}", file=sys.stderr)
+            return 2
+        packet = neutral_prompt_packet(case)
+        if args.format == "json":
+            print(json.dumps(packet, ensure_ascii=False, indent=2))
+        else:
+            print(render_professional_prompt(packet), end="")
+        return 0
+
+    if args.benchmark_action == "machine":
+        try:
+            case_ids = suite_case_ids(config, args.suite)
+            condition_reports: Dict[str, Any] = {}
+            missing: List[str] = []
+            for condition_id in ("baseline", "super_library"):
+                results = []
+                for case_id in case_ids:
+                    response_path = (
+                        Path(args.responses) / condition_id / f"{case_id}.md"
+                    )
+                    if not response_path.is_file():
+                        missing.append(str(response_path))
+                        continue
+                    response = response_path.read_text(encoding="utf-8").strip()
+                    if not response:
+                        missing.append(f"{response_path} (empty)")
+                        continue
+                    results.append(
+                        evaluate_response(dict(cases_by_id[case_id]), response)
+                    )
+                total_checks = sum(item["machine_checks"] for item in results)
+                passed_checks = sum(
+                    item["machine_checks_passed"] for item in results
+                )
+                condition_reports[condition_id] = {
+                    "responses": len(results),
+                    "responses_passed": sum(item["passed"] for item in results),
+                    "response_pass_rate": round(
+                        sum(item["passed"] for item in results) / len(case_ids), 4
+                    ),
+                    "machine_checks": total_checks,
+                    "machine_checks_passed": passed_checks,
+                    "machine_check_pass_rate": round(
+                        passed_checks / total_checks if total_checks else 0.0, 4
+                    ),
+                    "results": results,
+                }
+            if missing:
+                raise ProfessionalBenchmarkError(
+                    "missing or empty benchmark responses: " + ", ".join(missing)
+                )
+            report = {
+                "schema_version": "1.0",
+                "benchmark_id": config["benchmark_id"],
+                "suite_id": args.suite,
+                "cases": len(case_ids),
+                "conditions": condition_reports,
+                "passed": all(
+                    item["response_pass_rate"] == 1.0
+                    for item in condition_reports.values()
+                ),
+                "interpretation_boundary": (
+                    "Regex invariants test declared facts and prohibited claims only; "
+                    "they do not measure professional style or replace blind ratings."
+                ),
+            }
+            if args.output:
+                _write_benchmark_json(
+                    args.output, report, args.force, private=True
+                )
+        except (OSError, UnicodeError, ProfessionalBenchmarkError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+        if args.format == "json":
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print(f"Machine checks: {args.suite} ({len(case_ids)} cases)")
+            for condition_id, item in condition_reports.items():
+                print(
+                    f"- {condition_id}: {item['responses_passed']}/{item['responses']} "
+                    f"responses; {item['machine_checks_passed']}/{item['machine_checks']} checks"
+                )
+            print(report["interpretation_boundary"])
+        return 1 if args.strict and not report["passed"] else 0
+
+    if args.benchmark_action == "review-sheet":
+        try:
+            blind = _read_benchmark_json(args.blind_file, "blind bundle")
+            if blind.get("benchmark_id") != config.get("benchmark_id"):
+                raise ProfessionalBenchmarkError(
+                    "blind bundle targets a different benchmark"
+                )
+            if not blind.get("pairs"):
+                raise ProfessionalBenchmarkError("blind bundle contains no pairs")
+            sheet = render_blind_review_sheet(blind)
+            _write_benchmark_text(args.output, sheet, args.force)
+        except (ProfessionalBenchmarkError, KeyError, TypeError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+        print(f"Wrote condition-blind review sheet to {args.output}.")
+        return 0
+
+    try:
+        if args.benchmark_action == "prepare":
+            manifest = _read_benchmark_json(args.run_manifest, "run manifest")
+            run_errors = validate_professionalism_run(
+                config, manifest, suite_id=args.suite
+            )
+            if run_errors:
+                raise ProfessionalBenchmarkError("; ".join(run_errors))
+            if Path(args.blind_output).resolve() == Path(args.key_output).resolve():
+                raise ProfessionalBenchmarkError(
+                    "blind output and private key must be different files"
+                )
+            blind, key = prepare_blind_pairs(
+                config,
+                cases_by_id,
+                Path(args.responses),
+                manifest,
+                args.suite,
+                args.seed,
+            )
+            _write_benchmark_json(args.blind_output, blind, args.force)
+            _write_benchmark_json(
+                args.key_output, key, args.force, private=True
+            )
+            print(
+                f"Prepared {len(blind['pairs'])} blind pairs in {args.blind_output}; "
+                f"keep {args.key_output} private until ratings are complete."
+            )
+            return 0
+
+        blind = _read_benchmark_json(args.blind_file, "blind bundle")
+        key = _read_benchmark_json(args.key_file, "private key")
+        ratings = _read_benchmark_json(args.ratings_file, "ratings")
+        ratings_schema = read_json(PROFESSIONALISM_RATINGS_SCHEMA_PATH)
+        rating_schema_errors = schema_validation_errors(ratings, ratings_schema)
+        if rating_schema_errors:
+            raise ProfessionalBenchmarkError(
+                "; ".join(f"ratings schema: {error}" for error in rating_schema_errors)
+            )
+        report = score_benchmark(config, cases_by_id, blind, key, ratings)
+    except (CorpusError, ProfessionalBenchmarkError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+    if args.format == "json":
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        print(render_professional_report(report), end="")
+    return 1 if args.strict and not report["passed"] else 0
+
+
 def cmd_guide(args: argparse.Namespace) -> int:
     try:
         taxonomy, sources, entries = load_corpus()
@@ -2060,7 +3816,7 @@ def render_agent_index(
         "   contains the compact contract, one protocol when needed, and selected",
         "   records.",
         f"2. Otherwise, read the [universal core]({base}/core.md) once.",
-        f"3. For Abstract, Introduction, or Experiments, select one task-specific",
+        "3. For a structured paper section, rebuttal, or translation task, select one",
         f"   [section protocol]({base}/guides/index.md). Do not load every guide.",
         "4. Read one section catalog for rhetoric and one small domain hub for",
         "   terminology; then follow at most one topic catalog. Indexes contain only",
@@ -2075,8 +3831,8 @@ def render_agent_index(
         "",
         "## Section protocols",
         "",
-        f"- [Protocol index]({base}/guides/index.md) — Abstract, Introduction,",
-        "  complete Experiments, results analysis, and five table types",
+        f"- [Protocol index]({base}/guides/index.md) — all principal paper sections,",
+        "  rebuttal, translation, results analysis, and five table types",
         f"- [LaTeX table assets]({base}/templates/tables/index.md) — five",
         "  self-contained reporting skeletons with auditable replacement tokens",
         "",
@@ -2104,6 +3860,8 @@ def render_agent_index(
             f"- [Machine router]({base}/router.json)",
             f"- [Thin JSONL catalog]({base}/catalog.jsonl)",
             f"- [Release manifest and checksums]({base}/manifest.json)",
+            f"- [Paper-analysis depth]({base}/evidence/source-analysis.md) — audit-only;",
+            "  not part of the default writing context",
             "",
             "With a checkout, avoid loading generated files and retrieve a bounded",
             "bundle directly:",
@@ -2255,9 +4013,10 @@ def render_catalog(
             route_metadata = f"sections={','.join(entry['sections'])}"
         else:
             route_metadata = f"domains={','.join(entry['domains'])}"
+        tag_metadata = "" if catalog_type == "domain" else f" · tags={tag_text}"
         lines.append(
             f"- [{entry['expression']}]({card_url}) — `{entry['id']}` · "
-            f"{entry['kind']} · {route_metadata} · tags={tag_text}"
+            f"{entry['kind']} · {route_metadata}{tag_metadata}"
         )
     return "\n".join(lines).rstrip() + "\n"
 
@@ -2835,6 +4594,8 @@ def cmd_build(_: argparse.Namespace) -> int:
         guide_config, section_study = load_writing_guides()
         task_route_config = load_task_routes()
         table_template_config = load_table_templates()
+        coverage_policy = load_coverage_policy()
+        promotion_decisions = load_promotion_decisions()
     except CorpusError as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1
@@ -2851,16 +4612,6 @@ def cmd_build(_: argparse.Namespace) -> int:
     guides_dir = DIST_DIR / "guides"
     routes_dir = DIST_DIR / "routes"
     templates_dir = DIST_DIR / "templates"
-    for generated_dir in (
-        catalogs_dir,
-        cards_dir,
-        evidence_dir,
-        guides_dir,
-        routes_dir,
-        templates_dir,
-    ):
-        if generated_dir.exists():
-            shutil.rmtree(generated_dir)
     packs_dir.mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domains").mkdir(parents=True, exist_ok=True)
     (catalogs_dir / "domain-records").mkdir(parents=True, exist_ok=True)
@@ -2878,6 +4629,8 @@ def cmd_build(_: argparse.Namespace) -> int:
     )
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in published_entries}
+    analysis_records = source_analysis_records(sources, entries, promotion_decisions)
+    promotion_records = promotion_queue_records(coverage_policy, analysis_records)
 
     agent_index_path = DIST_DIR / "agent-index.md"
     agent_index_path.write_text(
@@ -2933,6 +4686,60 @@ def cmd_build(_: argparse.Namespace) -> int:
     legacy_compact_path = DIST_DIR / "super-library-compact.md"
     legacy_compact_path.write_text(
         render_compact(taxonomy, sources, published_entries), encoding="utf-8"
+    )
+    source_analysis_path = evidence_dir / "source-analysis.jsonl"
+    source_analysis_path.write_text(
+        "\n".join(
+            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            for record in analysis_records
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    source_analysis_summary_path = evidence_dir / "source-analysis.md"
+    source_analysis_summary_path.write_text(
+        render_source_analysis_summary(taxonomy, analysis_records),
+        encoding="utf-8",
+    )
+    promotion_decisions_path = evidence_dir / "promotion-decisions.jsonl"
+    promotion_decisions_path.write_text(
+        "\n".join(
+            json.dumps(
+                public_record(record),
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            )
+            for record in sorted(
+                promotion_decisions, key=lambda item: item["source_id"]
+            )
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    promotion_decisions_summary_path = evidence_dir / "promotion-decisions.md"
+    promotion_decisions_summary_path.write_text(
+        render_promotion_decisions(taxonomy, sources, promotion_decisions),
+        encoding="utf-8",
+    )
+    promotion_queue_path = evidence_dir / "promotion-queue.jsonl"
+    promotion_queue_path.write_text(
+        "\n".join(
+            json.dumps(record, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            for record in promotion_records[: coverage_policy["generated_queue_limit"]]
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    promotion_queue_summary_path = evidence_dir / "promotion-queue.md"
+    promotion_queue_summary_path.write_text(
+        render_promotion_queue(
+            taxonomy,
+            coverage_policy,
+            analysis_records,
+            coverage_policy["generated_queue_limit"],
+        ),
+        encoding="utf-8",
     )
 
     domain_catalogs = {}
@@ -3019,6 +4826,56 @@ def cmd_build(_: argparse.Namespace) -> int:
             encoding="utf-8",
         )
 
+    prune_generated_tree(
+        catalogs_dir,
+        {
+            *(str(Path(path).relative_to("catalogs")) for path in domain_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in domain_record_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in section_catalogs.values()),
+            *(str(Path(path).relative_to("catalogs")) for path in topic_catalogs.values()),
+        },
+    )
+    prune_generated_tree(
+        cards_dir,
+        {str(Path(path).relative_to("cards")) for path in card_paths.values()},
+    )
+    prune_generated_tree(
+        evidence_dir,
+        {
+            "source-analysis.jsonl",
+            "source-analysis.md",
+            "promotion-decisions.jsonl",
+            "promotion-decisions.md",
+            "promotion-queue.jsonl",
+            "promotion-queue.md",
+            *(str(Path(path).relative_to("evidence")) for path in topic_evidence.values()),
+        },
+    )
+    prune_generated_tree(
+        guides_dir,
+        {
+            "index.md",
+            *(str(Path(path).relative_to("guides")) for path in guide_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        routes_dir,
+        {
+            "index.md",
+            *(str(Path(path).relative_to("routes")) for path in task_route_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        templates_dir,
+        {
+            "tables/index.md",
+            *(str(Path(path).relative_to("templates")) for path in table_template_paths.values()),
+        },
+    )
+    prune_generated_tree(
+        packs_dir, {f"{domain}.md" for domain in taxonomy["domains"]}
+    )
+
     index = {
         "schema_version": taxonomy["schema_version"],
         "entries": [public_record(entry) for entry in published_entries],
@@ -3032,6 +4889,14 @@ def cmd_build(_: argparse.Namespace) -> int:
         "task_routes": task_route_config,
         "table_templates": table_template_config,
         "section_study": section_study,
+        "corpus_report": read_json(CORPUS_REPORT_PATH),
+        "coverage_policy": coverage_policy,
+        "promotion_decisions": [
+            public_record(record)
+            for record in sorted(
+                promotion_decisions, key=lambda item: item["source_id"]
+            )
+        ],
         "taxonomy": taxonomy,
     }
     index_path = DIST_DIR / "index.json"
@@ -3106,6 +4971,15 @@ def cmd_build(_: argparse.Namespace) -> int:
             "topics": topic_catalogs,
             "jsonl": "catalog.jsonl",
         },
+        "evidence": {
+            "source_analysis_summary": "evidence/source-analysis.md",
+            "source_analysis_records": "evidence/source-analysis.jsonl",
+            "promotion_decisions_summary": "evidence/promotion-decisions.md",
+            "promotion_decisions_records": "evidence/promotion-decisions.jsonl",
+            "promotion_queue_summary": "evidence/promotion-queue.md",
+            "promotion_queue_records": "evidence/promotion-queue.jsonl",
+            "topic_maps": topic_evidence,
+        },
         "cards": card_paths,
         "context_bytes": {
             "agent_index": agent_index_path.stat().st_size,
@@ -3145,18 +5019,27 @@ def cmd_build(_: argparse.Namespace) -> int:
     for name, source_path in skill_snapshot_paths.items():
         shutil.copyfile(source_path, SKILL_REFERENCES_DIR / name)
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
-    if skill_guides_dir.exists():
-        shutil.rmtree(skill_guides_dir)
-    shutil.copytree(guides_dir, skill_guides_dir)
+    skill_guides_dir.mkdir(parents=True, exist_ok=True)
+    for generated_path in guides_dir.glob("*.md"):
+        shutil.copyfile(generated_path, skill_guides_dir / generated_path.name)
+    prune_generated_tree(
+        skill_guides_dir, {path.name for path in guides_dir.glob("*.md")}
+    )
     skill_routes_dir = SKILL_REFERENCES_DIR / "routes"
-    if skill_routes_dir.exists():
-        shutil.rmtree(skill_routes_dir)
-    shutil.copytree(routes_dir, skill_routes_dir)
+    skill_routes_dir.mkdir(parents=True, exist_ok=True)
+    for generated_path in routes_dir.glob("*.md"):
+        shutil.copyfile(generated_path, skill_routes_dir / generated_path.name)
+    prune_generated_tree(
+        skill_routes_dir, {path.name for path in routes_dir.glob("*.md")}
+    )
     skill_table_assets_dir = SKILL_ASSETS_DIR / "tables"
-    if skill_table_assets_dir.exists():
-        shutil.rmtree(skill_table_assets_dir)
     skill_table_assets_dir.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(TABLE_TEMPLATE_DIR, skill_table_assets_dir)
+    skill_table_assets_dir.mkdir(parents=True, exist_ok=True)
+    for source_path in TABLE_TEMPLATE_DIR.glob("*.tex"):
+        shutil.copyfile(source_path, skill_table_assets_dir / source_path.name)
+    prune_generated_tree(
+        skill_table_assets_dir, {path.name for path in TABLE_TEMPLATE_DIR.glob("*.tex")}
+    )
 
     artifact_paths = sorted(
         [
@@ -3182,6 +5065,8 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/topics.json",
         "library/collections.json",
         "library/corpus_report.json",
+        "library/coverage_policy.json",
+        "library/promotion_decisions.jsonl",
         "library/writing_guides.json",
         "library/task_routes.json",
         "library/table_templates.json",
@@ -3194,8 +5079,18 @@ def cmd_build(_: argparse.Namespace) -> int:
         "schemas/task-routes.schema.json",
         "schemas/table-templates.schema.json",
         "schemas/retrieval-eval.schema.json",
+        "schemas/writing-eval.schema.json",
+        "schemas/professionalism-benchmark.schema.json",
+        "schemas/professionalism-run.schema.json",
+        "schemas/professionalism-ratings.schema.json",
+        "schemas/coverage-policy.schema.json",
+        "schemas/promotion-decision.schema.json",
         "schemas/section-study.schema.json",
+        "schemas/corpus-report.schema.json",
         "evals/retrieval.json",
+        "evals/writing.json",
+        "evals/professionalism.json",
+        "evals/professionalism-run.example.json",
     ]
     manifest = {
         "schema_version": taxonomy["schema_version"],
@@ -3229,6 +5124,19 @@ def cmd_build(_: argparse.Namespace) -> int:
             "topics": topic_catalogs,
         },
         "evidence_maps": {"topics": topic_evidence},
+        "source_analysis": {
+            "summary": "evidence/source-analysis.md",
+            "records": "evidence/source-analysis.jsonl",
+        },
+        "promotion_decisions": {
+            "summary": "evidence/promotion-decisions.md",
+            "records": "evidence/promotion-decisions.jsonl",
+        },
+        "promotion_queue": {
+            "summary": "evidence/promotion-queue.md",
+            "records": "evidence/promotion-queue.jsonl",
+            "generated_limit": coverage_policy["generated_queue_limit"],
+        },
         "packs": {
             domain: f"packs/{domain}.md" for domain in taxonomy["domains"]
         },
@@ -3279,6 +5187,18 @@ def cmd_build(_: argparse.Namespace) -> int:
                     name: f"{raw_base}/{relative}"
                     for name, relative in topic_evidence.items()
                 }
+            },
+            "source_analysis": {
+                "summary": f"{raw_base}/evidence/source-analysis.md",
+                "records": f"{raw_base}/evidence/source-analysis.jsonl",
+            },
+            "promotion_decisions": {
+                "summary": f"{raw_base}/evidence/promotion-decisions.md",
+                "records": f"{raw_base}/evidence/promotion-decisions.jsonl",
+            },
+            "promotion_queue": {
+                "summary": f"{raw_base}/evidence/promotion-queue.md",
+                "records": f"{raw_base}/evidence/promotion-queue.jsonl",
             },
             "packs": {
                 domain: f"{raw_base}/packs/{domain}.md"
@@ -3481,6 +5401,10 @@ def build_parser() -> argparse.ArgumentParser:
     guide_ids = [
         guide["id"] for guide in read_json(WRITING_GUIDES_PATH).get("guides", [])
     ]
+    collection_ids = [
+        collection["id"]
+        for collection in read_json(COLLECTIONS_PATH).get("collections", [])
+    ]
     parser = argparse.ArgumentParser(
         description="Retrieve and maintain the Super Library AI-writing corpus."
     )
@@ -3631,6 +5555,124 @@ def build_parser() -> argparse.ArgumentParser:
     )
     retrieval_eval_parser.set_defaults(func=cmd_eval_retrieval)
 
+    writing_eval_parser = subparsers.add_parser(
+        "eval-writing",
+        help="emit blind writing cases or score response files deterministically",
+    )
+    writing_eval_mode = writing_eval_parser.add_mutually_exclusive_group()
+    writing_eval_mode.add_argument(
+        "--list", action="store_true", help="list case metadata without hidden checks"
+    )
+    writing_eval_mode.add_argument("--case", help="emit or score one case by ID")
+    writing_eval_mode.add_argument(
+        "--responses", help="score CASE_ID.md files in a directory"
+    )
+    writing_eval_parser.add_argument(
+        "--response-file", help="candidate response for the selected --case"
+    )
+    writing_eval_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    writing_eval_parser.add_argument(
+        "--strict", action="store_true", help="exit nonzero on failure or missing files"
+    )
+    writing_eval_parser.set_defaults(func=cmd_eval_writing)
+
+    benchmark_parser = subparsers.add_parser(
+        "benchmark",
+        help="prepare and score the blind A/B professionalism benchmark",
+    )
+    benchmark_actions = benchmark_parser.add_subparsers(
+        dest="benchmark_action", required=True
+    )
+    benchmark_list = benchmark_actions.add_parser(
+        "list", help="show suites, rubric dimensions, errors, and gates"
+    )
+    benchmark_list.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_list.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_prompt = benchmark_actions.add_parser(
+        "prompt", help="emit one condition-neutral generation prompt"
+    )
+    benchmark_prompt.add_argument("case_id")
+    benchmark_prompt.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_prompt.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_machine = benchmark_actions.add_parser(
+        "machine", help="score response invariants before blind human review"
+    )
+    benchmark_machine.add_argument(
+        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+    )
+    benchmark_machine.add_argument(
+        "--responses", required=True, help="root containing baseline/ and super_library/"
+    )
+    benchmark_machine.add_argument(
+        "--output", help="optional private JSON report path"
+    )
+    benchmark_machine.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_machine.add_argument(
+        "--strict", action="store_true", help="exit nonzero when any response fails"
+    )
+    benchmark_machine.add_argument(
+        "--force", action="store_true", help="replace an existing output file"
+    )
+    benchmark_machine.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_review = benchmark_actions.add_parser(
+        "review-sheet", help="render a condition-blind Markdown worksheet"
+    )
+    benchmark_review.add_argument("--blind-file", required=True)
+    benchmark_review.add_argument("--output", required=True)
+    benchmark_review.add_argument(
+        "--force", action="store_true", help="replace an existing output file"
+    )
+    benchmark_review.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_prepare = benchmark_actions.add_parser(
+        "prepare", help="randomize paired responses into a blind review bundle"
+    )
+    benchmark_prepare.add_argument(
+        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+    )
+    benchmark_prepare.add_argument(
+        "--responses", required=True, help="root containing baseline/ and super_library/"
+    )
+    benchmark_prepare.add_argument(
+        "--run-manifest", required=True, help="pinned generator and condition metadata"
+    )
+    benchmark_prepare.add_argument(
+        "--blind-output", required=True, help="condition-blind JSON for raters"
+    )
+    benchmark_prepare.add_argument(
+        "--key-output", required=True, help="private condition-assignment JSON"
+    )
+    benchmark_prepare.add_argument("--seed", type=int, default=20260811)
+    benchmark_prepare.add_argument(
+        "--force", action="store_true", help="replace existing output files"
+    )
+    benchmark_prepare.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_score = benchmark_actions.add_parser(
+        "score", help="score machine invariants and completed blind ratings"
+    )
+    benchmark_score.add_argument("--blind-file", required=True)
+    benchmark_score.add_argument("--key-file", required=True)
+    benchmark_score.add_argument("--ratings-file", required=True)
+    benchmark_score.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_score.add_argument(
+        "--strict", action="store_true", help="exit nonzero when a quality gate fails"
+    )
+    benchmark_score.set_defaults(func=cmd_benchmark_professionalism)
+
     show_parser = subparsers.add_parser("show", help="show one entry by stable id")
     show_parser.add_argument("entry_id")
     show_parser.add_argument("--format", choices=["markdown", "json"], default="markdown")
@@ -3656,6 +5698,66 @@ def build_parser() -> argparse.ArgumentParser:
     stats_parser = subparsers.add_parser("stats", help="show coverage statistics")
     stats_parser.set_defaults(func=cmd_stats)
 
+    analysis_parser = subparsers.add_parser(
+        "analysis-status",
+        help="show per-paper or aggregate analysis depth for the 300-paper core",
+    )
+    analysis_parser.add_argument("source_id", nargs="?")
+    analysis_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    analysis_parser.set_defaults(func=cmd_analysis_status)
+
+    promotion_status_parser = subparsers.add_parser(
+        "promotion-status",
+        help="show completed evidence-promotion reviews without loading writing context",
+    )
+    promotion_status_parser.add_argument("source_id", nargs="?")
+    promotion_status_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    promotion_status_parser.set_defaults(func=cmd_promotion_status)
+
+    coverage_parser = subparsers.add_parser(
+        "coverage-gaps",
+        help="rank unlinked core papers for evidence normalization review",
+    )
+    add_multi_filter(
+        coverage_parser, "domain", taxonomy["domains"], "candidate domain"
+    )
+    add_multi_filter(
+        coverage_parser, "venue", taxonomy["venues"], "candidate venue"
+    )
+    coverage_parser.add_argument("--limit", type=int, default=30)
+    coverage_parser.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    coverage_parser.set_defaults(func=cmd_coverage_gaps)
+
+    source_verify_parser = subparsers.add_parser(
+        "verify-sources",
+        help="perform a current network check of canonical source URLs",
+    )
+    source_verify_parser.add_argument(
+        "--collection",
+        choices=collection_ids,
+        default="recent-five-year-core",
+    )
+    source_verify_parser.add_argument(
+        "--limit", type=int, help="check only the first N source IDs"
+    )
+    source_verify_parser.add_argument("--timeout", type=float, default=15.0)
+    source_verify_parser.add_argument("--workers", type=int, default=12)
+    source_verify_parser.add_argument(
+        "--format", choices=["text", "json"], default="text"
+    )
+    source_verify_parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="exit nonzero only when an official URL returns 404 or 410",
+    )
+    source_verify_parser.set_defaults(func=cmd_verify_sources)
+
     build_subparser = subparsers.add_parser("build", help="generate agent artifacts")
     build_subparser.set_defaults(func=cmd_build)
     return parser
@@ -3676,10 +5778,21 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             parser.error("route accepts at most one --domain catalog")
         if len(args.topic) > 1:
             parser.error("route accepts at most one --topic catalog")
-    if hasattr(args, "limit") and args.limit < 1:
+    if args.command == "coverage-gaps":
+        if len(args.domain) > 1:
+            parser.error("coverage-gaps accepts at most one --domain")
+        if len(args.venue) > 1:
+            parser.error("coverage-gaps accepts at most one --venue")
+    if hasattr(args, "limit") and args.limit is not None and args.limit < 1:
         parser.error("--limit must be at least 1")
     if hasattr(args, "max_chars") and args.max_chars < 2_000:
         parser.error("--max-chars must be at least 2000")
+    if hasattr(args, "timeout") and not 1 <= args.timeout <= 60:
+        parser.error("--timeout must be between 1 and 60 seconds")
+    if hasattr(args, "workers") and not 1 <= args.workers <= 32:
+        parser.error("--workers must be between 1 and 32")
+    if getattr(args, "response_file", None) and not getattr(args, "case", None):
+        parser.error("--response-file requires --case")
     return args.func(args)
 
 

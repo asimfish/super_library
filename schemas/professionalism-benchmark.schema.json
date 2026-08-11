@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/asimfish/super_library/schemas/professionalism-benchmark.schema.json",
+  "title": "Super Library professionalism benchmark",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "benchmark_id", "writing_suite_schema_version",
+    "conditions", "suites", "rubric_dimensions", "critical_errors",
+    "quality_gates", "bootstrap"
+  ],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "benchmark_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
+    "writing_suite_schema_version": {"type": "string", "enum": ["1.0"]},
+    "conditions": {
+      "type": "array", "minItems": 2,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "label", "library_access", "description"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+          "label": {"type": "string", "minLength": 5},
+          "library_access": {"type": "boolean"},
+          "description": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "suites": {
+      "type": "array", "minItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "label", "case_ids"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+          "label": {"type": "string", "minLength": 5},
+          "case_ids": {
+            "type": "array", "minItems": 2, "uniqueItems": true,
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "rubric_dimensions": {
+      "type": "array", "minItems": 5,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "label", "question", "anchors"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+          "label": {"type": "string", "minLength": 5},
+          "question": {"type": "string", "minLength": 20},
+          "anchors": {
+            "type": "object", "additionalProperties": false,
+            "required": ["1", "3", "5"],
+            "properties": {
+              "1": {"type": "string", "minLength": 20},
+              "3": {"type": "string", "minLength": 20},
+              "5": {"type": "string", "minLength": 20}
+            }
+          }
+        }
+      }
+    },
+    "critical_errors": {
+      "type": "array", "minItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "label", "description"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)*$"},
+          "label": {"type": "string", "minLength": 5},
+          "description": {"type": "string", "minLength": 20}
+        }
+      }
+    },
+    "quality_gates": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "min_raters_per_response", "min_case_coverage",
+        "library_machine_pass_rate_min", "library_mean_professionalism_min",
+        "library_critical_error_rate_max", "paired_mean_delta_min",
+        "library_pairwise_win_rate_min", "inter_rater_within_one_min"
+      ],
+      "properties": {
+        "min_raters_per_response": {"type": "integer", "minimum": 2, "maximum": 10},
+        "min_case_coverage": {"type": "number", "minimum": 0, "maximum": 1},
+        "library_machine_pass_rate_min": {"type": "number", "minimum": 0, "maximum": 1},
+        "library_mean_professionalism_min": {"type": "number", "minimum": 1, "maximum": 5},
+        "library_critical_error_rate_max": {"type": "number", "minimum": 0, "maximum": 1},
+        "paired_mean_delta_min": {"type": "number", "minimum": 0, "maximum": 4},
+        "library_pairwise_win_rate_min": {"type": "number", "minimum": 0, "maximum": 1},
+        "inter_rater_within_one_min": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "bootstrap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["resamples", "confidence_level", "seed"],
+      "properties": {
+        "resamples": {"type": "integer", "minimum": 1000, "maximum": 100000},
+        "confidence_level": {"type": "number", "minimum": 0.8, "maximum": 0.99},
+        "seed": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}
