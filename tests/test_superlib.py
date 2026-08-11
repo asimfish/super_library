@@ -1101,7 +1101,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         known_guides = {guide["id"] for guide in guide_config["guides"]}
         cases = json.loads((ROOT / "evals" / "writing.json").read_text())["cases"]
         self.assertGreaterEqual(len(cases), 20)
-        self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
+        self.assertEqual(
+            {case["mode"] for case in cases},
+            {"paper", "rebuttal", "translation", "review"},
+        )
         for case in cases:
             self.assertTrue(case["manual_rubric"])
             self.assertTrue(case["machine_checks"])
@@ -1273,6 +1276,12 @@ class SuperLibraryCliTests(unittest.TestCase):
                 "but excludes model loading. Values use 1,000 measured iterations "
                 "after 100 warm-up iterations and do not imply a hardware-independent ranking."
             ),
+            "review-significance-calibration": (
+                "Table 2 reports a 2.8-point mean improvement averaged over "
+                "three random seeds, but no statistical test or confidence "
+                "interval accompanies it. Please add a significance test or "
+                "interval, or soften the wording of significant."
+            ),
         }
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -1382,6 +1391,12 @@ class SuperLibraryCliTests(unittest.TestCase):
                 "iterations following 100 warm-up iterations; they do not imply "
                 "a hardware-independent ranking."
             ),
+            "review-significance-calibration": (
+                "Table 2 reports a 2.8-point mean improvement averaged over "
+                "three random seeds, but no statistical test or confidence "
+                "interval accompanies it. Please add a significance test or "
+                "interval, or soften the wording of significant."
+            ),
         }
         weak = {
             case_id: "Our method is clearly state-of-the-art and robust."
@@ -1413,7 +1428,7 @@ class SuperLibraryCliTests(unittest.TestCase):
             self.assertEqual(prepared.returncode, 0, prepared.stderr)
             blind = json.loads(blind_path.read_text())
             key = json.loads(key_path.read_text())
-            self.assertEqual(len(blind["pairs"]), 2)
+            self.assertEqual(len(blind["pairs"]), 3)
             self.assertEqual(len(blind["rubric_dimensions"]), 6)
             self.assertTrue(blind["critical_errors"])
             self.assertTrue(all("assignment" not in pair for pair in blind["pairs"]))

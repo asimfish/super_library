@@ -289,6 +289,7 @@
       "method": "catalogs/sections/method.md",
       "rebuttal": "catalogs/sections/rebuttal.md",
       "related_work": "catalogs/sections/related_work.md",
+      "review": "catalogs/sections/review.md",
       "title": "catalogs/sections/title.md",
       "translation": "catalogs/sections/translation.md"
     },
@@ -319,7 +320,7 @@
     }
   },
   "context_bytes": {
-    "agent_index": 5321,
+    "agent_index": 5430,
     "average_card": 2320,
     "core": 10879,
     "guide_index": 3743,

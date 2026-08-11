@@ -4,9 +4,17 @@
   "title": "Super Library blind writing evaluation",
   "type": "object",
   "additionalProperties": false,
-  "required": ["schema_version", "cases"],
+  "required": [
+    "schema_version",
+    "cases"
+  ],
   "properties": {
-    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
     "cases": {
       "type": "array",
       "minItems": 20,
@@ -14,40 +22,111 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "id", "mode", "domain", "section", "intent", "evidence_boundary",
-          "request", "facts", "expected_guide_id", "expected_retrieval_ids",
-          "manual_rubric", "machine_checks"
+          "id",
+          "mode",
+          "domain",
+          "section",
+          "intent",
+          "evidence_boundary",
+          "request",
+          "facts",
+          "expected_guide_id",
+          "expected_retrieval_ids",
+          "manual_rubric",
+          "machine_checks"
         ],
         "properties": {
-          "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
-          "mode": {"type": "string", "enum": ["paper", "rebuttal", "translation"]},
-          "domain": {"type": "string"},
-          "topic": {"type": "string"},
-          "section": {"type": "string"},
-          "intent": {"type": "string"},
-          "evidence_boundary": {"type": "string", "minLength": 20},
-          "request": {"type": "string", "minLength": 20},
-          "facts": {"type": "array", "items": {"type": "string"}},
-          "expected_guide_id": {"type": "string"},
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "paper",
+              "rebuttal",
+              "translation",
+              "review"
+            ]
+          },
+          "domain": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string"
+          },
+          "section": {
+            "type": "string"
+          },
+          "intent": {
+            "type": "string"
+          },
+          "evidence_boundary": {
+            "type": "string",
+            "minLength": 20
+          },
+          "request": {
+            "type": "string",
+            "minLength": 20
+          },
+          "facts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expected_guide_id": {
+            "type": "string"
+          },
           "expected_retrieval_ids": {
-            "type": "array", "minItems": 2, "uniqueItems": true,
-            "items": {"type": "string"}
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
           },
           "manual_rubric": {
-            "type": "array", "minItems": 2, "uniqueItems": true,
-            "items": {"type": "string", "minLength": 10}
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 10
+            }
           },
           "machine_checks": {
-            "type": "array", "minItems": 2,
+            "type": "array",
+            "minItems": 2,
             "items": {
               "type": "object",
               "additionalProperties": false,
-              "required": ["id", "type", "pattern", "message"],
+              "required": [
+                "id",
+                "type",
+                "pattern",
+                "message"
+              ],
               "properties": {
-                "id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
-                "type": {"type": "string", "enum": ["required_regex", "forbidden_regex"]},
-                "pattern": {"type": "string", "minLength": 1},
-                "message": {"type": "string", "minLength": 5}
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "required_regex",
+                    "forbidden_regex"
+                  ]
+                },
+                "pattern": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "message": {
+                  "type": "string",
+                  "minLength": 5
+                }
               }
             }
           }

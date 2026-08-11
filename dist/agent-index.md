@@ -43,6 +43,7 @@ scientific evidence. Verify primary papers for literature claims.
 - [conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/conclusion.md)
 - [rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/rebuttal.md)
 - [translation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/translation.md)
+- [review](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/review.md)
 
 ## Domain catalogs
 

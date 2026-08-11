@@ -19,10 +19,11 @@
   "suites": [
     {
       "id": "smoke",
-      "label": "Two-case harness smoke test",
+      "label": "Three-case harness smoke test across paper, rebuttal, and review modes",
       "case_ids": [
         "rebuttal-existing-evidence",
-        "paper-efficiency-table-caption"
+        "paper-efficiency-table-caption",
+        "review-significance-calibration"
       ]
     },
     {
@@ -78,7 +79,25 @@
         "paper-main-results-comparability-caption",
         "paper-ablation-interaction-analysis",
         "rebuttal-unrun-real-robot-request",
-        "translation-negation-numbers-citation"
+        "translation-negation-numbers-citation",
+        "review-weaknesses-grounded",
+        "review-claim-evidence-mismatch",
+        "review-missing-ablation",
+        "review-questions-actionable",
+        "review-significance-calibration",
+        "review-disclosed-limitation-fairness",
+        "review-overall-rationale",
+        "review-post-rebuttal-update",
+        "rebuttal-misread-metric",
+        "rebuttal-ablation-already-present",
+        "rebuttal-cannot-add-experiment",
+        "rebuttal-novelty-challenge",
+        "rebuttal-significance-present",
+        "rebuttal-multi-reviewer-conflict",
+        "paper-title-scope",
+        "paper-method-reproducibility",
+        "paper-related-work-concurrent",
+        "paper-ablation-negative-result"
       ]
     }
   ],
