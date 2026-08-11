@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 83
+Entries: 90
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — definition
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition
@@ -11,6 +11,7 @@ Entries: 83
 - [average-reward reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.average-reward-rl.001.md) — definition
 - [conservative Q-function learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.conservative-q.001.md) — definition
 - [constrained Markov decision process (CMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.constrained-mdp.001.md) — definition
+- [continual reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.continual-rl.001.md) — definition
 - [curriculum reinforcement learning (CRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.curriculum-reinforcement-learning.001.md) — definition
 - [differentiable physics simulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.differentiable-simulation.001.md) — definition
 - [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — definition
@@ -29,6 +30,7 @@ Entries: 83
 - [meta-reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.meta-rl.001.md) — definition
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — definition
 - [multi-agent credit assignment](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.credit-assignment.001.md) — definition
+- [multi-objective reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-objective-rl.001.md) — definition
 - [multi-task reinforcement learning (MTRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-task-rl.001.md) — definition
 - [objective mismatch (model-based RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.objective-mismatch.001.md) — definition
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-rl.001.md) — definition
@@ -38,9 +40,12 @@ Entries: 83
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — definition
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — definition
 - [reinforcement learning from human feedback (RLHF)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.rlhf.001.md) — definition
+- [reset-free (autonomous) reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reset-free-rl.001.md) — definition
 - [return-conditioned sequence modeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.return-conditioned-sequence.001.md) — definition
+- [reward shaping](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reward-shaping.001.md) — definition
 - [reward-free exploration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reward-free-exploration.001.md) — definition
 - [risk-sensitive reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.risk-sensitive-rl.001.md) — definition
+- [self-play](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.self-play.001.md) — definition
 - [self-supervised representation learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.self-supervised-representation-learning.001.md) — definition
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — definition
 - [state abstraction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-abstraction.001.md) — definition
@@ -52,6 +57,7 @@ Entries: 83
 - [temporal-difference (TD) learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.temporal-difference.001.md) — definition
 - [uncertainty-aware model-based planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.uncertainty-aware-planning.001.md) — definition
 - [unsupervised skill discovery](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.skill-discovery.001.md) — definition
+- [value factorization (multi-agent RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.value-factorization.001.md) — definition
 - [world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.world-model.001.md) — definition
 - [action gap](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.action-gap.001.md) — term
 - [advantage-weighted behavioral cloning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.advantage-weighted-bc.001.md) — term
@@ -73,6 +79,7 @@ Entries: 83
 - [model predictive control (MPC)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.model-predictive-control.001.md) — term
 - [policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.policy.001.md) — term
 - [policy-gradient estimator](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.policy-gradient-estimator.001.md) — term
+- [regret](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.regret.001.md) — term
 - [return distribution / value distribution](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.return-distribution.001.md) — term
 - [sample efficiency / data efficiency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.sample-efficiency.001.md) — term
 - [state–action coverage of the offline dataset](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.offline-dataset-coverage.001.md) — term

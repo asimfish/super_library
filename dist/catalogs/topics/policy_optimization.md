@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 14
+Entries: 18
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/policy_optimization.md); it is not part of the default
 writing context.
@@ -12,11 +12,15 @@ writing context.
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition · sections=introduction,related_work,method,translation · tags=advantage,policy gradient
 - [AI feedback](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.ai-feedback.001.md) — definition · sections=introduction,related_work,method,translation · tags=AI feedback,RLAIF
 - [average-reward reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.average-reward-rl.001.md) — definition · sections=introduction,related_work,method,translation · tags=average reward,continuing task
+- [continual reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.continual-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=continual reinforcement learning,lifelong learning
 - [differentiable physics simulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.differentiable-simulation.001.md) — definition · sections=introduction,related_work,method,translation · tags=differentiable physics,differentiable simulator
 - [discounted return](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.return.001.md) — definition · sections=method,experiments,translation · tags=cumulative reward,expected return
 - [maximum-entropy reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.maximum-entropy.001.md) — definition · sections=introduction,related_work,method,translation · tags=entropy regularization,SAC
 - [multi-task reinforcement learning (MTRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-task-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=multi-task reinforcement learning,negative transfer
 - [reinforcement learning from human feedback (RLHF)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.rlhf.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=RLHF,preference learning
+- [reset-free (autonomous) reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reset-free-rl.001.md) — definition · sections=introduction,related_work,method,translation · tags=reset-free learning,autonomous reinforcement learning
+- [reward shaping](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reward-shaping.001.md) — definition · sections=introduction,related_work,method,translation · tags=reward shaping,dense reward
+- [self-play](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.self-play.001.md) — definition · sections=introduction,related_work,method,translation · tags=self-play,opponent pool
 - [state–action occupancy measure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-action-occupancy-measure.001.md) — definition · sections=introduction,related_work,method,translation · tags=occupancy measure,visitation distribution
 - [entropy regularization / entropy-augmented objective](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.entropy-regularization.001.md) — term · sections=introduction,related_work,method,translation · tags=policy entropy,maximum entropy RL
 - [policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.policy.001.md) — term · sections=method,translation · tags=actor,controller

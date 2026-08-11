@@ -652,6 +652,27 @@ A training regime in which humans participate during learning, for example by in
 
 - `wu2023-human-guided-reinforcement-learning` — [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://doi.org/10.1109/tpami.2023.3314762) (TPAMI 2023)
 
+### reward shaping
+
+`rl.definition.reward-shaping.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Modifying or augmenting the task reward with additional signals, such as progress terms or auxiliary bonuses, to densify feedback and accelerate learning, ideally without changing the optimal policy of the original objective.
+
+**Use:** State what is added to the terminal or task reward, whether shaping preserves optimal behavior (for example potential-based forms), and the engineering effort it requires; compare against learning from unshaped terminal rewards when feasible.
+
+**Avoid:** Do not present shaped-reward results as evidence the task is solvable from terminal rewards alone, and do not leave shaping terms undisclosed when they change the effective objective.
+
+**Patterns:**
+
+- We augment the terminal reward with {shaping signal}, which preserves {optimality property}.
+- From terminal rewards alone, performance drops to {value}, motivating {shaping or teacher scheme}.
+
+**Verify in primary sources:**
+
+- `jain2021-gridtopix-training-embodied-agents` — [GridToPix: Training Embodied Agents With Minimal Supervision](https://openaccess.thecvf.com/content/ICCV2021/html/Jain_GridToPix_Training_Embodied_Agents_With_Minimal_Supervision_ICCV_2021_paper.html) (ICCV 2021)
+
 ### chain-of-affordance reasoning
 
 `vla.definition.chain-of-affordance.001` · definition · vision_language_action, embodied_ai · related_work, method

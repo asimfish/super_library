@@ -136,6 +136,28 @@ An MDP augmented with one or more cumulative cost constraints, so the policy obj
 - `khattar2023-cmdp-within-online-framework` — [A CMDP-within-online framework for Meta-Safe Reinforcement Learning](https://iclr.cc/virtual/2023/poster/11412) (ICLR 2023)
 - `zhou2025-chpo-constrained-hybrid-action` — [CHPO: Constrained Hybrid-action Policy Optimization for Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/5eca2e4fe7858cbbfef4e08573cfcb25-Abstract-Conference.html) (NeurIPS 2025)
 
+### continual reinforcement learning
+
+`rl.definition.continual-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A setting in which an agent learns from a sequence of tasks or a nonstationary stream over its lifetime, aiming to retain previously acquired knowledge, avoid catastrophic forgetting, and transfer forward to new tasks under bounded capacity and compute.
+
+**Use:** State the task sequence and what changes along it, the memory and compute constraints, and whether task boundaries and identities are observed. Report forgetting and forward transfer separately from single-task performance.
+
+**Avoid:** Do not equate continual RL with multi-task RL trained jointly on a fixed task set, and do not report only final average performance, which hides forgetting.
+
+**Patterns:**
+
+- The agent learns {task sequence} under {capacity constraint}; we report forgetting and forward transfer on {benchmark}.
+- Knowledge is retained through {mechanism} while {component} adapts to the current task.
+
+**Verify in primary sources:**
+
+- `mendez2022-modular-lifelong-reinforcement-learning` — [Modular Lifelong Reinforcement Learning via Neural Composition](https://iclr.cc/virtual/2022/poster/6937) (ICLR 2022)
+- `fu2025-knowledge-retention-continual-model` — [Knowledge Retention in Continual Model-Based Reinforcement Learning](https://proceedings.mlr.press/v267/fu25f.html) (ICML 2025)
+
 ### multi-agent credit assignment
 
 `rl.definition.credit-assignment.001` · definition · reinforcement_learning · introduction, related_work, method, translation
@@ -437,6 +459,28 @@ Training on a distribution of related tasks so an agent adapts rapidly to a new 
 
 - `zhang2025-learning-task-belief-similarity` — [Learning Task Belief Similarity with Latent Dynamics for Meta-Reinforcement Learning](https://iclr.cc/virtual/2025/poster/30938) (ICLR 2025)
 
+### multi-objective reinforcement learning
+
+`rl.definition.multi-objective-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A setting with a vector of reward signals whose trade-offs are resolved by preferences or scalarization, so the target is a policy or set of policies covering the preference space rather than a single scalar-optimal policy.
+
+**Use:** State the objectives and the scalarization or preference model, whether preferences are known, adversarial, or revealed at test time, and report performance across the preference space rather than at one weighting.
+
+**Avoid:** Do not collapse multiple objectives into one fixed weighting without stating it, and do not claim coverage of the preference space from performance at a single preference.
+
+**Patterns:**
+
+- The reward is {vector of objectives}; the policy conditions on {preference representation}.
+- We evaluate across {preference distribution}, reporting {coverage metric} rather than one weighted return.
+
+**Verify in primary sources:**
+
+- `wu2021-accommodating-picky-customers-regret` — [Accommodating Picky Customers: Regret Bound and Exploration Complexity for Multi-Objective Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2021/hash/6d7d394c9d0c886e9247542e06ebb705-Abstract.html) (NeurIPS 2021)
+- `wiltzer2024-foundations-multivariate-distributional-reinforcement` — [Foundations of Multivariate Distributional Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b76bec34ef5e0c0ceedff6edfbefc9f5-Abstract-Conference.html) (NeurIPS 2024)
+
 ### multi-task reinforcement learning (MTRL)
 
 `rl.definition.multi-task-rl.001` · definition · reinforcement_learning, robot_learning · abstract, introduction, related_work, method, translation
@@ -588,6 +632,27 @@ A decision-making framework in which an agent interacts with an environment and 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
+### reset-free (autonomous) reinforcement learning
+
+`rl.definition.reset-free-rl.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Learning in a continual, non-episodic interaction stream in which the environment is not reset between trials, so the agent must recover from failures, return to useful states, and manage its own data collection as part of learning.
+
+**Use:** State how the agent retries without external resets (learned reset or recovery policies, backward controllers, or curricula), how evaluation is separated from the nonepisodic training stream, and how many human interventions occurred.
+
+**Avoid:** Do not present episodic benchmark results as autonomous learning, and do not omit manual resets or interventions when claiming reset-free operation.
+
+**Patterns:**
+
+- After {failure mode}, {recovery mechanism} returns the agent to {useful state distribution} without an external reset.
+- We report {intervention count} human interventions over {training duration}.
+
+**Verify in primary sources:**
+
+- `sharma2022-autonomous-reinforcement-learning-formalism` — [Autonomous Reinforcement Learning: Formalism and Benchmarking](https://iclr.cc/virtual/2022/poster/7153) (ICLR 2022)
+
 ### return-conditioned sequence modeling
 
 `rl.definition.return-conditioned-sequence.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
@@ -652,6 +717,27 @@ An exploration setting in which an agent collects information without knowing th
 - `cheng2023-improved-sample-complexity-reward` — [Improved Sample Complexity for Reward-free Reinforcement Learning under Low-rank MDPs](https://iclr.cc/virtual/2023/poster/11380) (ICLR 2023)
 - `qiao2023-near-optimal-deployment-efficiency` — [Near-Optimal Deployment Efficiency in Reward-Free Reinforcement Learning with Linear Function Approximation](https://iclr.cc/virtual/2023/poster/11300) (ICLR 2023)
 
+### reward shaping
+
+`rl.definition.reward-shaping.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Modifying or augmenting the task reward with additional signals, such as progress terms or auxiliary bonuses, to densify feedback and accelerate learning, ideally without changing the optimal policy of the original objective.
+
+**Use:** State what is added to the terminal or task reward, whether shaping preserves optimal behavior (for example potential-based forms), and the engineering effort it requires; compare against learning from unshaped terminal rewards when feasible.
+
+**Avoid:** Do not present shaped-reward results as evidence the task is solvable from terminal rewards alone, and do not leave shaping terms undisclosed when they change the effective objective.
+
+**Patterns:**
+
+- We augment the terminal reward with {shaping signal}, which preserves {optimality property}.
+- From terminal rewards alone, performance drops to {value}, motivating {shaping or teacher scheme}.
+
+**Verify in primary sources:**
+
+- `jain2021-gridtopix-training-embodied-agents` — [GridToPix: Training Embodied Agents With Minimal Supervision](https://openaccess.thecvf.com/content/ICCV2021/html/Jain_GridToPix_Training_Embodied_Agents_With_Minimal_Supervision_ICCV_2021_paper.html) (ICCV 2021)
+
 ### risk-sensitive reinforcement learning
 
 `rl.definition.risk-sensitive-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
@@ -694,6 +780,27 @@ A training pipeline that learns a reward model from human judgments, typically p
 **Verify in primary sources:**
 
 - `rando2025-open-problems-fundamental-limitations` — [Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback](https://iclr.cc/virtual/2025/poster/31506) (ICLR 2025)
+
+### self-play
+
+`rl.definition.self-play.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training scheme in which an agent improves by playing with or against copies or past versions of itself, or a population thereof, generating its own curriculum of increasingly strong counterparts without human gameplay data.
+
+**Use:** State the opponent or partner pool (current copy, past checkpoints, or a population), how counterparts are sampled, and how nontransitivity or strategy cycling is handled. Evaluate against held-out strategies or humans, not only within the training population.
+
+**Avoid:** Do not conflate self-play with imitation of human games, and do not claim general strength from within-population results alone.
+
+**Patterns:**
+
+- The agent trains via self-play against {opponent pool} sampled by {scheme}.
+- We evaluate against {held-out opponents or human players} to test robustness beyond the training population.
+
+**Verify in primary sources:**
+
+- `zha2021-douzero-mastering-doudizhu-self` — [DouZero: Mastering DouDizhu with Self-Play Deep Reinforcement Learning](https://proceedings.mlr.press/v139/zha21a.html) (ICML 2021)
 
 ### self-supervised representation learning
 
@@ -824,6 +931,28 @@ Learning a value-related prediction by moving it toward a target that combines a
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
+### value factorization (multi-agent RL)
+
+`rl.definition.value-factorization.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Decomposing a centralized joint action-value function or joint policy into per-agent components combined by a mixing structure, so agents act decentrally while training uses centralized information, as in centralized training with decentralized execution.
+
+**Use:** State the factorization class and its representational restriction (monotonic mixing, entity-wise, or policy factorization), what centralized information training uses, and which coordination structures the restriction cannot express.
+
+**Avoid:** Do not assume a factorized value function represents all coordination optima; restricted mixing can be unable to express tasks requiring tightly coupled simultaneous actions.
+
+**Patterns:**
+
+- The joint value factorizes as {mixing structure} over per-agent utilities trained with {centralized information}.
+- We characterize tasks where {factorization class} cannot represent the optimal joint policy.
+
+**Verify in primary sources:**
+
+- `gupta2021-uneven-universal-value-exploration` — [UneVEn: Universal Value Exploration for Multi-Agent Reinforcement Learning](https://proceedings.mlr.press/v139/gupta21a.html) (ICML 2021)
+- `zhang2021-fop-factorizing-optimal-joint` — [FOP: Factorizing Optimal Joint Policy of Maximum-Entropy Multi-Agent Reinforcement Learning](https://proceedings.mlr.press/v139/zhang21m.html) (ICML 2021)
 
 ### state-value and action-value functions
 
@@ -1319,6 +1448,28 @@ A rule or conditional distribution that maps an agent's information state, such 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `brohan2023rt1` — [RT-1: Robotics Transformer for Real-World Control at Scale](https://roboticsproceedings.org/rss19/p025.html) (RSS 2023)
+
+### regret
+
+`rl.term.regret.001` · term · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The cumulative performance gap between a learning agent and a comparator, typically the best fixed or optimal policy in hindsight, accumulated over the learning process; sublinear regret means average performance approaches the comparator's.
+
+**Use:** State the comparator class, the horizon or episode count regret is measured over, and whether the environment is stochastic, adversarial, or nonstationary. Report dependence on problem quantities such as horizon, dimension, or risk level rather than the rate alone.
+
+**Avoid:** Do not call a performance shortfall regret without a comparator and accumulation window, and do not compare regret bounds across different comparator classes or feedback models as if equivalent.
+
+**Patterns:**
+
+- The algorithm attains {rate} regret over {episodes} episodes against {comparator class}.
+- Regret scales with {problem quantity}, matching the lower bound up to {factor}.
+
+**Verify in primary sources:**
+
+- `shi2023-near-optimal-adversarial-reinforcement` — [Near-Optimal Adversarial Reinforcement Learning with Switching Costs](https://iclr.cc/virtual/2023/poster/11984) (ICLR 2023)
+- `bastani2022-regret-bounds-risk-sensitive` — [Regret Bounds for Risk-Sensitive Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/eb4898d622e9a48b5f9713ea1fcff2bf-Abstract-Conference.html) (NeurIPS 2022)
 
 ### return distribution / value distribution
 

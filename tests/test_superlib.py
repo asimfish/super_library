@@ -1564,13 +1564,10 @@ class SuperLibraryCliTests(unittest.TestCase):
             superlib.source_analysis_records(sources, entries)
         )["papers_with_direct_library_links"]
         self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
-        self.assertEqual(len(payload["records"]), 10)
-        outcomes = [record["outcome"] for record in payload["records"]]
-        # Every structural sample is linked and every metadata-only paper is
-        # reviewed, so only abstract-analyzed unlinked papers remain queued.
-        self.assertEqual(
-            outcomes, ["abstract_analyzed_no_library_link"] * len(outcomes)
-        )
+        # Every core paper now carries an explicit review disposition: it is
+        # either directly linked or recorded as a no-promotion outcome, so the
+        # review queue is empty until new sources or samples arrive.
+        self.assertEqual(payload["records"], [])
 
     def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
         _, sources, entries = superlib.load_corpus()
@@ -1579,15 +1576,9 @@ class SuperLibraryCliTests(unittest.TestCase):
         first = superlib.promotion_queue_records(policy, records)
         second = superlib.promotion_queue_records(policy, records)
         self.assertEqual(first, second)
-        p0_count = sum(record["priority"] == "P0" for record in first)
-        self.assertEqual(p0_count, 0)
-        p1_count = sum(record["priority"] == "P1" for record in first)
-        self.assertEqual(p1_count, 0)
-        self.assertTrue(all(record["priority"] == "P2" for record in first))
-        self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
-        self.assertTrue(
-            all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)
-        )
+        # With all 300 core papers reviewed (linked or explicitly
+        # no-promotion), the deterministic queue is empty.
+        self.assertEqual(first, [])
 
     def test_retrieval_eval_executes_top_k_routes(self):
         cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())

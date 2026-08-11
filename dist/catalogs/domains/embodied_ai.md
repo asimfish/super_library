@@ -11,4 +11,4 @@ rhetorical moves.
 - [embodied reasoning and interactive agents](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/embodied_reasoning_agents.md) — `embodied_reasoning_agents` · 18 normalized entries
 - [locomotion and dexterity](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/locomotion_dexterity.md) — `locomotion_dexterity` · 2 normalized entries
 - [robot manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/robot_manipulation.md) — `robot_manipulation` · 10 normalized entries
-- [sim-to-real and robot learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/sim_to_real_robot_learning.md) — `sim_to_real_robot_learning` · 9 normalized entries
+- [sim-to-real and robot learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/sim_to_real_robot_learning.md) — `sim_to_real_robot_learning` · 10 normalized entries

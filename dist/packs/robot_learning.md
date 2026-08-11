@@ -612,6 +612,27 @@ Reinforcement learning from a fixed dataset of previously collected transitions,
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
 
+### reset-free (autonomous) reinforcement learning
+
+`rl.definition.reset-free-rl.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Learning in a continual, non-episodic interaction stream in which the environment is not reset between trials, so the agent must recover from failures, return to useful states, and manage its own data collection as part of learning.
+
+**Use:** State how the agent retries without external resets (learned reset or recovery policies, backward controllers, or curricula), how evaluation is separated from the nonepisodic training stream, and how many human interventions occurred.
+
+**Avoid:** Do not present episodic benchmark results as autonomous learning, and do not omit manual resets or interventions when claiming reset-free operation.
+
+**Patterns:**
+
+- After {failure mode}, {recovery mechanism} returns the agent to {useful state distribution} without an external reset.
+- We report {intervention count} human interventions over {training duration}.
+
+**Verify in primary sources:**
+
+- `sharma2022-autonomous-reinforcement-learning-formalism` — [Autonomous Reinforcement Learning: Formalism and Benchmarking](https://iclr.cc/virtual/2022/poster/7153) (ICLR 2022)
+
 ### continuous action head
 
 `vla.definition.continuous-action-head.001` · definition · vision_language_action, robot_learning · method, related_work
