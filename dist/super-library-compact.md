@@ -34,7 +34,7 @@ citable evidence.
 If this pack cannot be loaded, state that Super Library was not used. A static
 snapshot cannot establish what is currently latest or state of the art.
 
-Legacy coverage: 64 entries; 335 primary sources.
+Legacy coverage: 64 entries; 336 primary sources.
 Use this pack by itself; loading a full domain pack as well duplicates context:
 
 - [general](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/packs/general.md)

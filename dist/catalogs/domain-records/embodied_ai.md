@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 45
+Entries: 46
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — `emb.definition.3d-vla-world-model.001` · definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — `emb.definition.action-chunking.001` · definition · sections=introduction,related_work,method,translation
@@ -16,6 +16,7 @@ Entries: 45
 - [domain randomization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.domain-randomization.001.md) — `emb.definition.domain-randomization.001` · definition · sections=introduction,related_work,method,translation
 - [embodied AI](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-ai.001.md) — `emb.definition.embodied-ai.001` · definition · sections=abstract,introduction,related_work,translation
 - [embodied multimodal language model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-language-model.001.md) — `emb.definition.embodied-language-model.001` · definition · sections=introduction,related_work,method,translation
+- [embodied question answering (EQA)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-question-answering.001.md) — `emb.definition.embodied-question-answering.001` · definition · sections=abstract,introduction,related_work,method,translation
 - [embodied world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.embodied-world-model.001.md) — `wm.definition.embodied-world-model.001` · definition · sections=abstract,introduction,related_work,translation
 - [generalist robot policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.generalist-policy.001.md) — `emb.definition.generalist-policy.001` · definition · sections=abstract,introduction,related_work,translation
 - [grounded instruction following](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.grounded-instruction.001.md) — `emb.definition.grounded-instruction.001` · definition · sections=introduction,related_work,method,translation

@@ -3,13 +3,14 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 64
+Entries: 66
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — `rl.definition.actor-critic.001` · definition · sections=related_work,method,translation
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — `rl.definition.advantage-function.001` · definition · sections=introduction,related_work,method,translation
 - [average-reward reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.average-reward-rl.001.md) — `rl.definition.average-reward-rl.001` · definition · sections=introduction,related_work,method,translation
 - [conservative Q-function learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.conservative-q.001.md) — `rl.definition.conservative-q.001` · definition · sections=related_work,method,translation
 - [constrained Markov decision process (CMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.constrained-mdp.001.md) — `rl.definition.constrained-mdp.001` · definition · sections=related_work,method
+- [curriculum reinforcement learning (CRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.curriculum-reinforcement-learning.001.md) — `rl.definition.curriculum-reinforcement-learning.001` · definition · sections=abstract,introduction,related_work,method,translation
 - [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — `rl.definition.diffusion-planning.001` · definition · sections=introduction,related_work,method,translation
 - [discounted return](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.return.001.md) — `rl.definition.return.001` · definition · sections=method,experiments,translation
 - [distribution shift in offline RL](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-distribution-shift.001.md) — `rl.definition.offline-distribution-shift.001` · definition · sections=introduction,related_work,method,limitations,translation
@@ -30,6 +31,7 @@ Entries: 64
 - [short branched model rollout](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.branched-rollout.001.md) — `wm.definition.branched-rollout.001` · definition · sections=related_work,method,translation
 - [state-value and action-value functions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.value-functions.001.md) — `rl.definition.value-functions.001` · definition · sections=related_work,method,translation
 - [state–action occupancy measure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.state-action-occupancy-measure.001.md) — `rl.definition.state-action-occupancy-measure.001` · definition · sections=introduction,related_work,method,translation
+- [symbolic policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.symbolic-policy.001.md) — `rl.definition.symbolic-policy.001` · definition · sections=abstract,introduction,related_work,method,translation
 - [task-oriented latent dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.task-oriented-model.001.md) — `wm.definition.task-oriented-model.001` · definition · sections=introduction,related_work,method
 - [temporal-difference (TD) learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.temporal-difference.001.md) — `rl.definition.temporal-difference.001` · definition · sections=introduction,related_work,method,translation
 - [uncertainty-aware model-based planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.uncertainty-aware-planning.001.md) — `wm.definition.uncertainty-aware-planning.001` · definition · sections=introduction,related_work,method,translation

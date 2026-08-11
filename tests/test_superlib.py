@@ -768,6 +768,65 @@ class SuperLibraryCliTests(unittest.TestCase):
         )
         self.assertTrue(all(source.get("topic_families") for source in recent))
 
+    def test_tpami_review_milestone_is_met_without_inflating_phrase_counts(self):
+        _, sources, entries = superlib.load_corpus()
+        decisions = superlib.load_promotion_decisions()
+        summary = superlib.source_analysis_summary(
+            superlib.source_analysis_records(sources, entries, decisions)
+        )
+        policy = superlib.load_coverage_policy()
+        self.assertGreaterEqual(
+            summary["direct_links_by_venue"]["TPAMI"],
+            policy["goals"]["direct_links_by_venue"]["TPAMI"],
+        )
+        tpami_decisions = {
+            decision["source_id"]
+            for decision in decisions
+            if next(
+                source for source in sources if source["id"] == decision["source_id"]
+            )["venue"]
+            == "TPAMI"
+        }
+        self.assertTrue(
+            {
+                "klink2024-benefit-optimal-transport-curriculum",
+                "li2023-metadrive-composing-diverse-driving",
+                "pan2024-model-based-reinforcement-learning",
+                "tan2023-knowledge-based-embodied-question",
+                "zheng2025-symbolic-visual-reinforcement-learning",
+            }.issubset(tpami_decisions),
+        )
+
+    def test_new_tpami_backed_records_are_retrievable_with_bounded_queries(self):
+        cases = (
+            (
+                "curriculum reinforcement learning task distribution",
+                "reinforcement_learning",
+                "rl.definition.curriculum-reinforcement-learning.001",
+            ),
+            (
+                "embodied question answering active exploration",
+                "embodied_ai",
+                "emb.definition.embodied-question-answering.001",
+            ),
+            (
+                "symbolic policy expression",
+                "reinforcement_learning",
+                "rl.definition.symbolic-policy.001",
+            ),
+        )
+        for query, domain, expected_id in cases:
+            with self.subTest(query=query):
+                result = run_cli(
+                    "search", query, "--domain", domain,
+                    "--limit", "3", "--format", "json",
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn(
+                    expected_id,
+                    [entry["id"] for entry in json.loads(result.stdout)],
+                )
+
     def test_section_writing_study_is_bounded_and_balanced(self):
         _, sources, _ = superlib.load_corpus()
         _, study = superlib.load_writing_guides()

@@ -5,8 +5,8 @@ Corpus `0.4.0` · snapshot `2026-08-09`.
 These are maintainer review outcomes, not Agent writing context or
 citable evidence. Open the named primary paper before making a literature claim.
 
-- Reviewed papers: 20
-- Reviews linked to normalized records: 19
+- Reviewed papers: 25
+- Reviews linked to normalized records: 24
 - Explicit no-promotion outcomes: 1
 
 | Paper | Decision | Verification | Linked records |
@@ -24,10 +24,15 @@ citable evidence. Open the named primary paper before making a literature claim.
 | [OTTER: A Vision-Language-Action Model with Text-Aware Visual Feature Extraction](https://proceedings.mlr.press/v267/huang25u.html) | `link_existing_record` | Official PMLR abstract | `emb.definition.vla.001`, `general.usage-note.generalization-axis.001` |
 | [Time Reversal Symmetry for Efficient Robotic Manipulations in Deep Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/d20e3c35bedb17a9f6f01fc434a30fa3-Abstract-Conference.html) | `record_no_promotion` | Official paper abstract and Sections 1–3 | none |
 | [Test-Time Adaptation for Online Vision-Language Navigation with Feedback-based Reinforcement Learning](https://proceedings.mlr.press/v267/kim25ad.html) | `link_existing_record` | Official PMLR abstract | `emb.definition.rapid-adaptation.001`, `emb.definition.vln.001` |
+| [On the Benefit of Optimal Transport for Curriculum Reinforcement Learning](https://doi.org/10.1109/tpami.2024.3390051) | `promote_normalized_record` | Author preprint linked to the TPAMI DOI, Abstract, Sections 1–3.2, and Section 6 | `rl.definition.curriculum-reinforcement-learning.001` |
 | [Embodied Navigation with Auxiliary Task of Action Description Prediction](https://openaccess.thecvf.com/content/ICCV2025/html/Kondoh_Embodied_Navigation_with_Auxiliary_Task_of_Action_Description_Prediction_ICCV_2025_paper.html) | `link_existing_record` | Official ICCV paper, Abstract, Section 1, and Section 4.2 | `emb.definition.multimodal-perception.001`, `emb.definition.vln.001`, `emb.definition.object-goal-navigation.001` |
 | [Mastering Massive Multi-Task Reinforcement Learning via Mixture-of-Expert Decision Transformer](https://proceedings.mlr.press/v267/kong25a.html) | `link_existing_record` | Official PMLR abstract | `rl.definition.offline-rl.001`, `rl.definition.return-conditioned-sequence.001` |
+| [MetaDrive: Composing Diverse Driving Scenarios for Generalizable Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3190471) | `link_existing_record` | Author preprint linked to the TPAMI article, Abstract, Section 1, and Sections 5.1–5.2 | `general.usage-note.generalization-axis.001`, `emb.definition.domain-randomization.001` |
 | [RoboMamba: Efficient Vision-Language-Action Model for Robotic Reasoning and Manipulation](https://proceedings.neurips.cc/paper_files/paper/2024/hash/46a126492ea6fb87410e55a58df2e189-Abstract-Conference.html) | `link_existing_record` | Official NeurIPS abstract | `emb.definition.vla.001`, `vla.usage-note.control-latency.001` |
+| [Model-Based Reinforcement Learning With Isolated Imaginations](https://doi.org/10.1109/tpami.2023.3335263) | `link_existing_record` | Author preprint abstract for the TPAMI article | `wm.definition.model-based-rl.001`, `wm.term.learned-dynamics.001`, `wm.definition.forward-inverse-dynamics.001` |
 | [ShapeLLM: Universal 3D Object Understanding for Embodied Interaction](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/5974_ECCV_2024_paper.php) | `link_existing_record` | Official ECCV abstract | `emb.definition.embodied-language-model.001`, `emb.definition.multimodal-perception.001` |
 | [Globally Optimal Policy Gradient Algorithms for Reinforcement Learning with PID Control Policies](https://proceedings.neurips.cc/paper_files/paper/2025/hash/e40e65df08fc9b925c1da59fc25a2bd6-Abstract-Conference.html) | `link_existing_record` | Official NeurIPS abstract | `rl.term.policy-gradient-estimator.001` |
+| [Knowledge-Based Embodied Question Answering](https://doi.org/10.1109/tpami.2023.3277206) | `promote_normalized_record` | Author preprint for the TPAMI article, Abstract, Sections 1–3, and Sections 5–6 | `emb.definition.embodied-question-answering.001` |
 | [Understanding Physical Dynamics with Counterfactual World Modeling](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/3523_ECCV_2024_paper.php) | `link_existing_record` | Official ECCV abstract | `wm.definition.video-world-model.001` |
 | [PreLAR: World Model Pre-training with Learnable Action Representation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/3363_ECCV_2024_paper.php) | `promote_normalized_record` | Official ECCV abstract | `wm.definition.latent-action-representation.001` |
+| [Symbolic Visual Reinforcement Learning: A Scalable Framework With Object-Level Abstraction and Differentiable Expression Search](https://doi.org/10.1109/tpami.2024.3469053) | `promote_normalized_record` | Author preprint for the TPAMI article, Abstract, Sections 1 and 3–4.5 | `rl.definition.symbolic-policy.001` |

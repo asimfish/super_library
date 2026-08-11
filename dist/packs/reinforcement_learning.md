@@ -136,6 +136,29 @@ The problem of determining how individual agents' actions contribute to a shared
 
 - `foerster2018coma` — [Counterfactual Multi-Agent Policy Gradients](https://ojs.aaai.org/index.php/AAAI/article/view/11794) (AAAI 2018)
 
+### curriculum reinforcement learning (CRL)
+
+`rl.definition.curriculum-reinforcement-learning.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A reinforcement-learning training paradigm that selects or adapts a sequence of tasks or task distributions so that an agent learns on intermediate conditions before or while progressing toward a target task distribution.
+
+**Use:** Specify the task or context space, what the curriculum changes, how tasks are selected or ordered, the pacing or adaptation signal, the target distribution, and whether evaluation uses a fixed held-out distribution. Difficulty need not be a single scalar or increase monotonically.
+
+**Avoid:** Do not label ordinary shuffling, a fixed benchmark suite, or goal conditioning alone as curriculum reinforcement learning; identify the mechanism that changes the training-task distribution over learning.
+
+**Patterns:**
+
+- The curriculum updates the training-task distribution from {initial distribution} toward {target distribution} according to {progress signal}.
+- At iteration {i}, the agent trains on tasks sampled from {p_i(c)}, while evaluation remains fixed on {target distribution}.
+
+**Verify in primary sources:**
+
+- `klink2024-benefit-optimal-transport-curriculum` — [On the Benefit of Optimal Transport for Curriculum Reinforcement Learning](https://doi.org/10.1109/tpami.2024.3390051) (TPAMI 2024)
+- `cho2023-outcome-directed-reinforcement-learning` — [Outcome-directed Reinforcement Learning by Uncertainty \& Temporal Distance-Aware Curriculum Goal Generation](https://iclr.cc/virtual/2023/poster/11888) (ICLR 2023)
+- `ao2021-co-pilot-collaborative-planning` — [CO-PILOT: COllaborative Planning and reInforcement Learning On sub-Task curriculum](https://proceedings.neurips.cc/paper_files/paper/2021/hash/56577889b3c1cd083b6d7b32d32f99d5-Abstract.html) (NeurIPS 2021)
+
 ### diffusion-based trajectory planning / diffusion planning
 
 `rl.definition.diffusion-planning.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
@@ -457,6 +480,28 @@ A measure of how frequently a policy visits each state–action pair under the e
 **Verify in primary sources:**
 
 - `barakat2025-global-optimality-policy-gradient` — [On the Global Optimality of Policy Gradient Methods in General Utility Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/72411ab2fd50c0d1f1a4489896d96489-Abstract-Conference.html) (NeurIPS 2025)
+
+### symbolic policy
+
+`rl.definition.symbolic-policy.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A control policy represented by an explicit symbolic expression, program, or rule structure that maps a specified state or feature representation to actions.
+
+**Use:** State the symbol vocabulary or grammar, input representation, search or optimization procedure, action-space support, expression complexity, and whether the policy is learned directly or distilled from a neural policy. Evaluate comprehensibility separately from task return.
+
+**Avoid:** Do not claim that a policy is interpretable merely because it contains symbols, and do not call a neural policy symbolic when only an auxiliary explanation or latent representation is symbolic.
+
+**Patterns:**
+
+- The symbolic policy maps {structured state features} to {actions} through an expression drawn from {grammar or primitive set}.
+- We report task return together with expression length and fidelity to {teacher policy, if applicable}.
+
+**Verify in primary sources:**
+
+- `landajuela2021-discovering-symbolic-policies` — [Discovering Symbolic Policies With Deep Reinforcement Learning](https://proceedings.mlr.press/v139/landajuela21a.html) (ICML 2021)
+- `zheng2025-symbolic-visual-reinforcement-learning` — [Symbolic Visual Reinforcement Learning: A Scalable Framework With Object-Level Abstraction and Differentiable Expression Search](https://doi.org/10.1109/tpami.2024.3469053) (TPAMI 2025)
 
 ### temporal-difference (TD) learning
 
