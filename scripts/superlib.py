@@ -2647,6 +2647,7 @@ def recommend_guide_id(
         "limitations": "limitations",
         "conclusion": "conclusion",
         "rebuttal": "rebuttal",
+        "review": "review",
         "translation": "translation",
     }
     for section, guide_id in section_guides.items():

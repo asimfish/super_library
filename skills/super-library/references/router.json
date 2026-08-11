@@ -135,6 +135,11 @@
     "general.sentence-pattern.result-null.001": "cards/general/general.sentence-pattern.result-null.001.md",
     "general.sentence-pattern.result-tradeoff.001": "cards/general/general.sentence-pattern.result-tradeoff.001.md",
     "general.sentence-pattern.result-variability.001": "cards/general/general.sentence-pattern.result-variability.001.md",
+    "general.sentence-pattern.review-actionable-question.001": "cards/general/general.sentence-pattern.review-actionable-question.001.md",
+    "general.sentence-pattern.review-calibrated-assessment.001": "cards/general/general.sentence-pattern.review-calibrated-assessment.001.md",
+    "general.sentence-pattern.review-credit-disclosure.001": "cards/general/general.sentence-pattern.review-credit-disclosure.001.md",
+    "general.sentence-pattern.review-grounded-weakness.001": "cards/general/general.sentence-pattern.review-grounded-weakness.001.md",
+    "general.sentence-pattern.review-post-rebuttal.001": "cards/general/general.sentence-pattern.review-post-rebuttal.001.md",
     "general.sentence-pattern.scope.001": "cards/general/general.sentence-pattern.scope.001.md",
     "general.sentence-pattern.transition.001": "cards/general/general.sentence-pattern.transition.001.md",
     "general.sentence-pattern.translation-preserve.001": "cards/general/general.sentence-pattern.translation-preserve.001.md",
@@ -146,6 +151,7 @@
     "general.usage-note.modality.001": "cards/general/general.usage-note.modality.001.md",
     "general.usage-note.performance.001": "cards/general/general.usage-note.performance.001.md",
     "general.usage-note.respectively.001": "cards/general/general.usage-note.respectively.001.md",
+    "general.usage-note.review-evidence-scope.001": "cards/general/general.usage-note.review-evidence-scope.001.md",
     "general.usage-note.significant.001": "cards/general/general.usage-note.significant.001.md",
     "general.usage-note.state-of-the-art.001": "cards/general/general.usage-note.state-of-the-art.001.md",
     "rl.definition.actor-critic.001": "cards/reinforcement_learning/rl.definition.actor-critic.001.md",
@@ -321,9 +327,9 @@
   },
   "context_bytes": {
     "agent_index": 5430,
-    "average_card": 2320,
+    "average_card": 2307,
     "core": 10879,
-    "guide_index": 3743,
+    "guide_index": 3943,
     "largest_card": 3436,
     "largest_catalog": 16902,
     "largest_evidence_map": 6436,
@@ -386,6 +392,7 @@
       "method": "guides/method.md",
       "rebuttal": "guides/rebuttal.md",
       "related_work": "guides/related_work.md",
+      "review": "guides/review.md",
       "translation": "guides/translation.md"
     }
   },
@@ -444,6 +451,7 @@
       "related_work.reinforcement_learning": "routes/related_work.reinforcement_learning.md",
       "related_work.vision_language_action": "routes/related_work.vision_language_action.md",
       "related_work.world_models": "routes/related_work.world_models.md",
+      "review.general": "routes/review.general.md",
       "translation.general": "routes/translation.general.md"
     }
   }

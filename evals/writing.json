@@ -1235,11 +1235,10 @@
         "The evaluation uses three scenes, while the abstract claims diverse environments.",
         "The supplied description mentions no code release and no evaluation-protocol appendix."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "emb.term.task-success-rate.001",
-        "general.sentence-pattern.failure-denominator.001",
-        "general.usage-note.generalization-axis.001"
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.usage-note.review-evidence-scope.001"
       ],
       "manual_rubric": [
         "Anchor every weakness in a specific statement or omission of the supplied description.",
@@ -1293,11 +1292,11 @@
         "No physical-robot trial is reported anywhere in the supplied description.",
         "The introduction describes hardware evaluation as planned future work."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "emb.definition.sim-to-real.001",
-        "general.sentence-pattern.result-boundary.001",
-        "general.sentence-pattern.rebuttal-no-evidence.001"
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.usage-note.review-evidence-scope.001",
+        "general.sentence-pattern.result-boundary.001"
       ],
       "manual_rubric": [
         "State the claim-evidence mismatch precisely: a real-world claim supported only by simulator results.",
@@ -1345,10 +1344,10 @@
         "No component-wise ablation is described.",
         "The claimed improvement over the baseline is 4.1 points in aggregate."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "general.sentence-pattern.rebuttal-no-evidence.001",
-        "general.sentence-pattern.result-boundary.001"
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.sentence-pattern.review-actionable-question.001"
       ],
       "manual_rubric": [
         "Tie the weakness to attribution: two new components, one aggregate number.",
@@ -1402,10 +1401,10 @@
         "The supplied description does not state the number of random seeds.",
         "Environment interaction is reported as one million steps per task."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
+        "general.sentence-pattern.review-actionable-question.001",
         "rl.term.update-to-data-ratio.001",
-        "rl.term.sample-efficiency.001",
         "general.sentence-pattern.independent-runs.001"
       ],
       "manual_rubric": [
@@ -1460,10 +1459,10 @@
         "No statistical test or interval is reported.",
         "The paper text calls the improvement significant."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
         "general.usage-note.significant.001",
-        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.review-actionable-question.001",
         "general.sentence-pattern.result-variability.001"
       ],
       "manual_rubric": [
@@ -1517,9 +1516,9 @@
         "The experiments include a moving-camera stress test showing a 12-point degradation.",
         "The conclusion repeats the fixed-viewpoint assumption."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "general.sentence-pattern.rebuttal-acknowledge.001",
+        "general.sentence-pattern.review-credit-disclosure.001",
         "general.sentence-pattern.result-boundary.001"
       ],
       "manual_rubric": [
@@ -1567,10 +1566,10 @@
         "Weaknesses: missing ablation for the auxiliary loss; no variance reporting; no improvement on the third benchmark.",
         "The venue asks for an overall assessment paragraph without a numeric score."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "general.sentence-pattern.result-boundary.001",
-        "general.sentence-pattern.rebuttal-acknowledge.001"
+        "general.sentence-pattern.review-calibrated-assessment.001",
+        "general.sentence-pattern.result-boundary.001"
       ],
       "manual_rubric": [
         "The paragraph weighs listed strengths against listed weaknesses explicitly.",
@@ -1623,11 +1622,10 @@
         "The rebuttal adds a ten-seed run whose mean changes by at most 0.3 points from the original result.",
         "The rebuttal does not add baseline X, citing an incompatible action space."
       ],
-      "expected_guide_id": "rebuttal",
+      "expected_guide_id": "review",
       "expected_retrieval_ids": [
-        "general.sentence-pattern.rebuttal-concede.001",
-        "general.sentence-pattern.rebuttal-correct.001",
-        "general.sentence-pattern.independent-runs.001"
+        "general.sentence-pattern.review-post-rebuttal.001",
+        "general.sentence-pattern.rebuttal-concede.001"
       ],
       "manual_rubric": [
         "The seeds concern is explicitly marked as resolved by the ten-seed evidence.",

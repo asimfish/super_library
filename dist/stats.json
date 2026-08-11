@@ -1,9 +1,9 @@
 {
-  "entries": 268,
+  "entries": 274,
   "sources": 336,
   "by_domain": {
     "embodied_ai": 59,
-    "general": 92,
+    "general": 98,
     "reinforcement_learning": 92,
     "robot_learning": 72,
     "vision_language_action": 33,
@@ -13,9 +13,9 @@
     "anti_pattern": 3,
     "definition": 93,
     "phrase": 14,
-    "sentence_pattern": 73,
+    "sentence_pattern": 78,
     "term": 57,
-    "usage_note": 28
+    "usage_note": 29
   },
   "by_section": {
     "abstract": 68,
@@ -26,14 +26,15 @@
     "method": 157,
     "rebuttal": 43,
     "related_work": 180,
+    "review": 6,
     "translation": 165
   },
   "by_tier": {
-    "gold": 268
+    "gold": 274
   },
   "by_provenance": {
     "attested_collocation": 14,
-    "original_pattern": 81,
+    "original_pattern": 87,
     "paraphrased_synthesis": 124,
     "terminology": 49
   },

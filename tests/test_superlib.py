@@ -436,14 +436,14 @@ class SuperLibraryCliTests(unittest.TestCase):
             for path in (ROOT / "dist" / "guides").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(guides), 16)
+        self.assertEqual(len(guides), 17)
         self.assertLess(max(path.stat().st_size for path in guides), 12_000)
         routes = [
             path
             for path in (ROOT / "dist" / "routes").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(routes), 18)
+        self.assertEqual(len(routes), 19)
         self.assertLess(max(path.stat().st_size for path in routes), 24_000)
         self.assertLess(
             (ROOT / "dist" / "routes" / "index.md").stat().st_size,
@@ -667,7 +667,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         listing = run_cli("guide", "--list", "--format", "json")
         self.assertEqual(listing.returncode, 0, listing.stderr)
         payload = json.loads(listing.stdout)
-        self.assertEqual(len(payload), 16)
+        self.assertEqual(len(payload), 17)
         guide = run_cli("guide", "experiments.table.efficiency")
         self.assertEqual(guide.returncode, 0, guide.stderr)
         self.assertIn("Define the resource", guide.stdout)

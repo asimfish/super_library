@@ -453,5 +453,45 @@
       "general.sentence-pattern.result-boundary.001"
     ],
     "expected_guide_id": "limitations"
+  },
+  {
+    "id": "review-native-grounded-weakness",
+    "query": "ground the weakness in the submission evidence",
+    "domain": "general",
+    "section": "review",
+    "intent": "evidence",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.review-grounded-weakness.001",
+      "general.usage-note.review-evidence-scope.001"
+    ],
+    "expected_guide_id": "review",
+    "expected_task_pack_id": "review.general"
+  },
+  {
+    "id": "review-native-actionable-question",
+    "query": "answerable clarifying question for the authors",
+    "domain": "general",
+    "section": "review",
+    "intent": "clarify",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.review-actionable-question.001"
+    ],
+    "expected_guide_id": "review",
+    "expected_task_pack_id": "review.general"
+  },
+  {
+    "id": "review-native-credit-disclosure",
+    "query": "credit the disclosed limitation before probing",
+    "domain": "general",
+    "section": "review",
+    "intent": "acknowledge",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.review-credit-disclosure.001"
+    ],
+    "expected_guide_id": "review",
+    "expected_task_pack_id": "review.general"
   }
 ]

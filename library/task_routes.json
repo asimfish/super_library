@@ -9,7 +9,10 @@
       "section": "abstract",
       "intent": "evidence",
       "guide_id": "abstract",
-      "aliases": ["world model abstract", "世界模型摘要"],
+      "aliases": [
+        "world model abstract",
+        "世界模型摘要"
+      ],
       "entry_ids": [
         "general.sentence-pattern.abstract-gap.001",
         "general.sentence-pattern.abstract-method.001",
@@ -26,7 +29,10 @@
       "section": "abstract",
       "intent": "evidence",
       "guide_id": "abstract",
-      "aliases": ["RL abstract", "强化学习摘要"],
+      "aliases": [
+        "RL abstract",
+        "强化学习摘要"
+      ],
       "entry_ids": [
         "general.sentence-pattern.abstract-gap.001",
         "general.sentence-pattern.abstract-method.001",
@@ -43,7 +49,10 @@
       "section": "abstract",
       "intent": "evidence",
       "guide_id": "abstract",
-      "aliases": ["embodied AI abstract", "具身智能摘要"],
+      "aliases": [
+        "embodied AI abstract",
+        "具身智能摘要"
+      ],
       "entry_ids": [
         "general.sentence-pattern.abstract-gap.001",
         "general.sentence-pattern.abstract-method.001",
@@ -60,7 +69,10 @@
       "section": "abstract",
       "intent": "evidence",
       "guide_id": "abstract",
-      "aliases": ["VLA abstract", "视觉语言动作摘要"],
+      "aliases": [
+        "VLA abstract",
+        "视觉语言动作摘要"
+      ],
       "entry_ids": [
         "general.sentence-pattern.abstract-gap.001",
         "general.sentence-pattern.abstract-method.001",
@@ -77,7 +89,10 @@
       "section": "introduction",
       "intent": "motivate",
       "guide_id": "introduction",
-      "aliases": ["world model introduction", "世界模型引言"],
+      "aliases": [
+        "world model introduction",
+        "世界模型引言"
+      ],
       "entry_ids": [
         "general.sentence-pattern.intro-restrictive-assumption.001",
         "general.sentence-pattern.intro-observation-design.001",
@@ -94,7 +109,10 @@
       "section": "introduction",
       "intent": "motivate",
       "guide_id": "introduction",
-      "aliases": ["RL introduction", "强化学习引言"],
+      "aliases": [
+        "RL introduction",
+        "强化学习引言"
+      ],
       "entry_ids": [
         "general.sentence-pattern.intro-restrictive-assumption.001",
         "general.sentence-pattern.intro-observation-design.001",
@@ -111,7 +129,10 @@
       "section": "introduction",
       "intent": "motivate",
       "guide_id": "introduction",
-      "aliases": ["embodied AI introduction", "具身智能引言"],
+      "aliases": [
+        "embodied AI introduction",
+        "具身智能引言"
+      ],
       "entry_ids": [
         "general.sentence-pattern.intro-restrictive-assumption.001",
         "general.sentence-pattern.intro-observation-design.001",
@@ -128,7 +149,10 @@
       "section": "introduction",
       "intent": "motivate",
       "guide_id": "introduction",
-      "aliases": ["VLA introduction", "视觉语言动作引言"],
+      "aliases": [
+        "VLA introduction",
+        "视觉语言动作引言"
+      ],
       "entry_ids": [
         "general.sentence-pattern.intro-restrictive-assumption.001",
         "general.sentence-pattern.intro-observation-design.001",
@@ -145,7 +169,10 @@
       "section": "experiments",
       "intent": "evidence",
       "guide_id": "experiments",
-      "aliases": ["world model experiments", "世界模型实验"],
+      "aliases": [
+        "world model experiments",
+        "世界模型实验"
+      ],
       "entry_ids": [
         "general.sentence-pattern.metric-direction-unit.001",
         "general.sentence-pattern.independent-runs.001",
@@ -162,7 +189,10 @@
       "section": "experiments",
       "intent": "evidence",
       "guide_id": "experiments",
-      "aliases": ["RL experiments", "强化学习实验"],
+      "aliases": [
+        "RL experiments",
+        "强化学习实验"
+      ],
       "entry_ids": [
         "general.sentence-pattern.metric-direction-unit.001",
         "general.sentence-pattern.independent-runs.001",
@@ -179,7 +209,11 @@
       "section": "experiments",
       "intent": "evidence",
       "guide_id": "experiments",
-      "aliases": ["embodied experiments", "real robot experiments", "具身实验"],
+      "aliases": [
+        "embodied experiments",
+        "real robot experiments",
+        "具身实验"
+      ],
       "entry_ids": [
         "general.sentence-pattern.real-system-trials.001",
         "general.sentence-pattern.failure-denominator.001",
@@ -196,7 +230,10 @@
       "section": "experiments",
       "intent": "evidence",
       "guide_id": "experiments",
-      "aliases": ["VLA experiments", "视觉语言动作实验"],
+      "aliases": [
+        "VLA experiments",
+        "视觉语言动作实验"
+      ],
       "entry_ids": [
         "general.sentence-pattern.real-system-trials.001",
         "general.sentence-pattern.resource-parity.001",
@@ -213,7 +250,10 @@
       "section": "related_work",
       "intent": "position",
       "guide_id": "related_work",
-      "aliases": ["world model related work", "世界模型相关工作"],
+      "aliases": [
+        "world model related work",
+        "世界模型相关工作"
+      ],
       "entry_ids": [
         "general.sentence-pattern.position.001",
         "general.sentence-pattern.related-family.001",
@@ -230,7 +270,10 @@
       "section": "related_work",
       "intent": "position",
       "guide_id": "related_work",
-      "aliases": ["RL related work", "强化学习相关工作"],
+      "aliases": [
+        "RL related work",
+        "强化学习相关工作"
+      ],
       "entry_ids": [
         "general.sentence-pattern.position.001",
         "general.sentence-pattern.related-family.001",
@@ -247,7 +290,10 @@
       "section": "related_work",
       "intent": "position",
       "guide_id": "related_work",
-      "aliases": ["embodied related work", "具身智能相关工作"],
+      "aliases": [
+        "embodied related work",
+        "具身智能相关工作"
+      ],
       "entry_ids": [
         "general.sentence-pattern.position.001",
         "general.sentence-pattern.related-family.001",
@@ -264,7 +310,10 @@
       "section": "related_work",
       "intent": "position",
       "guide_id": "related_work",
-      "aliases": ["VLA related work", "视觉语言动作相关工作"],
+      "aliases": [
+        "VLA related work",
+        "视觉语言动作相关工作"
+      ],
       "entry_ids": [
         "general.sentence-pattern.position.001",
         "general.sentence-pattern.related-family.001",
@@ -281,7 +330,10 @@
       "section": "rebuttal",
       "intent": "respond",
       "guide_id": "rebuttal",
-      "aliases": ["reviewer rebuttal", "审稿回复"],
+      "aliases": [
+        "reviewer rebuttal",
+        "审稿回复"
+      ],
       "entry_ids": [
         "general.sentence-pattern.rebuttal-answer.001",
         "general.sentence-pattern.rebuttal-evidence.001",
@@ -297,12 +349,35 @@
       "section": "translation",
       "intent": "clarify",
       "guide_id": "translation",
-      "aliases": ["technical translation", "中英论文翻译"],
+      "aliases": [
+        "technical translation",
+        "中英论文翻译"
+      ],
       "entry_ids": [
         "general.sentence-pattern.translation-preserve.001",
         "general.usage-note.modality.001",
         "general.usage-note.significant.001",
         "general.usage-note.respectively.001"
+      ]
+    },
+    {
+      "id": "review.general",
+      "label": "Grounded peer-review assessment",
+      "domain": "general",
+      "section": "review",
+      "intent": "evidence",
+      "guide_id": "review",
+      "aliases": [
+        "peer review",
+        "reviewer comments",
+        "审稿意见"
+      ],
+      "entry_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.sentence-pattern.review-actionable-question.001",
+        "general.sentence-pattern.review-calibrated-assessment.001",
+        "general.usage-note.review-evidence-scope.001",
+        "general.usage-note.significant.001"
       ]
     }
   ]

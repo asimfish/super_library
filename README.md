@@ -13,10 +13,10 @@ not a claim that this seed corpus models a venue-specific house style.
 Version 0.4 maintains an audited 300-paper 2021–2025 core from CVPR, ECCV, ICCV,
 NeurIPS, ICLR, ICML, and TPAMI. Papers are indexed into 23 topic families; their
 recurring terminology and writing moves are deduplicated into compact reusable
-records rather than copied once per paper. Sixteen selectively loaded protocols
+records rather than copied once per paper. Seventeen selectively loaded protocols
 now cover Abstract, Introduction, Related Work, Method, complete Experiments,
-result analysis, Limitations, Conclusion, Rebuttal, Translation, and five table
-types. Eighteen precomposed one-file routes keep common link-only
+result analysis, Limitations, Conclusion, Rebuttal, Peer Review, Translation,
+and five table types. Nineteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
 editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
@@ -198,7 +198,7 @@ be queried by a script, not pasted into an Agent.
 - `library/collections.json`: auditable paper-selection policies and minimums.
 - `library/writing_guides.json`: functional protocols for principal paper
   sections, rebuttal, translation, result analysis, and experiment table types.
-- `library/task_routes.json`: 18 precomposed routes for common domain/section
+- `library/task_routes.json`: 19 precomposed routes for common domain/section
   combinations; each rendered task pack is capped at 24,000 characters.
 - `library/table_templates.json` and `templates/tables/`: five source-controlled
   LaTeX table assets with explicit `SL_*` replacement tokens.
@@ -232,7 +232,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **268 gold entries** and **336 primary-source
+The v0.4 reviewed snapshot contains **274 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,

@@ -3,7 +3,7 @@
   "as_of": "2026-08-09",
   "cards": {
     "base": "cards",
-    "count": 268
+    "count": 274
   },
   "catalog": "catalog.jsonl",
   "catalogs": {
@@ -56,9 +56,9 @@
   },
   "context_bytes": {
     "agent_index": 5430,
-    "average_card": 2320,
+    "average_card": 2307,
     "core": 10879,
-    "guide_index": 3743,
+    "guide_index": 3943,
     "largest_card": 3436,
     "largest_catalog": 16902,
     "largest_evidence_map": 6436,
@@ -115,6 +115,7 @@
       "method": "guides/method.md",
       "rebuttal": "guides/rebuttal.md",
       "related_work": "guides/related_work.md",
+      "review": "guides/review.md",
       "translation": "guides/translation.md"
     }
   },
@@ -234,6 +235,7 @@
         "method": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/method.md",
         "rebuttal": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/rebuttal.md",
         "related_work": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/related_work.md",
+        "review": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/review.md",
         "translation": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/translation.md"
       }
     },
@@ -290,6 +292,7 @@
         "related_work.reinforcement_learning": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/related_work.reinforcement_learning.md",
         "related_work.vision_language_action": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/related_work.vision_language_action.md",
         "related_work.world_models": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/related_work.world_models.md",
+        "review.general": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/review.general.md",
         "translation.general": "https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/translation.general.md"
       }
     }
@@ -298,7 +301,7 @@
   "router": "router.json",
   "schema_version": "1.0",
   "sha256": {
-    "agent-index.md": "5393070f2848aca43d383085c77207ffd70e3ca81614013ae87df8aeebf0a51b",
+    "agent-index.md": "1c2a26d9cae3762e7b68e8efcb6b044737124f6a540f0ea71c3e9160ecafca64",
     "cards/embodied_ai/emb.definition.3d-vla-world-model.001.md": "01370a5f0f4b076421a0a0a976ac4239349ecf31f857df1a359a16e190c1784f",
     "cards/embodied_ai/emb.definition.action-chunking.001.md": "a239dabd2b9fda8b92457a740d5e4aa362b4af2f35079904718100ce0f7dc5b3",
     "cards/embodied_ai/emb.definition.active-perception.001.md": "2a76684c568833c586c051de3eab68151225d1ed1631f1c973a2850ef01cddb6",
@@ -421,6 +424,11 @@
     "cards/general/general.sentence-pattern.result-null.001.md": "a00eea8cb3d65da06a210f70195a1a7fa990d34b49568e3ce08763a424d244f9",
     "cards/general/general.sentence-pattern.result-tradeoff.001.md": "f4d63f01dffc6e99d931c5ab7c2c9644d2d6ae18c5df8b437d87937aeb293a2e",
     "cards/general/general.sentence-pattern.result-variability.001.md": "97bcd066c3cb9ec7e210690e584fbae7068399c4f1152d0fd1f44de121ff0240",
+    "cards/general/general.sentence-pattern.review-actionable-question.001.md": "1421574c1041d425a4a34abdca8713d0ee7acc60c4a357b491a7ad303216407a",
+    "cards/general/general.sentence-pattern.review-calibrated-assessment.001.md": "f4419cd51a895f24d45aea99a7c6daf71da006f633dbd6b288a780ec1b02a074",
+    "cards/general/general.sentence-pattern.review-credit-disclosure.001.md": "86c1ee40f6172c4ce98c1dd5fea334b3ee4547408140da98c5f211e86a2c02f0",
+    "cards/general/general.sentence-pattern.review-grounded-weakness.001.md": "45ed0cfe66abf702b1879c1e71e5152d2a5011ca8be8dc5ab8072b0c2068b725",
+    "cards/general/general.sentence-pattern.review-post-rebuttal.001.md": "c2dd9f8f9f1d946ca2d0eca22f62ddb9134c8c5b0e3e3a3806696282bab437fd",
     "cards/general/general.sentence-pattern.scope.001.md": "da20d30044835494533aee01b94acc6163154b354dc9951c1700655088fafee7",
     "cards/general/general.sentence-pattern.transition.001.md": "7da1e1406bb01154fa2124907da0393e514fefd4758852ac090ae376e49d1a32",
     "cards/general/general.sentence-pattern.translation-preserve.001.md": "10741ed390f2d67aa873917ed1fab30fd293b2b343795243180b06d51e0ae6c1",
@@ -432,6 +440,7 @@
     "cards/general/general.usage-note.modality.001.md": "65b9c18e883e9afedb9f9c9f9c30208d6e3acd8beb2717baa4883fc31aa36432",
     "cards/general/general.usage-note.performance.001.md": "ea6645377144ba8bdd8a85cdf033bc030cd72bb221862e9ab111a2d34d7db445",
     "cards/general/general.usage-note.respectively.001.md": "2bd748dac7288554b89694bbe79400e548376f6bf3161148986b301e27857664",
+    "cards/general/general.usage-note.review-evidence-scope.001.md": "a811f395ded7ab29ec16e8805d8b912345924cf613ea3681339bbb23a152cab0",
     "cards/general/general.usage-note.significant.001.md": "43f080aebdb40c8206ce0a93f4789c06b208bab3f8fcbf749f730a25a40e0ca5",
     "cards/general/general.usage-note.state-of-the-art.001.md": "1d0791cc5d411a8da33e242a437f9216c1a0ac3e13fb3599068f011d1f9a11ec",
     "cards/reinforcement_learning/rl.definition.actor-critic.001.md": "0f0256e3baa12ec3faa87acffa7513e52bfc00dcac6635b86dc6bbf9ed0e427b",
@@ -567,9 +576,9 @@
     "cards/world_models/wm.usage-note.one-vs-multistep.001.md": "ed157bb37dbc5f594501a1e846faec6657089d197edaa4233992a6183ac730b5",
     "cards/world_models/wm.usage-note.planning-vs-policy.001.md": "606ecbf2559421a58437c5916603901d6af33afa3e2221d32e05017f0bd3a138",
     "cards/world_models/wm.usage-note.rollout-horizon.001.md": "52b1ddac8aa0159653c067396de929c3682d7a428ccb1c14de2fbe48875303bf",
-    "catalog.jsonl": "d74e4c868368589bbd788dc6b186c5b749ce4a5ea4142dbbe05bab2f7775e4bf",
+    "catalog.jsonl": "6eaed666ba87e4edc55a4303d6526ac8ae5da1675f767c606b4dfaa67ac3e79a",
     "catalogs/domain-records/embodied_ai.md": "86990408b84699fb0136192e93c67cafc00fd0e172f74970d7e171f34005a205",
-    "catalogs/domain-records/general.md": "b04fb820654b9f82fa0a7c70809d579f7f57eacb52eaf4ff3161060bd4b83d86",
+    "catalogs/domain-records/general.md": "9bf95e7fdc90277dc22e3a284e1095b8c617962112193280ee4bb574ddc61d0e",
     "catalogs/domain-records/reinforcement_learning.md": "10b36e19f51245528a89250417d7f1c8f102fe29600ae61e0c2aefd0f16c931b",
     "catalogs/domain-records/robot_learning.md": "e8bedf6590ff1dd7cb86d3c18d385160f8db393f226891d743ba56248b08257f",
     "catalogs/domain-records/vision_language_action.md": "c659d0a54901b00e6cda89f0f9706d98b86e5e4fe0aa1b8bb74e158cd117f85b",
@@ -588,7 +597,7 @@
     "catalogs/sections/method.md": "3a950f00de8d468afa1465c8c2765fade08c03f92e83828bfb697cd98fd82311",
     "catalogs/sections/rebuttal.md": "b7f0558a1eaf18d4d781f6a1c6f64064d37e6604f3bb641ac2b142d2dbe18f1d",
     "catalogs/sections/related_work.md": "57bc7e718afa2e96294b6af6be435c25d9f52ea08e7ee0e08d711f4329f8c8c0",
-    "catalogs/sections/review.md": "2e8a2e6dfd95049cac21616f2c33e86d234dd3733bc9ac4e41868ee71b262beb",
+    "catalogs/sections/review.md": "c6e9aa32c0f29bdde6bcb42c589452dc2a2b2707035d4ffdd679419910b0280a",
     "catalogs/sections/title.md": "add41788c30cb695e675c8cdd4e76beba7fc82f78c5ef5ab81ba4306e2e679d0",
     "catalogs/sections/translation.md": "f67747532e52327f57baeac92aaacc76dd437b6b24fb75dfb55585ae450807d5",
     "catalogs/topics/action_representation.md": "ca689c4b3b289d10360b5a23be4ec9bccb60310de2d397283edd9ee758d52ce7",
@@ -654,21 +663,22 @@
     "guides/experiments.table.generalization.md": "6439e70cba64ba7bec64bd286a390c0b23d779452ab9c9321dd3b327044ed1ea",
     "guides/experiments.table.main_results.md": "d9044a455349be7b5c90aee8084c54b836b2011c5055b8e8d1acbea30e4ae9ab",
     "guides/experiments.table.sensitivity.md": "c2fb5741a5e960dcea7551143b3446f7ff476e3e75fa7cb4b06f102ed342c773",
-    "guides/index.md": "61feb15746e53183ebeed2d7d7731cc62ded26daa1ac0b1163d457215b33c86f",
+    "guides/index.md": "e9ba5f5185160001f466b9219d30dddcea0c404264e875f9059cce7548ef3f40",
     "guides/introduction.md": "12411c4a500abbcb34a1c91b22016cbe830a9c0d7f14119d0cf5bc80caa00a99",
     "guides/limitations.md": "79aa892ff8cdfb7d85ccd17518740a522e1f9cd91867a581892325a81b13a93e",
     "guides/method.md": "9783030b2b3983966e4e816c3ac49efe6e1f34a16be6080ce0d797f524804c74",
     "guides/rebuttal.md": "6f868782513b2947c2eefe5e0dc5535340cebc2a6fb8a97c31ded55a8d07f7ef",
     "guides/related_work.md": "6db7dab1cb105d207101ccf6467afa957bcc59be9aedd40ca1eb7a8458f92406",
+    "guides/review.md": "e2c1a4e7cd8a0e2dee2a4378a12bf58b5af15334620950298c357ac0c47a6136",
     "guides/translation.md": "8465ac81cac634cab81a94978ca1ab388846e8048ae3d7f56b93bcbf25f6f24a",
-    "index.json": "e1178e4e72489eac569989e9e525a7ed13e35ab1cd30421fe20c9d984f6196e2",
+    "index.json": "27df0e94dc211c7eb45b3e29b4ae60a012bcbef0b5663e6e394ecc909f97be10",
     "packs/embodied_ai.md": "dc0efea8f674fdbcc84fad1e31f1147fe152a94c2a4f50873037f98d7a9619f4",
-    "packs/general.md": "c6cd49a7f533a09058a7a29d3bd6c80918cf8f673e2728e024db76733755c1ac",
+    "packs/general.md": "abf67055fe6b4359d53b3900fee9eddae965ddac704d0c876c4e5881feb6d15e",
     "packs/reinforcement_learning.md": "25cc8008e190392a69264d81acc7fd32dcd7af4e080f04cb0153c5ff79da07c7",
     "packs/robot_learning.md": "dcfc20f4313afbce74150f73391947a714d5f8cda5d67f751ede0dca2e72292a",
     "packs/vision_language_action.md": "3d1fca25ac5d95cd74b3280f3be3728d77c67fface8b574f0fefed2078b5609e",
     "packs/world_models.md": "bc0fd3176f5569c8018a0ffc0a3b3d53329ea42b8d3beb5116ba4caca946bda4",
-    "router.json": "23cfc63d880c788323fdc28b8fecca2a08b33bc4e22e99b4378b21c3777477a7",
+    "router.json": "10d8d23d5178bb28c2d559f0c95885adddb0af312311832fb26e21c7d040832a",
     "routes/abstract.embodied_ai.md": "6df12d9c36707b5d6b40dfc013493ec1f7bd11d7c94ed75a698defe0f8d85c2b",
     "routes/abstract.reinforcement_learning.md": "24bd4b21cf8e0f5b043f834803d97889f3ba563b9367d07f9582379bfbad7824",
     "routes/abstract.vision_language_action.md": "d622f0e82a4236570538e9e71fca4cb524a306ff8e33aa7e0413612eeab8be01",
@@ -677,7 +687,7 @@
     "routes/experiments.reinforcement_learning.md": "be01bc862a470840ad0dae3440e4c07d12fb3051570c4267a83b4ad6b5375874",
     "routes/experiments.vision_language_action.md": "3e650f20ac3169dc8b64afe72f168d7c46938d00eab90ca29688413faec219a7",
     "routes/experiments.world_models.md": "3c0ff163461626871896b947a25d3e5baacffa48208db7b9f0a3d2f92effc2df",
-    "routes/index.md": "e062a3c44a569211e5cec523c4400a3c2ed799e3c588c1e85e40008757b851b2",
+    "routes/index.md": "7bc10e4396a4788a7afbe775884e949d0fa773e9569dffe0059b62b9c6118b69",
     "routes/introduction.embodied_ai.md": "2618bdb16e492979a91e43f4d2689dd848bdb6cfe5af3bef3959493021260e67",
     "routes/introduction.reinforcement_learning.md": "8723897d6cd7ff19e8be18e9f9c0b69c3e4eefa25bba674efb9c2012f3ee0e05",
     "routes/introduction.vision_language_action.md": "6aee262462cfea77e0074ca60fd87102b159f7cb49295d77c73271540ddd51df",
@@ -687,8 +697,9 @@
     "routes/related_work.reinforcement_learning.md": "0e370f8d30dde70c5e64ac72bd1827c13c586289610ecc204e8813977d8903d7",
     "routes/related_work.vision_language_action.md": "605f4106437819082c9e1d87011714db177dfe23f4755b87796e184de05ae300",
     "routes/related_work.world_models.md": "eda7121b7ee6df4ae650763cc0341bc61b3f80768faec2f3e6206be4d552a5e8",
+    "routes/review.general.md": "fb25ae5aafdc2033fcc86420fe3bb9b724b9bbb4de268763d10e97bb63195565",
     "routes/translation.general.md": "9bb70c99d9cde8610a9e95b00339c583bc3e6ceb1f39f51ab3168e849073bb2f",
-    "stats.json": "5f62324d01519005b84f34960fd26a784092b9efafbeda54e84fa96ffa9d7290",
+    "stats.json": "fa5d31798f189c60367a76f0a716a08ebbfd7c6f0de6e5826e6a36e08410e0d3",
     "super-library-compact.md": "3656aad638665992b2117a191ae2e9d34a215efa9df7e6cf361d2adc8a05f4d4",
     "templates/tables/ablation.tex": "25139df9bc9716fcda03d8bd2633b7b9cd6a6134b6412d50897755f33180b228",
     "templates/tables/efficiency.tex": "8051b01c5c65e3d17591fe5e66ba4f429fa977aa544cc9d08b7b2ce48396077f",
@@ -784,6 +795,7 @@
       "related_work.reinforcement_learning": "routes/related_work.reinforcement_learning.md",
       "related_work.vision_language_action": "routes/related_work.vision_language_action.md",
       "related_work.world_models": "routes/related_work.world_models.md",
+      "review.general": "routes/review.general.md",
       "translation.general": "routes/translation.general.md"
     }
   }

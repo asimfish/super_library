@@ -6364,6 +6364,192 @@
       ]
     },
     {
+      "avoid": "Avoid rhetorical or accusatory questions and compound questions that bundle several requests into one.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Could the authors report the number of random seeds and the dispersion statistic used in Table {n}? This would clarify how stable the reported gains are.",
+        "Could the authors state the training budget per method? This would clarify whether the comparison is matched."
+      ],
+      "expression": "Could the authors report {specific quantity or protocol detail}? This would clarify {stated concern}.",
+      "guidance": "Target quantities recoverable from a standard experimental log or manuscript revision. One question per missing item, phrased neutrally.",
+      "id": "general.sentence-pattern.review-actionable-question.001",
+      "intents": [
+        "clarify"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Asks the authors for one concrete, answerable item and states what the answer would resolve.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "clarifying question",
+        "actionable request"
+      ]
+    },
+    {
+      "avoid": "Do not introduce comparisons, claims, or scores absent from the review body, and do not let polish or novelty language substitute for the listed evidence.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Given the clear formulation and strong results on {covered settings}, balanced against the missing {analysis}, the current evidence supports a cautiously positive assessment.",
+        "The contribution is well motivated, but until {unresolved item} is addressed the empirical claim remains partially supported."
+      ],
+      "expression": "Given {listed strengths} and {unresolved weaknesses}, the current evidence supports {bounded judgment}.",
+      "guidance": "Weigh only items already established in the review body. Match the hedging strength to the evidence: firm where results are clear, open where reporting is incomplete.",
+      "id": "general.sentence-pattern.review-calibrated-assessment.001",
+      "intents": [
+        "evidence",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Closes a review with an overall judgment that traces explicitly to the listed strengths and weaknesses and no further.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "overall assessment",
+        "calibrated judgment"
+      ]
+    },
+    {
+      "avoid": "Do not present a disclosed limitation as hidden, and do not imply concealment when the manuscript states the assumption.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "The authors already acknowledge the fixed-viewpoint assumption and quantify its cost; the open question is how the degradation scales with viewpoint change.",
+        "The single-embodiment scope is disclosed in the limitations section; the remaining concern is whether the claimed mechanism depends on it."
+      ],
+      "expression": "The authors already acknowledge {limitation} in {location}; the open question is {boundary probe}.",
+      "guidance": "Check the limitations section and experimental caveats before writing a weakness. If the point is disclosed, engage with its measured extent instead of presenting it as a discovery.",
+      "id": "general.sentence-pattern.review-credit-disclosure.001",
+      "intents": [
+        "acknowledge"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Credits a limitation the submission itself discloses before probing its boundary, keeping the review fair to the authors' own reporting.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "disclosed limitation",
+        "fairness",
+        "acknowledgment"
+      ]
+    },
+    {
+      "avoid": "Do not assert properties the review packet cannot verify, such as reproducibility or hidden results, and do not restate a disagreement as a factual error.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "The generalization claim rests on results from {evaluated conditions}, which support robustness within that range but not the broader statement in the abstract.",
+        "The comparison covers {included baselines}, which establishes progress over those methods but not the field-wide claim."
+      ],
+      "expression": "The {claim} rests on {reported evidence}, which supports {narrower statement} but not {claimed scope}.",
+      "guidance": "Quote or locate the specific claim and the specific evidence before judging the gap. Keep the weakness about the submission's content, not about unverifiable properties.",
+      "id": "general.sentence-pattern.review-grounded-weakness.001",
+      "intents": [
+        "evidence",
+        "gap"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States a review weakness by anchoring it to what the submission actually reports, separating the claim from the evidence behind it.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "weakness",
+        "claim evidence gap",
+        "grounded critique"
+      ]
+    },
+    {
+      "avoid": "Do not hold a resolved concern open without a reason, and do not flip the overall stance on points the response never addressed.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "The added multi-seed run addresses the stability concern; the missing baseline comparison stands, although the stated incompatibility is a reasonable ground.",
+        "The clarified protocol resolves the comparability question; the scope concern stands because the new results remain within the original benchmark."
+      ],
+      "expression": "The added {evidence} addresses {original concern}; {remaining concern} stands because {reason}.",
+      "guidance": "Concede addressed points plainly and separately from unresolved ones. Accept or keep open each remaining concern with a stated reason; do not add demands absent from the original review.",
+      "id": "general.sentence-pattern.review-post-rebuttal.001",
+      "intents": [
+        "concede",
+        "respond"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Updates a review after the author response by explicitly closing concerns the new evidence resolves and restating the ones it does not.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "post-rebuttal",
+        "concession",
+        "assessment update"
+      ]
+    },
+    {
       "avoid": "Do not generalize beyond the evaluated settings or omit exceptions.",
       "domains": [
         "general"
@@ -6825,6 +7011,43 @@
         "分别",
         "list alignment",
         "technical translation"
+      ]
+    },
+    {
+      "avoid": "Do not convert an omission into an accusation, and do not state unverifiable properties, such as reproducibility or hidden failures, as established facts.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "No episode counts are reported (absent), so we request them; we cannot judge reproducibility from the packet (unverifiable), so we do not assert it.",
+        "The abstract claims real-world generalization while all experiments are simulated (contradicted), which is a claim-evidence mismatch rather than misconduct."
+      ],
+      "expression": "absent from the manuscript versus contradicted by the manuscript versus unverifiable from the manuscript",
+      "guidance": "Choose the status explicitly before writing the criticism: request what is absent, correct what is contradicted, and mark what is unverifiable as outside the review's evidence rather than asserting it.",
+      "id": "general.usage-note.review-evidence-scope.001",
+      "intents": [
+        "evidence",
+        "causal_caution"
+      ],
+      "kind": "usage_note",
+      "meaning": "Reviewer statements about a submission carry three distinct evidential statuses: the manuscript omits something, the manuscript contradicts something, or the review packet cannot establish something either way.",
+      "provenance": {
+        "note": "Original peer-review pattern authored for this repository from community reviewing norms.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "review"
+      ],
+      "source_ids": [],
+      "tags": [
+        "peer review",
+        "evidence status",
+        "epistemic discipline"
       ]
     },
     {
@@ -27659,6 +27882,26 @@
         "intent": "clarify",
         "label": "Chinese-to-English scientific translation",
         "section": "translation"
+      },
+      {
+        "aliases": [
+          "peer review",
+          "reviewer comments",
+          "审稿意见"
+        ],
+        "domain": "general",
+        "entry_ids": [
+          "general.sentence-pattern.review-grounded-weakness.001",
+          "general.sentence-pattern.review-actionable-question.001",
+          "general.sentence-pattern.review-calibrated-assessment.001",
+          "general.usage-note.review-evidence-scope.001",
+          "general.usage-note.significant.001"
+        ],
+        "guide_id": "review",
+        "id": "review.general",
+        "intent": "evidence",
+        "label": "Grounded peer-review assessment",
+        "section": "review"
       }
     ],
     "schema_version": "1.0"
@@ -29778,6 +30021,114 @@
           "Every number, unit, symbol, citation, benchmark, and method name is unchanged unless correction was explicitly requested.",
           "English syntax is natural for the target section and does not retain avoidable Chinese topic-comment structure.",
           "No factual content, novelty claim, causal claim, or citation was added."
+        ]
+      },
+      {
+        "aliases": [
+          "peer review",
+          "reviewer report",
+          "review comments",
+          "审稿意见",
+          "评审"
+        ],
+        "avoid": [
+          "Asserting non-reproducibility, hidden results, or misconduct without packet evidence.",
+          "Presenting a disclosed limitation as an undisclosed flaw.",
+          "Rhetorical or hostile questions in place of answerable requests.",
+          "Dismissing an evidence base wholesale when it validly supports a narrower claim.",
+          "Verdicts or scores that exceed the venue's requested format or the listed evidence."
+        ],
+        "guide_type": "section_protocol",
+        "id": "review",
+        "inputs": [
+          "The submission content available to the reviewer: claims, methods, reported results, disclosed limitations.",
+          "The venue's requested review structure and any scoring or formatting rules.",
+          "For post-rebuttal updates, the original concerns and the author response point by point."
+        ],
+        "label": "Peer review: grounded assessment with actionable requests",
+        "moves": [
+          {
+            "checks": [
+              "Anchor each strength, weakness, and question to a specific claim, section, table, or omission.",
+              "Classify each criticism as absent, contradicted, or unverifiable before phrasing it.",
+              "Never assert unverifiable properties or misconduct; describe the claim-evidence gap instead."
+            ],
+            "id": "ground",
+            "label": "Ground every statement in the submission",
+            "required": true
+          },
+          {
+            "checks": [
+              "Summarize the contribution neutrally before evaluating it.",
+              "Keep disclosed limitations credited to the authors and probe their boundary instead of rediscovering them.",
+              "Keep each weakness distinct; do not bundle unrelated concerns."
+            ],
+            "id": "separate",
+            "label": "Separate summary, strengths, weaknesses, and questions",
+            "required": true
+          },
+          {
+            "checks": [
+              "Pair each substantive weakness with a concrete, answerable request or question.",
+              "Request only what the authors can deliver within the venue's process.",
+              "Keep requests inside the review's scope; do not escalate to demands the concern does not justify."
+            ],
+            "id": "request",
+            "label": "Make weaknesses actionable",
+            "required": true
+          },
+          {
+            "checks": [
+              "Trace the overall judgment to the listed strengths and weaknesses and nothing else.",
+              "Match hedging to evidence; avoid verdict language the review body does not support.",
+              "After a rebuttal, concede addressed points explicitly and keep unresolved ones with reasons."
+            ],
+            "id": "calibrate",
+            "label": "Calibrate the overall assessment",
+            "required": true
+          }
+        ],
+        "purpose": "Assess a submission by anchoring every judgment in its reported content, separating evidential statuses, making each weakness actionable, and calibrating the overall assessment to the listed evidence.",
+        "related_entry_ids": [
+          "general.sentence-pattern.review-grounded-weakness.001",
+          "general.sentence-pattern.review-actionable-question.001",
+          "general.sentence-pattern.review-calibrated-assessment.001",
+          "general.sentence-pattern.review-credit-disclosure.001",
+          "general.sentence-pattern.review-post-rebuttal.001",
+          "general.usage-note.review-evidence-scope.001"
+        ],
+        "section": "review",
+        "templates": [
+          {
+            "id": "weaknesses",
+            "name": "Grounded weaknesses section",
+            "sequence": [
+              "Specific claim or reporting gap with its location.",
+              "Evidential status: absent, contradicted, or unverifiable.",
+              "Why it matters for the paper's main claim.",
+              "Concrete, answerable request."
+            ],
+            "when": "Writing the weaknesses portion of a review."
+          },
+          {
+            "id": "post-rebuttal",
+            "name": "Post-rebuttal update",
+            "sequence": [
+              "Concern-by-concern mapping to the response.",
+              "Explicit concession of addressed points.",
+              "Remaining concerns with stated reasons.",
+              "Updated overall assessment traceable to the above."
+            ],
+            "when": "Updating the assessment after the author response."
+          }
+        ],
+        "use_when": "Writing reviewer comments, a weaknesses section, clarifying questions, an overall assessment, or a post-rebuttal update for a paper submission.",
+        "verification": [
+          "Every criticism names its anchor in the submission and its evidential status.",
+          "No unverifiable property or misconduct implication is asserted as fact.",
+          "Disclosed limitations are credited, not rediscovered.",
+          "Each substantive weakness carries an answerable request.",
+          "The overall assessment introduces no claim absent from the review body."
         ]
       }
     ],
