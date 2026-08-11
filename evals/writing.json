@@ -61,7 +61,7 @@
       "machine_checks": [
         {"id": "preserves-five-seeds", "type": "required_regex", "pattern": "(?:five|5) (?:random )?seeds", "message": "Preserve the five-seed protocol."},
         {"id": "preserves-mean-gain", "type": "required_regex", "pattern": "3\\.2 (?:percentage )?points", "message": "Preserve the 3.2-point mean improvement."},
-        {"id": "states-test-boundary", "type": "required_regex", "pattern": "no (?:statistical )?significance test|significance (?:was )?not (?:tested|assessed)|without (?:a )?(?:statistical )?significance test", "message": "State that significance was not tested."},
+        {"id": "states-test-boundary", "type": "required_regex", "pattern": "no (?:statistical )?significance test|significance (?:was )?not (?:tested|assessed)|without (?:a )?(?:statistical )?significance test|did not (?:conduct|run|perform) (?:a )?(?:statistical )?significance test", "message": "State that significance was not tested."},
         {"id": "does-not-invent-experiment", "type": "forbidden_regex", "pattern": "we (?:conducted|ran|performed) (?:an )?additional experiment", "message": "Do not invent an additional experiment."}
       ]
     },
@@ -363,7 +363,7 @@
         {"id": "metric-values", "type": "required_regex", "pattern": "43 (?:images/s|images per second).*(?:21 ms)|21 ms.*43 (?:images/s|images per second)", "message": "Report throughput and latency with units."},
         {"id": "hardware-protocol", "type": "required_regex", "pattern": "(?:one|1|single) (?:NVIDIA )?A100", "message": "Name the single-A100 hardware."},
         {"id": "batch-precision", "type": "required_regex", "pattern": "batch size (?:of )?1.*FP16|FP16.*batch size (?:of )?1", "message": "State batch size and precision."},
-        {"id": "timing-boundary", "type": "required_regex", "pattern": "exclud(?:e|es|ing).*model loading.*includ(?:e|es|ing).*preprocessing.*action decoding", "message": "Define the end-to-end timing boundary."},
+        {"id": "timing-boundary", "type": "required_regex", "pattern": "exclud(?:e|es|ing)[\\s\\S]{0,160}model loading[\\s\\S]{0,160}includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding|includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding[\\s\\S]{0,160}exclud(?:e|es|ing)[\\s\\S]{0,160}model loading", "message": "Define the end-to-end timing boundary."},
         {"id": "iteration-protocol", "type": "required_regex", "pattern": "100 warm[- ]up[\\s\\S]{0,80}1,?000 (?:measured )?iterations|1,?000 (?:measured )?iterations[\\s\\S]{0,80}(?:following|after) 100 warm[- ]up", "message": "State warm-up and measured iterations."},
         {"id": "no-hardware-independent-rank", "type": "forbidden_regex", "pattern": "fastest (?:method|model) (?:overall|in general)|(?:results?|ranking|comparison) (?:are|is) hardware[- ]independent", "message": "Do not imply a hardware-independent ranking."}
       ]

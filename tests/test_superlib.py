@@ -36,6 +36,9 @@ def valid_professionalism_manifest():
             "provider": "fixture-provider",
             "model": "fixture-model",
             "model_revision": "fixture-revision-20260811",
+            "client": "fixture-client",
+            "client_version": "1.0",
+            "reasoning_effort": "medium",
         }
     )
     manifest["conditions"]["baseline"]["system_prompt_sha256"] = hashlib.sha256(
@@ -1161,6 +1164,32 @@ class SuperLibraryCliTests(unittest.TestCase):
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue(json.loads(result.stdout)["results"][0]["passed"])
 
+    def test_writing_eval_accepts_negated_test_and_reversed_timing_order(self):
+        fixtures = {
+            "rebuttal-existing-evidence": (
+                "Table 4 reports five random seeds and a mean improvement of "
+                "3.2 points. We did not conduct a statistical significance test, "
+                "so the evidence does not establish robustness beyond these seeds."
+            ),
+            "paper-efficiency-table-caption": (
+                "43 images/s and 21 ms on one NVIDIA A100 with batch size 1 and "
+                "FP16 inference. Timing includes preprocessing and action decoding "
+                "but excludes model loading. Each value uses 1,000 measured "
+                "iterations after 100 warm-up iterations and does not imply a "
+                "hardware-independent ranking."
+            ),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            for case_id, text in fixtures.items():
+                response = Path(temp_dir) / f"{case_id}.md"
+                response.write_text(text, encoding="utf-8")
+                result = run_cli(
+                    "eval-writing", "--case", case_id,
+                    "--response-file", str(response), "--format", "json", "--strict",
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertTrue(json.loads(result.stdout)["results"][0]["passed"])
+
     def test_writing_eval_rejects_invalid_regex_contract(self):
         taxonomy, _, entries = superlib.load_corpus()
         bad_config = copy.deepcopy(superlib.load_writing_evals())
@@ -1201,6 +1230,23 @@ class SuperLibraryCliTests(unittest.TestCase):
             [],
         )
 
+    def test_professional_benchmark_allows_unexposed_controls_only_for_smoke(self):
+        config = superlib.load_professionalism_benchmark()
+        manifest = valid_professionalism_manifest()
+        generator = manifest["generator"]
+        generator["decoding_control"] = "client_default_unexposed"
+        generator["output_budget_control"] = "client_default_unexposed"
+        for field in ("temperature", "top_p", "seed", "max_output_tokens"):
+            generator.pop(field)
+        self.assertEqual(
+            superlib.validate_professionalism_run(config, manifest, suite_id="smoke"),
+            [],
+        )
+        errors = superlib.validate_professionalism_run(
+            config, manifest, suite_id="full"
+        )
+        self.assertTrue(any("require explicit decoding" in error for error in errors))
+
     def test_professional_benchmark_prompt_is_condition_neutral_and_blind(self):
         result = run_cli(
             "benchmark", "prompt", "rebuttal-existing-evidence", "--format", "json"
@@ -1213,6 +1259,80 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertNotIn("expected_retrieval_ids", packet)
         self.assertNotIn("super_library", serialized)
         self.assertNotIn("Use the repository workflow", serialized)
+
+    def test_professional_benchmark_machine_report_scores_both_conditions(self):
+        responses = {
+            "rebuttal-existing-evidence": (
+                "Table 4 reports five seeds and a mean improvement of 3.2 points. "
+                "No statistical significance test was run, so this evidence does "
+                "not establish robustness beyond the reported seeds."
+            ),
+            "paper-efficiency-table-caption": (
+                "43 images/s and 21 ms on one NVIDIA A100 with batch size 1 and "
+                "FP16 inference. Timing includes preprocessing and action decoding "
+                "but excludes model loading. Values use 1,000 measured iterations "
+                "after 100 warm-up iterations and do not imply a hardware-independent ranking."
+            ),
+        }
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            for condition in ("baseline", "super_library"):
+                (root / condition).mkdir()
+                for case_id, response in responses.items():
+                    (root / condition / f"{case_id}.md").write_text(
+                        response, encoding="utf-8"
+                    )
+            output = root / "machine.json"
+            result = run_cli(
+                "benchmark", "machine", "--suite", "smoke",
+                "--responses", str(root), "--output", str(output),
+                "--format", "json", "--strict",
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            payload = json.loads(result.stdout)
+            self.assertTrue(payload["passed"])
+            self.assertEqual(
+                payload["conditions"]["super_library"]["response_pass_rate"], 1.0
+            )
+            self.assertEqual(json.loads(output.read_text()), payload)
+            self.assertEqual(output.stat().st_mode & 0o077, 0)
+
+    def test_professional_benchmark_review_sheet_remains_condition_blind(self):
+        config = superlib.load_professionalism_benchmark()
+        case = next(
+            item for item in superlib.load_writing_evals()["cases"]
+            if item["id"] == "rebuttal-existing-evidence"
+        )
+        blind = {
+            "benchmark_id": config["benchmark_id"],
+            "rubric_dimensions": config["rubric_dimensions"],
+            "critical_errors": config["critical_errors"],
+            "pairs": [{
+                "pair_id": "pair-001-fixture",
+                "prompt": superlib.neutral_prompt_packet(case),
+                "response_a": "Response A fixture.",
+                "response_b": "Response B fixture.",
+            }],
+        }
+        sheet = superlib.render_blind_review_sheet(blind)
+        self.assertIn("pair-001-fixture", sheet)
+        self.assertIn("Scientific fidelity", sheet)
+        self.assertIn("```text\nResponse A fixture.\n```", sheet)
+        self.assertNotIn("super_library", sheet)
+        self.assertNotIn("baseline", sheet)
+
+    def test_professional_benchmark_review_sheet_refuses_symlink_output(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            target = root / "existing.md"
+            target.write_text("unchanged", encoding="utf-8")
+            link = root / "sheet.md"
+            link.symlink_to(target)
+            with self.assertRaisesRegex(
+                superlib.ProfessionalBenchmarkError, "symbolic link"
+            ):
+                superlib._write_benchmark_text(str(link), "replacement", True)
+            self.assertEqual(target.read_text(encoding="utf-8"), "unchanged")
 
     def test_professional_benchmark_prepare_rejects_missing_pairs(self):
         manifest = valid_professionalism_manifest()

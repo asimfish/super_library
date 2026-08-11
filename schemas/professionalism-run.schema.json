@@ -6,19 +6,24 @@
   "additionalProperties": false,
   "required": ["schema_version", "benchmark_id", "run_id", "generator", "conditions"],
   "properties": {
-    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "schema_version": {"type": "string", "enum": ["1.1"]},
     "benchmark_id": {"type": "string"},
     "run_id": {"type": "string", "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"},
     "generator": {
       "type": "object", "additionalProperties": false,
-      "required": ["provider", "model", "model_revision", "temperature", "top_p", "seed", "max_output_tokens"],
+      "required": ["provider", "model", "model_revision", "client", "client_version", "reasoning_effort", "decoding_control", "output_budget_control"],
       "properties": {
         "provider": {"type": "string", "minLength": 2},
         "model": {"type": "string", "minLength": 2},
         "model_revision": {"type": "string", "minLength": 2},
+        "client": {"type": "string", "minLength": 2},
+        "client_version": {"type": "string", "minLength": 1},
+        "reasoning_effort": {"type": "string", "minLength": 2},
+        "decoding_control": {"type": "string", "enum": ["explicit", "client_default_unexposed"]},
         "temperature": {"type": "number", "minimum": 0, "maximum": 2},
         "top_p": {"type": "number", "minimum": 0, "maximum": 1},
         "seed": {"type": "integer", "minimum": 0},
+        "output_budget_control": {"type": "string", "enum": ["explicit", "client_default_unexposed"]},
         "max_output_tokens": {"type": "integer", "minimum": 64}
       }
     },

@@ -1073,7 +1073,7 @@ def validate_professionalism_benchmark() -> List[str]:
 
 
 def validate_professionalism_run(
-    config: Dict[str, Any], manifest: Dict[str, Any]
+    config: Dict[str, Any], manifest: Dict[str, Any], suite_id: Optional[str] = None
 ) -> List[str]:
     """Validate reproducibility metadata for a paired generation run."""
     try:
@@ -1096,12 +1096,47 @@ def validate_professionalism_run(
             "run manifest: super_library must record library_access=true"
         )
     generator = manifest.get("generator", {})
-    for field in ("provider", "model", "model_revision"):
+    for field in (
+        "provider", "model", "model_revision", "client", "client_version",
+        "reasoning_effort",
+    ):
         value = str(generator.get(field, ""))
         if value.startswith("replace-with-"):
             errors.append(
                 f"run manifest: generator.{field} must replace the example placeholder"
             )
+    decoding_control = generator.get("decoding_control")
+    decoding_fields = ("temperature", "top_p", "seed")
+    if decoding_control == "explicit":
+        for field in decoding_fields:
+            if field not in generator:
+                errors.append(
+                    f"run manifest: generator.{field} is required when decoding_control=explicit"
+                )
+    elif decoding_control == "client_default_unexposed":
+        for field in decoding_fields:
+            if field in generator:
+                errors.append(
+                    f"run manifest: generator.{field} must be omitted when decoding controls are unexposed"
+                )
+    output_control = generator.get("output_budget_control")
+    if output_control == "explicit" and "max_output_tokens" not in generator:
+        errors.append(
+            "run manifest: generator.max_output_tokens is required when output_budget_control=explicit"
+        )
+    elif (
+        output_control == "client_default_unexposed"
+        and "max_output_tokens" in generator
+    ):
+        errors.append(
+            "run manifest: generator.max_output_tokens must be omitted when the output budget is unexposed"
+        )
+    if suite_id and suite_id != "smoke" and (
+        decoding_control != "explicit" or output_control != "explicit"
+    ):
+        errors.append(
+            "run manifest: core, experiments, and full suites require explicit decoding and output-budget controls"
+        )
     for condition_id, condition in (
         ("baseline", baseline),
         ("super_library", library),
@@ -3330,6 +3365,35 @@ def _write_benchmark_json(
         ) from exc
 
 
+def _write_benchmark_text(path_value: str, value: str, force: bool) -> None:
+    path = Path(path_value)
+    if path.is_symlink():
+        raise ProfessionalBenchmarkError(
+            f"refusing to write benchmark output through a symbolic link: {path}"
+        )
+    if path.exists() and not force:
+        raise ProfessionalBenchmarkError(
+            f"refusing to replace existing file without --force: {path}"
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+        if hasattr(os, "O_NOFOLLOW"):
+            flags |= os.O_NOFOLLOW
+        descriptor = os.open(path, flags, 0o644)
+        try:
+            with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                descriptor = -1
+                stream.write(value.rstrip() + "\n")
+        finally:
+            if descriptor >= 0:
+                os.close(descriptor)
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(
+            f"cannot write benchmark output {path}: {exc}"
+        ) from exc
+
+
 def render_professional_prompt(packet: Dict[str, Any]) -> str:
     classification = packet["classification"]
     lines = [
@@ -3350,6 +3414,87 @@ def render_professional_prompt(packet: Dict[str, Any]) -> str:
         ["", "## Evidence boundary", "", packet["evidence_boundary"], "", "## Instructions", ""]
     )
     lines.extend(f"- {instruction}" for instruction in packet["instructions"])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_blind_review_sheet(blind: Dict[str, Any]) -> str:
+    """Render a condition-blind, human-readable scoring worksheet."""
+    def fenced_text(value: str) -> List[str]:
+        fence = "```"
+        while fence in value:
+            fence += "`"
+        return [f"{fence}text", value, fence]
+
+    lines = [
+        "# Blind AI-paper writing review",
+        "",
+        "Score A and B independently before choosing a preference. Do not infer",
+        "or discuss which system produced either response.",
+        "",
+        "## Score anchors",
+        "",
+    ]
+    for dimension in blind.get("rubric_dimensions", []):
+        anchors = dimension["anchors"]
+        lines.extend(
+            [
+                f"### {dimension['label']} (`{dimension['id']}`)",
+                "",
+                dimension["question"],
+                "",
+                f"- **1:** {anchors['1']}",
+                f"- **3:** {anchors['3']}",
+                f"- **5:** {anchors['5']}",
+                "",
+            ]
+        )
+    lines.extend(["## Critical errors", ""])
+    for error in blind.get("critical_errors", []):
+        lines.append(
+            f"- `{error['id']}` — **{error['label']}:** {error['description']}"
+        )
+    dimension_ids = [
+        item["id"] for item in blind.get("rubric_dimensions", [])
+    ]
+    for pair in blind.get("pairs", []):
+        lines.extend(
+            [
+                "",
+                f"## Pair `{pair['pair_id']}`",
+                "",
+                "### Task",
+                "",
+                render_professional_prompt(pair["prompt"]).rstrip(),
+                "",
+                "### Response A",
+                "",
+            ]
+        )
+        lines.extend(fenced_text(pair["response_a"]))
+        lines.extend(["", "### Response B", ""])
+        lines.extend(fenced_text(pair["response_b"]))
+        lines.extend(
+            [
+                "",
+                "### Scores",
+                "",
+                "| Dimension | A (1–5) | B (1–5) |",
+                "|---|---:|---:|",
+            ]
+        )
+        lines.extend(f"| `{dimension_id}` |  |  |" for dimension_id in dimension_ids)
+        lines.extend(
+            [
+                "",
+                "Critical errors for A: ",
+                "",
+                "Critical errors for B: ",
+                "",
+                "Preference (A / B / tie): ",
+                "",
+                "Rationale: ",
+            ]
+        )
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -3461,10 +3606,105 @@ def cmd_benchmark_professionalism(args: argparse.Namespace) -> int:
             print(render_professional_prompt(packet), end="")
         return 0
 
+    if args.benchmark_action == "machine":
+        try:
+            case_ids = suite_case_ids(config, args.suite)
+            condition_reports: Dict[str, Any] = {}
+            missing: List[str] = []
+            for condition_id in ("baseline", "super_library"):
+                results = []
+                for case_id in case_ids:
+                    response_path = (
+                        Path(args.responses) / condition_id / f"{case_id}.md"
+                    )
+                    if not response_path.is_file():
+                        missing.append(str(response_path))
+                        continue
+                    response = response_path.read_text(encoding="utf-8").strip()
+                    if not response:
+                        missing.append(f"{response_path} (empty)")
+                        continue
+                    results.append(
+                        evaluate_response(dict(cases_by_id[case_id]), response)
+                    )
+                total_checks = sum(item["machine_checks"] for item in results)
+                passed_checks = sum(
+                    item["machine_checks_passed"] for item in results
+                )
+                condition_reports[condition_id] = {
+                    "responses": len(results),
+                    "responses_passed": sum(item["passed"] for item in results),
+                    "response_pass_rate": round(
+                        sum(item["passed"] for item in results) / len(case_ids), 4
+                    ),
+                    "machine_checks": total_checks,
+                    "machine_checks_passed": passed_checks,
+                    "machine_check_pass_rate": round(
+                        passed_checks / total_checks if total_checks else 0.0, 4
+                    ),
+                    "results": results,
+                }
+            if missing:
+                raise ProfessionalBenchmarkError(
+                    "missing or empty benchmark responses: " + ", ".join(missing)
+                )
+            report = {
+                "schema_version": "1.0",
+                "benchmark_id": config["benchmark_id"],
+                "suite_id": args.suite,
+                "cases": len(case_ids),
+                "conditions": condition_reports,
+                "passed": all(
+                    item["response_pass_rate"] == 1.0
+                    for item in condition_reports.values()
+                ),
+                "interpretation_boundary": (
+                    "Regex invariants test declared facts and prohibited claims only; "
+                    "they do not measure professional style or replace blind ratings."
+                ),
+            }
+            if args.output:
+                _write_benchmark_json(
+                    args.output, report, args.force, private=True
+                )
+        except (OSError, UnicodeError, ProfessionalBenchmarkError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+        if args.format == "json":
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            print(f"Machine checks: {args.suite} ({len(case_ids)} cases)")
+            for condition_id, item in condition_reports.items():
+                print(
+                    f"- {condition_id}: {item['responses_passed']}/{item['responses']} "
+                    f"responses; {item['machine_checks_passed']}/{item['machine_checks']} checks"
+                )
+            print(report["interpretation_boundary"])
+        return 1 if args.strict and not report["passed"] else 0
+
+    if args.benchmark_action == "review-sheet":
+        try:
+            blind = _read_benchmark_json(args.blind_file, "blind bundle")
+            if blind.get("benchmark_id") != config.get("benchmark_id"):
+                raise ProfessionalBenchmarkError(
+                    "blind bundle targets a different benchmark"
+                )
+            if not blind.get("pairs"):
+                raise ProfessionalBenchmarkError("blind bundle contains no pairs")
+            sheet = render_blind_review_sheet(blind)
+            _write_benchmark_text(args.output, sheet, args.force)
+        except (ProfessionalBenchmarkError, KeyError, TypeError) as exc:
+            print(f"ERROR: {exc}", file=sys.stderr)
+            return 2
+        print(f"Wrote condition-blind review sheet to {args.output}.")
+        return 0
+
     try:
         if args.benchmark_action == "prepare":
             manifest = _read_benchmark_json(args.run_manifest, "run manifest")
-            run_errors = validate_professionalism_run(config, manifest)
+            run_errors = validate_professionalism_run(
+                config, manifest, suite_id=args.suite
+            )
             if run_errors:
                 raise ProfessionalBenchmarkError("; ".join(run_errors))
             if Path(args.blind_output).resolve() == Path(args.key_output).resolve():
@@ -5361,6 +5601,39 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=["markdown", "json"], default="markdown"
     )
     benchmark_prompt.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_machine = benchmark_actions.add_parser(
+        "machine", help="score response invariants before blind human review"
+    )
+    benchmark_machine.add_argument(
+        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+    )
+    benchmark_machine.add_argument(
+        "--responses", required=True, help="root containing baseline/ and super_library/"
+    )
+    benchmark_machine.add_argument(
+        "--output", help="optional private JSON report path"
+    )
+    benchmark_machine.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_machine.add_argument(
+        "--strict", action="store_true", help="exit nonzero when any response fails"
+    )
+    benchmark_machine.add_argument(
+        "--force", action="store_true", help="replace an existing output file"
+    )
+    benchmark_machine.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_review = benchmark_actions.add_parser(
+        "review-sheet", help="render a condition-blind Markdown worksheet"
+    )
+    benchmark_review.add_argument("--blind-file", required=True)
+    benchmark_review.add_argument("--output", required=True)
+    benchmark_review.add_argument(
+        "--force", action="store_true", help="replace an existing output file"
+    )
+    benchmark_review.set_defaults(func=cmd_benchmark_professionalism)
 
     benchmark_prepare = benchmark_actions.add_parser(
         "prepare", help="randomize paired responses into a blind review bundle"

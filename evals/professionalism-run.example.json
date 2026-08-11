@@ -1,14 +1,19 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "benchmark_id": "super-library-professionalism-v1",
   "run_id": "example-model-20260811",
   "generator": {
     "provider": "replace-with-provider",
     "model": "replace-with-model",
     "model_revision": "replace-with-pinned-revision",
+    "client": "replace-with-client",
+    "client_version": "replace-with-client-version",
+    "reasoning_effort": "replace-with-reasoning-effort",
+    "decoding_control": "explicit",
     "temperature": 0,
     "top_p": 1,
     "seed": 20260811,
+    "output_budget_control": "explicit",
     "max_output_tokens": 1200
   },
   "conditions": {

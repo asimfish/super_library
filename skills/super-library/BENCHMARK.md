@@ -27,6 +27,12 @@ prevents the generation prompt from revealing the scoring contract.
   parameters, seed policy, output budget, and condition-neutral user prompt.
 - The baseline may not read Super Library artifacts. The treatment may use only
   the pinned repository or installed-skill revision recorded in the run manifest.
+- For Codex CLI runs, execute the baseline from an isolated temporary directory
+  containing only `evals/benchmark-contexts/baseline/AGENTS.md`; execute the
+  treatment from the pinned repository root so its checked-in `AGENTS.md`
+  activates the selective retrieval workflow. Hash those two instruction files
+  in the run manifest, record the CLI version in the client fields, and state
+  explicitly when the provider's immutable model revision is not exposed.
 - Save responses as `baseline/<case-id>.md` and
   `super_library/<case-id>.md` under one run directory.
 - Randomize both pair order and A/B side assignment. The blind bundle carries the
@@ -76,16 +82,33 @@ python3 scripts/superlib.py benchmark prompt rebuttal-existing-evidence
 Copy `evals/professionalism-run.example.json`, replace every example field,
 record SHA-256 hashes of the actual system prompts, and use the full 40-character
 commit SHA of the evaluated library. The CLI rejects the example placeholders.
+If a client does not expose decoding or output-budget controls, record
+`client_default_unexposed` and omit the corresponding numeric fields. Such a
+manifest is accepted only for the harness-only `smoke` suite; `core`,
+`experiments`, and `full` require explicit controls before any effectiveness
+claim.
 Then create the blind bundle:
 
 ```bash
+python3 scripts/superlib.py benchmark machine \
+  --suite full --responses path/to/responses \
+  --output path/to/private-machine-report.json --strict
+
 python3 scripts/superlib.py benchmark prepare \
   --suite full \
   --responses path/to/responses \
   --run-manifest path/to/run.json \
   --blind-output path/to/blind.json \
   --key-output path/to/private-key.json
+
+python3 scripts/superlib.py benchmark review-sheet \
+  --blind-file path/to/blind.json \
+  --output path/to/rater-sheet.md
 ```
+
+Keep the labeled machine report private until ratings are frozen. Its regular
+expressions test declared facts and prohibited claims; they do not score
+professional style and must not be shown to raters.
 
 Ratings use this shape for every pair and rater; `scores` must contain exactly
 the six dimension IDs, and `critical_errors` may contain only declared IDs:
