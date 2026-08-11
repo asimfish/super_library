@@ -12966,6 +12966,60 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.object-centric-world-model.001",
+        "rl.definition.goal-conditioned-rl.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "wm.definition.object-centric-world-model.001",
+        "rl.definition.goal-conditioned-rl.001"
+      ],
+      "rationale": "The structured architecture and dependency-goal handling are method-specific; the reusable concepts, entity-level scene decomposition and goal-conditioned learning, are covered by the object-centric world-model and goal-conditioned-RL records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "haramati2024-entity-centric-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.multi-task-rl.001",
+        "emb.definition.rearrangement.001",
+        "rl.definition.curriculum-reinforcement-learning.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "rl.definition.multi-task-rl.001",
+        "emb.definition.rearrangement.001"
+      ],
+      "rationale": "The weighted distillation loss is method-specific; the reusable concepts, concurrent multi-task training with easier auxiliary tasks and multi-stage object rearrangement, are covered by the multi-task-RL and rearrangement records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "harish2024-reinforcement-learning-auxillary-task",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.usage-note.safe-robust.001",
+        "general.term.inductive-bias.001",
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "evidence_locator": "Official IEEE abstract for the TPAMI article",
+      "linked_entry_ids": [
+        "rl.usage-note.safe-robust.001",
+        "general.term.inductive-bias.001"
+      ],
+      "rationale": "The amygdala-inspired fear module is architecture-specific; its reusable concepts, safety criteria distinct from robustness in safety-critical control and a biologically motivated inductive bias, are covered by existing records, and defensive behavior shaping differs from optimizing an explicit risk measure.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "he2024-fear-neuro-inspired-reinforcement",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "rl.definition.mdp.001",
@@ -13106,6 +13160,24 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "hutson2024-policy-shaped-prediction-avoiding",
       "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vision-language-reward.001",
+        "emb.definition.grounded-instruction.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.vision-language-reward.001",
+        "emb.definition.grounded-instruction.001"
+      ],
+      "rationale": "The confidence-map pipeline is method-specific; the reusable concepts, rewards derived from pretrained vision-language grounding and grounding instructions to target objects, are covered by the vision-language-reward and grounded-instruction records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "jiang2024-visual-grounding-object-level",
+      "verification_scope": "official_abstract"
     },
     {
       "decision": "record_no_promotion",
@@ -13296,6 +13368,42 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.pomdp.001",
+        "rl.definition.actor-critic.001",
+        "rl.definition.advantage-function.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.definition.pomdp.001",
+        "rl.definition.actor-critic.001"
+      ],
+      "rationale": "The dual-critic melding strategy is method-specific; the reusable concepts, learning under partial observability and actor-critic training with privileged state access during training, are covered by the POMDP and actor-critic records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2024-dual-critic-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.usage-note.imitation-bc.001",
+        "vla.usage-note.open-closed-loop.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.vla.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "The RoboFlamingo decomposition is architecture-specific; the reusable concepts, vision-language models fine-tuned into action-outputting manipulation policies via imitation on language-conditioned data, are covered by the VLA and imitation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2024-vision-language-foundation-models",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "wm.term.learned-reward-model.001",
@@ -13350,6 +13458,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.term.egocentric-observation.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.definition.embodied-question-answering.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.term.egocentric-observation.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "The emotion dataset and its benchmark tasks are contribution-specific and affective computing is outside the corpus's normalized concept scope; the paper's reusable writing concepts, first-person egocentric observation and multimodal perception, are already covered.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lin2024-e-3-exploring-embodied",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.credit-assignment.001",
         "wm.term.learned-reward-model.001"
       ],
@@ -13361,6 +13487,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "liu2023-learning-identify-critical-states",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.cross-embodiment.001",
+        "emb.usage-note.embodiment-gap.001",
+        "emb.definition.sim-to-real.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.cross-embodiment.001",
+        "emb.usage-note.embodiment-gap.001"
+      ],
+      "rationale": "The evolution-tree construction is method-specific; the reusable concepts, transferring policies across robots with different bodies and the embodiment gap that makes one-to-one transfer costly, are covered by the cross-embodiment and embodiment-gap records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2024-meta-evolve-continuous-robot",
       "verification_scope": "official_abstract"
     },
     {
@@ -13435,6 +13579,41 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.entropy-regularization.001",
+        "rl.definition.actor-critic.001",
+        "rl.term.policy-gradient-estimator.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.term.entropy-regularization.001",
+        "rl.definition.actor-critic.001"
+      ],
+      "rationale": "The Stein-variational policy class is method-specific; the reusable concepts, maximum-entropy regularization of stochastic policies and actor-critic training, are covered by the entropy-regularization and actor-critic records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "messaoud2024-s-2-ac-energy",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.mdp.001",
+        "rl.definition.reinforcement-learning.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "rl.definition.mdp.001"
+      ],
+      "rationale": "The visual-odometry application and its reward engineering are system-specific; the reusable concept the paper instantiates, reframing a pipeline's design choices as a sequential decision process, is covered by the MDP record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "messikommer2024-reinforcement-learning-meets-visual",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.term.proprioception.001",
@@ -13492,6 +13671,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.self-supervised-representation-learning.001",
+        "wm.definition.visual-world-model.001",
+        "wm.definition.task-irrelevant-distraction.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "rl.definition.self-supervised-representation-learning.001",
+        "wm.definition.visual-world-model.001"
+      ],
+      "rationale": "The intervention-invariant regularizer is method-specific; the reusable concepts, contrastive self-supervised objectives shaping control representations and world models over visual observations, are covered by existing records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "poudel2024-recore-regularized-contrastive-representation",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "emb.definition.embodied-language-model.001",
         "emb.definition.multimodal-perception.001",
         "emb.term.3d-scene-memory.001"
@@ -13505,6 +13702,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "qi2024-shapellm-universal-3d-object",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.active-perception.001",
+        "rl.definition.hierarchical-policy.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.active-perception.001"
+      ],
+      "rationale": "The MP5 module scheduling is system-specific; the reusable concepts, multimodal language models planning embodied tasks and goal-conditioned active perception during execution, are covered by the embodied-language-model and active-perception records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "qin2024-mp5-multi-modal-open",
       "verification_scope": "official_abstract"
     },
     {
@@ -13522,6 +13737,42 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "rando2025-open-problems-fundamental-limitations",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001",
+        "wm.definition.model-based-rl.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.definition.distributional-rl.001",
+        "rl.term.return-distribution.001"
+      ],
+      "rationale": "The minimax analysis and categorical CDF Bellman equation are theory contributions about distributional RL rather than new reusable writing concepts; the distributional-RL and return-distribution records already fix the boundary the paper builds on.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "rowland2024-near-minimax-optimal-distributional",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "The benchmark findings are study-specific; the reusable concepts, model-based RL with planning and pretrained self-supervised visual representations, are covered by the model-based-RL and self-supervised representation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "schneider2024-surprising-ineffectiveness-pre-trained",
       "verification_scope": "official_abstract"
     },
     {

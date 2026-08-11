@@ -1566,15 +1566,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
         self.assertEqual(len(payload["records"]), 10)
         outcomes = [record["outcome"] for record in payload["records"]]
-        # Every structural sample is reviewed and linked, and only one
-        # metadata-only TPAMI paper still lacks a verifiable primary view.
-        self.assertNotIn("structural_sample_without_library_links", outcomes)
-        self.assertEqual(outcomes[:1], ["metadata_only"])
-        self.assertTrue(
-            all(
-                outcome == "abstract_analyzed_no_library_link"
-                for outcome in outcomes[1:]
-            )
+        # Every structural sample is linked and every metadata-only paper is
+        # reviewed, so only abstract-analyzed unlinked papers remain queued.
+        self.assertEqual(
+            outcomes, ["abstract_analyzed_no_library_link"] * len(outcomes)
         )
 
     def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
@@ -1587,8 +1582,8 @@ class SuperLibraryCliTests(unittest.TestCase):
         p0_count = sum(record["priority"] == "P0" for record in first)
         self.assertEqual(p0_count, 0)
         p1_count = sum(record["priority"] == "P1" for record in first)
-        self.assertEqual(p1_count, 1)
-        self.assertTrue(all(record["priority"] == "P1" for record in first[:p1_count]))
+        self.assertEqual(p1_count, 0)
+        self.assertTrue(all(record["priority"] == "P2" for record in first))
         self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
         self.assertTrue(
             all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)

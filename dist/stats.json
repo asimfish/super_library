@@ -152,43 +152,42 @@
       "not_sampled": 220,
       "structural_sample": 80
     },
-    "papers_with_direct_library_links": 160,
-    "papers_without_direct_library_links": 140,
+    "papers_with_direct_library_links": 174,
+    "papers_without_direct_library_links": 126,
     "papers_with_representative_entry_links": 104,
-    "papers_with_promotion_decision_links": 96,
-    "papers_with_promotion_decisions": 99,
+    "papers_with_promotion_decision_links": 110,
+    "papers_with_promotion_decisions": 113,
     "promotion_decisions": {
-      "link_existing_record": 64,
+      "link_existing_record": 78,
       "promote_normalized_record": 32,
       "record_no_promotion": 3
     },
     "outcomes": {
-      "abstract_analyzed_no_library_link": 137,
-      "library_links_without_full_text_sample": 82,
-      "metadata_only": 1,
+      "abstract_analyzed_no_library_link": 124,
+      "library_links_without_full_text_sample": 96,
       "structural_sample_with_library_links": 78,
       "structural_sample_without_library_links": 2
     },
     "direct_links_by_venue": {
-      "CVPR": 22,
-      "ECCV": 9,
+      "CVPR": 24,
+      "ECCV": 12,
       "ICCV": 23,
-      "ICLR": 28,
+      "ICLR": 32,
       "ICML": 35,
-      "NeurIPS": 32,
-      "TPAMI": 11
+      "NeurIPS": 36,
+      "TPAMI": 12
     },
     "direct_links_by_domain": {
-      "embodied_ai": 48,
-      "reinforcement_learning": 50,
-      "vision_language_action": 27,
-      "world_models": 35
+      "embodied_ai": 52,
+      "reinforcement_learning": 57,
+      "vision_language_action": 28,
+      "world_models": 37
     }
   },
   "roadmap_goals": {
     "collection": "recent-five-year-core",
     "core_papers": 300,
-    "directly_linked_papers": 160,
+    "directly_linked_papers": 174,
     "directly_linked_goal": 100,
     "directly_linked_remaining": 0,
     "full_text_structural_samples": 80,
@@ -199,34 +198,34 @@
     "writing_behavior_cases_remaining": 0,
     "direct_links_by_domain": {
       "embodied_ai": {
-        "current": 48,
+        "current": 52,
         "goal": 25,
         "remaining": 0
       },
       "reinforcement_learning": {
-        "current": 50,
+        "current": 57,
         "goal": 25,
         "remaining": 0
       },
       "vision_language_action": {
-        "current": 27,
+        "current": 28,
         "goal": 20,
         "remaining": 0
       },
       "world_models": {
-        "current": 35,
+        "current": 37,
         "goal": 25,
         "remaining": 0
       }
     },
     "direct_links_by_venue": {
       "CVPR": {
-        "current": 22,
+        "current": 24,
         "goal": 10,
         "remaining": 0
       },
       "ECCV": {
-        "current": 9,
+        "current": 12,
         "goal": 8,
         "remaining": 0
       },
@@ -236,7 +235,7 @@
         "remaining": 0
       },
       "ICLR": {
-        "current": 28,
+        "current": 32,
         "goal": 12,
         "remaining": 0
       },
@@ -246,12 +245,12 @@
         "remaining": 0
       },
       "NeurIPS": {
-        "current": 32,
+        "current": 36,
         "goal": 12,
         "remaining": 0
       },
       "TPAMI": {
-        "current": 11,
+        "current": 12,
         "goal": 5,
         "remaining": 0
       }
