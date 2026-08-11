@@ -201,7 +201,7 @@ be queried by a script, not pasted into an Agent.
   combinations; each rendered task pack is capped at 24,000 characters.
 - `library/table_templates.json` and `templates/tables/`: five source-controlled
   LaTeX table assets with explicit `SL_*` replacement tokens.
-- `library/studies/section_writing_2026-07.json`: source IDs and aggregate
+- `library/studies/section_writing_2026-08.json`: source IDs and aggregate
   structural observations from the bounded full-paper calibration study.
 - `library/coverage_policy.json`: review goals and deterministic scoring weights;
   goals are roadmap targets, not release assertions.
@@ -231,7 +231,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **244 gold entries** and **336 primary-source
+The v0.4 reviewed snapshot contains **246 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -244,29 +244,31 @@ survived manual screening and were promoted with source-level attestations. All
 12 TPAMI papers remain excluded from this abstract-level phrase-frequency study;
 eight were subsequently reviewed—five through their primary paper text and
 three through their official abstracts—for normalized definitions or explicit
-deduplication decisions. Eighty-three core papers are representative sources
+deduplication decisions. Eighty-five core papers are representative sources
 cited directly by normalized records. Completed promotion reviews add
-nineteen unique paper-level links, bringing explicit normalized-record coverage
-to 102 without inserting every reviewed paper into default cards. Thirty-nine
-promotion decisions are recorded: sixteen new normalized records, twenty-two
+twenty unique paper-level links, bringing explicit normalized-record coverage
+to 105 without inserting every reviewed paper into default cards. Forty-two
+promotion decisions are recorded: eighteen new normalized records, twenty-three
 existing-record links, and one explicit no-promotion outcome. Inspect
 `dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
 `promotion-status` instead of inferring analysis depth from the 300-paper count.
 See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 102, 40,
-and 20 respectively, so the direct-link target is met while full-text sampling
-remains open. These are transparent improvement targets, not claims that
-the corpus is already complete. `coverage-gaps` ranks the next review candidates;
-reviewers may record `record_no_promotion` when a paper adds only redundant wording.
+structural samples, and 20 writing-behavior cases. Current progress is 105, 80,
+and 20 respectively, so every roadmap target is met. Meeting the targets is not
+a claim that the corpus is complete: newly sampled papers without normalized
+links re-enter the review queue at the highest priority. `coverage-gaps` ranks
+the next review candidates; reviewers may record `record_no_promotion` when a
+paper adds only redundant wording.
 
-To calibrate section organization rather than collect prose, 40 official
-full-paper PDFs were analyzed locally: ten each from reinforcement learning,
-embodied AI, world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS.
+To calibrate section organization rather than collect prose, 80 official
+full-paper PDFs were analyzed locally: twenty each from reinforcement learning,
+embodied AI, world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS,
+with the move detectors stated explicitly in the study's method field.
 Only source IDs and aggregate document-level observations are retained. This
 sample informs the functional protocols but is not presented as a statistical
-model of venue style. See `library/studies/section_writing_2026-07.json` and
+model of venue style. See `library/studies/section_writing_2026-08.json` and
 `docs/WRITING_GUIDE_RESEARCH.md`.
 
 Fourteen short collocations carry locators to at least two independent papers.

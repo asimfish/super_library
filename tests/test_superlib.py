@@ -833,15 +833,15 @@ class SuperLibraryCliTests(unittest.TestCase):
     def test_section_writing_study_is_bounded_and_balanced(self):
         _, sources, _ = superlib.load_corpus()
         _, study = superlib.load_writing_guides()
-        self.assertEqual(study["counts"]["full_papers"], 40)
-        self.assertEqual(len(study["sample_source_ids"]), 40)
+        self.assertEqual(study["counts"]["full_papers"], 80)
+        self.assertEqual(len(study["sample_source_ids"]), 80)
         self.assertEqual(
             study["counts"]["by_domain"],
             {
-                "embodied_ai": 10,
-                "reinforcement_learning": 10,
-                "vision_language_action": 10,
-                "world_models": 10,
+                "embodied_ai": 20,
+                "reinforcement_learning": 20,
+                "vision_language_action": 20,
+                "world_models": 20,
             },
         )
         known = {source["id"] for source in sources}
@@ -854,7 +854,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         summary = superlib.source_analysis_summary(records)
         self.assertEqual(len(records), 300)
         self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
-        self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
+        self.assertEqual(summary["full_text_status"], {"not_sampled": 220, "structural_sample": 80})
         self.assertEqual(
             summary["papers_with_direct_library_links"],
             sum(bool(record["linked_entry_ids"]) for record in records),
@@ -1566,15 +1566,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
         self.assertEqual(len(payload["records"]), 10)
         outcomes = [record["outcome"] for record in payload["records"]]
-        # Every full-text structural sample now carries a normalized-record
-        # link, so none may reappear in the review queue.
-        self.assertNotIn("structural_sample_without_library_links", outcomes)
-        self.assertEqual(outcomes[:4], ["metadata_only"] * 4)
-        self.assertTrue(
-            all(
-                outcome == "abstract_analyzed_no_library_link"
-                for outcome in outcomes[4:]
-            )
+        # Papers from the extended structural sample that still lack a
+        # normalized-record link must lead the review queue.
+        self.assertEqual(
+            outcomes, ["structural_sample_without_library_links"] * 10
         )
 
     def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
@@ -1585,10 +1580,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         second = superlib.promotion_queue_records(policy, records)
         self.assertEqual(first, second)
         p0_count = sum(record["priority"] == "P0" for record in first)
-        self.assertEqual(p0_count, 0)
+        self.assertEqual(p0_count, 29)
+        self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
         p1_count = sum(record["priority"] == "P1" for record in first)
         self.assertEqual(p1_count, 4)
-        self.assertTrue(all(record["priority"] == "P1" for record in first[:p1_count]))
         self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
         self.assertTrue(
             all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)

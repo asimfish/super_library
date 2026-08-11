@@ -243,6 +243,27 @@ An embodied-agent task in which a system uses observations acquired from an envi
 - `tan2023-knowledge-based-embodied-question` — [Knowledge-Based Embodied Question Answering](https://doi.org/10.1109/tpami.2023.3277206) (TPAMI 2023)
 - `majumdar2024-openeqa-embodied-question-answering` — [OpenEQA: Embodied Question Answering in the Era of Foundation Models](https://openaccess.thecvf.com/content/CVPR2024/html/Majumdar_OpenEQA_Embodied_Question_Answering_in_the_Era_of_Foundation_Models_CVPR_2024_paper.html) (CVPR 2024)
 
+### embodied reasoning
+
+`emb.definition.embodied-reasoning.001` · definition · embodied_ai, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Intermediate inference grounded in an agent's observations and task, such as spatial relations, action consequences, or subgoal structure, produced between perception and control so that decisions follow from stated premises rather than direct pattern matching.
+
+**Use:** State the reasoning format (language, keypoints, or plans), what grounds it (images, scene metadata, demonstrations), and how it is supervised or rewarded. Evaluate reasoning quality separately from downstream control success when the benchmark allows it.
+
+**Avoid:** Do not call generic chain-of-thought embodied reasoning when it never conditions on the agent's observations or task state, and do not report reasoning-benchmark gains as control gains without a control evaluation.
+
+**Patterns:**
+
+- The model produces {reasoning form} conditioned on {observation and task context} before predicting {action or keypoint}.
+- We evaluate embodied reasoning on {reasoning benchmark} and report control success separately on {control tasks}.
+
+**Verify in primary sources:**
+
+- `kim2025-robot-r1-reinforcement-learning` — [Robot-R1: Reinforcement Learning for Enhanced Embodied Reasoning in Robotics](https://proceedings.neurips.cc/paper_files/paper/2025/hash/ec46d737282bb408e642ed883a145c40-Abstract-Conference.html) (NeurIPS 2025)
+
 ### generalist robot policy
 
 `emb.definition.generalist-policy.001` · definition · robot_learning, embodied_ai · abstract, introduction, related_work, translation
@@ -415,6 +436,27 @@ Training or developing a model in simulation and deploying or adapting it to a p
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
+
+### synthetic data generation
+
+`emb.definition.synthetic-data-generation.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Producing training scenes, trajectories, or annotations with generative or procedural models instead of collecting them from human operators or real environments, so dataset scale and diversity are limited by generation quality rather than collection effort.
+
+**Use:** State what is generated (scenes, actions, or labels), the generative mechanism, how physical feasibility is enforced or filtered, and how much real data remains in the loop. Report downstream policy performance, not only generation fidelity or speed.
+
+**Avoid:** Do not equate synthetic data generation with domain randomization, which varies parameters of an existing scene rather than generating new scenes or trajectories, and do not claim realism from visual quality alone.
+
+**Patterns:**
+
+- We generate {scenes or trajectories} from {conditioning input} with {generative model}, filtering samples that violate {feasibility check}.
+- Policies trained on the generated data improve {metric} by {amount} over {human-collected baseline}.
+
+**Verify in primary sources:**
+
+- `lee2025-dynscene-scalable-generation-dynamic` — [DynScene: Scalable Generation of Dynamic Robotic Manipulation Scenes for Embodied AI](https://openaccess.thecvf.com/content/CVPR2025/html/Lee_DynScene_Scalable_Generation_of_Dynamic_Robotic_Manipulation_Scenes_for_Embodied_CVPR_2025_paper.html) (CVPR 2025)
 
 ### topological memory for visual navigation
 

@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 17
+Entries: 18
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/embodied_reasoning_agents.md); it is not part of the default
 writing context.
@@ -12,6 +12,7 @@ writing context.
 - [cross-robot data mixture](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.cross-robot-data-mixture.001.md) — definition · sections=introduction,related_work,method,translation · tags=robot data mixture,multi embodiment data
 - [diffusion policy / action diffusion](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.diffusion-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=action diffusion,conditional denoising
 - [embodied question answering (EQA)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-question-answering.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=EQA,embodied QA
+- [embodied reasoning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-reasoning.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=embodied reasoning,spatial reasoning
 - [visuomotor policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.visuomotor-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=vision-based control,robot policy
 - [Embodied methods should be positioned by supervision, interaction regime, and deployment assumptions.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.sentence-pattern.related-work.001.md) — sentence_pattern · sections=related_work · tags=related work,robot learning taxonomy
 - [Embodied systems should be grouped by geometry, memory, interaction, and supervision.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.sentence-pattern.related-work-memory-geometry.001.md) — sentence_pattern · sections=related_work · tags=related-work,comparison-axis

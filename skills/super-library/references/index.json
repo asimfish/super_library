@@ -871,6 +871,57 @@
       ]
     },
     {
+      "avoid": "Do not call generic chain-of-thought embodied reasoning when it never conditions on the agent's observations or task state, and do not report reasoning-benchmark gains as control gains without a control evaluation.",
+      "domains": [
+        "embodied_ai",
+        "vision_language_action"
+      ],
+      "examples": [
+        "The model produces {reasoning form} conditioned on {observation and task context} before predicting {action or keypoint}.",
+        "We evaluate embodied reasoning on {reasoning benchmark} and report control success separately on {control tasks}."
+      ],
+      "expression": "embodied reasoning",
+      "guidance": "State the reasoning format (language, keypoints, or plans), what grounds it (images, scene metadata, demonstrations), and how it is supervised or rewarded. Evaluate reasoning quality separately from downstream control success when the benchmark allows it.",
+      "id": "emb.definition.embodied-reasoning.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Intermediate inference grounded in an agent's observations and task, such as spatial relations, action consequences, or subgoal structure, produced between perception and control so that decisions follow from stated premises rather than direct pattern matching.",
+      "provenance": {
+        "note": "Independent paraphrase of reasoning-centric training for robot control; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "kim2025-robot-r1-reinforcement-learning"
+      ],
+      "tags": [
+        "embodied reasoning",
+        "spatial reasoning",
+        "movement reasoning",
+        "reasoning-based training",
+        "grounded inference"
+      ],
+      "topic_families": [
+        "embodied_reasoning_agents"
+      ]
+    },
+    {
       "avoid": "Do not call a policy generalist solely because one architecture is reused across several separately trained tasks.",
       "domains": [
         "robot_learning",
@@ -1308,6 +1359,58 @@
         "仿真到现实"
       ],
       "topic_families": [
+        "sim_to_real_robot_learning"
+      ]
+    },
+    {
+      "avoid": "Do not equate synthetic data generation with domain randomization, which varies parameters of an existing scene rather than generating new scenes or trajectories, and do not claim realism from visual quality alone.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "We generate {scenes or trajectories} from {conditioning input} with {generative model}, filtering samples that violate {feasibility check}.",
+        "Policies trained on the generated data improve {metric} by {amount} over {human-collected baseline}."
+      ],
+      "expression": "synthetic data generation",
+      "guidance": "State what is generated (scenes, actions, or labels), the generative mechanism, how physical feasibility is enforced or filtered, and how much real data remains in the loop. Report downstream policy performance, not only generation fidelity or speed.",
+      "id": "emb.definition.synthetic-data-generation.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Producing training scenes, trajectories, or annotations with generative or procedural models instead of collecting them from human operators or real environments, so dataset scale and diversity are limited by generation quality rather than collection effort.",
+      "provenance": {
+        "note": "Independent paraphrase of diffusion-based manipulation-scene generation; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "lee2025-dynscene-scalable-generation-dynamic"
+      ],
+      "tags": [
+        "synthetic data",
+        "generative scene synthesis",
+        "trajectory generation",
+        "procedural generation",
+        "data collection cost"
+      ],
+      "topic_families": [
+        "robot_manipulation",
         "sim_to_real_robot_learning"
       ]
     },
@@ -11546,6 +11649,24 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001",
+        "wm.definition.task-oriented-model.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "wm.definition.world-model.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "rationale": "World-model-augmented action selection for web agents attests the existing world-model definition and the planning-versus-policy boundary; the transition-focused observation abstraction is a method-specific mechanism that does not warrant another card.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "chae2025-web-agents-world-models",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.usage-note.imitation-bc.001",
@@ -11810,6 +11931,23 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.embodied-question-answering.001",
+        "rl.definition.ai-feedback.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.definition.embodied-reasoning.001"
+      ],
+      "rationale": "The R1-style keypoint-prediction recipe is method-specific, but embodied reasoning as observation-grounded intermediate inference recurs across vision-language robotics and had no normalized record separating it from generic chain-of-thought or from control success.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "kim2025-robot-r1-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "emb.definition.rapid-adaptation.001",
@@ -11878,6 +12016,23 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "kong2025-mastering-massive-multi-task",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.definition.domain-randomization.001",
+        "emb.term.in-the-wild-data.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "evidence_locator": "Official CVF abstract",
+      "linked_entry_ids": [
+        "emb.definition.synthetic-data-generation.001"
+      ],
+      "rationale": "The two-phase diffusion pipeline and residual action representation are method-specific, but generative synthesis of training scenes and trajectories recurs across robot learning and had no normalized record fixing its boundary against domain randomization and human collection.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lee2025-dynscene-scalable-generation-dynamic",
       "verification_scope": "official_abstract"
     },
     {
@@ -12209,48 +12364,51 @@
   ],
   "schema_version": "1.0",
   "section_study": {
-    "as_of": "2026-07-30",
+    "as_of": "2026-08-11",
     "counts": {
       "by_domain": {
-        "embodied_ai": 10,
-        "reinforcement_learning": 10,
-        "vision_language_action": 10,
-        "world_models": 10
+        "embodied_ai": 20,
+        "reinforcement_learning": 20,
+        "vision_language_action": 20,
+        "world_models": 20
       },
       "by_venue": {
-        "CVPR": 7,
-        "ECCV": 6,
-        "ICCV": 8,
-        "ICML": 11,
-        "NeurIPS": 8
+        "CVPR": 10,
+        "ECCV": 7,
+        "ICCV": 15,
+        "ICML": 26,
+        "NeurIPS": 22
       },
       "by_year": {
-        "2023": 4,
-        "2024": 10,
-        "2025": 26
+        "2021": 13,
+        "2022": 6,
+        "2023": 11,
+        "2024": 19,
+        "2025": 31
       },
       "document_level_moves": {
-        "ablation_study": 21,
-        "as_shown_in_display": 17,
-        "baseline_description": 33,
-        "comparison_statement": 22,
-        "evaluation_statement": 26,
-        "implementation_details": 24,
-        "metric_description": 20,
-        "results_support_statement": 19,
-        "table_reports_statement": 10,
-        "we_observe_statement": 16
+        "ablation_study": 44,
+        "as_shown_in_display": 41,
+        "baseline_description": 72,
+        "comparison_statement": 76,
+        "evaluation_statement": 51,
+        "implementation_details": 31,
+        "metric_description": 49,
+        "results_support_statement": 47,
+        "table_reports_statement": 20,
+        "we_observe_statement": 37
       },
-      "full_papers": 40
+      "full_papers": 80
     },
-    "id": "section-writing-2026-07",
+    "id": "section-writing-2026-08",
     "limitations": [
       "This is a calibration sample, not a statistical estimate of venue style or acceptance determinants.",
       "ICLR papers remain represented in the 300-paper metadata and abstract study but were not included in this full-text sample because the official PDF endpoint rejected automated retrieval during the audit.",
+      "One ECCV 2022 candidate was deterministically replaced with the next in-domain candidate because its official open-access PDF endpoint does not expose a retrievable file.",
       "Document-level phrase detection can miss wording because PDF text extraction is imperfect and cannot assess scientific validity.",
       "No extracted paper text is redistributed, and all reusable templates are independently authored."
     ],
-    "method": "A deterministic, balanced sample of official full-paper PDFs was converted to local text for document-level structural analysis. The repository retains only source IDs and aggregate counts, not paper prose.",
+    "method": "A deterministic, balanced sample of official full-paper PDFs was converted to local text with pdftotext for document-level structural analysis. Ten case-insensitive move detectors (regular expressions over the extracted text) record paper-level presence for ablation, display-pointer, baseline, comparison, evaluation, implementation-detail, metric, results-support, table-reporting, and observation statements. The repository retains only source IDs and aggregate counts, not paper prose.",
     "observations": [
       "Section headings vary substantially, so protocols should specify functional moves rather than enforce one heading sequence.",
       "Baseline, implementation, evaluation, ablation, and display-referencing moves recur, but their presence alone does not establish comparison fairness or reproducibility.",
@@ -12258,6 +12416,46 @@
       "Abstract and Introduction claims must be checked against experiment scope instead of being optimized independently for persuasive force."
     ],
     "sample_source_ids": [
+      "ao2021-co-pilot-collaborative-planning",
+      "bastani2022-regret-bounds-risk-sensitive",
+      "bjorck2021-low-precision-reinforcement-learning",
+      "cetin2021-learning-routines-effective-off",
+      "chen2021decisiontransformer",
+      "cho2022-s2p-state-conditioned-image",
+      "christianos2021-scaling-multi-agent-reinforcement",
+      "dadashi2021-offline-reinforcement-learning-pseudometric",
+      "ghasemipour2021-emaq-expected-max-q",
+      "greenberg2022-efficient-risk-averse-reinforcement",
+      "berges2023-galactic-scaling-end-end",
+      "bhattasali2022-neural-circuit-architectural-priors",
+      "cancelli2023-exploiting-proximity-aware-tasks",
+      "chaplot2021-seal-self-supervised-embodied",
+      "charlesworth2021-solving-challenging-dexterous-manipulation",
+      "chattopadhyay2021-robustnav-benchmarking-robustness-embodied",
+      "chebotar2021-actionable-models-unsupervised-offline",
+      "chen2021-yourefit-embodied-reference-understanding",
+      "chen2022-human-level-bimanual-dexterous",
+      "choi2023-efficient-policy-adaptation-contrastive",
+      "deng2022-dreamerpro-reconstruction-free-model",
+      "guan2023-leveraging-pre-trained-large",
+      "huang2024-neural-volumetric-world-models",
+      "hutson2024-policy-shaped-prediction-avoiding",
+      "koh2021pathdreamer",
+      "lin2024-because-bilinear-causal-representation",
+      "lu2025-gwm-scalable-gaussian-world",
+      "ma2024-do-transformer-world-models",
+      "mattes2024-hieros-hierarchical-imagination-structured",
+      "novelli2024-operator-world-models-reinforcement",
+      "chi2025-impromptu-vla-open-weights",
+      "driess2023palme",
+      "hong2024-multiply-multisensory-object-centric",
+      "jiang2023vima",
+      "li2024-decisionnce-embodied-multimodal-representations",
+      "li2024-mastering-robot-manipulation-multimodal",
+      "li2025-coa-vla-improving-vision",
+      "li2025-long-horizon-vision-language",
+      "li2025-object-centric-prompt-driven",
+      "ma2023-liv-language-image-representations",
       "ganesh2025-sharper-global-convergence-analysis",
       "chen2023-imitation-learning-state-matching",
       "liu2023-learning-identify-critical-states",
@@ -12299,7 +12497,7 @@
       "li2025-reinforcement-learning-action-chunking",
       "liu2024-robomamba-efficient-vision-language"
     ],
-    "scope": "Forty papers from the audited 2021–2025 collection were sampled across reinforcement learning, embodied AI, world models, and vision-language-action models to calibrate Abstract, Introduction, Experiments, analysis, and table protocols."
+    "scope": "Eighty papers from the audited 2021-2025 collection were sampled across reinforcement learning, embodied AI, world models, and vision-language-action models, twenty per domain from CVPR, ECCV, ICCV, ICML, and NeurIPS, to calibrate Abstract, Introduction, Experiments, analysis, and table protocols."
   },
   "sources": [
     {
@@ -25040,6 +25238,6 @@
       }
     ],
     "schema_version": "1.0",
-    "study_id": "section-writing-2026-07"
+    "study_id": "section-writing-2026-08"
   }
 }

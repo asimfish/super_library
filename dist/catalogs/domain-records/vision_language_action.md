@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 28
+Entries: 29
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -12,6 +12,7 @@ Entries: 28
 - [continuous action head](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.definition.continuous-action-head.001.md) — definition · sections=method,related_work
 - [cross-robot data mixture](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.cross-robot-data-mixture.001.md) — definition · sections=introduction,related_work,method,translation
 - [embodied multimodal language model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-language-model.001.md) — definition · sections=introduction,related_work,method,translation
+- [embodied reasoning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-reasoning.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [hierarchical policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hierarchical-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [latent action representation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-action-representation.001.md) — definition · sections=introduction,related_work,method,translation
 - [mobile manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.mobile-manipulation.001.md) — definition · sections=abstract,introduction,related_work,method,translation

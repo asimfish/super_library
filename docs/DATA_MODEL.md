@@ -111,7 +111,7 @@ Every guide has a stable ID, type, target section, required inputs, functional
 moves, internal template variants, verification checks, avoid rules, and links to
 related card IDs. Guides never supply scientific facts.
 
-`library/studies/section_writing_2026-07.json` records the source IDs and aggregate
+`library/studies/section_writing_2026-08.json` records the source IDs and aggregate
 document-level observations for the 40-paper full-text calibration sample.
 Validation checks its source membership and domain, venue, and year counts. Raw
 PDF text and extracted sentences are not stored.

@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 49
+Entries: 51
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -18,6 +18,7 @@ Entries: 49
 - [embodied AI](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-ai.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [embodied multimodal language model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-language-model.001.md) — definition · sections=introduction,related_work,method,translation
 - [embodied question answering (EQA)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-question-answering.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [embodied reasoning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.embodied-reasoning.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [embodied world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.embodied-world-model.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [generalist robot policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.generalist-policy.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [grounded instruction following](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.grounded-instruction.001.md) — definition · sections=introduction,related_work,method,translation
@@ -30,6 +31,7 @@ Entries: 49
 - [occupancy world model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.occupancy-world-model.001.md) — definition · sections=abstract,introduction,related_work,method
 - [open-vocabulary manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.open-vocabulary-manipulation.001.md) — definition · sections=introduction,related_work,experiments
 - [simulation-to-real (sim-to-real) transfer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.sim-to-real.001.md) — definition · sections=abstract,introduction,related_work,experiments,translation
+- [synthetic data generation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.synthetic-data-generation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [topological memory for visual navigation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.topological-memory.001.md) — definition · sections=introduction,related_work,method,translation
 - [vision-and-language navigation (VLN)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vln.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [vision-language-action (VLA) model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vla.001.md) — definition · sections=introduction,related_work,method,translation

@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 62
+Entries: 63
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -30,6 +30,7 @@ Entries: 62
 - [open-vocabulary manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.open-vocabulary-manipulation.001.md) — definition · sections=introduction,related_work,experiments
 - [rapid online adaptation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.rapid-adaptation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [simulation-to-real (sim-to-real) transfer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.sim-to-real.001.md) — definition · sections=abstract,introduction,related_work,experiments,translation
+- [synthetic data generation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.synthetic-data-generation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [vision-language-action (VLA) model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.vla.001.md) — definition · sections=introduction,related_work,method,translation
 - [visuomotor policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.definition.visuomotor-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [6-DoF grasp pose](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.term.grasp-pose.001.md) — term · sections=introduction,related_work,method,experiments,translation

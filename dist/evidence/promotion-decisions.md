@@ -5,13 +5,14 @@ Corpus `0.4.0` · snapshot `2026-08-09`.
 These are maintainer review outcomes, not Agent writing context or
 citable evidence. Open the named primary paper before making a literature claim.
 
-- Reviewed papers: 39
-- Reviews linked to normalized records: 38
+- Reviewed papers: 42
+- Reviews linked to normalized records: 41
 - Explicit no-promotion outcomes: 1
 
 | Paper | Decision | Verification | Linked records |
 |---|---|---|---|
 | [On the Global Optimality of Policy Gradient Methods in General Utility Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/72411ab2fd50c0d1f1a4489896d96489-Abstract-Conference.html) | `promote_normalized_record` | Official NeurIPS abstract | `rl.definition.state-action-occupancy-measure.001` |
+| [Web Agents with World Models: Learning and Leveraging Environment Dynamics in Web Navigation](https://iclr.cc/virtual/2025/poster/28448) | `link_existing_record` | Official ICLR abstract | `wm.definition.world-model.001`, `wm.usage-note.planning-vs-policy.001` |
 | [Imitation Learning As State Matching via Differentiable Physics](https://openaccess.thecvf.com/content/CVPR2023/html/Chen_Imitation_Learning_As_State_Matching_via_Differentiable_Physics_CVPR_2023_paper.html) | `promote_normalized_record` | Official CVF abstract | `rl.definition.differentiable-simulation.001` |
 | [Local-Guided Global: Paired Similarity Representation for Visual Reinforcement Learning](https://openaccess.thecvf.com/content/CVPR2023/html/Choi_Local-Guided_Global_Paired_Similarity_Representation_for_Visual_Reinforcement_Learning_CVPR_2023_paper.html) | `promote_normalized_record` | Official CVF abstract | `rl.definition.self-supervised-representation-learning.001` |
 | [Frontier-enhanced Topological Memory with Improved Exploration Awareness for Embodied Visual Navigation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8905_ECCV_2024_paper.php) | `promote_normalized_record` | Official ECCV paper, Abstract and Section 1 | `emb.definition.topological-memory.001` |
@@ -27,10 +28,12 @@ citable evidence. Open the named primary paper before making a literature claim.
 | [EnerVerse: Envisioning Embodied Future Space for Robotics Manipulation](https://proceedings.neurips.cc/paper_files/paper/2025/hash/360052c2c6d0c8ec24c476d43236ab25-Abstract-Conference.html) | `link_existing_record` | Official NeurIPS abstract | `emb.definition.action-chunking.001`, `wm.definition.embodied-world-model.001`, `wm.definition.video-world-model.001` |
 | [OTTER: A Vision-Language-Action Model with Text-Aware Visual Feature Extraction](https://proceedings.mlr.press/v267/huang25u.html) | `link_existing_record` | Official PMLR abstract | `emb.definition.vla.001`, `general.usage-note.generalization-axis.001` |
 | [Time Reversal Symmetry for Efficient Robotic Manipulations in Deep Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/d20e3c35bedb17a9f6f01fc434a30fa3-Abstract-Conference.html) | `record_no_promotion` | Official paper abstract and Sections 1–3 | none |
+| [Robot-R1: Reinforcement Learning for Enhanced Embodied Reasoning in Robotics](https://proceedings.neurips.cc/paper_files/paper/2025/hash/ec46d737282bb408e642ed883a145c40-Abstract-Conference.html) | `promote_normalized_record` | Official NeurIPS abstract | `emb.definition.embodied-reasoning.001` |
 | [Test-Time Adaptation for Online Vision-Language Navigation with Feedback-based Reinforcement Learning](https://proceedings.mlr.press/v267/kim25ad.html) | `link_existing_record` | Official PMLR abstract | `emb.definition.rapid-adaptation.001`, `emb.definition.vln.001` |
 | [On the Benefit of Optimal Transport for Curriculum Reinforcement Learning](https://doi.org/10.1109/tpami.2024.3390051) | `promote_normalized_record` | Author preprint linked to the TPAMI DOI, Abstract, Sections 1–3.2, and Section 6 | `rl.definition.curriculum-reinforcement-learning.001` |
 | [Embodied Navigation with Auxiliary Task of Action Description Prediction](https://openaccess.thecvf.com/content/ICCV2025/html/Kondoh_Embodied_Navigation_with_Auxiliary_Task_of_Action_Description_Prediction_ICCV_2025_paper.html) | `link_existing_record` | Official ICCV paper, Abstract, Section 1, and Section 4.2 | `emb.definition.multimodal-perception.001`, `emb.definition.vln.001`, `emb.definition.object-goal-navigation.001` |
 | [Mastering Massive Multi-Task Reinforcement Learning via Mixture-of-Expert Decision Transformer](https://proceedings.mlr.press/v267/kong25a.html) | `link_existing_record` | Official PMLR abstract | `rl.definition.offline-rl.001`, `rl.definition.return-conditioned-sequence.001` |
+| [DynScene: Scalable Generation of Dynamic Robotic Manipulation Scenes for Embodied AI](https://openaccess.thecvf.com/content/CVPR2025/html/Lee_DynScene_Scalable_Generation_of_Dynamic_Robotic_Manipulation_Scenes_for_Embodied_CVPR_2025_paper.html) | `promote_normalized_record` | Official CVF abstract | `emb.definition.synthetic-data-generation.001` |
 | [Temporal Distance-aware Transition Augmentation for Offline Model-based Reinforcement Learning](https://proceedings.mlr.press/v267/lee25p.html) | `promote_normalized_record` | Official PMLR abstract | `rl.definition.state-abstraction.001` |
 | [MetaDrive: Composing Diverse Driving Scenarios for Generalizable Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3190471) | `link_existing_record` | Author preprint linked to the TPAMI article, Abstract, Section 1, and Sections 5.1–5.2 | `general.usage-note.generalization-axis.001`, `emb.definition.domain-randomization.001` |
 | [LARM: Large Auto-Regressive Model for Long-Horizon Embodied Intelligence](https://proceedings.mlr.press/v267/li25dj.html) | `promote_normalized_record` | Official PMLR abstract | `rl.definition.ai-feedback.001` |
