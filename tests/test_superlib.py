@@ -1566,14 +1566,14 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
         self.assertEqual(len(payload["records"]), 10)
         outcomes = [record["outcome"] for record in payload["records"]]
-        # Every structural sample is reviewed and linked again, so the queue
-        # falls back to metadata-only papers followed by abstract-only ones.
+        # Every structural sample is reviewed and linked, and only one
+        # metadata-only TPAMI paper still lacks a verifiable primary view.
         self.assertNotIn("structural_sample_without_library_links", outcomes)
-        self.assertEqual(outcomes[:4], ["metadata_only"] * 4)
+        self.assertEqual(outcomes[:1], ["metadata_only"])
         self.assertTrue(
             all(
                 outcome == "abstract_analyzed_no_library_link"
-                for outcome in outcomes[4:]
+                for outcome in outcomes[1:]
             )
         )
 
@@ -1587,7 +1587,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         p0_count = sum(record["priority"] == "P0" for record in first)
         self.assertEqual(p0_count, 0)
         p1_count = sum(record["priority"] == "P1" for record in first)
-        self.assertEqual(p1_count, 4)
+        self.assertEqual(p1_count, 1)
         self.assertTrue(all(record["priority"] == "P1" for record in first[:p1_count]))
         self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
         self.assertTrue(

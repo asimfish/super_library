@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 66
+Entries: 68
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -25,6 +25,7 @@ Entries: 66
 - [hindsight relabeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hindsight-relabeling.001.md) — definition · sections=introduction,related_work,method,translation
 - [latent action representation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.latent-action-representation.001.md) — definition · sections=introduction,related_work,method,translation
 - [mobile manipulation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.mobile-manipulation.001.md) — definition · sections=abstract,introduction,related_work,method,translation
+- [multi-task reinforcement learning (MTRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-task-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [multimodal embodied perception](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-perception.001.md) — definition · sections=introduction,related_work,method,translation
 - [multimodal task prompt](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.multimodal-prompt.001.md) — definition · sections=introduction,related_work,method,translation
 - [object rearrangement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.rearrangement.001.md) — definition · sections=abstract,introduction,related_work,method,translation
@@ -56,6 +57,7 @@ Entries: 66
 - [robot-action tokenization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.action-tokenization.001.md) — term · sections=related_work,method,translation
 - [sample efficiency / data efficiency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.sample-efficiency.001.md) — term · sections=abstract,introduction,related_work,experiments,rebuttal,translation
 - [state–action coverage of the offline dataset](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.offline-dataset-coverage.001.md) — term · sections=introduction,related_work,method,experiments,limitations,translation
+- [tactile sensing](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.tactile-sensing.001.md) — term · sections=introduction,related_work,method,translation
 - [task success rate](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.task-success-rate.001.md) — term · sections=experiments,rebuttal,translation
 - [teleoperated robot demonstration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.teleoperation-demonstration.001.md) — term · sections=related_work,method,experiments,translation
 - [temporal ensembling of overlapping action predictions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.temporal-ensembling.001.md) — term · sections=related_work,method,translation

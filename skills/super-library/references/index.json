@@ -2480,6 +2480,57 @@
       ]
     },
     {
+      "avoid": "Do not treat fingertip or skin tactile sensing as interchangeable with wrist force-torque sensing, and do not claim contact-rich competence from vision-only results.",
+      "domains": [
+        "embodied_ai",
+        "robot_learning"
+      ],
+      "examples": [
+        "{Sparse binary or dense} tactile signals at {mounting locations} register {interaction event} that {other modality} misses.",
+        "We fuse tactile, proprioceptive, and visual streams with {latency budget} alignment for {contact-rich task}."
+      ],
+      "expression": "tactile sensing",
+      "guidance": "State the tactile modality and resolution (dense arrays versus sparse binary contacts), sensor placement, latency and alignment with other modalities, and the failure the signal prevents, for example decoupled robot-object motion that proprioceptive error cannot register.",
+      "id": "emb.term.tactile-sensing.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare"
+      ],
+      "kind": "term",
+      "meaning": "Contact-based measurement at the robot's surfaces, such as forces, pressure, vibration, or binary contact events, that complements vision and proprioception by registering interactions those signals miss.",
+      "provenance": {
+        "note": "Independent definition synthesized from tactile-based RL with sparse binary contacts and whole-hand perception hardware.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "miller2025-enhancing-tactile-based-reinforcement",
+        "wan2025-rapid-hand-robust-affordable"
+      ],
+      "tags": [
+        "tactile sensing",
+        "contact feedback",
+        "fingertip sensors",
+        "contact-rich manipulation",
+        "multimodal sensing"
+      ],
+      "topic_families": [
+        "robot_manipulation",
+        "locomotion_dexterity"
+      ]
+    },
+    {
       "avoid": "Do not treat 'task-agnostic' as a universally standardized term or imply absence of task conditioning merely because parameters are shared.",
       "domains": [
         "robot_learning"
@@ -7446,6 +7497,56 @@
       ]
     },
     {
+      "avoid": "Do not present attention or saliency as proof of causal reasoning, and do not conflate explaining a black-box policy with learning an intrinsically interpretable policy structure.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "The framework produces {explanation form} highlighting {task-relevant information} behind the agent's decisions.",
+        "We evaluate explanations by {quantitative protocol}, beyond qualitative inspection on {tasks}."
+      ],
+      "expression": "explainable reinforcement learning",
+      "guidance": "State the explanation form and whether it is built into training or produced post hoc, what the explanation is evidence for (input relevance, decision points, or failure causes), and how explanation quality is evaluated beyond visual appeal.",
+      "id": "rl.definition.explainable-rl.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Methods that expose evidence for a learned agent's decisions, for example attention masks, critical states, or feature attributions, so that humans can inspect what information drives behavior without changing the underlying policy class.",
+      "provenance": {
+        "note": "Independent paraphrase of self-supervised attention-mask explanation for vision-based RL; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "introduction",
+        "related_work",
+        "method",
+        "limitations",
+        "translation"
+      ],
+      "source_ids": [
+        "shi2021-self-supervised-discovering-interpretable"
+      ],
+      "tags": [
+        "explainable RL",
+        "attention mask",
+        "decision evidence",
+        "post-hoc explanation",
+        "transparency"
+      ],
+      "topic_families": [
+        "rl_theory_evaluation"
+      ]
+    },
+    {
       "avoid": "Do not conflate goal conditioning with language conditioning unless language is the defined goal representation.",
       "domains": [
         "reinforcement_learning"
@@ -7733,6 +7834,59 @@
         "Markov property"
       ],
       "topic_families": [
+        "rl_theory_evaluation"
+      ]
+    },
+    {
+      "avoid": "Do not equate multi-task RL with goal-conditioned RL over goals of one task family, and do not claim positive transfer from aggregate results while individual tasks regress.",
+      "domains": [
+        "reinforcement_learning",
+        "robot_learning"
+      ],
+      "examples": [
+        "The agent shares {component} across {task set} and mitigates negative transfer with {mechanism}.",
+        "We report per-task returns alongside the aggregate to expose transfer asymmetry across {benchmarks}."
+      ],
+      "expression": "multi-task reinforcement learning (MTRL)",
+      "guidance": "State what is shared (policy, representation, or experts), how tasks are identified or weighted, the training order or curriculum when asymmetric, and how negative transfer between dissimilar tasks is detected or mitigated. Report per-task and aggregate returns, not aggregates alone.",
+      "id": "rl.definition.multi-task-rl.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "Training one agent or shared components on a set of reinforcement-learning tasks so that experience, representations, or parameters transfer across tasks, instead of optimizing each task independently.",
+      "provenance": {
+        "note": "Independent definition synthesized from curriculum-based asymmetric multi-task RL and massive multi-task decision-transformer training.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "huang2023-curriculum-based-asymmetric-multi",
+        "kong2025-mastering-massive-multi-task"
+      ],
+      "tags": [
+        "multi-task reinforcement learning",
+        "negative transfer",
+        "task interference",
+        "shared representation",
+        "asymmetric transfer"
+      ],
+      "topic_families": [
+        "policy_optimization",
         "rl_theory_evaluation"
       ]
     },
@@ -8207,6 +8361,57 @@
       "topic_families": [
         "safe_robust_rl",
         "rl_theory_evaluation"
+      ]
+    },
+    {
+      "avoid": "Do not present RLHF as a guarantee of goal alignment, and do not use RLHF to describe direct human reward shaping without a learned reward model.",
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "examples": [
+        "We collect {judgment type} from {annotator pool}, fit {reward model}, and optimize the policy with {algorithm} against it.",
+        "We audit the learned reward for {failure mode} before deploying the policy on {task}."
+      ],
+      "expression": "reinforcement learning from human feedback (RLHF)",
+      "guidance": "State how human judgments are collected and aggregated, the reward-model class, the policy-optimization stage, and known failure modes such as reward hacking, reward-model misgeneralization, and evaluator disagreement. Keep RLHF distinct from AI feedback (model-generated judgments) and from human-in-the-loop intervention during training.",
+      "id": "rl.definition.rlhf.001",
+      "intents": [
+        "define",
+        "describe",
+        "compare",
+        "clarify"
+      ],
+      "kind": "definition",
+      "meaning": "A training pipeline that learns a reward model from human judgments, typically preference comparisons between candidate outputs or behaviors, and then optimizes a policy against that learned reward when a programmatic reward is unavailable.",
+      "provenance": {
+        "note": "Independent paraphrase of the RLHF pipeline and its documented limitations; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-11",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "related_work",
+        "method",
+        "translation"
+      ],
+      "source_ids": [
+        "rando2025-open-problems-fundamental-limitations"
+      ],
+      "tags": [
+        "RLHF",
+        "preference learning",
+        "learned reward",
+        "alignment",
+        "human preferences"
+      ],
+      "topic_families": [
+        "policy_optimization",
+        "safe_robust_rl"
       ]
     },
     {
@@ -12695,6 +12900,41 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.return-conditioned-sequence.001",
+        "rl.term.bootstrapped-target.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "evidence_locator": "Author preprint (arXiv:2212.14164) for the TPAMI article, Abstract and Sections 1-2",
+      "linked_entry_ids": [
+        "rl.definition.return-conditioned-sequence.001",
+        "rl.term.bootstrapped-target.001"
+      ],
+      "rationale": "The survey's taxonomy of architecture enhancements versus trajectory optimization is article-specific; its reusable concepts, treating RL as return-conditioned sequence modeling and the instability of bootstrapped targets, are already normalized.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hu2024-transforming-reinforcement-learning-transformers",
+      "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.definition.curriculum-reinforcement-learning.001",
+        "rl.definition.goal-conditioned-rl.001",
+        "emb.term.task-agnostic-training.001"
+      ],
+      "evidence_locator": "Author preprint (arXiv:2211.03352) for the TPAMI article, Abstract and Sections 1-3",
+      "linked_entry_ids": [
+        "rl.definition.multi-task-rl.001"
+      ],
+      "rationale": "The composite ranking loss and Frank-Wolfe optimization are method-specific, but multi-task reinforcement learning with explicit negative-transfer boundaries recurs across the corpus and had no normalized record; the existing curriculum record covers task ordering only.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "huang2023-curriculum-based-asymmetric-multi",
+      "verification_scope": "full_text_sections"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.definition.diffusion-policy.001",
@@ -12866,6 +13106,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "kong2025-mastering-massive-multi-task",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.policy-gradient-estimator.001",
+        "rl.term.sample-efficiency.001",
+        "rl.definition.reinforcement-learning.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.term.policy-gradient-estimator.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "rationale": "The delay-adaptive lookahead and federated orchestration are method-specific; the reusable concepts, policy-gradient convergence analysis and sample-complexity claims, are covered by the policy-gradient-estimator and sample-efficiency records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lan2025-asynchronous-federated-reinforcement-learning",
       "verification_scope": "official_abstract"
     },
     {
@@ -13042,6 +13300,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.term.egocentric-observation.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "The Imputer augmentation and Ges3ViG model are contribution-specific; the reusable concepts, grounding referring language with pointing gestures and multimodal embodied perception in 3D scenes, are covered by the grounded-instruction and multimodal-perception records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "mane2025-ges3vig-incorporating-pointing-gestures",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.hierarchical-policy.001",
         "wm.definition.model-based-rl.001",
         "wm.usage-note.rollout-horizon.001"
@@ -13056,6 +13332,23 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "mattes2024-hieros-hierarchical-imagination-structured",
       "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "emb.term.proprioception.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.term.tactile-sensing.001"
+      ],
+      "rationale": "The SSL recipes and RoTO benchmark are contribution-specific, but tactile sensing as a contact-based modality with explicit boundaries against vision and proprioception recurs across dexterous robot learning and had no normalized record.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "miller2025-enhancing-tactile-based-reinforcement",
+      "verification_scope": "official_abstract"
     },
     {
       "decision": "link_existing_record",
@@ -13114,6 +13407,23 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.definition.ai-feedback.001",
+        "rl.definition.human-in-the-loop-rl.001",
+        "wm.term.learned-reward-model.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.rlhf.001"
+      ],
+      "rationale": "The survey's auditing proposals are article-specific, but RLHF as a preference-based reward-learning pipeline recurs across alignment and agent training and had no normalized record; existing records cover AI feedback and human intervention, not learned rewards from human comparisons.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "rando2025-open-problems-fundamental-limitations",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "rl.term.policy-gradient-estimator.001",
@@ -13129,6 +13439,23 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "sharma2025-globally-optimal-policy-gradient",
       "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.definition.symbolic-policy.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "rl.definition.credit-assignment.001"
+      ],
+      "evidence_locator": "Author preprint (arXiv:2003.07069) for the TPAMI article, Abstract and Sections 1 and 3",
+      "linked_entry_ids": [
+        "rl.definition.explainable-rl.001"
+      ],
+      "rationale": "SSINet's mask network is method-specific, but exposing decision evidence for learned agents recurs across vision-based RL and had no normalized record; the symbolic-policy record covers intrinsically interpretable structure, not post-hoc explanation.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "shi2021-self-supervised-discovering-interpretable",
+      "verification_scope": "full_text_sections"
     },
     {
       "decision": "promote_normalized_record",
@@ -13167,6 +13494,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.synthetic-data-generation.001",
+        "wm.definition.world-model.001",
+        "emb.definition.domain-randomization.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.definition.synthetic-data-generation.001",
+        "wm.definition.world-model.001"
+      ],
+      "rationale": "The CitySim system composition is platform-specific; the reusable concepts, generative synthesis of simulation scenes and agents and an environment model that animates counterfactual futures, are covered by the synthetic-data-generation and world-model records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "tan2025-scenediffuser-city-scale-traffic",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "wm.definition.video-world-model.001",
         "wm.definition.task-oriented-model.001",
         "wm.term.action-conditioned-dynamics.001"
@@ -13184,6 +13529,40 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.term.policy-gradient-estimator.001",
+        "rl.term.entropy-regularization.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.term.policy-gradient-estimator.001"
+      ],
+      "rationale": "The pass-at-k reward transformation is contribution-specific; the reusable concept it builds on, low-variance unbiased policy-gradient estimation, is covered by the policy-gradient-estimator record, and sample-set diversity remains a method-level consideration.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "walder2025-pass-k-policy-optimization",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.term.teleoperation-demonstration.001",
+        "emb.term.tactile-sensing.001",
+        "emb.term.proprioception.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "emb.term.teleoperation-demonstration.001",
+        "emb.term.tactile-sensing.001"
+      ],
+      "rationale": "The co-optimized hand platform is hardware-specific; the reusable concepts, teleoperated demonstration collection on high-DoF hands and fingertip tactile sensing fused with vision and proprioception, are covered by the teleoperation-demonstration record and the new tactile-sensing record, which cites this paper as an attesting source.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wan2025-rapid-hand-robust-affordable",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.distributional-rl.001",
         "rl.term.return-distribution.001"
       ],
@@ -13196,6 +13575,60 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "wang2024-more-benefits-being-distributional",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.task-irrelevant-distraction.001",
+        "rl.definition.offline-to-online.001",
+        "wm.definition.video-world-model.001"
+      ],
+      "evidence_locator": "Official ICCV abstract",
+      "linked_entry_ids": [
+        "wm.definition.task-irrelevant-distraction.001",
+        "rl.definition.offline-to-online.001"
+      ],
+      "rationale": "Latent distillation and disentanglement constraints are method-specific; the reusable concepts, semantic variations in distracting videos harming visual RL and offline-to-online transfer of pretrained knowledge, are covered by the task-irrelevant-distraction and offline-to-online records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2025-disentangled-world-models-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.embodied-reasoning.001",
+        "wm.definition.visual-world-model.001",
+        "emb.definition.multimodal-prompt.001"
+      ],
+      "evidence_locator": "Official ICML abstract",
+      "linked_entry_ids": [
+        "emb.definition.embodied-reasoning.001",
+        "wm.definition.visual-world-model.001"
+      ],
+      "rationale": "Frame scoring and dynamic representation synthesis are method-specific; the reusable concepts, observation-grounded intermediate reasoning before action and predicting future visual dynamics, are covered by the embodied-reasoning and visual-world-model records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2025-dynamind-reasoning-over-abstract",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.term.3d-scene-memory.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.definition.3d-vla-world-model.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.term.3d-scene-memory.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "Feature-field pretraining details are method-specific; the reusable concepts, persistent language-queryable 3D scene representations for embodied tasks and multimodal perception, are covered by the 3D-scene-memory and multimodal-perception records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "wang2025-g3d-lf-generalizable-3d",
       "verification_scope": "official_abstract"
     },
     {
@@ -13230,6 +13663,42 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "wu2025-momanipvla-transferring-vision-language",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.multimodal-perception.001",
+        "emb.term.3d-scene-memory.001",
+        "emb.definition.active-perception.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.multimodal-perception.001",
+        "emb.term.3d-scene-memory.001"
+      ],
+      "rationale": "The online SAM adaptation is method-specific; the reusable concepts, streaming multimodal 3D perception during exploration and persistent instance-level scene understanding, are covered by the multimodal-perception and 3D-scene-memory records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "xu2025-embodiedsam-online-segment-any",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.state-action-occupancy-measure.001",
+        "rl.definition.offline-rl.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.state-action-occupancy-measure.001",
+        "rl.definition.offline-rl.001"
+      ],
+      "rationale": "The iterative ratio-correction scheme is contribution-specific; the reusable concepts, visitation-distribution ratios over state-action occupancies and offline policy learning, are covered by the occupancy-measure and offline-RL records.",
+      "reviewed_at": "2026-08-11",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "xu2025-optimal-discriminator-weighted-imitation",
       "verification_scope": "official_abstract"
     },
     {

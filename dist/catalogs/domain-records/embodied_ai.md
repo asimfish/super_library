@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 54
+Entries: 55
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition · sections=related_work,method,translation
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition · sections=introduction,related_work,method,translation
@@ -49,6 +49,7 @@ Entries: 54
 - [proprioceptive observation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.term.proprioception.001.md) — term · sections=method,translation
 - [reality gap](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.reality-gap.001.md) — term · sections=introduction,related_work,limitations,translation
 - [robot-action tokenization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.action-tokenization.001.md) — term · sections=related_work,method,translation
+- [tactile sensing](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.tactile-sensing.001.md) — term · sections=introduction,related_work,method,translation
 - [task success rate](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.task-success-rate.001.md) — term · sections=experiments,rebuttal,translation
 - [teleoperated robot demonstration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.teleoperation-demonstration.001.md) — term · sections=related_work,method,experiments,translation
 - [temporal ensembling of overlapping action predictions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.temporal-ensembling.001.md) — term · sections=related_work,method,translation

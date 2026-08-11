@@ -1016,6 +1016,28 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
 
+### tactile sensing
+
+`emb.term.tactile-sensing.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Contact-based measurement at the robot's surfaces, such as forces, pressure, vibration, or binary contact events, that complements vision and proprioception by registering interactions those signals miss.
+
+**Use:** State the tactile modality and resolution (dense arrays versus sparse binary contacts), sensor placement, latency and alignment with other modalities, and the failure the signal prevents, for example decoupled robot-object motion that proprioceptive error cannot register.
+
+**Avoid:** Do not treat fingertip or skin tactile sensing as interchangeable with wrist force-torque sensing, and do not claim contact-rich competence from vision-only results.
+
+**Patterns:**
+
+- {Sparse binary or dense} tactile signals at {mounting locations} register {interaction event} that {other modality} misses.
+- We fuse tactile, proprioceptive, and visual streams with {latency budget} alignment for {contact-rich task}.
+
+**Verify in primary sources:**
+
+- `miller2025-enhancing-tactile-based-reinforcement` — [Enhancing Tactile-based Reinforcement Learning for Robotic Control](https://proceedings.neurips.cc/paper_files/paper/2025/hash/bc09efb501c801ed92e181e26a885c2d-Abstract-Conference.html) (NeurIPS 2025)
+- `wan2025-rapid-hand-robust-affordable` — [RAPID Hand: Robust, Affordable, Perception-Integrated, Dexterous Manipulation Platform for Embodied Intelligence](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8bead340bb510de5c8356f60ca039efc-Abstract-Conference.html) (NeurIPS 2025)
+
 ### task success rate
 
 `emb.term.task-success-rate.001` · term · embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation

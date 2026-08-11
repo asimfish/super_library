@@ -10,7 +10,7 @@ rhetorical moves.
 - [imitation and sequential decision modeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/imitation_sequence.md) — `imitation_sequence` · 3 normalized entries
 - [multi-agent reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/multi_agent_rl.md) — `multi_agent_rl` · 4 normalized entries
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/offline_rl.md) — `offline_rl` · 13 normalized entries
-- [policy optimization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/policy_optimization.md) — `policy_optimization` · 12 normalized entries
-- [RL theory, representation, and evaluation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/rl_theory_evaluation.md) — `rl_theory_evaluation` · 14 normalized entries
-- [safe and robust reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/safe_robust_rl.md) — `safe_robust_rl` · 4 normalized entries
+- [policy optimization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/policy_optimization.md) — `policy_optimization` · 14 normalized entries
+- [RL theory, representation, and evaluation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/rl_theory_evaluation.md) — `rl_theory_evaluation` · 16 normalized entries
+- [safe and robust reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/safe_robust_rl.md) — `safe_robust_rl` · 5 normalized entries
 - [value learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/value_learning.md) — `value_learning` · 10 normalized entries

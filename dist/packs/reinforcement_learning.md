@@ -268,6 +268,27 @@ A mechanism that stores previously collected transitions or trajectories and res
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### explainable reinforcement learning
+
+`rl.definition.explainable-rl.001` · definition · reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Methods that expose evidence for a learned agent's decisions, for example attention masks, critical states, or feature attributions, so that humans can inspect what information drives behavior without changing the underlying policy class.
+
+**Use:** State the explanation form and whether it is built into training or produced post hoc, what the explanation is evidence for (input relevance, decision points, or failure causes), and how explanation quality is evaluated beyond visual appeal.
+
+**Avoid:** Do not present attention or saliency as proof of causal reasoning, and do not conflate explaining a black-box policy with learning an intrinsically interpretable policy structure.
+
+**Patterns:**
+
+- The framework produces {explanation form} highlighting {task-relevant information} behind the agent's decisions.
+- We evaluate explanations by {quantitative protocol}, beyond qualitative inspection on {tasks}.
+
+**Verify in primary sources:**
+
+- `shi2021-self-supervised-discovering-interpretable` — [Self-Supervised Discovering of Interpretable Features for Reinforcement Learning](https://doi.org/10.1109/tpami.2020.3037898) (TPAMI 2021)
+
 ### goal-conditioned reinforcement learning
 
 `rl.definition.goal-conditioned-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method
@@ -394,6 +415,28 @@ A formal sequential decision process defined by states, actions, transition dyna
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
+### multi-task reinforcement learning (MTRL)
+
+`rl.definition.multi-task-rl.001` · definition · reinforcement_learning, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training one agent or shared components on a set of reinforcement-learning tasks so that experience, representations, or parameters transfer across tasks, instead of optimizing each task independently.
+
+**Use:** State what is shared (policy, representation, or experts), how tasks are identified or weighted, the training order or curriculum when asymmetric, and how negative transfer between dissimilar tasks is detected or mitigated. Report per-task and aggregate returns, not aggregates alone.
+
+**Avoid:** Do not equate multi-task RL with goal-conditioned RL over goals of one task family, and do not claim positive transfer from aggregate results while individual tasks regress.
+
+**Patterns:**
+
+- The agent shares {component} across {task set} and mitigates negative transfer with {mechanism}.
+- We report per-task returns alongside the aggregate to expose transfer asymmetry across {benchmarks}.
+
+**Verify in primary sources:**
+
+- `huang2023-curriculum-based-asymmetric-multi` — [Curriculum-Based Asymmetric Multi-Task Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3223872) (TPAMI 2023)
+- `kong2025-mastering-massive-multi-task` — [Mastering Massive Multi-Task Reinforcement Learning via Mixture-of-Expert Decision Transformer](https://proceedings.mlr.press/v267/kong25a.html) (ICML 2025)
 
 ### distribution shift in offline RL
 
@@ -609,6 +652,27 @@ A formulation that optimizes a risk measure of the return distribution, such as 
 
 - `bastani2022-regret-bounds-risk-sensitive` — [Regret Bounds for Risk-Sensitive Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/eb4898d622e9a48b5f9713ea1fcff2bf-Abstract-Conference.html) (NeurIPS 2022)
 - `greenberg2022-efficient-risk-averse-reinforcement` — [Efficient Risk-Averse Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/d2511dfb731fa336739782ba825cd98c-Abstract-Conference.html) (NeurIPS 2022)
+
+### reinforcement learning from human feedback (RLHF)
+
+`rl.definition.rlhf.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training pipeline that learns a reward model from human judgments, typically preference comparisons between candidate outputs or behaviors, and then optimizes a policy against that learned reward when a programmatic reward is unavailable.
+
+**Use:** State how human judgments are collected and aggregated, the reward-model class, the policy-optimization stage, and known failure modes such as reward hacking, reward-model misgeneralization, and evaluator disagreement. Keep RLHF distinct from AI feedback (model-generated judgments) and from human-in-the-loop intervention during training.
+
+**Avoid:** Do not present RLHF as a guarantee of goal alignment, and do not use RLHF to describe direct human reward shaping without a learned reward model.
+
+**Patterns:**
+
+- We collect {judgment type} from {annotator pool}, fit {reward model}, and optimize the policy with {algorithm} against it.
+- We audit the learned reward for {failure mode} before deploying the policy on {task}.
+
+**Verify in primary sources:**
+
+- `rando2025-open-problems-fundamental-limitations` — [Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback](https://iclr.cc/virtual/2025/poster/31506) (ICLR 2025)
 
 ### self-supervised representation learning
 

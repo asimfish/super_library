@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 78
+Entries: 81
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — definition · sections=related_work,method,translation
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition · sections=introduction,related_work,method,translation
@@ -18,6 +18,7 @@ Entries: 78
 - [distribution shift in offline RL](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-distribution-shift.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [distributional reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.distributional-rl.001.md) — definition · sections=introduction,related_work,method,translation
 - [experience replay / replay buffer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.experience-replay.001.md) — definition · sections=related_work,method,translation
+- [explainable reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.explainable-rl.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [goal-conditioned reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.goal-conditioned-rl.001.md) — definition · sections=abstract,introduction,related_work,method
 - [hierarchical policy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hierarchical-policy.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [hindsight relabeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.hindsight-relabeling.001.md) — definition · sections=introduction,related_work,method,translation
@@ -27,6 +28,7 @@ Entries: 78
 - [maximum-entropy reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.maximum-entropy.001.md) — definition · sections=introduction,related_work,method,translation
 - [model-based reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.model-based-rl.001.md) — definition · sections=introduction,related_work,translation
 - [multi-agent credit assignment](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.credit-assignment.001.md) — definition · sections=introduction,related_work,method,translation
+- [multi-task reinforcement learning (MTRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-task-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [objective mismatch (model-based RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.objective-mismatch.001.md) — definition · sections=introduction,related_work,method,limitations,translation
 - [offline reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-rl.001.md) — definition · sections=abstract,introduction,related_work,translation
 - [offline-to-online reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.offline-to-online.001.md) — definition · sections=introduction,related_work,method
@@ -34,6 +36,7 @@ Entries: 78
 - [partially observable Markov decision process (POMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.pomdp.001.md) — definition · sections=method,translation
 - [probabilistic dynamics model](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.definition.probabilistic-dynamics.001.md) — definition · sections=introduction,related_work,method,translation
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — definition · sections=introduction,related_work,translation
+- [reinforcement learning from human feedback (RLHF)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.rlhf.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [return-conditioned sequence modeling](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.return-conditioned-sequence.001.md) — definition · sections=abstract,introduction,related_work,method,translation
 - [reward-free exploration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reward-free-exploration.001.md) — definition · sections=abstract,introduction,related_work,method
 - [risk-sensitive reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.risk-sensitive-rl.001.md) — definition · sections=introduction,related_work,method,translation
