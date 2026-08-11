@@ -1325,8 +1325,8 @@
         {
           "id": "no-dismissal",
           "type": "forbidden_regex",
-          "pattern": "worthless|useless|meaningless",
-          "message": "Do not dismiss the simulation evidence wholesale."
+          "pattern": "(?:results?|evidence|experiments?|findings?)\\s+(?:is|are|would be|remains?|seems?)\\s+(?:essentially\\s+|effectively\\s+|largely\\s+)?(?:worthless|useless|meaningless)",
+          "message": "Do not assert that the simulation evidence is worthless; negated defenses of the evidence are acceptable."
         }
       ]
     },
