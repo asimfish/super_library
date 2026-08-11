@@ -38,6 +38,37 @@ with `expected_guide_id` should load that one protocol without loading the entir
 guide directory. The suite does not measure venue-specific house style or
 certify scientific correctness.
 
+## Blind paired professionalism benchmark
+
+`writing.json` tests one output against hard invariants. The paired benchmark in
+`professionalism.json` tests whether the same pinned model writes better with the
+library than without it, while also imposing an absolute professional-quality
+bar. It deliberately uses no reference answers.
+
+```bash
+python3 scripts/superlib.py benchmark list
+python3 scripts/superlib.py benchmark prompt paper-related-work-world-model
+python3 scripts/superlib.py benchmark prepare \
+  --suite full --responses path/to/responses \
+  --run-manifest path/to/run.json \
+  --blind-output path/to/blind.json \
+  --key-output path/to/private-key.json
+python3 scripts/superlib.py benchmark score \
+  --blind-file path/to/blind.json \
+  --key-file path/to/private-key.json \
+  --ratings-file path/to/ratings.json --strict
+```
+
+The response root must contain `baseline/<case-id>.md` and
+`super_library/<case-id>.md`. Keep the private key from raters until they finish.
+At least two independent raters score scientific fidelity, terminology and
+collocation, rhetorical function, evidence calibration, reporting completeness,
+and clarity/conciseness on anchored 1–5 scales. They separately flag critical
+scientific errors and choose A, B, or tie. The report includes absolute quality,
+paired change, deterministic bootstrap uncertainty, pairwise preference, and
+inter-rater agreement. See `skills/super-library/BENCHMARK.md` for the complete
+protocol and interpretation limits.
+
 ## Deterministic retrieval evaluation
 
 `retrieval.json` checks the part of the workflow that can be scored without a

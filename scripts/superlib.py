@@ -8,6 +8,7 @@ import collections
 import datetime as dt
 import hashlib
 import json
+import os
 import re
 import shutil
 import sys
@@ -15,10 +16,24 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 if __package__:
+    from .professional_benchmark import (
+        ProfessionalBenchmarkError,
+        neutral_prompt_packet,
+        prepare_blind_pairs,
+        score_benchmark,
+        suite_case_ids,
+    )
     from .promotion import decision_links_by_source, validate_decision_semantics
     from .source_health import health_summary, verify_sources
     from .writing_eval import CHECK_REGISTRY, evaluate_response
 else:
+    from professional_benchmark import (
+        ProfessionalBenchmarkError,
+        neutral_prompt_packet,
+        prepare_blind_pairs,
+        score_benchmark,
+        suite_case_ids,
+    )
     from promotion import decision_links_by_source, validate_decision_semantics
     from source_health import health_summary, verify_sources
     from writing_eval import CHECK_REGISTRY, evaluate_response
@@ -52,6 +67,15 @@ TASK_ROUTES_SCHEMA_PATH = ROOT / "schemas" / "task-routes.schema.json"
 TABLE_TEMPLATES_SCHEMA_PATH = ROOT / "schemas" / "table-templates.schema.json"
 RETRIEVAL_EVAL_SCHEMA_PATH = ROOT / "schemas" / "retrieval-eval.schema.json"
 WRITING_EVAL_SCHEMA_PATH = ROOT / "schemas" / "writing-eval.schema.json"
+PROFESSIONALISM_BENCHMARK_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-benchmark.schema.json"
+)
+PROFESSIONALISM_RUN_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-run.schema.json"
+)
+PROFESSIONALISM_RATINGS_SCHEMA_PATH = (
+    ROOT / "schemas" / "professionalism-ratings.schema.json"
+)
 COVERAGE_POLICY_SCHEMA_PATH = ROOT / "schemas" / "coverage-policy.schema.json"
 PROMOTION_DECISION_SCHEMA_PATH = ROOT / "schemas" / "promotion-decision.schema.json"
 SECTION_STUDY_SCHEMA_PATH = ROOT / "schemas" / "section-study.schema.json"
@@ -59,6 +83,7 @@ CORPUS_REPORT_SCHEMA_PATH = ROOT / "schemas" / "corpus-report.schema.json"
 TABLE_TEMPLATE_DIR = ROOT / "templates" / "tables"
 RETRIEVAL_EVAL_PATH = ROOT / "evals" / "retrieval.json"
 WRITING_EVAL_PATH = ROOT / "evals" / "writing.json"
+PROFESSIONALISM_BENCHMARK_PATH = ROOT / "evals" / "professionalism.json"
 SKILL_DIR = ROOT / "skills" / "super-library"
 SKILL_REFERENCES_DIR = SKILL_DIR / "references"
 SKILL_ASSETS_DIR = SKILL_DIR / "assets"
@@ -176,6 +201,11 @@ def load_promotion_decisions() -> List[Dict[str, Any]]:
 def load_writing_evals() -> Dict[str, Any]:
     """Load blind behavior prompts and their separate evaluation contracts."""
     return read_json(WRITING_EVAL_PATH)
+
+
+def load_professionalism_benchmark() -> Dict[str, Any]:
+    """Load the blind paired evaluation design and professional rubric."""
+    return read_json(PROFESSIONALISM_BENCHMARK_PATH)
 
 
 def source_analysis_records(
@@ -961,6 +991,136 @@ def validate_writing_evals(
     return errors
 
 
+def validate_professionalism_benchmark() -> List[str]:
+    """Validate the paired benchmark design against the writing case suite."""
+    errors: List[str] = []
+    try:
+        config = load_professionalism_benchmark()
+        schema = read_json(PROFESSIONALISM_BENCHMARK_SCHEMA_PATH)
+        writing_config = load_writing_evals()
+    except CorpusError as exc:
+        return [str(exc)]
+    errors.extend(
+        f"evals/professionalism.json: schema: {error}"
+        for error in schema_validation_errors(config, schema)
+    )
+    writing_cases = {
+        case.get("id")
+        for case in writing_config.get("cases", [])
+        if isinstance(case, dict)
+    }
+    if config.get("writing_suite_schema_version") != writing_config.get(
+        "schema_version"
+    ):
+        errors.append(
+            "evals/professionalism.json: writing suite schema version mismatch"
+        )
+    conditions = config.get("conditions", [])
+    condition_ids = [item.get("id") for item in conditions if isinstance(item, dict)]
+    if len(condition_ids) != len(set(condition_ids)):
+        errors.append("evals/professionalism.json: duplicate condition IDs")
+    if set(condition_ids) != {"baseline", "super_library"}:
+        errors.append(
+            "evals/professionalism.json: conditions must be baseline and super_library"
+        )
+    access_by_condition = {
+        item.get("id"): item.get("library_access")
+        for item in conditions
+        if isinstance(item, dict)
+    }
+    if access_by_condition.get("baseline") is not False:
+        errors.append(
+            "evals/professionalism.json: baseline must disable library access"
+        )
+    if access_by_condition.get("super_library") is not True:
+        errors.append(
+            "evals/professionalism.json: super_library must enable library access"
+        )
+    suites = config.get("suites", [])
+    suite_ids = [item.get("id") for item in suites if isinstance(item, dict)]
+    if len(suite_ids) != len(set(suite_ids)):
+        errors.append("evals/professionalism.json: duplicate suite IDs")
+    required_suites = {"smoke", "core", "experiments", "full"}
+    if not required_suites.issubset(set(suite_ids)):
+        errors.append(
+            "evals/professionalism.json: missing required benchmark suites"
+        )
+    for suite in suites:
+        if not isinstance(suite, dict):
+            continue
+        unknown = set(suite.get("case_ids", [])) - writing_cases
+        if unknown:
+            errors.append(
+                f"evals/professionalism.json: {suite.get('id')}: unknown cases "
+                f"{sorted(unknown)}"
+            )
+    full_suite = next(
+        (suite for suite in suites if suite.get("id") == "full"), {}
+    )
+    if set(full_suite.get("case_ids", [])) != writing_cases:
+        errors.append(
+            "evals/professionalism.json: full suite must contain every writing case"
+        )
+    for field in ("rubric_dimensions", "critical_errors"):
+        identifiers = [
+            item.get("id")
+            for item in config.get(field, [])
+            if isinstance(item, dict)
+        ]
+        if len(identifiers) != len(set(identifiers)):
+            errors.append(f"evals/professionalism.json: duplicate {field} IDs")
+    return errors
+
+
+def validate_professionalism_run(
+    config: Dict[str, Any], manifest: Dict[str, Any]
+) -> List[str]:
+    """Validate reproducibility metadata for a paired generation run."""
+    try:
+        schema = read_json(PROFESSIONALISM_RUN_SCHEMA_PATH)
+    except CorpusError as exc:
+        return [str(exc)]
+    errors = [
+        f"run manifest: schema: {error}"
+        for error in schema_validation_errors(manifest, schema)
+    ]
+    if manifest.get("benchmark_id") != config.get("benchmark_id"):
+        errors.append("run manifest: benchmark_id does not match")
+    conditions = manifest.get("conditions", {})
+    baseline = conditions.get("baseline", {})
+    library = conditions.get("super_library", {})
+    if baseline.get("library_access") is not False:
+        errors.append("run manifest: baseline must record library_access=false")
+    if library.get("library_access") is not True:
+        errors.append(
+            "run manifest: super_library must record library_access=true"
+        )
+    generator = manifest.get("generator", {})
+    for field in ("provider", "model", "model_revision"):
+        value = str(generator.get(field, ""))
+        if value.startswith("replace-with-"):
+            errors.append(
+                f"run manifest: generator.{field} must replace the example placeholder"
+            )
+    for condition_id, condition in (
+        ("baseline", baseline),
+        ("super_library", library),
+    ):
+        prompt_hash = str(condition.get("system_prompt_sha256", ""))
+        if prompt_hash and len(set(prompt_hash)) == 1:
+            errors.append(
+                f"run manifest: {condition_id}.system_prompt_sha256 is a placeholder"
+            )
+    library_commit = str(library.get("library_commit", ""))
+    if library_commit and (
+        len(library_commit) != 40 or len(set(library_commit)) == 1
+    ):
+        errors.append(
+            "run manifest: super_library.library_commit must be a full, non-placeholder 40-character commit SHA"
+        )
+    return errors
+
+
 def validate_coverage_policy(taxonomy: Dict[str, Any]) -> List[str]:
     """Validate roadmap targets independently from current progress."""
     errors: List[str] = []
@@ -1599,6 +1759,7 @@ def validate_corpus(
     errors.extend(validate_table_templates())
     errors.extend(validate_retrieval_evals(taxonomy, entries))
     errors.extend(validate_writing_evals(taxonomy, entries))
+    errors.extend(validate_professionalism_benchmark())
     errors.extend(validate_coverage_policy(taxonomy))
     errors.extend(validate_promotion_decisions(sources, entries))
     return errors
@@ -3114,6 +3275,240 @@ def cmd_eval_writing(args: argparse.Namespace) -> int:
     return 1 if args.strict and has_failure else 0
 
 
+def _read_benchmark_json(path_value: str, label: str) -> Dict[str, Any]:
+    path = Path(path_value)
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(f"cannot read {label}: {exc}") from exc
+    except json.JSONDecodeError as exc:
+        raise ProfessionalBenchmarkError(
+            f"invalid JSON in {label} at {exc.lineno}:{exc.colno}: {exc.msg}"
+        ) from exc
+    if not isinstance(value, dict):
+        raise ProfessionalBenchmarkError(f"{label} must contain a JSON object")
+    return value
+
+
+def _write_benchmark_json(
+    path_value: str,
+    value: Dict[str, Any],
+    force: bool,
+    *,
+    private: bool = False,
+) -> None:
+    path = Path(path_value)
+    if path.is_symlink():
+        raise ProfessionalBenchmarkError(
+            f"refusing to write benchmark output through a symbolic link: {path}"
+        )
+    if path.exists() and not force:
+        raise ProfessionalBenchmarkError(
+            f"refusing to replace existing file without --force: {path}"
+        )
+    path.parent.mkdir(parents=True, exist_ok=True)
+    serialized = json.dumps(value, ensure_ascii=False, indent=2) + "\n"
+    try:
+        if private:
+            flags = os.O_WRONLY | os.O_CREAT | os.O_TRUNC
+            if hasattr(os, "O_NOFOLLOW"):
+                flags |= os.O_NOFOLLOW
+            descriptor = os.open(path, flags, 0o600)
+            try:
+                os.fchmod(descriptor, 0o600)
+                with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+                    descriptor = -1
+                    stream.write(serialized)
+            finally:
+                if descriptor >= 0:
+                    os.close(descriptor)
+        else:
+            path.write_text(serialized, encoding="utf-8")
+    except OSError as exc:
+        raise ProfessionalBenchmarkError(
+            f"cannot write benchmark output {path}: {exc}"
+        ) from exc
+
+
+def render_professional_prompt(packet: Dict[str, Any]) -> str:
+    classification = packet["classification"]
+    lines = [
+        f"# Professional writing benchmark: {packet['case_id']}",
+        "",
+        f"- Mode: `{packet['mode']}`",
+        f"- Domain: `{classification['domain']}`",
+        f"- Section: `{classification['section']}`",
+        f"- Intent: `{classification['intent']}`",
+    ]
+    if classification.get("topic"):
+        lines.append(f"- Topic: `{classification['topic']}`")
+    lines.extend(["", "## Request", "", packet["request"], "", "## Facts", ""])
+    lines.extend(f"- {fact}" for fact in packet["facts"])
+    if not packet["facts"]:
+        lines.append("- The proposition is fully specified in the request.")
+    lines.extend(
+        ["", "## Evidence boundary", "", packet["evidence_boundary"], "", "## Instructions", ""]
+    )
+    lines.extend(f"- {instruction}" for instruction in packet["instructions"])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def render_professional_report(report: Dict[str, Any]) -> str:
+    marker = "PASS" if report["passed"] else "FAIL"
+    baseline = report["conditions"]["baseline"]
+    library = report["conditions"]["super_library"]
+    comparison = report["comparison"]
+    agreement = report["agreement"]
+    interval = comparison["paired_delta_bootstrap_interval"]
+    lines = [
+        "# Super Library professionalism benchmark",
+        "",
+        f"- Result: **{marker}**",
+        f"- Run: `{report['run_id']}`",
+        f"- Suite: `{report['suite_id']}` ({report['cases']} cases)",
+        f"- Independent raters: {report['raters']}",
+        f"- Complete rating coverage: {report['rating_coverage']:.1%}",
+        "",
+        "## Absolute quality",
+        "",
+        f"- Baseline: mean {baseline['mean_professionalism']:.2f}/5; "
+        f"machine pass {baseline['machine_pass_rate']:.1%}; critical-error "
+        f"rate {baseline['critical_error_rate']:.1%}.",
+        f"- Super Library: mean {library['mean_professionalism']:.2f}/5; "
+        f"machine pass {library['machine_pass_rate']:.1%}; critical-error "
+        f"rate {library['critical_error_rate']:.1%}.",
+        "",
+        "## Paired effect",
+        "",
+        f"- Mean Super Library minus baseline: {comparison['paired_mean_delta']:+.3f} points.",
+        f"- {comparison['bootstrap_confidence_level']:.0%} paired-case bootstrap interval: "
+        f"[{interval[0]:+.3f}, {interval[1]:+.3f}].",
+        f"- Super Library preference win rate excluding ties: "
+        f"{comparison['super_library_win_rate_excluding_ties']:.1%}.",
+        "",
+        "## Rater agreement",
+        "",
+        f"- Exact dimension-score agreement: {agreement['exact_score_agreement']:.1%}.",
+        f"- Within-one agreement: {agreement['within_one_score_agreement']:.1%}.",
+        f"- Unanimous pairwise preference: {agreement['unanimous_preference_rate']:.1%}.",
+        "",
+        "## Quality gates",
+        "",
+    ]
+    for gate in report["quality_gates"]:
+        gate_marker = "PASS" if gate["passed"] else "FAIL"
+        lines.append(
+            f"- {gate_marker} `{gate['id']}`: {gate['value']} "
+            f"{gate['operator']} {gate['threshold']}"
+        )
+    lines.extend(["", "## Interpretation boundary", "", report["interpretation_boundary"]])
+    return "\n".join(lines).rstrip() + "\n"
+
+
+def cmd_benchmark_professionalism(args: argparse.Namespace) -> int:
+    """Prepare and score a reproducible blind A/B professionalism benchmark."""
+    try:
+        config = load_professionalism_benchmark()
+        writing_config = load_writing_evals()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    validation_errors = validate_professionalism_benchmark()
+    if validation_errors:
+        for error in validation_errors:
+            print(f"ERROR: {error}", file=sys.stderr)
+        return 1
+    cases_by_id = {case["id"]: case for case in writing_config["cases"]}
+
+    if args.benchmark_action == "list":
+        payload = {
+            "schema_version": config["schema_version"],
+            "benchmark_id": config["benchmark_id"],
+            "conditions": [condition["id"] for condition in config["conditions"]],
+            "suites": [
+                {
+                    "id": suite["id"],
+                    "label": suite["label"],
+                    "cases": len(suite["case_ids"]),
+                }
+                for suite in config["suites"]
+            ],
+            "rubric_dimensions": config["rubric_dimensions"],
+            "critical_errors": config["critical_errors"],
+            "quality_gates": config["quality_gates"],
+        }
+        if args.format == "json":
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print("# Super Library professionalism benchmark")
+            print()
+            for suite in payload["suites"]:
+                print(f"- `{suite['id']}`: {suite['cases']} cases — {suite['label']}")
+            print()
+            print(f"Rubric dimensions: {len(payload['rubric_dimensions'])}")
+            print(f"Critical-error classes: {len(payload['critical_errors'])}")
+        return 0
+
+    if args.benchmark_action == "prompt":
+        case = cases_by_id.get(args.case_id)
+        if case is None:
+            print(f"ERROR: unknown writing case {args.case_id!r}", file=sys.stderr)
+            return 2
+        packet = neutral_prompt_packet(case)
+        if args.format == "json":
+            print(json.dumps(packet, ensure_ascii=False, indent=2))
+        else:
+            print(render_professional_prompt(packet), end="")
+        return 0
+
+    try:
+        if args.benchmark_action == "prepare":
+            manifest = _read_benchmark_json(args.run_manifest, "run manifest")
+            run_errors = validate_professionalism_run(config, manifest)
+            if run_errors:
+                raise ProfessionalBenchmarkError("; ".join(run_errors))
+            if Path(args.blind_output).resolve() == Path(args.key_output).resolve():
+                raise ProfessionalBenchmarkError(
+                    "blind output and private key must be different files"
+                )
+            blind, key = prepare_blind_pairs(
+                config,
+                cases_by_id,
+                Path(args.responses),
+                manifest,
+                args.suite,
+                args.seed,
+            )
+            _write_benchmark_json(args.blind_output, blind, args.force)
+            _write_benchmark_json(
+                args.key_output, key, args.force, private=True
+            )
+            print(
+                f"Prepared {len(blind['pairs'])} blind pairs in {args.blind_output}; "
+                f"keep {args.key_output} private until ratings are complete."
+            )
+            return 0
+
+        blind = _read_benchmark_json(args.blind_file, "blind bundle")
+        key = _read_benchmark_json(args.key_file, "private key")
+        ratings = _read_benchmark_json(args.ratings_file, "ratings")
+        ratings_schema = read_json(PROFESSIONALISM_RATINGS_SCHEMA_PATH)
+        rating_schema_errors = schema_validation_errors(ratings, ratings_schema)
+        if rating_schema_errors:
+            raise ProfessionalBenchmarkError(
+                "; ".join(f"ratings schema: {error}" for error in rating_schema_errors)
+            )
+        report = score_benchmark(config, cases_by_id, blind, key, ratings)
+    except (CorpusError, ProfessionalBenchmarkError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+    if args.format == "json":
+        print(json.dumps(report, ensure_ascii=False, indent=2))
+    else:
+        print(render_professional_report(report), end="")
+    return 1 if args.strict and not report["passed"] else 0
+
+
 def cmd_guide(args: argparse.Namespace) -> int:
     try:
         taxonomy, sources, entries = load_corpus()
@@ -4445,12 +4840,17 @@ def cmd_build(_: argparse.Namespace) -> int:
         "schemas/table-templates.schema.json",
         "schemas/retrieval-eval.schema.json",
         "schemas/writing-eval.schema.json",
+        "schemas/professionalism-benchmark.schema.json",
+        "schemas/professionalism-run.schema.json",
+        "schemas/professionalism-ratings.schema.json",
         "schemas/coverage-policy.schema.json",
         "schemas/promotion-decision.schema.json",
         "schemas/section-study.schema.json",
         "schemas/corpus-report.schema.json",
         "evals/retrieval.json",
         "evals/writing.json",
+        "evals/professionalism.json",
+        "evals/professionalism-run.example.json",
     ]
     manifest = {
         "schema_version": taxonomy["schema_version"],
@@ -4937,6 +5337,68 @@ def build_parser() -> argparse.ArgumentParser:
         "--strict", action="store_true", help="exit nonzero on failure or missing files"
     )
     writing_eval_parser.set_defaults(func=cmd_eval_writing)
+
+    benchmark_parser = subparsers.add_parser(
+        "benchmark",
+        help="prepare and score the blind A/B professionalism benchmark",
+    )
+    benchmark_actions = benchmark_parser.add_subparsers(
+        dest="benchmark_action", required=True
+    )
+    benchmark_list = benchmark_actions.add_parser(
+        "list", help="show suites, rubric dimensions, errors, and gates"
+    )
+    benchmark_list.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_list.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_prompt = benchmark_actions.add_parser(
+        "prompt", help="emit one condition-neutral generation prompt"
+    )
+    benchmark_prompt.add_argument("case_id")
+    benchmark_prompt.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_prompt.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_prepare = benchmark_actions.add_parser(
+        "prepare", help="randomize paired responses into a blind review bundle"
+    )
+    benchmark_prepare.add_argument(
+        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+    )
+    benchmark_prepare.add_argument(
+        "--responses", required=True, help="root containing baseline/ and super_library/"
+    )
+    benchmark_prepare.add_argument(
+        "--run-manifest", required=True, help="pinned generator and condition metadata"
+    )
+    benchmark_prepare.add_argument(
+        "--blind-output", required=True, help="condition-blind JSON for raters"
+    )
+    benchmark_prepare.add_argument(
+        "--key-output", required=True, help="private condition-assignment JSON"
+    )
+    benchmark_prepare.add_argument("--seed", type=int, default=20260811)
+    benchmark_prepare.add_argument(
+        "--force", action="store_true", help="replace existing output files"
+    )
+    benchmark_prepare.set_defaults(func=cmd_benchmark_professionalism)
+
+    benchmark_score = benchmark_actions.add_parser(
+        "score", help="score machine invariants and completed blind ratings"
+    )
+    benchmark_score.add_argument("--blind-file", required=True)
+    benchmark_score.add_argument("--key-file", required=True)
+    benchmark_score.add_argument("--ratings-file", required=True)
+    benchmark_score.add_argument(
+        "--format", choices=["markdown", "json"], default="markdown"
+    )
+    benchmark_score.add_argument(
+        "--strict", action="store_true", help="exit nonzero when a quality gate fails"
+    )
+    benchmark_score.set_defaults(func=cmd_benchmark_professionalism)
 
     show_parser = subparsers.add_parser("show", help="show one entry by stable id")
     show_parser.add_argument("entry_id")

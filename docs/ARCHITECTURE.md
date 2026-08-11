@@ -98,6 +98,14 @@ numbers, inflated scope, and forbidden assertions; they cannot certify scientifi
 truth, citation validity, or professional prose. See
 [`ADR-002`](adr/ADR-002-deterministic-writing-evaluation-and-promotion-queue.md).
 
+Professionalism and library effectiveness form a further evaluation boundary.
+`evals/professionalism.json` references the writing cases without duplicating
+their hidden checks. The benchmark CLI emits condition-neutral prompts, blinds
+same-model baseline/treatment pairs, binds the private assignment key by checksum,
+and combines deterministic invariants with anchored human ratings, paired effect,
+bootstrap uncertainty, and agreement. See
+[`ADR-005`](adr/ADR-005-blind-paired-professionalism-benchmark.md).
+
 ## Local retrieval
 
 Local Agents should avoid Markdown traversal:
@@ -152,6 +160,8 @@ Tests enforce:
   and task-route selection;
 - validated blind writing cases with deterministic pass/fail behavior and an
   explicit manual-review boundary;
+- a validated, condition-neutral paired benchmark with deterministic blinding,
+  private-key integrity, anchored scoring, and explicit interpretation limits;
 - a deterministic promotion queue whose candidates have no direct library links;
 - schema- and outcome-validated promotion decisions that are excluded from the queue;
 - identical machine snapshots in the root distribution and standalone skill.

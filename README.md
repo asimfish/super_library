@@ -20,8 +20,11 @@ types. Eighteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
 editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
-normalized records. A 20-case blind writing benchmark checks final-output facts
-and evidence boundaries, while a policy-driven promotion queue prioritizes the
+normalized records. A 20-case blind writing suite checks final-output facts and
+evidence boundaries. A separate paired professionalism benchmark now compares
+the same model with and without the library through randomized A/B review, six
+anchored quality dimensions, critical-error flags, paired bootstrap uncertainty,
+and rater-agreement reporting. A policy-driven promotion queue prioritizes the
 next nonredundant paper reviews without entering normal Agent context. A separate
 decision ledger records whether each reviewed paper promoted a new record, reused
 an existing record, or warranted no promotion.
@@ -138,6 +141,10 @@ python3 scripts/superlib.py eval-writing --list
 python3 scripts/superlib.py eval-writing --case rebuttal-existing-evidence \
   --response-file response.md --strict
 
+# Inspect the professional A/B benchmark and emit a condition-neutral prompt
+python3 scripts/superlib.py benchmark list
+python3 scripts/superlib.py benchmark prompt rebuttal-existing-evidence
+
 # Rank the next papers for normalization/deduplication review
 python3 scripts/superlib.py coverage-gaps --limit 20
 ```
@@ -208,9 +215,10 @@ be queried by a script, not pasted into an Agent.
 - `skills/super-library/`: a self-contained skill with a bounded lookup script.
 - `scripts/superlib.py`: routing, bundle generation, search, analysis-depth audit,
   validation, build, statistics, source-health checks, and wording lint.
-- `evals/`: deterministic retrieval cases and 20 blind writing cases for paper,
-  rebuttal, and translation. Machine checks cover objective invariants; a separate
-  manual rubric covers scientific and rhetorical quality.
+- `evals/`: deterministic retrieval cases, 20 blind writing cases, and the paired
+  professionalism design for paper, rebuttal, and translation. Machine checks
+  cover objective invariants; randomized same-model A/B evaluation adds anchored
+  human ratings, critical-error flags, paired effect estimates, and agreement.
 
 Each entry distinguishes:
 

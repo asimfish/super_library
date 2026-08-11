@@ -1,0 +1,189 @@
+{
+  "schema_version": "1.0",
+  "benchmark_id": "super-library-professionalism-v1",
+  "writing_suite_schema_version": "1.0",
+  "conditions": [
+    {
+      "id": "baseline",
+      "label": "Same model without Super Library",
+      "library_access": false,
+      "description": "The generator receives the condition-neutral task only and must not access Super Library artifacts."
+    },
+    {
+      "id": "super_library",
+      "label": "Same model with Super Library",
+      "library_access": true,
+      "description": "The generator receives the same task and may follow the pinned Super Library retrieval workflow."
+    }
+  ],
+  "suites": [
+    {
+      "id": "smoke",
+      "label": "Two-case harness smoke test",
+      "case_ids": [
+        "rebuttal-existing-evidence",
+        "paper-efficiency-table-caption"
+      ]
+    },
+    {
+      "id": "core",
+      "label": "Balanced manual-review core",
+      "case_ids": [
+        "paper-related-work-world-model",
+        "rebuttal-existing-evidence",
+        "translation-modality-and-scope",
+        "paper-method-action-chunking",
+        "paper-experiment-real-robot-setup",
+        "paper-experiment-analysis-tradeoff",
+        "paper-introduction-alignment",
+        "paper-abstract-claim-ledger",
+        "paper-limitations-rollout-boundary",
+        "paper-efficiency-table-caption",
+        "paper-related-work-technical-axes",
+        "rebuttal-unrun-real-robot-request"
+      ]
+    },
+    {
+      "id": "experiments",
+      "label": "Experiment-writing stress slice",
+      "case_ids": [
+        "paper-experiment-real-robot-setup",
+        "paper-experiment-analysis-tradeoff",
+        "paper-efficiency-table-caption",
+        "paper-generalization-table-caption",
+        "paper-main-results-comparability-caption",
+        "paper-ablation-interaction-analysis"
+      ]
+    },
+    {
+      "id": "full",
+      "label": "All professional-writing cases",
+      "case_ids": [
+        "paper-related-work-world-model",
+        "rebuttal-existing-evidence",
+        "translation-modality-and-scope",
+        "paper-method-action-chunking",
+        "paper-experiment-real-robot-setup",
+        "paper-experiment-analysis-tradeoff",
+        "paper-introduction-alignment",
+        "paper-abstract-claim-ledger",
+        "paper-limitations-rollout-boundary",
+        "paper-conclusion-bounded-offline-rl",
+        "paper-efficiency-table-caption",
+        "paper-generalization-table-caption",
+        "paper-abstract-null-result-boundary",
+        "paper-introduction-challenge-design-scope",
+        "paper-related-work-technical-axes",
+        "paper-method-training-deployment-boundary",
+        "paper-main-results-comparability-caption",
+        "paper-ablation-interaction-analysis",
+        "rebuttal-unrun-real-robot-request",
+        "translation-negation-numbers-citation"
+      ]
+    }
+  ],
+  "rubric_dimensions": [
+    {
+      "id": "scientific_fidelity",
+      "label": "Scientific fidelity",
+      "question": "Does the prose preserve every supplied proposition, number, negation, modality, comparison axis, and scope boundary?",
+      "anchors": {
+        "1": "Changes or invents a material scientific fact, quantity, condition, or claim scope.",
+        "3": "Preserves the central facts but leaves a minor ambiguity or underspecified boundary.",
+        "5": "Preserves all supplied facts and boundaries exactly, with no unsupported inference."
+      }
+    },
+    {
+      "id": "terminology_and_collocation",
+      "label": "Terminology and collocation",
+      "question": "Are technical terms and their local collocations conventional for current AI/ML research writing?",
+      "anchors": {
+        "1": "Uses nonstandard, misleading, translated-literally, or decorative technical wording.",
+        "3": "Uses acceptable terminology but relies on generic or occasionally awkward combinations.",
+        "5": "Uses precise field-standard terms and natural attested collocations without synonym inflation."
+      }
+    },
+    {
+      "id": "rhetorical_function",
+      "label": "Section-specific rhetorical function",
+      "question": "Does the response perform the requested section or rebuttal function in a logically useful order?",
+      "anchors": {
+        "1": "Uses the wrong genre or fails the requested communicative function.",
+        "3": "Performs the function but reads as mechanical, list-like, or weakly organized.",
+        "5": "Uses a compact section-appropriate progression in which each sentence has a clear role."
+      }
+    },
+    {
+      "id": "evidence_calibration",
+      "label": "Evidence calibration",
+      "question": "Are claims, comparisons, uncertainty, causality, and citation boundaries calibrated to the available evidence?",
+      "anchors": {
+        "1": "Invents evidence or makes an unsupported ranking, causal, significance, or generalization claim.",
+        "3": "Mostly respects the boundary but contains vague comparison language or an avoidable overstatement.",
+        "5": "Makes comparison axes and uncertainty explicit and claims exactly what the supplied evidence supports."
+      }
+    },
+    {
+      "id": "reporting_completeness",
+      "label": "Reporting completeness",
+      "question": "Does the response include the information needed to interpret or reproduce the requested artifact without irrelevant additions?",
+      "anchors": {
+        "1": "Omits material protocol, denominator, metric, scope, or response information.",
+        "3": "Includes the main information but leaves one relevant detail implicit or dependent on surrounding prose.",
+        "5": "Is self-contained for the requested task and includes every relevant supplied detail without inventing others."
+      }
+    },
+    {
+      "id": "clarity_and_concision",
+      "label": "Clarity and concision",
+      "question": "Is the prose natural, direct, cohesive, and economical rather than formulaic or model-generated sounding?",
+      "anchors": {
+        "1": "Is awkward, verbose, repetitive, fragmented, or difficult to parse.",
+        "3": "Is readable but contains generic scaffolding, repetition, or avoidable nominalization.",
+        "5": "Is concise and cohesive, with natural syntax and no sentence that can be removed without losing function."
+      }
+    }
+  ],
+  "critical_errors": [
+    {
+      "id": "fabricated_evidence_or_citation",
+      "label": "Fabricated evidence or citation",
+      "description": "Invents a result, experiment, source, author, venue, citation, or manuscript location."
+    },
+    {
+      "id": "numeric_negation_or_modality_drift",
+      "label": "Numeric, negation, or modality drift",
+      "description": "Changes a number, unit, denominator, negation, uncertainty qualifier, or possibility into certainty."
+    },
+    {
+      "id": "unsupported_scope_causality_or_ranking",
+      "label": "Unsupported scope, causality, or ranking",
+      "description": "Expands the tested scope or asserts causality, significance, superiority, or state of the art without support."
+    },
+    {
+      "id": "comparison_or_protocol_misreporting",
+      "label": "Comparison or protocol misreporting",
+      "description": "Collapses incomparable settings or misstates data, metrics, trials, aggregation, hardware, training, or deployment conditions."
+    },
+    {
+      "id": "source_copying_or_quote_misrepresentation",
+      "label": "Source copying or quote misrepresentation",
+      "description": "Copies source prose beyond a short unavoidable term or presents a paraphrase as a verbatim definition."
+    }
+  ],
+  "quality_gates": {
+    "min_raters_per_response": 2,
+    "min_case_coverage": 1.0,
+    "library_machine_pass_rate_min": 0.9,
+    "library_mean_professionalism_min": 4.0,
+    "library_critical_error_rate_max": 0.0,
+    "paired_mean_delta_min": 0.25,
+    "library_pairwise_win_rate_min": 0.6,
+    "inter_rater_within_one_min": 0.8
+  },
+  "bootstrap": {
+    "resamples": 5000,
+    "confidence_level": 0.95,
+    "seed": 20260811
+  }
+}

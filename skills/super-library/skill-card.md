@@ -62,3 +62,9 @@ Activation must pass the positive and negative cases in `evals/activation.json`.
 Successful use retrieves before drafting, stays within the bounded loading path,
 preserves supplied scientific facts, and does not claim that lint or corpus
 coverage proves correctness.
+
+Effectiveness claims additionally require the blind paired protocol in
+`BENCHMARK.md`: the same pinned model and decoding settings in baseline and
+Super Library conditions, condition-neutral prompts, at least two independent
+raters, separate critical-error flags, and a checksum-bound A/B key. A passing
+machine invariant suite alone is not evidence that the prose is professional.

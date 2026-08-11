@@ -704,12 +704,17 @@
     "schemas/table-templates.schema.json",
     "schemas/retrieval-eval.schema.json",
     "schemas/writing-eval.schema.json",
+    "schemas/professionalism-benchmark.schema.json",
+    "schemas/professionalism-run.schema.json",
+    "schemas/professionalism-ratings.schema.json",
     "schemas/coverage-policy.schema.json",
     "schemas/promotion-decision.schema.json",
     "schemas/section-study.schema.json",
     "schemas/corpus-report.schema.json",
     "evals/retrieval.json",
-    "evals/writing.json"
+    "evals/writing.json",
+    "evals/professionalism.json",
+    "evals/professionalism-run.example.json"
   ],
   "table_templates": {
     "index": "templates/tables/index.md",
