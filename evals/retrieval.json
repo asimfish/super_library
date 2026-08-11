@@ -6,7 +6,9 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["wm.term.latent-dynamics.001"],
+    "expected_entry_ids": [
+      "wm.term.latent-dynamics.001"
+    ],
     "expected_guide_id": "method"
   },
   {
@@ -16,7 +18,9 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["wm.definition.probabilistic-dynamics.001"],
+    "expected_entry_ids": [
+      "wm.definition.probabilistic-dynamics.001"
+    ],
     "expected_guide_id": "method"
   },
   {
@@ -26,7 +30,9 @@
     "section": "experiments",
     "intent": "scope",
     "limit": 6,
-    "expected_entry_ids": ["wm.usage-note.rollout-horizon.001"],
+    "expected_entry_ids": [
+      "wm.usage-note.rollout-horizon.001"
+    ],
     "expected_guide_id": "experiments",
     "expected_task_pack_id": "experiments.world_models"
   },
@@ -37,7 +43,9 @@
     "section": "related_work",
     "intent": "compare",
     "limit": 6,
-    "expected_entry_ids": ["wm.usage-note.planning-vs-policy.001"],
+    "expected_entry_ids": [
+      "wm.usage-note.planning-vs-policy.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.world_models"
   },
@@ -48,7 +56,9 @@
     "section": "limitations",
     "intent": "limit",
     "limit": 6,
-    "expected_entry_ids": ["wm.term.compounding-model-error.001"],
+    "expected_entry_ids": [
+      "wm.term.compounding-model-error.001"
+    ],
     "expected_guide_id": "limitations"
   },
   {
@@ -58,7 +68,9 @@
     "section": "related_work",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["rl.definition.offline-rl.001"],
+    "expected_entry_ids": [
+      "rl.definition.offline-rl.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.reinforcement_learning"
   },
@@ -69,7 +81,9 @@
     "section": "experiments",
     "intent": "quantify",
     "limit": 6,
-    "expected_entry_ids": ["rl.term.sample-efficiency.001"],
+    "expected_entry_ids": [
+      "rl.term.sample-efficiency.001"
+    ],
     "expected_guide_id": "experiments.table.efficiency"
   },
   {
@@ -79,7 +93,9 @@
     "section": "related_work",
     "intent": "compare",
     "limit": 6,
-    "expected_entry_ids": ["rl.usage-note.on-off-policy.001"],
+    "expected_entry_ids": [
+      "rl.usage-note.on-off-policy.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.reinforcement_learning"
   },
@@ -90,7 +106,9 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["rl.definition.advantage-function.001"],
+    "expected_entry_ids": [
+      "rl.definition.advantage-function.001"
+    ],
     "expected_guide_id": "method"
   },
   {
@@ -100,7 +118,9 @@
     "section": "introduction",
     "intent": "gap",
     "limit": 6,
-    "expected_entry_ids": ["rl.term.offline-dataset-coverage.001"],
+    "expected_entry_ids": [
+      "rl.term.offline-dataset-coverage.001"
+    ],
     "expected_guide_id": "introduction",
     "expected_task_pack_id": "introduction.reinforcement_learning"
   },
@@ -111,7 +131,9 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["emb.definition.action-chunking.001"],
+    "expected_entry_ids": [
+      "emb.definition.action-chunking.001"
+    ],
     "expected_guide_id": "method"
   },
   {
@@ -121,7 +143,9 @@
     "section": "experiments",
     "intent": "evidence",
     "limit": 6,
-    "expected_entry_ids": ["emb.term.task-success-rate.001"],
+    "expected_entry_ids": [
+      "emb.term.task-success-rate.001"
+    ],
     "expected_guide_id": "experiments",
     "expected_task_pack_id": "experiments.embodied_ai"
   },
@@ -132,7 +156,9 @@
     "section": "introduction",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["emb.definition.sim-to-real.001"],
+    "expected_entry_ids": [
+      "emb.definition.sim-to-real.001"
+    ],
     "expected_guide_id": "introduction",
     "expected_task_pack_id": "introduction.embodied_ai"
   },
@@ -143,7 +169,9 @@
     "section": "experiments",
     "intent": "scope",
     "limit": 6,
-    "expected_entry_ids": ["emb.usage-note.systematic-generalization.001"],
+    "expected_entry_ids": [
+      "emb.usage-note.systematic-generalization.001"
+    ],
     "expected_guide_id": "experiments.table.generalization"
   },
   {
@@ -153,7 +181,9 @@
     "section": "related_work",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["emb.definition.vla.001"],
+    "expected_entry_ids": [
+      "emb.definition.vla.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
   },
@@ -164,7 +194,9 @@
     "section": "experiments",
     "intent": "quantify",
     "limit": 6,
-    "expected_entry_ids": ["vla.usage-note.control-latency.001"],
+    "expected_entry_ids": [
+      "vla.usage-note.control-latency.001"
+    ],
     "expected_guide_id": "experiments.table.efficiency"
   },
   {
@@ -174,7 +206,9 @@
     "section": "method",
     "intent": "define",
     "limit": 6,
-    "expected_entry_ids": ["vla.term.action-vocabulary.001"],
+    "expected_entry_ids": [
+      "vla.term.action-vocabulary.001"
+    ],
     "expected_guide_id": "method"
   },
   {
@@ -184,7 +218,9 @@
     "section": "experiments",
     "intent": "compare",
     "limit": 6,
-    "expected_entry_ids": ["vla.usage-note.open-closed-loop.001"],
+    "expected_entry_ids": [
+      "vla.usage-note.open-closed-loop.001"
+    ],
     "expected_guide_id": "experiments",
     "expected_task_pack_id": "experiments.vision_language_action"
   },
@@ -195,7 +231,9 @@
     "section": "related_work",
     "intent": "compare",
     "limit": 6,
-    "expected_entry_ids": ["vla.usage-note.pretrain-finetune.001"],
+    "expected_entry_ids": [
+      "vla.usage-note.pretrain-finetune.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
   },
@@ -220,7 +258,9 @@
     "section": "rebuttal",
     "intent": "clarify",
     "limit": 6,
-    "expected_entry_ids": ["general.usage-note.significant.001"],
+    "expected_entry_ids": [
+      "general.usage-note.significant.001"
+    ],
     "expected_guide_id": "rebuttal",
     "expected_task_pack_id": "rebuttal.general"
   },
@@ -231,7 +271,9 @@
     "section": "abstract",
     "intent": "scope",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.abstract-scope.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.abstract-scope.001"
+    ],
     "expected_guide_id": "abstract",
     "expected_task_pack_id": "abstract.embodied_ai"
   },
@@ -242,7 +284,9 @@
     "section": "introduction",
     "intent": "gap",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.intro-restrictive-assumption.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.intro-restrictive-assumption.001"
+    ],
     "expected_guide_id": "introduction",
     "expected_task_pack_id": "introduction.world_models"
   },
@@ -253,7 +297,9 @@
     "section": "experiments",
     "intent": "compare",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.result-tradeoff.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.result-tradeoff.001"
+    ],
     "expected_guide_id": "experiments.table.efficiency"
   },
   {
@@ -263,7 +309,9 @@
     "section": "experiments",
     "intent": "evidence",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.ablation-interaction.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.ablation-interaction.001"
+    ],
     "expected_guide_id": "experiments.table.ablation"
   },
   {
@@ -273,7 +321,9 @@
     "section": "experiments",
     "intent": "describe",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.real-system-trials.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.real-system-trials.001"
+    ],
     "expected_guide_id": "experiments",
     "expected_task_pack_id": "experiments.embodied_ai"
   },
@@ -284,7 +334,9 @@
     "section": "translation",
     "intent": "clarify",
     "limit": 6,
-    "expected_entry_ids": ["general.usage-note.modality.001"],
+    "expected_entry_ids": [
+      "general.usage-note.modality.001"
+    ],
     "expected_guide_id": "translation",
     "expected_task_pack_id": "translation.general"
   },
@@ -295,7 +347,9 @@
     "section": "related_work",
     "intent": "position",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.position.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.position.001"
+    ],
     "expected_guide_id": "related_work",
     "expected_task_pack_id": "related_work.vision_language_action"
   },
@@ -306,7 +360,9 @@
     "section": "experiments",
     "intent": "evidence",
     "limit": 6,
-    "expected_entry_ids": ["emb.term.task-success-rate.001"],
+    "expected_entry_ids": [
+      "emb.term.task-success-rate.001"
+    ],
     "expected_guide_id": "experiments",
     "expected_task_pack_id": "experiments.embodied_ai"
   },
@@ -317,7 +373,9 @@
     "section": "experiments",
     "intent": "quantify",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.caption-main-results.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.caption-main-results.001"
+    ],
     "expected_guide_id": "experiments.table.main_results"
   },
   {
@@ -327,7 +385,73 @@
     "section": "conclusion",
     "intent": "scope",
     "limit": 6,
-    "expected_entry_ids": ["general.sentence-pattern.result-boundary.001"],
+    "expected_entry_ids": [
+      "general.sentence-pattern.result-boundary.001"
+    ],
     "expected_guide_id": "conclusion"
+  },
+  {
+    "id": "review-transfer-evidence-gap",
+    "query": "no evidence for the requested claim narrow the scope",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "respond",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.rebuttal-no-evidence.001"
+    ],
+    "expected_guide_id": "rebuttal",
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "review-transfer-significance-wording",
+    "query": "statistically significant versus substantial improvement",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "quantify",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.usage-note.significant.001"
+    ],
+    "expected_guide_id": "rebuttal",
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "review-transfer-concede-resolved",
+    "query": "concede the resolved concern after author response",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "concede",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.rebuttal-concede.001"
+    ],
+    "expected_guide_id": "rebuttal",
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "review-transfer-acknowledge-disclosed",
+    "query": "acknowledge a disclosed limitation fairly",
+    "domain": "general",
+    "section": "rebuttal",
+    "intent": "acknowledge",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.rebuttal-acknowledge.001"
+    ],
+    "expected_guide_id": "rebuttal",
+    "expected_task_pack_id": "rebuttal.general"
+  },
+  {
+    "id": "review-transfer-result-boundary",
+    "query": "performance degradation limits the claim scope",
+    "domain": "general",
+    "section": "limitations",
+    "intent": "limit",
+    "limit": 6,
+    "expected_entry_ids": [
+      "general.sentence-pattern.result-boundary.001"
+    ],
+    "expected_guide_id": "limitations"
   }
 ]
