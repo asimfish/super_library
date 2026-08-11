@@ -4009,14 +4009,20 @@ def render_catalog(
     for entry in selected:
         card_url = f"{base}/{card_relative_path(entry)}"
         tag_text = ",".join(entry["tags"][:2])
-        if catalog_type in {"domain", "topic"}:
+        if catalog_type == "domain":
+            # The exhaustive per-domain index keeps only the kind; section
+            # metadata stays in the section and topic catalogs.
+            lines.append(
+                f"- [{entry['expression']}]({card_url}) — {entry['kind']}"
+            )
+            continue
+        if catalog_type == "topic":
             route_metadata = f"sections={','.join(entry['sections'])}"
         else:
             route_metadata = f"domains={','.join(entry['domains'])}"
-        tag_metadata = "" if catalog_type == "domain" else f" · tags={tag_text}"
         lines.append(
             f"- [{entry['expression']}]({card_url}) — "
-            f"{entry['kind']} · {route_metadata}{tag_metadata}"
+            f"{entry['kind']} · {route_metadata} · tags={tag_text}"
         )
     return "\n".join(lines).rstrip() + "\n"
 

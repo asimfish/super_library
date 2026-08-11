@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 16
+Entries: 17
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/rl_theory_evaluation.md); it is not part of the default
 writing context.
@@ -12,6 +12,7 @@ writing context.
 - [experience replay / replay buffer](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.experience-replay.001.md) — definition · sections=related_work,method,translation · tags=replay buffer,off policy data
 - [explainable reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.explainable-rl.001.md) — definition · sections=introduction,related_work,method,limitations,translation · tags=explainable RL,attention mask
 - [Markov decision process (MDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.mdp.001.md) — definition · sections=method,translation · tags=MDP,state
+- [meta-reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.meta-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=meta-reinforcement learning,fast adaptation
 - [multi-task reinforcement learning (MTRL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.multi-task-rl.001.md) — definition · sections=abstract,introduction,related_work,method,translation · tags=multi-task reinforcement learning,negative transfer
 - [partially observable Markov decision process (POMDP)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.pomdp.001.md) — definition · sections=method,translation · tags=POMDP,partial observability
 - [reinforcement learning (RL)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.reinforcement-learning.001.md) — definition · sections=introduction,related_work,translation · tags=RL,agent
