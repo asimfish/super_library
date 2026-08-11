@@ -9555,6 +9555,55 @@
       ]
     },
     {
+      "avoid": "Do not compare sample efficiency across methods with different UTD ratios without disclosing them, and do not treat a higher ratio as free performance since it can overfit the replayed experience.",
+      "domains": [
+        "reinforcement_learning",
+        "world_models"
+      ],
+      "examples": [
+        "We train with a UTD ratio of {value}, performing {updates} gradient updates per environment step.",
+        "The ratio is adapted by {detection mechanism} to balance under- and overfitting of {model or critic}."
+      ],
+      "expression": "update-to-data (UTD) ratio",
+      "guidance": "Report the UTD ratio whenever sample-efficiency claims are made, state whether it is fixed or adapted during training, and say how overfitting from high ratios is detected or mitigated, for example validation on held-out experience or regularization.",
+      "id": "rl.term.update-to-data-ratio.001",
+      "intents": [
+        "define",
+        "describe",
+        "quantify"
+      ],
+      "kind": "term",
+      "meaning": "The number of gradient updates performed per collected environment step, a central knob for sample-efficient off-policy and model-based training that trades faster learning against overfitting to limited experience.",
+      "provenance": {
+        "note": "Independent paraphrase of dynamic update-to-data ratio adjustment for world-model training; no source sentence copied.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "method",
+        "experiments",
+        "translation"
+      ],
+      "source_ids": [
+        "dorka2023-dynamic-update-data-ratio"
+      ],
+      "tags": [
+        "update-to-data ratio",
+        "gradient updates per step",
+        "replay ratio",
+        "sample-efficient training",
+        "overfitting control"
+      ],
+      "topic_families": [
+        "value_learning",
+        "model_based_rl"
+      ]
+    },
+    {
       "avoid": "Do not infer overestimation solely because a policy performs poorly.",
       "domains": [
         "reinforcement_learning"
@@ -12806,6 +12855,40 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "promote_normalized_record",
+      "dedup_entry_ids": [
+        "rl.term.sample-efficiency.001",
+        "wm.definition.model-based-rl.001",
+        "rl.definition.experience-replay.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.term.update-to-data-ratio.001"
+      ],
+      "rationale": "The under/overfitting detector is method-specific, but the update-to-data ratio it adapts is a recurring sample-efficiency knob across off-policy and model-based training and had no normalized record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "dorka2023-dynamic-update-data-ratio",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001",
+        "rl.term.return-distribution.001",
+        "rl.usage-note.safe-robust.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "rationale": "Iterated CVaR analysis and its bounds are contribution-specific; the reusable formulation, optimizing tail-focused risk measures instead of expected return, is covered by the risk-sensitive RL record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "du2023-provably-efficient-risk-sensitive",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
         "wm.definition.world-model.001",
@@ -12822,6 +12905,22 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "duan2024-learning-world-models-unconstrained",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.maximum-entropy.001",
+        "rl.term.entropy-regularization.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.maximum-entropy.001"
+      ],
+      "rationale": "The colored-noise study is contribution-specific; the reusable concept it operates within, stochastic-policy exploration through action-noise injection in maximum-entropy algorithms, is covered by the maximum-entropy record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "eberhard2023-pink-noise-all-you",
       "verification_scope": "official_abstract"
     },
     {
@@ -12949,6 +13048,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.offline-rl.001",
+        "rl.term.offline-dataset-coverage.001",
+        "emb.term.in-the-wild-data.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.offline-rl.001",
+        "rl.term.offline-dataset-coverage.001"
+      ],
+      "rationale": "The TriFinger benchmark composition is dataset-specific; the reusable concepts, offline policy learning from logged robot data and dataset-coverage language, are covered by the offline-RL and dataset-coverage records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "gurtler2023-benchmarking-offline-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "emb.definition.vln.001",
         "emb.term.egocentric-observation.001",
         "general.usage-note.generalization-axis.001"
@@ -13004,6 +13121,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.term.bootstrapped-target.001",
+        "rl.definition.self-supervised-representation-learning.001",
+        "rl.definition.temporal-difference.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "rl.term.bootstrapped-target.001",
+        "rl.definition.self-supervised-representation-learning.001"
+      ],
+      "rationale": "The PEER regularizer is method-specific; the reusable concepts, representation properties of value networks trained on bootstrapped targets and auxiliary representation objectives, are covered by the bootstrapped-target and self-supervised representation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "he2023-frustratingly-easy-regularization-representation",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.usage-note.safe-robust.001",
         "general.term.inductive-bias.001",
         "rl.definition.risk-sensitive-rl.001"
@@ -13017,6 +13152,24 @@
       "reviewed_at": "2026-08-12",
       "reviewer": "maintainer-assisted-review",
       "source_id": "he2024-fear-neuro-inspired-reinforcement",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.constrained-mdp.001",
+        "rl.definition.pomdp.001",
+        "rl.usage-note.safe-robust.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.constrained-mdp.001",
+        "rl.definition.pomdp.001"
+      ],
+      "rationale": "The latent safety critic is method-specific; the reusable concepts, constrained decision processes with separate reward and safety signals under partial observability, are covered by the constrained-MDP and POMDP records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hogewind2023-safe-reinforcement-learning-pixels",
       "verification_scope": "official_abstract"
     },
     {
@@ -13057,6 +13210,42 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.active-perception.001",
+        "emb.definition.embodied-question-answering.001",
+        "emb.term.egocentric-observation.001"
+      ],
+      "evidence_locator": "Official ICCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.active-perception.001",
+        "emb.definition.embodied-question-answering.001"
+      ],
+      "rationale": "The embodied captioning task packaging and ET-Cap dataset are contribution-specific; the reusable concepts, exploring to reduce perceptual ambiguity and environment-grounded question-style evidence gathering, are covered by the active-perception and EQA records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hu2023-explore-tell-embodied-visual",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.reward-free-exploration.001",
+        "rl.definition.mdp.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.reward-free-exploration.001",
+        "rl.definition.mdp.001"
+      ],
+      "rationale": "The LSVI-RFE bounds are theory contributions; the reusable formulation, exploring without reward feedback before planning for a revealed reward, is covered by the reward-free exploration record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "hu2023-minimax-optimal-reward-free",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.return-conditioned-sequence.001",
         "rl.term.bootstrapped-target.001",
         "rl.definition.offline-rl.001"
@@ -13088,6 +13277,24 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "huang2023-curriculum-based-asymmetric-multi",
       "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.reward-free-exploration.001",
+        "rl.usage-note.safe-robust.001",
+        "rl.definition.constrained-mdp.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.reward-free-exploration.001",
+        "rl.usage-note.safe-robust.001"
+      ],
+      "rationale": "The safe reward-free analysis is contribution-specific; the reusable concepts, reward-free exploration and safety constraints during learning, are covered by the reward-free exploration and safety-versus-robustness records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "huang2023-safe-exploration-incurs-nearly",
+      "verification_scope": "official_abstract"
     },
     {
       "decision": "promote_normalized_record",
@@ -13194,6 +13401,42 @@
       "verification_scope": "full_text_sections"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.maximum-entropy.001",
+        "rl.term.entropy-regularization.001",
+        "rl.usage-note.marl-observability.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.maximum-entropy.001",
+        "rl.term.entropy-regularization.001"
+      ],
+      "rationale": "Per-agent entropy adaptation via value factorization is method-specific; the reusable concepts, maximum-entropy training and entropy regularization as the exploration control, are covered by existing records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "kim2023-adaptive-entropy-regularization-framework",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.term.3d-scene-memory.001",
+        "rl.definition.hierarchical-policy.001",
+        "emb.definition.topological-memory.001"
+      ],
+      "evidence_locator": "Official ICCV abstract",
+      "linked_entry_ids": [
+        "emb.term.3d-scene-memory.001",
+        "rl.definition.hierarchical-policy.001"
+      ],
+      "rationale": "The CPEM memory design is method-specific; the reusable concepts, persistent spatial memory of object states and hierarchical planning over low-level execution, are covered by the 3D-scene-memory and hierarchical-policy records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "kim2023-context-aware-planning-environment",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "emb.definition.embodied-language-model.001",
@@ -13284,6 +13527,41 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "wm.definition.visual-world-model.001",
+        "emb.usage-note.imitation-bc.001",
+        "emb.term.action-tokenization.001"
+      ],
+      "evidence_locator": "Official ICCV abstract",
+      "linked_entry_ids": [
+        "wm.definition.visual-world-model.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "Unified sequence pretraining with vector-quantized future states is method-specific; the reusable concepts, predicting future visual states as a world-modeling proxy and imitation from trajectories, are covered by the visual-world-model and imitation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "kotar2023-entl-embodied-navigation-trajectory",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001",
+        "rl.term.return-distribution.001",
+        "rl.definition.mdp.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "rationale": "The coherent-risk regret framework is theory-specific; the reusable formulation, optimizing risk measures of return rather than expectation, is covered by the risk-sensitive RL record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "lam2023-risk-aware-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.term.policy-gradient-estimator.001",
         "rl.term.sample-efficiency.001",
         "rl.definition.reinforcement-learning.001"
@@ -13336,6 +13614,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.offline-rl.001",
+        "rl.term.offline-dataset-coverage.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.offline-rl.001",
+        "rl.term.offline-dataset-coverage.001"
+      ],
+      "rationale": "The MAHALO adversarial objective is method-specific; the reusable concepts, offline policy learning from imperfect logged data and explicit dataset-coverage language, are covered by the offline-RL and dataset-coverage records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2023-mahalo-unifying-offline-reinforcement",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "general.usage-note.generalization-axis.001",
         "emb.definition.domain-randomization.001",
         "rl.definition.reinforcement-learning.001"
@@ -13350,6 +13646,24 @@
       "reviewer": "maintainer-assisted-review",
       "source_id": "li2023-metadrive-composing-diverse-driving",
       "verification_scope": "full_text_sections"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.behavior-policy.001",
+        "rl.definition.offline-distribution-shift.001",
+        "rl.definition.conservative-q.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "rl.term.behavior-policy.001",
+        "rl.definition.offline-distribution-shift.001"
+      ],
+      "rationale": "The closed-form improvement operators are contribution-specific; the reusable concepts, constraining the learned policy to the behavior policy and offline distribution shift, are covered by the behavior-policy and distribution-shift records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "li2023-offline-reinforcement-learning-closed",
+      "verification_scope": "official_abstract"
     },
     {
       "decision": "link_existing_record",
@@ -13476,6 +13790,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "rl.definition.constrained-mdp.001",
+        "emb.usage-note.imitation-bc.001",
+        "rl.usage-note.safe-robust.001"
+      ],
+      "evidence_locator": "Official ICLR abstract",
+      "linked_entry_ids": [
+        "rl.definition.constrained-mdp.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "The ICRL benchmark suite is contribution-specific; the reusable concepts, constraints as explicit decision-process structure and inferring behavior priors from expert demonstrations, are covered by the constrained-MDP and imitation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2023-benchmarking-constraint-inference-inverse",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "rl.definition.credit-assignment.001",
         "wm.term.learned-reward-model.001"
       ],
@@ -13487,6 +13819,42 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "liu2023-learning-identify-critical-states",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.term.trust-region.001",
+        "rl.term.policy-gradient-estimator.001",
+        "rl.definition.mdp.001"
+      ],
+      "evidence_locator": "Official NeurIPS abstract",
+      "linked_entry_ids": [
+        "rl.term.trust-region.001",
+        "rl.term.policy-gradient-estimator.001"
+      ],
+      "rationale": "The optimistic evaluation subroutine is contribution-specific; the reusable concepts, natural policy gradient within trust-region-style optimization and policy-gradient machinery, are covered by the trust-region and policy-gradient-estimator records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2023-optimistic-natural-policy-gradient",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "rl.definition.multi-task-rl.001",
+        "emb.term.language-conditioned-policy.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "rl.definition.multi-task-rl.001"
+      ],
+      "rationale": "The office-navigation testbed is contribution-specific; the reusable concepts, grounding language meaning through embodied task pressure and multi-task training across varied environments, are covered by the grounded-instruction and multi-task-RL records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "liu2023-simple-embodied-language-learning",
       "verification_scope": "official_abstract"
     },
     {
@@ -14320,6 +14688,59 @@
       "verification_scope": "official_abstract"
     },
     {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001",
+        "emb.definition.vln.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.definition.grounded-instruction.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "rationale": "Iterative dialog fusion for localization is method-specific; the reusable concepts, grounding dialog to the physical scene and multimodal embodied perception, are covered by the grounded-instruction and multimodal-perception records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2024-dialoc-iterative-approach-embodied",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "rl.definition.rlhf.001",
+        "rl.definition.ai-feedback.001",
+        "rl.term.policy-gradient-estimator.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "rl.definition.rlhf.001"
+      ],
+      "rationale": "Million-scale RL finetuning of diffusion models is application-specific; the reusable concept, optimizing a policy against reward models that include learned human preferences, is covered by the RLHF record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2024-large-scale-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "wm.term.model-predictive-control.001",
+        "rl.definition.mdp.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "wm.definition.model-based-rl.001",
+        "wm.term.model-predictive-control.001"
+      ],
+      "rationale": "The DLPA algorithm and its Lipschitz analysis are contribution-specific; the reusable concepts, learning an action-conditioned dynamics model and planning with model predictive control, are covered by the model-based RL and MPC records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2024-model-based-reinforcement-learning",
+      "verification_scope": "official_abstract"
+    },
+    {
       "decision": "promote_normalized_record",
       "dedup_entry_ids": [
         "wm.term.action-conditioned-dynamics.001",
@@ -14334,6 +14755,24 @@
       "reviewed_at": "2026-08-11",
       "reviewer": "maintainer-assisted-review",
       "source_id": "zhang2024-prelar-world-model-pre",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.action-chunking.001",
+        "emb.usage-note.imitation-bc.001",
+        "emb.definition.multimodal-perception.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "emb.definition.action-chunking.001",
+        "emb.usage-note.imitation-bc.001"
+      ],
+      "rationale": "The SAM-based architecture is method-specific; the reusable concepts, sequence imitation over action chunks for long-horizon manipulation and demonstration-based policy training, are covered by the action-chunking and imitation records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhang2024-sam-e-leveraging-visual",
       "verification_scope": "official_abstract"
     },
     {
@@ -14464,6 +14903,24 @@
     {
       "decision": "link_existing_record",
       "dedup_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "rl.definition.hierarchical-policy.001",
+        "rl.definition.skill-discovery.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "emb.definition.embodied-language-model.001",
+        "rl.definition.hierarchical-policy.001"
+      ],
+      "rationale": "The STEVE component stack is system-specific; the reusable concepts, language-model planning over embodied perception and hierarchical decomposition into executable skills, are covered by the embodied-language-model and hierarchical-policy records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhao2024-see-think-embodied-agent",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
         "emb.definition.vla.001",
         "emb.definition.multimodal-perception.001",
         "emb.term.language-conditioned-policy.001"
@@ -14477,6 +14934,41 @@
       "reviewed_at": "2026-08-12",
       "reviewer": "maintainer-assisted-review",
       "source_id": "zhao2025-vlas-vision-language-action",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "emb.definition.generalist-policy.001",
+        "emb.definition.vln.001",
+        "emb.definition.embodied-language-model.001"
+      ],
+      "evidence_locator": "Official CVPR abstract",
+      "linked_entry_ids": [
+        "emb.definition.generalist-policy.001",
+        "emb.definition.vln.001"
+      ],
+      "rationale": "Schema-based instruction casting is method-specific; the reusable concepts, a single generalist policy across navigation tasks and language-guided navigation, are covered by the generalist-policy and VLN records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zheng2024-learning-generalist-model-embodied",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.occupancy-world-model.001",
+        "wm.definition.video-world-model.001",
+        "wm.definition.world-model.001"
+      ],
+      "evidence_locator": "Official ECCV abstract",
+      "linked_entry_ids": [
+        "wm.definition.occupancy-world-model.001"
+      ],
+      "rationale": "The OccWorld architecture is method-specific; the reusable concept, predicting future spatial occupancy jointly with ego motion for driving decisions, is covered by the occupancy-world-model record.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zheng2024-occworld-learning-3d-occupancy",
       "verification_scope": "official_abstract"
     },
     {
@@ -14529,6 +15021,24 @@
       "reviewed_at": "2026-08-12",
       "reviewer": "maintainer-assisted-review",
       "source_id": "zhong2025-robotrom-nav-unified-framework",
+      "verification_scope": "official_abstract"
+    },
+    {
+      "decision": "link_existing_record",
+      "dedup_entry_ids": [
+        "wm.definition.video-world-model.001",
+        "general.usage-note.generalization-axis.001",
+        "wm.usage-note.planning-vs-policy.001"
+      ],
+      "evidence_locator": "Official PMLR abstract",
+      "linked_entry_ids": [
+        "wm.definition.video-world-model.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "rationale": "Factorized video generation is method-specific; the reusable concepts, video world models that synthesize action plans and naming compositional generalization to unseen combinations, are covered by the video-world-model and generalization-axis records.",
+      "reviewed_at": "2026-08-12",
+      "reviewer": "maintainer-assisted-review",
+      "source_id": "zhou2024-robodreamer-learning-compositional-world",
       "verification_scope": "official_abstract"
     },
     {

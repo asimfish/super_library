@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 82
+Entries: 83
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — definition
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition
@@ -78,6 +78,7 @@ Entries: 82
 - [state–action coverage of the offline dataset](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.offline-dataset-coverage.001.md) — term
 - [trajectory sampling for uncertainty propagation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.trajectory-sampling.001.md) — term
 - [trust-region policy update](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.trust-region.001.md) — term
+- [update-to-data (UTD) ratio](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.update-to-data-ratio.001.md) — term
 - [value overestimation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.value-overestimation.001.md) — term
 - [aleatoric versus epistemic uncertainty in learned dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.aleatoric-epistemic.001.md) — usage_note
 - [distinguish interpolation within dataset support from extrapolation beyond it](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.support-generalization.001.md) — usage_note

@@ -13,4 +13,4 @@ rhetorical moves.
 - [policy optimization](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/policy_optimization.md) — `policy_optimization` · 14 normalized entries
 - [RL theory, representation, and evaluation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/rl_theory_evaluation.md) — `rl_theory_evaluation` · 17 normalized entries
 - [safe and robust reinforcement learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/safe_robust_rl.md) — `safe_robust_rl` · 5 normalized entries
-- [value learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/value_learning.md) — `value_learning` · 10 normalized entries
+- [value learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/topics/value_learning.md) — `value_learning` · 11 normalized entries

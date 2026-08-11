@@ -1385,6 +1385,27 @@ A policy update constrained to keep the new policy sufficiently close to the old
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 
+### update-to-data (UTD) ratio
+
+`rl.term.update-to-data-ratio.001` · term · reinforcement_learning, world_models · method, experiments, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The number of gradient updates performed per collected environment step, a central knob for sample-efficient off-policy and model-based training that trades faster learning against overfitting to limited experience.
+
+**Use:** Report the UTD ratio whenever sample-efficiency claims are made, state whether it is fixed or adapted during training, and say how overfitting from high ratios is detected or mitigated, for example validation on held-out experience or regularization.
+
+**Avoid:** Do not compare sample efficiency across methods with different UTD ratios without disclosing them, and do not treat a higher ratio as free performance since it can overfit the replayed experience.
+
+**Patterns:**
+
+- We train with a UTD ratio of {value}, performing {updates} gradient updates per environment step.
+- The ratio is adapted by {detection mechanism} to balance under- and overfitting of {model or critic}.
+
+**Verify in primary sources:**
+
+- `dorka2023-dynamic-update-data-ratio` — [Dynamic Update-to-Data Ratio: Minimizing World Model Overfitting](https://iclr.cc/virtual/2023/poster/11616) (ICLR 2023)
+
 ### value overestimation
 
 `rl.term.value-overestimation.001` · term · reinforcement_learning · introduction, related_work, method, experiments, translation

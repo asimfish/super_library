@@ -548,6 +548,27 @@ A learning target that contains a prediction produced by the current model or a 
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 
+### update-to-data (UTD) ratio
+
+`rl.term.update-to-data-ratio.001` · term · reinforcement_learning, world_models · method, experiments, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The number of gradient updates performed per collected environment step, a central knob for sample-efficient off-policy and model-based training that trades faster learning against overfitting to limited experience.
+
+**Use:** Report the UTD ratio whenever sample-efficiency claims are made, state whether it is fixed or adapted during training, and say how overfitting from high ratios is detected or mitigated, for example validation on held-out experience or regularization.
+
+**Avoid:** Do not compare sample efficiency across methods with different UTD ratios without disclosing them, and do not treat a higher ratio as free performance since it can overfit the replayed experience.
+
+**Patterns:**
+
+- We train with a UTD ratio of {value}, performing {updates} gradient updates per environment step.
+- The ratio is adapted by {detection mechanism} to balance under- and overfitting of {model or critic}.
+
+**Verify in primary sources:**
+
+- `dorka2023-dynamic-update-data-ratio` — [Dynamic Update-to-Data Ratio: Minimizing World Model Overfitting](https://iclr.cc/virtual/2023/poster/11616) (ICLR 2023)
+
 ### action-conditioned dynamics
 
 `wm.term.action-conditioned-dynamics.001` · term · world_models, robot_learning · introduction, related_work, method, translation

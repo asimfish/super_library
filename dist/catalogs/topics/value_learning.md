@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 10
+Entries: 11
 
 Verify literature claims in the [paper evidence map](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/topics/value_learning.md); it is not part of the default
 writing context.
@@ -17,4 +17,5 @@ writing context.
 - [bootstrapped target](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.bootstrapped-target.001.md) — term · sections=related_work,method,translation · tags=bootstrap,TD target
 - [expectile value regression](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.expectile-regression.001.md) — term · sections=related_work,method,translation · tags=IQL,upper expectile
 - [return distribution / value distribution](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.return-distribution.001.md) — term · sections=related_work,method,translation · tags=random return,value distribution
+- [update-to-data (UTD) ratio](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.update-to-data-ratio.001.md) — term · sections=method,experiments,translation · tags=update-to-data ratio,gradient updates per step
 - [value overestimation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.value-overestimation.001.md) — term · sections=introduction,related_work,method,experiments,translation · tags=overestimated Q values,extrapolation error

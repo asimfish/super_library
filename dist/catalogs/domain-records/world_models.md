@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 46
+Entries: 47
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition
 - [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — definition
@@ -46,6 +46,7 @@ Entries: 46
 - [receding-horizon planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.receding-horizon.001.md) — term
 - [stochastic latent state](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.stochastic-latent-state.001.md) — term
 - [trajectory sampling for uncertainty propagation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.trajectory-sampling.001.md) — term
+- [update-to-data (UTD) ratio](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.update-to-data-ratio.001.md) — term
 - [aleatoric versus epistemic uncertainty in learned dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.aleatoric-epistemic.001.md) — usage_note
 - [evaluate multi-step consistency separately from one-step prediction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.multistep-consistency.001.md) — usage_note
 - [model rollout horizon trades synthetic coverage against accumulated error](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.rollout-horizon.001.md) — usage_note
