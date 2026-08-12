@@ -1090,14 +1090,14 @@
         {
           "id": "seed-and-variability",
           "type": "required_regex",
-          "pattern": "(?:five|5) seeds.*standard deviation|standard deviation.*(?:five|5) seeds",
-          "message": "State the seed count and variability statistic."
+          "pattern": "(?:five|5) seeds[^\\n]{0,80}(?:standard deviation|±|\\+/-|plus or minus)|(?:standard deviation|±|\\+/-|plus or minus)[^\\n]{0,80}(?:five|5) seeds",
+          "message": "Report the five-seed protocol with its dispersion; the plus-minus notation from the packet is acceptable."
         },
         {
           "id": "no-causal-significance",
           "type": "forbidden_regex",
-          "pattern": "statistically significant|proves? (?:an )?interaction|caused by (?:component )?[AB]",
-          "message": "Do not invent significance or identified causality."
+          "pattern": "(?:is|are|was|were)\\s+statistically significant|proves? (?:an )?interaction|caused by (?:component )?[AB]",
+          "message": "Do not assert statistical significance, a proven interaction, or component-level causation; negated disclaimers are acceptable."
         }
       ]
     },
