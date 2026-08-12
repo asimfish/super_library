@@ -767,8 +767,8 @@
         {
           "id": "null-benchmark",
           "type": "required_regex",
-          "pattern": "(?:no consistent advantage|does not outperform|no improvement).*(?:third|remaining) benchmark|(?:third|remaining) benchmark.*(?:no consistent advantage|does not outperform|no improvement)",
-          "message": "Preserve the null result on the third benchmark."
+          "pattern": "(?:no consistent advantage|does not outperform|no improvement|null result)[^.\\n]{0,80}(?:third|remaining)|(?:third|remaining)[^.\\n]{0,80}(?:no consistent advantage|does not outperform|no improvement|null result)",
+          "message": "State the missing advantage on the third benchmark; eliding the noun after 'the third' is acceptable."
         },
         {
           "id": "seed-aggregation",
@@ -1492,8 +1492,8 @@
         {
           "id": "no-dismissal",
           "type": "forbidden_regex",
-          "pattern": "(?<!that )(?<!if )(?:the |these |reported )?(?:results?|improvement|evidence|gains?)\\s+(?:is|are|would be|remains?)\\s+(?:meaningless|worthless)|invalidates? the",
-          "message": "Do not assert the results are meaningless or worthless; explicitly declining that judgment is acceptable."
+          "pattern": "(?<!not )(?<!never )invalidat(?:es?|ing) the",
+          "message": "Do not assert that the missing test invalidates the results; dismissal tone is judged by the manual rubric, not this check."
         },
         {
           "id": "no-scope-creep",
