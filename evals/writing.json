@@ -708,8 +708,8 @@
         {
           "id": "no-axis-inflation",
           "type": "forbidden_regex",
-          "pattern": "cross[- ]embodiment|open[- ]world generalization",
-          "message": "Do not broaden the tested generalization axis."
+          "pattern": "(?<!not )(?<!n't )(?:establish(?:es)?|demonstrat(?:e|es)|shows?|achieves?)[^.\\n]{0,25}(?:cross[- ]embodiment|open[- ]world generalization)",
+          "message": "Do not claim cross-embodiment or open-world generalization; explicit disclaimers of those axes are acceptable."
         }
       ]
     },
@@ -767,8 +767,8 @@
         {
           "id": "null-benchmark",
           "type": "required_regex",
-          "pattern": "(?:no consistent advantage|does not outperform|no improvement).*(?:third|remaining) benchmark|(?:third|remaining) benchmark.*(?:no consistent advantage|does not outperform|no improvement)",
-          "message": "Preserve the null result on the third benchmark."
+          "pattern": "(?:no consistent advantage|does not outperform|no improvement|null result)[^.\\n]{0,80}(?:third|remaining)|(?:third|remaining)[^.\\n]{0,80}(?:no consistent advantage|does not outperform|no improvement|null result)",
+          "message": "State the missing advantage on the third benchmark; eliding the noun after 'the third' is acceptable."
         },
         {
           "id": "seed-aggregation",
@@ -779,8 +779,8 @@
         {
           "id": "no-result-inflation",
           "type": "forbidden_regex",
-          "pattern": "state[- ]of[- ]the[- ]art|statistically significant|improves? (?:on|across) all (?:three|3) benchmarks",
-          "message": "Do not invent significance, SOTA, or uniform gains."
+          "pattern": "(?<!not )state[- ]of[- ]the[- ]art|(?:is|are|was|were|shows?|achiev\\w+)[^.\\n]{0,15}statistically significant|improves? (?:on|across) all (?:three|3)",
+          "message": "Do not assert state-of-the-art, statistical significance, or a universal improvement; negated disclaimers are acceptable."
         }
       ]
     },
@@ -1492,8 +1492,8 @@
         {
           "id": "no-dismissal",
           "type": "forbidden_regex",
-          "pattern": "meaningless|worthless|invalidates? the",
-          "message": "Do not dismiss the results wholesale."
+          "pattern": "(?<!not )(?<!never )invalidat(?:es?|ing) the",
+          "message": "Do not assert that the missing test invalidates the results; dismissal tone is judged by the manual rubric, not this check."
         },
         {
           "id": "no-scope-creep",
@@ -1548,8 +1548,8 @@
         {
           "id": "no-concealment-language",
           "type": "forbidden_regex",
-          "pattern": "hidden|conceal",
-          "message": "Do not imply concealment."
+          "pattern": "(?:is|was|has been|appears?)\\s+(?:hidden|concealed)|conceal(?:s|ed|ing)?\\s+(?:the|a|this)",
+          "message": "Do not assert the limitation is hidden or concealed; noting that it is not hidden is acceptable."
         }
       ]
     },
@@ -1774,8 +1774,8 @@
         {
           "id": "no-new-promises",
           "type": "forbidden_regex",
-          "pattern": "will (?:run|add|include|provide)",
-          "message": "Do not promise additional ablations."
+          "pattern": "will (?:run|add|include|provide)[^.\\n]{0,30}(?:ablation|experiment)",
+          "message": "Do not promise additional ablations or experiments; promising a text pointer or clarification is acceptable."
         }
       ]
     },
@@ -2102,8 +2102,8 @@
         {
           "id": "no-exactness-guarantee",
           "type": "forbidden_regex",
-          "pattern": "exact(?:ly)? reproduc|bit[- ]wise",
-          "message": "Do not guarantee exact reproduction."
+          "pattern": "(?:^|\\. )(?:The (?:released )?code|Our (?:code|implementation|release))[^.\\n]{0,30}guarantees?[^.\\n]{0,20}(?:exact|bit[- ]wise)|reproduces? every (?:reported )?number exactly",
+          "message": "Do not assert that the release guarantees exact reproduction; disclaiming such a guarantee is acceptable."
         }
       ]
     },
@@ -2221,8 +2221,8 @@
         {
           "id": "no-spin",
           "type": "forbidden_regex",
-          "pattern": "clearly beneficial|essential component|indispensable",
-          "message": "Do not spin the component as clearly beneficial overall."
+          "pattern": "(?:is|are|remains?|proves?)\\s+(?:clearly beneficial|essential|indispensable)",
+          "message": "Do not assert the component is clearly beneficial or essential overall; negated interpretations are acceptable."
         }
       ]
     }

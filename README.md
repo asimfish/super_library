@@ -1,5 +1,9 @@
 # Super Library
 
+[![validate](https://github.com/asimfish/super_library/actions/workflows/validate.yml/badge.svg)](https://github.com/asimfish/super_library/actions/workflows/validate.yml)
+[![Code License: MIT](https://img.shields.io/badge/code%20license-MIT-blue.svg)](LICENSE)
+[![Data License: CC0](https://img.shields.io/badge/data%20license-CC0%201.0-lightgrey.svg)](DATA_LICENSE)
+
 An agent-ready, source-traceable language library for writing AI papers,
 rebuttals, related work, and technical translations with field-standard
 terminology and disciplined research rhetoric.
