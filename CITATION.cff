@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use the Super Library in your research or writing pipeline, please cite it as below."
+title: "Super Library: an agent-ready, source-traceable language library for AI research writing"
+type: software
+authors:
+  - name: "Super Library contributors"
+repository-code: "https://github.com/asimfish/super_library"
+license: MIT
+version: 0.4.0
+date-released: "2026-08-12"
+abstract: >-
+  A reviewed corpus of normalized terminology, definitions, sentence patterns,
+  and usage boundaries for writing AI papers, rebuttals, related work, and
+  technical translations, covering world models, reinforcement learning,
+  embodied AI, robot learning, and vision-language-action models. Records are
+  backed by primary-source links with an audited promotion ledger; original
+  library records are dedicated under CC0 1.0 (see DATA_LICENSE) while code and
+  documentation are MIT licensed.
+keywords:
+  - academic-writing
+  - ai-research
+  - reinforcement-learning
+  - world-models
+  - embodied-ai
+  - vision-language-action
