@@ -50,6 +50,27 @@ The difference between the action value and the state value under a policy, meas
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 
+### AI feedback
+
+`rl.definition.ai-feedback.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training signal, such as rewards, preferences, or critiques, produced by a separate pretrained model that evaluates the learner's behavior, used in place of or in addition to environment reward or human feedback.
+
+**Use:** Identify the evaluator model, what it scores, and how often it is queried; state how its judgments are validated and how exploitation of evaluator weaknesses is detected. Keep AI feedback distinct from reward models fit to environment reward and from direct human feedback.
+
+**Avoid:** Do not present evaluator scores as ground-truth task success, and do not report gains from AI feedback without stating the evaluator's known failure modes.
+
+**Patterns:**
+
+- A {evaluator model} scores {agent behavior}, and the score is used as {reward or preference signal} during training.
+- We validate AI feedback against {human labels or task metrics} on {validation set}.
+
+**Verify in primary sources:**
+
+- `li2025-larm-large-auto-regressive` — [LARM: Large Auto-Regressive Model for Long-Horizon Embodied Intelligence](https://proceedings.mlr.press/v267/li25dj.html) (ICML 2025)
+
 ### average-reward reinforcement learning
 
 `rl.definition.average-reward-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
@@ -115,6 +136,28 @@ An MDP augmented with one or more cumulative cost constraints, so the policy obj
 - `khattar2023-cmdp-within-online-framework` — [A CMDP-within-online framework for Meta-Safe Reinforcement Learning](https://iclr.cc/virtual/2023/poster/11412) (ICLR 2023)
 - `zhou2025-chpo-constrained-hybrid-action` — [CHPO: Constrained Hybrid-action Policy Optimization for Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/5eca2e4fe7858cbbfef4e08573cfcb25-Abstract-Conference.html) (NeurIPS 2025)
 
+### continual reinforcement learning
+
+`rl.definition.continual-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A setting in which an agent learns from a sequence of tasks or a nonstationary stream over its lifetime, aiming to retain previously acquired knowledge, avoid catastrophic forgetting, and transfer forward to new tasks under bounded capacity and compute.
+
+**Use:** State the task sequence and what changes along it, the memory and compute constraints, and whether task boundaries and identities are observed. Report forgetting and forward transfer separately from single-task performance.
+
+**Avoid:** Do not equate continual RL with multi-task RL trained jointly on a fixed task set, and do not report only final average performance, which hides forgetting.
+
+**Patterns:**
+
+- The agent learns {task sequence} under {capacity constraint}; we report forgetting and forward transfer on {benchmark}.
+- Knowledge is retained through {mechanism} while {component} adapts to the current task.
+
+**Verify in primary sources:**
+
+- `mendez2022-modular-lifelong-reinforcement-learning` — [Modular Lifelong Reinforcement Learning via Neural Composition](https://iclr.cc/virtual/2022/poster/6937) (ICLR 2022)
+- `fu2025-knowledge-retention-continual-model` — [Knowledge Retention in Continual Model-Based Reinforcement Learning](https://proceedings.mlr.press/v267/fu25f.html) (ICML 2025)
+
 ### multi-agent credit assignment
 
 `rl.definition.credit-assignment.001` · definition · reinforcement_learning · introduction, related_work, method, translation
@@ -158,6 +201,27 @@ A reinforcement-learning training paradigm that selects or adapts a sequence of 
 - `klink2024-benefit-optimal-transport-curriculum` — [On the Benefit of Optimal Transport for Curriculum Reinforcement Learning](https://doi.org/10.1109/tpami.2024.3390051) (TPAMI 2024)
 - `cho2023-outcome-directed-reinforcement-learning` — [Outcome-directed Reinforcement Learning by Uncertainty \& Temporal Distance-Aware Curriculum Goal Generation](https://iclr.cc/virtual/2023/poster/11888) (ICLR 2023)
 - `ao2021-co-pilot-collaborative-planning` — [CO-PILOT: COllaborative Planning and reInforcement Learning On sub-Task curriculum](https://proceedings.neurips.cc/paper_files/paper/2021/hash/56577889b3c1cd083b6d7b32d32f99d5-Abstract.html) (NeurIPS 2021)
+
+### differentiable physics simulation
+
+`rl.definition.differentiable-simulation.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A simulator whose state transitions are implemented as differentiable operations, so gradients of task objectives with respect to actions, policy parameters, or physical parameters can be computed by backpropagating through the simulated dynamics.
+
+**Use:** State which quantities gradients flow through, the horizon over which backpropagation remains stable, and how nonsmooth events such as contact are handled. Distinguish analytic differentiable dynamics from learned dynamics models used for the same optimization purpose.
+
+**Avoid:** Do not treat simulation gradients as automatically well behaved; long-horizon or contact-rich rollouts can make them ill-conditioned, and claims should acknowledge this when applicable.
+
+**Patterns:**
+
+- We backpropagate {task objective} through the differentiable simulator to update {policy parameters}.
+- Gradients across {contact or discontinuous events} are handled by {smoothing or relaxation scheme}.
+
+**Verify in primary sources:**
+
+- `chen2023-imitation-learning-state-matching` — [Imitation Learning As State Matching via Differentiable Physics](https://openaccess.thecvf.com/content/CVPR2023/html/Chen_Imitation_Learning_As_State_Matching_via_Differentiable_Physics_CVPR_2023_paper.html) (CVPR 2023)
 
 ### diffusion-based trajectory planning / diffusion planning
 
@@ -226,6 +290,27 @@ A mechanism that stores previously collected transitions or trajectories and res
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### explainable reinforcement learning
+
+`rl.definition.explainable-rl.001` · definition · reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Methods that expose evidence for a learned agent's decisions, for example attention masks, critical states, or feature attributions, so that humans can inspect what information drives behavior without changing the underlying policy class.
+
+**Use:** State the explanation form and whether it is built into training or produced post hoc, what the explanation is evidence for (input relevance, decision points, or failure causes), and how explanation quality is evaluated beyond visual appeal.
+
+**Avoid:** Do not present attention or saliency as proof of causal reasoning, and do not conflate explaining a black-box policy with learning an intrinsically interpretable policy structure.
+
+**Patterns:**
+
+- The framework produces {explanation form} highlighting {task-relevant information} behind the agent's decisions.
+- We evaluate explanations by {quantitative protocol}, beyond qualitative inspection on {tasks}.
+
+**Verify in primary sources:**
+
+- `shi2021-self-supervised-discovering-interpretable` — [Self-Supervised Discovering of Interpretable Features for Reinforcement Learning](https://doi.org/10.1109/tpami.2020.3037898) (TPAMI 2021)
+
 ### goal-conditioned reinforcement learning
 
 `rl.definition.goal-conditioned-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method
@@ -245,6 +330,70 @@ A reinforcement-learning formulation in which the policy or value function is co
 **Verify in primary sources:**
 
 - `cho2023-outcome-directed-reinforcement-learning` — [Outcome-directed Reinforcement Learning by Uncertainty \& Temporal Distance-Aware Curriculum Goal Generation](https://iclr.cc/virtual/2023/poster/11888) (ICLR 2023)
+
+### hierarchical policy
+
+`rl.definition.hierarchical-policy.001` · definition · reinforcement_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A control architecture that decomposes decision making across levels, where a high-level policy selects subgoals, skills, or intermediate commands at a coarser timescale and one or more low-level policies execute them as primitive actions.
+
+**Use:** Specify what the high level outputs (subgoals, skills, or language commands), the timescales of the levels, how each level is trained (jointly, separately, or with frozen components), and how the interface between levels is constrained or grounded so low-level execution stays feasible.
+
+**Avoid:** Do not call a pipeline hierarchical merely because it contains multiple modules; the levels must operate at different decision timescales or abstraction levels with a defined interface.
+
+**Patterns:**
+
+- The high-level policy proposes {subgoal or command} every {decision interval}, and the low-level policy executes {primitive actions} conditioned on it.
+- We restrict the high-level action space to {reachable or grounded set} so that low-level execution remains feasible.
+
+**Verify in primary sources:**
+
+- `shi2025-hi-robot-open-ended` — [Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://proceedings.mlr.press/v267/shi25d.html) (ICML 2025)
+- `zhang2023-adjacency-constraint-efficient-hierarchical` — [Adjacency Constraint for Efficient Hierarchical Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3192418) (TPAMI 2023)
+
+### hindsight relabeling
+
+`rl.definition.hindsight-relabeling.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Reusing collected trajectories by replacing the intended goal with a goal actually achieved in hindsight, so failed episodes still supply positive examples for goal-conditioned learning without new environment interaction or manual reward design.
+
+**Use:** State the relabeling distribution (final state, future states, or learned goals), the fraction of relabeled data, and how relabeled rewards are computed. Note interactions with offline settings where support constraints still apply.
+
+**Avoid:** Do not present hindsight relabeling as a general fix for exploration; it only densifies learning signal for goals already covered by collected behavior.
+
+**Patterns:**
+
+- Transitions are relabeled with goals sampled from {relabeling distribution}, turning failures into positive examples for {learned quantity}.
+- We combine hindsight relabeling with {method} to learn {skill set} from reward-free offline data.
+
+**Verify in primary sources:**
+
+- `chebotar2021-actionable-models-unsupervised-offline` — [Actionable Models: Unsupervised Offline Reinforcement Learning of Robotic Skills](https://proceedings.mlr.press/v139/chebotar21a.html) (ICML 2021)
+
+### human-in-the-loop reinforcement learning
+
+`rl.definition.human-in-the-loop-rl.001` · definition · reinforcement_learning, embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training regime in which humans participate during learning, for example by intervening in control, providing demonstrations on demand, or shaping rewards, so the policy is optimized from both autonomous interaction and human guidance.
+
+**Use:** Specify when and how humans intervene, how their input enters the objective (auxiliary loss, replay prioritization, or reward shaping), the amount of human effort required, and how performance behaves once guidance is withdrawn.
+
+**Avoid:** Do not conflate human-in-the-loop training with offline imitation from fixed demonstrations or with preference-based reward learning from post-hoc comparisons; state the interaction protocol explicitly.
+
+**Patterns:**
+
+- A human supervisor intervenes when {trigger condition}, and the intervention is incorporated through {mechanism}.
+- We report performance as a function of {human effort measure} to quantify the cost of guidance.
+
+**Verify in primary sources:**
+
+- `wu2023-human-guided-reinforcement-learning` — [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://doi.org/10.1109/tpami.2023.3314762) (TPAMI 2023)
 
 ### maximum-entropy reinforcement learning
 
@@ -288,6 +437,71 @@ A formal sequential decision process defined by states, actions, transition dyna
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
+### meta-reinforcement learning
+
+`rl.definition.meta-rl.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training on a distribution of related tasks so an agent adapts rapidly to a new task from limited experience, typically by inferring a task representation or belief from recent interaction, or by optimizing explicitly for post-adaptation performance.
+
+**Use:** Specify the task distribution and what varies across tasks, the adaptation mechanism (context inference, belief states, or gradient adaptation) and its interaction budget, and report post-adaptation performance on held-out tasks rather than training-task returns.
+
+**Avoid:** Do not conflate meta-RL with multi-task RL that optimizes fixed training tasks without an adaptation phase, and do not report adaptation speed without stating the interaction budget it consumed.
+
+**Patterns:**
+
+- The agent meta-trains on {task distribution} and adapts to held-out tasks within {budget} using {adaptation mechanism}.
+- We report post-adaptation {metric} on {held-out tasks}, separated from training-task performance.
+
+**Verify in primary sources:**
+
+- `zhang2025-learning-task-belief-similarity` — [Learning Task Belief Similarity with Latent Dynamics for Meta-Reinforcement Learning](https://iclr.cc/virtual/2025/poster/30938) (ICLR 2025)
+
+### multi-objective reinforcement learning
+
+`rl.definition.multi-objective-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A setting with a vector of reward signals whose trade-offs are resolved by preferences or scalarization, so the target is a policy or set of policies covering the preference space rather than a single scalar-optimal policy.
+
+**Use:** State the objectives and the scalarization or preference model, whether preferences are known, adversarial, or revealed at test time, and report performance across the preference space rather than at one weighting.
+
+**Avoid:** Do not collapse multiple objectives into one fixed weighting without stating it, and do not claim coverage of the preference space from performance at a single preference.
+
+**Patterns:**
+
+- The reward is {vector of objectives}; the policy conditions on {preference representation}.
+- We evaluate across {preference distribution}, reporting {coverage metric} rather than one weighted return.
+
+**Verify in primary sources:**
+
+- `wu2021-accommodating-picky-customers-regret` — [Accommodating Picky Customers: Regret Bound and Exploration Complexity for Multi-Objective Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2021/hash/6d7d394c9d0c886e9247542e06ebb705-Abstract.html) (NeurIPS 2021)
+- `wiltzer2024-foundations-multivariate-distributional-reinforcement` — [Foundations of Multivariate Distributional Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b76bec34ef5e0c0ceedff6edfbefc9f5-Abstract-Conference.html) (NeurIPS 2024)
+
+### multi-task reinforcement learning (MTRL)
+
+`rl.definition.multi-task-rl.001` · definition · reinforcement_learning, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training one agent or shared components on a set of reinforcement-learning tasks so that experience, representations, or parameters transfer across tasks, instead of optimizing each task independently.
+
+**Use:** State what is shared (policy, representation, or experts), how tasks are identified or weighted, the training order or curriculum when asymmetric, and how negative transfer between dissimilar tasks is detected or mitigated. Report per-task and aggregate returns, not aggregates alone.
+
+**Avoid:** Do not equate multi-task RL with goal-conditioned RL over goals of one task family, and do not claim positive transfer from aggregate results while individual tasks regress.
+
+**Patterns:**
+
+- The agent shares {component} across {task set} and mitigates negative transfer with {mechanism}.
+- We report per-task returns alongside the aggregate to expose transfer asymmetry across {benchmarks}.
+
+**Verify in primary sources:**
+
+- `huang2023-curriculum-based-asymmetric-multi` — [Curriculum-Based Asymmetric Multi-Task Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3223872) (TPAMI 2023)
+- `kong2025-mastering-massive-multi-task` — [Mastering Massive Multi-Task Reinforcement Learning via Mixture-of-Expert Decision Transformer](https://proceedings.mlr.press/v267/kong25a.html) (ICML 2025)
 
 ### distribution shift in offline RL
 
@@ -354,6 +568,48 @@ A learning protocol that initializes from a fixed offline dataset and subsequent
 - `wagenmaker2023-leveraging-offline-data-online` — [Leveraging Offline Data in Online Reinforcement Learning](https://proceedings.mlr.press/v202/wagenmaker23a.html) (ICML 2023)
 - `wang2024-making-offline-rl-online` — [Making Offline RL Online: Collaborative World Models for Offline Visual Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/b041cbfcc3f282a9b3c8eb9c16177529-Abstract-Conference.html) (NeurIPS 2024)
 
+### parameter sharing (multi-agent RL)
+
+`rl.definition.parameter-sharing.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training multiple agents' policies or critics with one shared set of network parameters, so experience aggregates across agents and the trainable-parameter count stays constant as the number of agents grows.
+
+**Use:** State which components are shared, how agents are distinguished (identifiers, observations, or roles), and whether sharing is full, selective, or partitioned by ability and goal. Report effects on both training efficiency and converged returns, since indiscriminate sharing can hurt heterogeneous agents.
+
+**Avoid:** Do not assume shared parameters imply identical behavior, and do not generalize sharing benefits across environments without checking agent heterogeneity.
+
+**Patterns:**
+
+- All {agent group} policies share parameters and condition on {distinguishing input}.
+- We partition agents into {groups} by {criterion} and share parameters within each group.
+
+**Verify in primary sources:**
+
+- `christianos2021-scaling-multi-agent-reinforcement` — [Scaling Multi-Agent Reinforcement Learning with Selective Parameter Sharing](https://proceedings.mlr.press/v139/christianos21a.html) (ICML 2021)
+
+### partially observable Markov decision process (POMDP)
+
+`rl.definition.pomdp.001` · definition · reinforcement_learning · method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A sequential decision process in which observations do not fully reveal the underlying state, specified by states, actions, transition dynamics, rewards, and an observation model, so optimal behavior may depend on the interaction history or a belief over states.
+
+**Use:** State the observation model and what the agent conditions on (history, belief, or a learned latent state). Say which quantities are unobserved and whether evaluation assumes privileged state access. Reserve plain MDP language for fully observed settings.
+
+**Avoid:** Do not analyze a partially observed system under fully observed MDP assumptions, and do not use POMDP loosely for any difficult RL problem.
+
+**Patterns:**
+
+- We model the task as a POMDP in which {unobserved factor} is hidden and the agent receives only {observation}.
+- The policy conditions on {history or belief representation} rather than on the underlying state.
+
+**Verify in primary sources:**
+
+- `hong2024-model-based-reinforcement-learning` — [Model-based Reinforcement Learning for Confounded POMDPs](https://proceedings.mlr.press/v235/hong24d.html) (ICML 2024)
+
 ### reinforcement learning (RL)
 
 `rl.definition.reinforcement-learning.001` · definition · reinforcement_learning · introduction, related_work, translation
@@ -375,6 +631,27 @@ A decision-making framework in which an agent interacts with an environment and 
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
+
+### reset-free (autonomous) reinforcement learning
+
+`rl.definition.reset-free-rl.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Learning in a continual, non-episodic interaction stream in which the environment is not reset between trials, so the agent must recover from failures, return to useful states, and manage its own data collection as part of learning.
+
+**Use:** State how the agent retries without external resets (learned reset or recovery policies, backward controllers, or curricula), how evaluation is separated from the nonepisodic training stream, and how many human interventions occurred.
+
+**Avoid:** Do not present episodic benchmark results as autonomous learning, and do not omit manual resets or interventions when claiming reset-free operation.
+
+**Patterns:**
+
+- After {failure mode}, {recovery mechanism} returns the agent to {useful state distribution} without an external reset.
+- We report {intervention count} human interventions over {training duration}.
+
+**Verify in primary sources:**
+
+- `sharma2022-autonomous-reinforcement-learning-formalism` — [Autonomous Reinforcement Learning: Formalism and Benchmarking](https://iclr.cc/virtual/2022/poster/7153) (ICLR 2022)
 
 ### return-conditioned sequence modeling
 
@@ -440,6 +717,113 @@ An exploration setting in which an agent collects information without knowing th
 - `cheng2023-improved-sample-complexity-reward` — [Improved Sample Complexity for Reward-free Reinforcement Learning under Low-rank MDPs](https://iclr.cc/virtual/2023/poster/11380) (ICLR 2023)
 - `qiao2023-near-optimal-deployment-efficiency` — [Near-Optimal Deployment Efficiency in Reward-Free Reinforcement Learning with Linear Function Approximation](https://iclr.cc/virtual/2023/poster/11300) (ICLR 2023)
 
+### reward shaping
+
+`rl.definition.reward-shaping.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Modifying or augmenting the task reward with additional signals, such as progress terms or auxiliary bonuses, to densify feedback and accelerate learning, ideally without changing the optimal policy of the original objective.
+
+**Use:** State what is added to the terminal or task reward, whether shaping preserves optimal behavior (for example potential-based forms), and the engineering effort it requires; compare against learning from unshaped terminal rewards when feasible.
+
+**Avoid:** Do not present shaped-reward results as evidence the task is solvable from terminal rewards alone, and do not leave shaping terms undisclosed when they change the effective objective.
+
+**Patterns:**
+
+- We augment the terminal reward with {shaping signal}, which preserves {optimality property}.
+- From terminal rewards alone, performance drops to {value}, motivating {shaping or teacher scheme}.
+
+**Verify in primary sources:**
+
+- `jain2021-gridtopix-training-embodied-agents` — [GridToPix: Training Embodied Agents With Minimal Supervision](https://openaccess.thecvf.com/content/ICCV2021/html/Jain_GridToPix_Training_Embodied_Agents_With_Minimal_Supervision_ICCV_2021_paper.html) (ICCV 2021)
+
+### risk-sensitive reinforcement learning
+
+`rl.definition.risk-sensitive-rl.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A formulation that optimizes a risk measure of the return distribution, such as CVaR or other tail-sensitive criteria, instead of expected return, so policies trade average performance for protection against poor outcomes.
+
+**Use:** Name the risk measure and its level, state whether risk applies to returns or per-step costs, and report both the risk metric and expected return. Say how the method avoids the conservatism or local-optimum pathologies of ignoring high-return behavior.
+
+**Avoid:** Do not use risk-sensitive as a synonym for safe RL with explicit constraints, and do not report improved tail metrics without disclosing the change in expected return.
+
+**Patterns:**
+
+- We optimize {risk measure} at level {alpha} of the return distribution instead of expected return.
+- The learned policy improves {tail metric} while retaining {fraction} of the risk-neutral return on {tasks}.
+
+**Verify in primary sources:**
+
+- `bastani2022-regret-bounds-risk-sensitive` — [Regret Bounds for Risk-Sensitive Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/eb4898d622e9a48b5f9713ea1fcff2bf-Abstract-Conference.html) (NeurIPS 2022)
+- `greenberg2022-efficient-risk-averse-reinforcement` — [Efficient Risk-Averse Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/d2511dfb731fa336739782ba825cd98c-Abstract-Conference.html) (NeurIPS 2022)
+
+### reinforcement learning from human feedback (RLHF)
+
+`rl.definition.rlhf.001` · definition · reinforcement_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training pipeline that learns a reward model from human judgments, typically preference comparisons between candidate outputs or behaviors, and then optimizes a policy against that learned reward when a programmatic reward is unavailable.
+
+**Use:** State how human judgments are collected and aggregated, the reward-model class, the policy-optimization stage, and known failure modes such as reward hacking, reward-model misgeneralization, and evaluator disagreement. Keep RLHF distinct from AI feedback (model-generated judgments) and from human-in-the-loop intervention during training.
+
+**Avoid:** Do not present RLHF as a guarantee of goal alignment, and do not use RLHF to describe direct human reward shaping without a learned reward model.
+
+**Patterns:**
+
+- We collect {judgment type} from {annotator pool}, fit {reward model}, and optimize the policy with {algorithm} against it.
+- We audit the learned reward for {failure mode} before deploying the policy on {task}.
+
+**Verify in primary sources:**
+
+- `rando2025-open-problems-fundamental-limitations` — [Open Problems and Fundamental Limitations of Reinforcement Learning from Human Feedback](https://iclr.cc/virtual/2025/poster/31506) (ICLR 2025)
+
+### self-play
+
+`rl.definition.self-play.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training scheme in which an agent improves by playing with or against copies or past versions of itself, or a population thereof, generating its own curriculum of increasingly strong counterparts without human gameplay data.
+
+**Use:** State the opponent or partner pool (current copy, past checkpoints, or a population), how counterparts are sampled, and how nontransitivity or strategy cycling is handled. Evaluate against held-out strategies or humans, not only within the training population.
+
+**Avoid:** Do not conflate self-play with imitation of human games, and do not claim general strength from within-population results alone.
+
+**Patterns:**
+
+- The agent trains via self-play against {opponent pool} sampled by {scheme}.
+- We evaluate against {held-out opponents or human players} to test robustness beyond the training population.
+
+**Verify in primary sources:**
+
+- `zha2021-douzero-mastering-doudizhu-self` — [DouZero: Mastering DouDizhu with Self-Play Deep Reinforcement Learning](https://proceedings.mlr.press/v139/zha21a.html) (ICML 2021)
+
+### self-supervised representation learning
+
+`rl.definition.self-supervised-representation-learning.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training an observation encoder with auxiliary objectives derived from the data itself, such as correspondence, prediction, or consistency targets, instead of relying only on reward or temporal-difference signals to shape the representation.
+
+**Use:** Name the auxiliary objective and the structure it captures (local correspondence, global semantics, or future prediction), and state how representation learning interacts with policy or value training, including whether the two are decoupled or alternated for stability.
+
+**Avoid:** Do not describe reward-driven end-to-end encoder training as self-supervised, and do not claim representation quality from task return alone.
+
+**Patterns:**
+
+- The encoder is trained with {auxiliary objective} that enforces {structural constraint} across {frames or views}.
+- Representation and policy learning are {decoupled or alternated} to prevent instability induced by {bootstrapped targets}.
+
+**Verify in primary sources:**
+
+- `choi2023-local-guided-global-paired` — [Local-Guided Global: Paired Similarity Representation for Visual Reinforcement Learning](https://openaccess.thecvf.com/content/CVPR2023/html/Choi_Local-Guided_Global_Paired_Similarity_Representation_for_Visual_Reinforcement_Learning_CVPR_2023_paper.html) (CVPR 2023)
+- `zhai2023-stabilizing-visual-reinforcement-learning` — [Stabilizing Visual Reinforcement Learning via Asymmetric Interactive Cooperation](https://openaccess.thecvf.com/content/ICCV2023/html/Zhai_Stabilizing_Visual_Reinforcement_Learning_via_Asymmetric_Interactive_Cooperation_ICCV_2023_paper.html) (ICCV 2023)
+
 ### unsupervised skill discovery
 
 `rl.definition.skill-discovery.001` · definition · reinforcement_learning · introduction, related_work, method
@@ -459,6 +843,28 @@ The learning of a diverse set of temporally extended behaviors without task-spec
 **Verify in primary sources:**
 
 - `chalumeau2023-neuroevolution-competitive-alternative-reinforcement` — [Neuroevolution is a Competitive Alternative to Reinforcement Learning for Skill Discovery](https://iclr.cc/virtual/2023/poster/10722) (ICLR 2023)
+
+### state abstraction
+
+`rl.definition.state-abstraction.001` · definition · reinforcement_learning, world_models · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A mapping from raw states or observations to a more compact representation that groups states carrying equivalent decision-relevant information, so that policies, values, or models can be learned over the abstract space.
+
+**Use:** State what information the abstraction preserves (for example values, dynamics, or temporal distances), how it is learned or constructed, and which downstream component consumes it. Report whether the abstraction is fixed or trained jointly, and support transfer or sample-efficiency claims with a no-abstraction baseline.
+
+**Avoid:** Do not call every learned encoder a state abstraction without stating the equivalence or information criterion it enforces, and do not equate abstraction quality with task return alone.
+
+**Patterns:**
+
+- The state abstraction maps {raw observations} to {compact representation} while preserving {decision-relevant quantity}.
+- We learn the abstraction with {objective} and reuse it across {downstream tasks}, improving sample efficiency over {no-abstraction baseline}.
+
+**Verify in primary sources:**
+
+- `lee2025-temporal-distance-aware-transition` — [Temporal Distance-aware Transition Augmentation for Offline Model-based Reinforcement Learning](https://proceedings.mlr.press/v267/lee25p.html) (ICML 2025)
+- `gomez2022-information-optimization-transferable-state` — [Information Optimization and Transferable State Abstractions in Deep Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3200726) (TPAMI 2022)
 
 ### state–action occupancy measure
 
@@ -525,6 +931,28 @@ Learning a value-related prediction by moving it toward a target that combines a
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
+### value factorization (multi-agent RL)
+
+`rl.definition.value-factorization.001` · definition · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Decomposing a centralized joint action-value function or joint policy into per-agent components combined by a mixing structure, so agents act decentrally while training uses centralized information, as in centralized training with decentralized execution.
+
+**Use:** State the factorization class and its representational restriction (monotonic mixing, entity-wise, or policy factorization), what centralized information training uses, and which coordination structures the restriction cannot express.
+
+**Avoid:** Do not assume a factorized value function represents all coordination optima; restricted mixing can be unable to express tasks requiring tightly coupled simultaneous actions.
+
+**Patterns:**
+
+- The joint value factorizes as {mixing structure} over per-agent utilities trained with {centralized information}.
+- We characterize tasks where {factorization class} cannot represent the optimal joint policy.
+
+**Verify in primary sources:**
+
+- `gupta2021-uneven-universal-value-exploration` — [UneVEn: Universal Value Exploration for Multi-Agent Reinforcement Learning](https://proceedings.mlr.press/v139/gupta21a.html) (ICML 2021)
+- `zhang2021-fop-factorizing-optimal-joint` — [FOP: Factorizing Optimal Joint Policy of Maximum-Entropy Multi-Agent Reinforcement Learning](https://proceedings.mlr.press/v139/zhang21m.html) (ICML 2021)
 
 ### state-value and action-value functions
 
@@ -614,6 +1042,27 @@ Reinforcement learning that uses a model of environment dynamics, learned or kno
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 
+### objective mismatch (model-based RL)
+
+`wm.definition.objective-mismatch.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.
+
+**Use:** State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.
+
+**Avoid:** Do not report model accuracy alone as evidence of control quality, and do not use objective mismatch loosely for any underperformance unrelated to the model-policy interface.
+
+**Patterns:**
+
+- Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.
+- We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy.
+
+**Verify in primary sources:**
+
+- `lin2024-because-bilinear-causal-representation` — [BECAUSE: Bilinear Causal Representation for Generalizable Offline Model-based Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/cff98e0b76e05fd1df5c9256724b3af1-Abstract-Conference.html) (NeurIPS 2024)
+
 ### probabilistic dynamics model
 
 `wm.definition.probabilistic-dynamics.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, translation
@@ -635,6 +1084,28 @@ A dynamics model that represents a conditional distribution over future states o
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
+
+### task-irrelevant distractors
+
+`wm.definition.task-irrelevant-distraction.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Observation content that is predictable or salient but has no bearing on reward or action selection, so models or encoders that spend capacity on it degrade downstream control even when prediction metrics look good.
+
+**Use:** Name the distractor source (backgrounds, textures, or dynamics), state whether the training objective is reconstruction-based, and report control performance alongside prediction quality under distraction. Say how capacity is steered toward task-relevant content, for example task-aware losses, prototypes, or reconstruction-free objectives.
+
+**Avoid:** Do not equate low reconstruction error with a useful world model under distraction, and do not call every hard visual scene a distractor setting without separating task-relevant from irrelevant content.
+
+**Patterns:**
+
+- In {environment}, {distractor content} is predictable but irrelevant to {task}, degrading {reconstruction-based method}.
+- We steer model capacity toward task-relevant dynamics with {mechanism}, improving {control metric} under distraction.
+
+**Verify in primary sources:**
+
+- `hutson2024-policy-shaped-prediction-avoiding` — [Policy-shaped prediction: avoiding distractions in model-based reinforcement learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/17af43527227c5c96db0f8d4c6aadc4e-Abstract-Conference.html) (NeurIPS 2024)
+- `deng2022-dreamerpro-reconstruction-free-model` — [DreamerPro: Reconstruction-Free Model-Based Reinforcement Learning with Prototypical Representations](https://proceedings.mlr.press/v162/deng22a.html) (ICML 2022)
 
 ### task-oriented latent dynamics model
 
@@ -978,6 +1449,28 @@ A rule or conditional distribution that maps an agent's information state, such 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `brohan2023rt1` — [RT-1: Robotics Transformer for Real-World Control at Scale](https://roboticsproceedings.org/rss19/p025.html) (RSS 2023)
 
+### regret
+
+`rl.term.regret.001` · term · reinforcement_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The cumulative performance gap between a learning agent and a comparator, typically the best fixed or optimal policy in hindsight, accumulated over the learning process; sublinear regret means average performance approaches the comparator's.
+
+**Use:** State the comparator class, the horizon or episode count regret is measured over, and whether the environment is stochastic, adversarial, or nonstationary. Report dependence on problem quantities such as horizon, dimension, or risk level rather than the rate alone.
+
+**Avoid:** Do not call a performance shortfall regret without a comparator and accumulation window, and do not compare regret bounds across different comparator classes or feedback models as if equivalent.
+
+**Patterns:**
+
+- The algorithm attains {rate} regret over {episodes} episodes against {comparator class}.
+- Regret scales with {problem quantity}, matching the lower bound up to {factor}.
+
+**Verify in primary sources:**
+
+- `shi2023-near-optimal-adversarial-reinforcement` — [Near-Optimal Adversarial Reinforcement Learning with Switching Costs](https://iclr.cc/virtual/2023/poster/11984) (ICLR 2023)
+- `bastani2022-regret-bounds-risk-sensitive` — [Regret Bounds for Risk-Sensitive Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2022/hash/eb4898d622e9a48b5f9713ea1fcff2bf-Abstract-Conference.html) (NeurIPS 2022)
+
 ### return distribution / value distribution
 
 `rl.term.return-distribution.001` · term · reinforcement_learning · related_work, method, translation
@@ -1042,6 +1535,27 @@ A policy update constrained to keep the new policy sufficiently close to the old
 **Verify in primary sources:**
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)
+
+### update-to-data (UTD) ratio
+
+`rl.term.update-to-data-ratio.001` · term · reinforcement_learning, world_models · method, experiments, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The number of gradient updates performed per collected environment step, a central knob for sample-efficient off-policy and model-based training that trades faster learning against overfitting to limited experience.
+
+**Use:** Report the UTD ratio whenever sample-efficiency claims are made, state whether it is fixed or adapted during training, and say how overfitting from high ratios is detected or mitigated, for example validation on held-out experience or regularization.
+
+**Avoid:** Do not compare sample efficiency across methods with different UTD ratios without disclosing them, and do not treat a higher ratio as free performance since it can overfit the replayed experience.
+
+**Patterns:**
+
+- We train with a UTD ratio of {value}, performing {updates} gradient updates per environment step.
+- The ratio is adapted by {detection mechanism} to balance under- and overfitting of {model or critic}.
+
+**Verify in primary sources:**
+
+- `dorka2023-dynamic-update-data-ratio` — [Dynamic Update-to-Data Ratio: Minimizing World Model Overfitting](https://iclr.cc/virtual/2023/poster/11616) (ICLR 2023)
 
 ### value overestimation
 

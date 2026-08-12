@@ -1471,6 +1471,91 @@ Uses a named variability statistic to qualify the stability of an empirical resu
 - Variation across seeds is {standard deviation}, indicating that the ranking is {stable or uncertain} under this protocol.
 - The interval across trials is {range}, so the observed difference should be interpreted as {bounded conclusion}.
 
+### Could the authors report {specific quantity or protocol detail}? This would clarify {stated concern}.
+
+`general.sentence-pattern.review-actionable-question.001` · sentence_pattern · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Asks the authors for one concrete, answerable item and states what the answer would resolve.
+
+**Use:** Target quantities recoverable from a standard experimental log or manuscript revision. One question per missing item, phrased neutrally.
+
+**Avoid:** Avoid rhetorical or accusatory questions and compound questions that bundle several requests into one.
+
+**Patterns:**
+
+- Could the authors report the number of random seeds and the dispersion statistic used in Table {n}? This would clarify how stable the reported gains are.
+- Could the authors state the training budget per method? This would clarify whether the comparison is matched.
+
+### Given {listed strengths} and {unresolved weaknesses}, the current evidence supports {bounded judgment}.
+
+`general.sentence-pattern.review-calibrated-assessment.001` · sentence_pattern · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Closes a review with an overall judgment that traces explicitly to the listed strengths and weaknesses and no further.
+
+**Use:** Weigh only items already established in the review body. Match the hedging strength to the evidence: firm where results are clear, open where reporting is incomplete.
+
+**Avoid:** Do not introduce comparisons, claims, or scores absent from the review body, and do not let polish or novelty language substitute for the listed evidence.
+
+**Patterns:**
+
+- Given the clear formulation and strong results on {covered settings}, balanced against the missing {analysis}, the current evidence supports a cautiously positive assessment.
+- The contribution is well motivated, but until {unresolved item} is addressed the empirical claim remains partially supported.
+
+### The authors already acknowledge {limitation} in {location}; the open question is {boundary probe}.
+
+`general.sentence-pattern.review-credit-disclosure.001` · sentence_pattern · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Credits a limitation the submission itself discloses before probing its boundary, keeping the review fair to the authors' own reporting.
+
+**Use:** Check the limitations section and experimental caveats before writing a weakness. If the point is disclosed, engage with its measured extent instead of presenting it as a discovery.
+
+**Avoid:** Do not present a disclosed limitation as hidden, and do not imply concealment when the manuscript states the assumption.
+
+**Patterns:**
+
+- The authors already acknowledge the fixed-viewpoint assumption and quantify its cost; the open question is how the degradation scales with viewpoint change.
+- The single-embodiment scope is disclosed in the limitations section; the remaining concern is whether the claimed mechanism depends on it.
+
+### The {claim} rests on {reported evidence}, which supports {narrower statement} but not {claimed scope}.
+
+`general.sentence-pattern.review-grounded-weakness.001` · sentence_pattern · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States a review weakness by anchoring it to what the submission actually reports, separating the claim from the evidence behind it.
+
+**Use:** Quote or locate the specific claim and the specific evidence before judging the gap. Keep the weakness about the submission's content, not about unverifiable properties.
+
+**Avoid:** Do not assert properties the review packet cannot verify, such as reproducibility or hidden results, and do not restate a disagreement as a factual error.
+
+**Patterns:**
+
+- The generalization claim rests on results from {evaluated conditions}, which support robustness within that range but not the broader statement in the abstract.
+- The comparison covers {included baselines}, which establishes progress over those methods but not the field-wide claim.
+
+### The added {evidence} addresses {original concern}; {remaining concern} stands because {reason}.
+
+`general.sentence-pattern.review-post-rebuttal.001` · sentence_pattern · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Updates a review after the author response by explicitly closing concerns the new evidence resolves and restating the ones it does not.
+
+**Use:** Concede addressed points plainly and separately from unresolved ones. Accept or keep open each remaining concern with a stated reason; do not add demands absent from the original review.
+
+**Avoid:** Do not hold a resolved concern open without a reason, and do not flip the overall stance on points the response never addressed.
+
+**Patterns:**
+
+- The added multi-seed run addresses the stability concern; the missing baseline comparison stands, although the stated incompatibility is a reasonable ground.
+- The clarified protocol resolves the comparability question; the scope concern stands because the new results remain within the original benchmark.
+
 ### Under {evaluated setting}, {method} consistently {measured outcome}.
 
 `general.sentence-pattern.scope.001` · sentence_pattern · general · abstract, introduction, experiments, conclusion, rebuttal
@@ -1535,6 +1620,27 @@ Declares which data and objective selected hyperparameters or checkpoints.
 
 - Hyperparameters are selected on {validation tasks} using {metric}, and the selected configuration is fixed for all test tasks.
 - We select the checkpoint with the highest {validation metric} before evaluating it once on {test set}.
+
+### inductive bias
+
+`general.term.inductive-bias.001` · term · general · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A structural assumption built into an architecture, objective, or algorithm that restricts or prefers certain solutions before observing data, shaping what is learned and how much experience is required.
+
+**Use:** Name the bias concretely (architecture, symmetry, prior connectivity, or objective structure), state the assumption it encodes about the task, and support claimed benefits with sample-efficiency, transfer, or ablation evidence rather than intuition.
+
+**Avoid:** Do not credit an unspecified inductive bias for empirical gains, and do not present a bias as universally helpful without noting the tasks where its assumption fails.
+
+**Patterns:**
+
+- {Architecture choice} encodes an inductive bias toward {assumed structure}, improving {metric} in {regime}.
+- Ablating {bias source} isolates its contribution to {sample-efficiency or transfer result}.
+
+**Verify in primary sources:**
+
+- `bhattasali2022-neural-circuit-architectural-priors` — [Neural Circuit Architectural Priors for Embodied Control](https://proceedings.neurips.cc/paper_files/paper/2022/hash/52e431bd7689d98426300cb103bb0ee3-Abstract-Conference.html) (NeurIPS 2022)
 
 ### replace vague effectiveness claims with the observed outcome
 
@@ -1636,6 +1742,23 @@ Respectively maps two or more ordered lists element by element and should be use
 
 - The {first method} and {second method} obtain {first value} and {second value}, respectively.
 - We use {value one} for {setting one} and {value two} for {setting two}.
+
+### absent from the manuscript versus contradicted by the manuscript versus unverifiable from the manuscript
+
+`general.usage-note.review-evidence-scope.001` · usage_note · general · review
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Reviewer statements about a submission carry three distinct evidential statuses: the manuscript omits something, the manuscript contradicts something, or the review packet cannot establish something either way.
+
+**Use:** Choose the status explicitly before writing the criticism: request what is absent, correct what is contradicted, and mark what is unverifiable as outside the review's evidence rather than asserting it.
+
+**Avoid:** Do not convert an omission into an accusation, and do not state unverifiable properties, such as reproducibility or hidden failures, as established facts.
+
+**Patterns:**
+
+- No episode counts are reported (absent), so we request them; we cannot judge reproducibility from the packet (unverifiable), so we do not assert it.
+- The abstract claims real-world generalization while all experiments are simulated (contradicted), which is a claim-evidence mismatch rather than misconduct.
 
 ### statistically significant versus substantial improvement
 

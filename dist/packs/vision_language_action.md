@@ -114,6 +114,48 @@ A language-model-based system that directly incorporates continuous or encoded s
 
 - `driess2023palme` — [PaLM-E: An Embodied Multimodal Language Model](https://proceedings.mlr.press/v202/driess23a.html) (ICML 2023)
 
+### embodied reasoning
+
+`emb.definition.embodied-reasoning.001` · definition · embodied_ai, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Intermediate inference grounded in an agent's observations and task, such as spatial relations, action consequences, or subgoal structure, produced between perception and control so that decisions follow from stated premises rather than direct pattern matching.
+
+**Use:** State the reasoning format (language, keypoints, or plans), what grounds it (images, scene metadata, demonstrations), and how it is supervised or rewarded. Evaluate reasoning quality separately from downstream control success when the benchmark allows it.
+
+**Avoid:** Do not call generic chain-of-thought embodied reasoning when it never conditions on the agent's observations or task state, and do not report reasoning-benchmark gains as control gains without a control evaluation.
+
+**Patterns:**
+
+- The model produces {reasoning form} conditioned on {observation and task context} before predicting {action or keypoint}.
+- We evaluate embodied reasoning on {reasoning benchmark} and report control success separately on {control tasks}.
+
+**Verify in primary sources:**
+
+- `kim2025-robot-r1-reinforcement-learning` — [Robot-R1: Reinforcement Learning for Enhanced Embodied Reasoning in Robotics](https://proceedings.neurips.cc/paper_files/paper/2025/hash/ec46d737282bb408e642ed883a145c40-Abstract-Conference.html) (NeurIPS 2025)
+
+### mobile manipulation
+
+`emb.definition.mobile-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A robot task family in which a mobile base and a manipulator are controlled together, so task success depends on coordinating base placement or motion with arm trajectories rather than manipulating from a fixed base.
+
+**Use:** State how base and arm are coordinated (a joint policy, decoupled planning, or bi-level optimization), what determines base placement, and which fixed-base assumptions still hold. Report navigation and manipulation outcomes separately when the evaluation allows it.
+
+**Avoid:** Do not present fixed-base manipulation results as mobile manipulation, and do not silently reduce the problem to navigation followed by independent manipulation without stating that decoupling.
+
+**Patterns:**
+
+- The mobile manipulation policy coordinates {base motion} with {end-effector trajectory} to accomplish {task goal}.
+- Base waypoints are selected to satisfy {feasibility criterion}, after which the arm executes {manipulation primitive}.
+
+**Verify in primary sources:**
+
+- `wu2025-momanipvla-transferring-vision-language` — [MoManipVLA: Transferring Vision-language-action Models for General Mobile Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_MoManipVLA_Transferring_Vision-language-action_Models_for_General_Mobile_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
+
 ### multimodal task prompt
 
 `emb.definition.multimodal-prompt.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
@@ -134,6 +176,28 @@ A task specification composed of more than one modality, such as interleaved tex
 **Verify in primary sources:**
 
 - `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
+### vision-language reward
+
+`emb.definition.vision-language-reward.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.
+
+**Use:** State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.
+
+**Avoid:** Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.
+
+**Patterns:**
+
+- The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.
+- We verify the learned reward against {task success metric} before policy training on {tasks}.
+
+**Verify in primary sources:**
+
+- `ma2023-liv-language-image-representations` — [LIV: Language-Image Representations and Rewards for Robotic Control](https://proceedings.mlr.press/v202/ma23b.html) (ICML 2023)
+- `li2024-decisionnce-embodied-multimodal-representations` — [DecisionNCE: Embodied Multimodal Representations via Implicit Preference Learning](https://proceedings.mlr.press/v235/li24cr.html) (ICML 2024)
 
 ### vision-language-action (VLA) model
 
@@ -157,6 +221,28 @@ A model or policy that conditions on visual observations and language and produc
 - `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
 - `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
 - `zhen2024vla` — [3D-VLA: A 3D Vision-Language-Action Generative World Model](https://proceedings.mlr.press/v235/zhen24a.html) (ICML 2024)
+
+### hierarchical policy
+
+`rl.definition.hierarchical-policy.001` · definition · reinforcement_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A control architecture that decomposes decision making across levels, where a high-level policy selects subgoals, skills, or intermediate commands at a coarser timescale and one or more low-level policies execute them as primitive actions.
+
+**Use:** Specify what the high level outputs (subgoals, skills, or language commands), the timescales of the levels, how each level is trained (jointly, separately, or with frozen components), and how the interface between levels is constrained or grounded so low-level execution stays feasible.
+
+**Avoid:** Do not call a pipeline hierarchical merely because it contains multiple modules; the levels must operate at different decision timescales or abstraction levels with a defined interface.
+
+**Patterns:**
+
+- The high-level policy proposes {subgoal or command} every {decision interval}, and the low-level policy executes {primitive actions} conditioned on it.
+- We restrict the high-level action space to {reachable or grounded set} so that low-level execution remains feasible.
+
+**Verify in primary sources:**
+
+- `shi2025-hi-robot-open-ended` — [Hi Robot: Open-Ended Instruction Following with Hierarchical Vision-Language-Action Models](https://proceedings.mlr.press/v267/shi25d.html) (ICML 2025)
+- `zhang2023-adjacency-constraint-efficient-hierarchical` — [Adjacency Constraint for Efficient Hierarchical Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3192418) (TPAMI 2023)
 
 ### chain-of-affordance reasoning
 

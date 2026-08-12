@@ -266,6 +266,27 @@ Mapping linguistic instructions to actions by relating language to perceived ent
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
 
+### mobile manipulation
+
+`emb.definition.mobile-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A robot task family in which a mobile base and a manipulator are controlled together, so task success depends on coordinating base placement or motion with arm trajectories rather than manipulating from a fixed base.
+
+**Use:** State how base and arm are coordinated (a joint policy, decoupled planning, or bi-level optimization), what determines base placement, and which fixed-base assumptions still hold. Report navigation and manipulation outcomes separately when the evaluation allows it.
+
+**Avoid:** Do not present fixed-base manipulation results as mobile manipulation, and do not silently reduce the problem to navigation followed by independent manipulation without stating that decoupling.
+
+**Patterns:**
+
+- The mobile manipulation policy coordinates {base motion} with {end-effector trajectory} to accomplish {task goal}.
+- Base waypoints are selected to satisfy {feasibility criterion}, after which the arm executes {manipulation primitive}.
+
+**Verify in primary sources:**
+
+- `wu2025-momanipvla-transferring-vision-language` — [MoManipVLA: Transferring Vision-language-action Models for General Mobile Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_MoManipVLA_Transferring_Vision-language-action_Models_for_General_Mobile_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
+
 ### multimodal embodied perception
 
 `emb.definition.multimodal-perception.001` · definition · embodied_ai, robot_learning · introduction, related_work, method, translation
@@ -351,6 +372,27 @@ Updating an internal estimate, context, or behavior during deployment from a sho
 
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
 
+### object rearrangement
+
+`emb.definition.rearrangement.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied task family in which an agent changes the state of an environment to a specified goal configuration by locating, picking, moving, and placing objects, typically combining navigation with manipulation over long horizons.
+
+**Use:** Specify the goal-specification format, the skills composed (navigate, pick, place), success criteria per stage and overall, and whether the setting is simulated or real. Report stage-wise failures because long-horizon success compounds errors.
+
+**Avoid:** Do not report single-skill results as rearrangement, and do not omit the goal-specification format, since geometric, semantic, and language goals differ in difficulty.
+
+**Patterns:**
+
+- The agent rearranges {objects} from {initial configuration} to {goal specification} by composing {skills}.
+- We report per-stage success for {navigate, pick, place} together with end-to-end success on {benchmark}.
+
+**Verify in primary sources:**
+
+- `berges2023-galactic-scaling-end-end` — [Galactic: Scaling End-to-End Reinforcement Learning for Rearrangement at 100k Steps-per-Second](https://openaccess.thecvf.com/content/CVPR2023/html/Berges_Galactic_Scaling_End-to-End_Reinforcement_Learning_for_Rearrangement_at_100k_Steps-per-Second_CVPR_2023_paper.html) (CVPR 2023)
+
 ### simulation-to-real (sim-to-real) transfer
 
 `emb.definition.sim-to-real.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, experiments, translation
@@ -372,6 +414,49 @@ Training or developing a model in simulation and deploying or adapting it to a p
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
+
+### synthetic data generation
+
+`emb.definition.synthetic-data-generation.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Producing training scenes, trajectories, or annotations with generative or procedural models instead of collecting them from human operators or real environments, so dataset scale and diversity are limited by generation quality rather than collection effort.
+
+**Use:** State what is generated (scenes, actions, or labels), the generative mechanism, how physical feasibility is enforced or filtered, and how much real data remains in the loop. Report downstream policy performance, not only generation fidelity or speed.
+
+**Avoid:** Do not equate synthetic data generation with domain randomization, which varies parameters of an existing scene rather than generating new scenes or trajectories, and do not claim realism from visual quality alone.
+
+**Patterns:**
+
+- We generate {scenes or trajectories} from {conditioning input} with {generative model}, filtering samples that violate {feasibility check}.
+- Policies trained on the generated data improve {metric} by {amount} over {human-collected baseline}.
+
+**Verify in primary sources:**
+
+- `lee2025-dynscene-scalable-generation-dynamic` — [DynScene: Scalable Generation of Dynamic Robotic Manipulation Scenes for Embodied AI](https://openaccess.thecvf.com/content/CVPR2025/html/Lee_DynScene_Scalable_Generation_of_Dynamic_Robotic_Manipulation_Scenes_for_Embodied_CVPR_2025_paper.html) (CVPR 2025)
+
+### vision-language reward
+
+`emb.definition.vision-language-reward.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.
+
+**Use:** State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.
+
+**Avoid:** Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.
+
+**Patterns:**
+
+- The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.
+- We verify the learned reward against {task success metric} before policy training on {tasks}.
+
+**Verify in primary sources:**
+
+- `ma2023-liv-language-image-representations` — [LIV: Language-Image Representations and Rewards for Robotic Control](https://proceedings.mlr.press/v202/ma23b.html) (ICML 2023)
+- `li2024-decisionnce-embodied-multimodal-representations` — [DecisionNCE: Embodied Multimodal Representations via Implicit Preference Learning](https://proceedings.mlr.press/v235/li24cr.html) (ICML 2024)
 
 ### visuomotor policy
 
@@ -418,6 +503,27 @@ A model or policy that conditions on visual observations and language and produc
 - `oneill2024openx` — [Open X-Embodiment: Robotic Learning Datasets and RT-X Models](https://doi.org/10.1109/ICRA57147.2024.10611477) (ICRA 2024)
 - `zhen2024vla` — [3D-VLA: A 3D Vision-Language-Action Generative World Model](https://proceedings.mlr.press/v235/zhen24a.html) (ICML 2024)
 
+### differentiable physics simulation
+
+`rl.definition.differentiable-simulation.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A simulator whose state transitions are implemented as differentiable operations, so gradients of task objectives with respect to actions, policy parameters, or physical parameters can be computed by backpropagating through the simulated dynamics.
+
+**Use:** State which quantities gradients flow through, the horizon over which backpropagation remains stable, and how nonsmooth events such as contact are handled. Distinguish analytic differentiable dynamics from learned dynamics models used for the same optimization purpose.
+
+**Avoid:** Do not treat simulation gradients as automatically well behaved; long-horizon or contact-rich rollouts can make them ill-conditioned, and claims should acknowledge this when applicable.
+
+**Patterns:**
+
+- We backpropagate {task objective} through the differentiable simulator to update {policy parameters}.
+- Gradients across {contact or discontinuous events} are handled by {smoothing or relaxation scheme}.
+
+**Verify in primary sources:**
+
+- `chen2023-imitation-learning-state-matching` — [Imitation Learning As State Matching via Differentiable Physics](https://openaccess.thecvf.com/content/CVPR2023/html/Chen_Imitation_Learning_As_State_Matching_via_Differentiable_Physics_CVPR_2023_paper.html) (CVPR 2023)
+
 ### experience replay / replay buffer
 
 `rl.definition.experience-replay.001` · definition · reinforcement_learning, robot_learning · related_work, method, translation
@@ -441,6 +547,49 @@ A mechanism that stores previously collected transitions or trajectories and res
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
 - `gu2017asynchronous` — [Deep Reinforcement Learning for Robotic Manipulation with Asynchronous Off-Policy Updates](https://ieeexplore.ieee.org/document/7989385) (ICRA 2017)
 
+### hindsight relabeling
+
+`rl.definition.hindsight-relabeling.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Reusing collected trajectories by replacing the intended goal with a goal actually achieved in hindsight, so failed episodes still supply positive examples for goal-conditioned learning without new environment interaction or manual reward design.
+
+**Use:** State the relabeling distribution (final state, future states, or learned goals), the fraction of relabeled data, and how relabeled rewards are computed. Note interactions with offline settings where support constraints still apply.
+
+**Avoid:** Do not present hindsight relabeling as a general fix for exploration; it only densifies learning signal for goals already covered by collected behavior.
+
+**Patterns:**
+
+- Transitions are relabeled with goals sampled from {relabeling distribution}, turning failures into positive examples for {learned quantity}.
+- We combine hindsight relabeling with {method} to learn {skill set} from reward-free offline data.
+
+**Verify in primary sources:**
+
+- `chebotar2021-actionable-models-unsupervised-offline` — [Actionable Models: Unsupervised Offline Reinforcement Learning of Robotic Skills](https://proceedings.mlr.press/v139/chebotar21a.html) (ICML 2021)
+
+### multi-task reinforcement learning (MTRL)
+
+`rl.definition.multi-task-rl.001` · definition · reinforcement_learning, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Training one agent or shared components on a set of reinforcement-learning tasks so that experience, representations, or parameters transfer across tasks, instead of optimizing each task independently.
+
+**Use:** State what is shared (policy, representation, or experts), how tasks are identified or weighted, the training order or curriculum when asymmetric, and how negative transfer between dissimilar tasks is detected or mitigated. Report per-task and aggregate returns, not aggregates alone.
+
+**Avoid:** Do not equate multi-task RL with goal-conditioned RL over goals of one task family, and do not claim positive transfer from aggregate results while individual tasks regress.
+
+**Patterns:**
+
+- The agent shares {component} across {task set} and mitigates negative transfer with {mechanism}.
+- We report per-task returns alongside the aggregate to expose transfer asymmetry across {benchmarks}.
+
+**Verify in primary sources:**
+
+- `huang2023-curriculum-based-asymmetric-multi` — [Curriculum-Based Asymmetric Multi-Task Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3223872) (TPAMI 2023)
+- `kong2025-mastering-massive-multi-task` — [Mastering Massive Multi-Task Reinforcement Learning via Mixture-of-Expert Decision Transformer](https://proceedings.mlr.press/v267/kong25a.html) (ICML 2025)
+
 ### offline reinforcement learning
 
 `rl.definition.offline-rl.001` · definition · reinforcement_learning, robot_learning · abstract, introduction, related_work, translation
@@ -462,6 +611,27 @@ Reinforcement learning from a fixed dataset of previously collected transitions,
 
 - `kumar2020cql` — [Conservative Q-Learning for Offline Reinforcement Learning](https://proceedings.neurips.cc/paper/2020/hash/0d2b2061826a5df3221116a5085a6052-Abstract.html) (NeurIPS 2020)
 - `kostrikov2022iql` — [Offline Reinforcement Learning with Implicit Q-Learning](https://openreview.net/forum?id=68n2s9ZJWF8) (ICLR 2022)
+
+### reset-free (autonomous) reinforcement learning
+
+`rl.definition.reset-free-rl.001` · definition · reinforcement_learning, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Learning in a continual, non-episodic interaction stream in which the environment is not reset between trials, so the agent must recover from failures, return to useful states, and manage its own data collection as part of learning.
+
+**Use:** State how the agent retries without external resets (learned reset or recovery policies, backward controllers, or curricula), how evaluation is separated from the nonepisodic training stream, and how many human interventions occurred.
+
+**Avoid:** Do not present episodic benchmark results as autonomous learning, and do not omit manual resets or interventions when claiming reset-free operation.
+
+**Patterns:**
+
+- After {failure mode}, {recovery mechanism} returns the agent to {useful state distribution} without an external reset.
+- We report {intervention count} human interventions over {training duration}.
+
+**Verify in primary sources:**
+
+- `sharma2022-autonomous-reinforcement-learning-formalism` — [Autonomous Reinforcement Learning: Formalism and Benchmarking](https://iclr.cc/virtual/2022/poster/7153) (ICLR 2022)
 
 ### continuous action head
 
@@ -848,6 +1018,28 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
+
+### tactile sensing
+
+`emb.term.tactile-sensing.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Contact-based measurement at the robot's surfaces, such as forces, pressure, vibration, or binary contact events, that complements vision and proprioception by registering interactions those signals miss.
+
+**Use:** State the tactile modality and resolution (dense arrays versus sparse binary contacts), sensor placement, latency and alignment with other modalities, and the failure the signal prevents, for example decoupled robot-object motion that proprioceptive error cannot register.
+
+**Avoid:** Do not treat fingertip or skin tactile sensing as interchangeable with wrist force-torque sensing, and do not claim contact-rich competence from vision-only results.
+
+**Patterns:**
+
+- {Sparse binary or dense} tactile signals at {mounting locations} register {interaction event} that {other modality} misses.
+- We fuse tactile, proprioceptive, and visual streams with {latency budget} alignment for {contact-rich task}.
+
+**Verify in primary sources:**
+
+- `miller2025-enhancing-tactile-based-reinforcement` — [Enhancing Tactile-based Reinforcement Learning for Robotic Control](https://proceedings.neurips.cc/paper_files/paper/2025/hash/bc09efb501c801ed92e181e26a885c2d-Abstract-Conference.html) (NeurIPS 2025)
+- `wan2025-rapid-hand-robust-affordable` — [RAPID Hand: Robust, Affordable, Perception-Integrated, Dexterous Manipulation Platform for Embodied Intelligence](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8bead340bb510de5c8356f60ca039efc-Abstract-Conference.html) (NeurIPS 2025)
 
 ### task success rate
 

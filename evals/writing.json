@@ -27,10 +27,30 @@
         "Verify every literature claim in the primary papers before adding citations."
       ],
       "machine_checks": [
-        {"id": "mentions-action-conditioning", "type": "required_regex", "pattern": "action[- ]conditioned|conditioned on actions", "message": "Mention the action-conditioned transition model."},
-        {"id": "mentions-latent-transitions", "type": "required_regex", "pattern": "latent (?:transition|dynamics)", "message": "Use the field-standard latent-transition or latent-dynamics term."},
-        {"id": "separates-planning-video", "type": "required_regex", "pattern": "planning", "message": "Preserve planning as the evaluated use."},
-        {"id": "avoids-unsupported-sota", "type": "forbidden_regex", "pattern": "state[- ]of[- ]the[- ]art|outperforms? all", "message": "Do not add an unsupported ranking claim."}
+        {
+          "id": "mentions-action-conditioning",
+          "type": "required_regex",
+          "pattern": "action[- ]conditioned|conditioned on actions",
+          "message": "Mention the action-conditioned transition model."
+        },
+        {
+          "id": "mentions-latent-transitions",
+          "type": "required_regex",
+          "pattern": "latent (?:transition|dynamics)",
+          "message": "Use the field-standard latent-transition or latent-dynamics term."
+        },
+        {
+          "id": "separates-planning-video",
+          "type": "required_regex",
+          "pattern": "planning",
+          "message": "Preserve planning as the evaluated use."
+        },
+        {
+          "id": "avoids-unsupported-sota",
+          "type": "forbidden_regex",
+          "pattern": "state[- ]of[- ]the[- ]art|outperforms? all",
+          "message": "Do not add an unsupported ranking claim."
+        }
       ]
     },
     {
@@ -59,10 +79,30 @@
         "Do not over-concede beyond the evidence boundary."
       ],
       "machine_checks": [
-        {"id": "preserves-five-seeds", "type": "required_regex", "pattern": "(?:five|5) (?:random )?seeds", "message": "Preserve the five-seed protocol."},
-        {"id": "preserves-mean-gain", "type": "required_regex", "pattern": "3\\.2 (?:percentage )?points", "message": "Preserve the 3.2-point mean improvement."},
-        {"id": "states-test-boundary", "type": "required_regex", "pattern": "no (?:statistical )?significance test|significance (?:was )?not (?:tested|assessed)|without (?:a )?(?:statistical )?significance test|did not (?:conduct|run|perform) (?:a )?(?:statistical )?significance test", "message": "State that significance was not tested."},
-        {"id": "does-not-invent-experiment", "type": "forbidden_regex", "pattern": "we (?:conducted|ran|performed) (?:an )?additional experiment", "message": "Do not invent an additional experiment."}
+        {
+          "id": "preserves-five-seeds",
+          "type": "required_regex",
+          "pattern": "(?:five|5) (?:random )?seeds",
+          "message": "Preserve the five-seed protocol."
+        },
+        {
+          "id": "preserves-mean-gain",
+          "type": "required_regex",
+          "pattern": "3\\.2 (?:percentage )?points",
+          "message": "Preserve the 3.2-point mean improvement."
+        },
+        {
+          "id": "states-test-boundary",
+          "type": "required_regex",
+          "pattern": "no (?:statistical )?significance test|significance (?:was )?not (?:tested|assessed)|without (?:a )?(?:statistical )?significance test|did not (?:conduct|run|perform) (?:a )?(?:statistical )?significance test",
+          "message": "State that significance was not tested."
+        },
+        {
+          "id": "does-not-invent-experiment",
+          "type": "forbidden_regex",
+          "pattern": "we (?:conducted|ran|performed) (?:an )?additional experiment",
+          "message": "Do not invent an additional experiment."
+        }
       ]
     },
     {
@@ -88,11 +128,36 @@
         "Do not claim demonstrated generalization to unseen embodiments."
       ],
       "machine_checks": [
-        {"id": "preserves-seed-fraction", "type": "required_regex", "pattern": "(?:three|3) (?:out of|of) (?:the )?(?:five|5) (?:random )?seeds", "message": "Preserve three of five random seeds."},
-        {"id": "preserves-modality", "type": "required_regex", "pattern": "\\b(?:may|might|could|possibly)\\b", "message": "Preserve possibility rather than causality."},
-        {"id": "uses-model-error-term", "type": "required_regex", "pattern": "compounding (?:of )?model errors?|model[- ]error accumulation", "message": "Use a standard model-error accumulation term."},
-        {"id": "preserves-significance", "type": "required_regex", "pattern": "not statistically significant|no statistically significant", "message": "Preserve the negative significance statement."},
-        {"id": "preserves-unverified-scope", "type": "required_regex", "pattern": "unseen (?:robot )?embodiments?.*(?:remains|has yet|not been)|(?:remains|has yet|not been).*unseen (?:robot )?embodiments?", "message": "Preserve the unverified unseen-embodiment scope."}
+        {
+          "id": "preserves-seed-fraction",
+          "type": "required_regex",
+          "pattern": "(?:three|3) (?:out of|of) (?:the )?(?:five|5) (?:random )?seeds",
+          "message": "Preserve three of five random seeds."
+        },
+        {
+          "id": "preserves-modality",
+          "type": "required_regex",
+          "pattern": "\\b(?:may|might|could|possibly)\\b",
+          "message": "Preserve possibility rather than causality."
+        },
+        {
+          "id": "uses-model-error-term",
+          "type": "required_regex",
+          "pattern": "compounding (?:of )?model errors?|model[- ]error accumulation",
+          "message": "Use a standard model-error accumulation term."
+        },
+        {
+          "id": "preserves-significance",
+          "type": "required_regex",
+          "pattern": "not statistically significant|no statistically significant",
+          "message": "Preserve the negative significance statement."
+        },
+        {
+          "id": "preserves-unverified-scope",
+          "type": "required_regex",
+          "pattern": "unseen (?:robot )?embodiments?.*(?:remains|has yet|not been)|(?:remains|has yet|not been).*unseen (?:robot )?embodiments?",
+          "message": "Preserve the unverified unseen-embodiment scope."
+        }
       ]
     },
     {
@@ -121,11 +186,36 @@
         "Name every conditioning input without inventing architecture details."
       ],
       "machine_checks": [
-        {"id": "prediction-horizon", "type": "required_regex", "pattern": "(?:predicts?|prediction (?:horizon|chunk)(?: of| is)?)\\s*(?:the next )?16", "message": "Preserve the 16-action prediction horizon."},
-        {"id": "execution-horizon", "type": "required_regex", "pattern": "executes? (?:the (?:first|next) )?(?:four|4) actions", "message": "Preserve the four-action execution horizon."},
-        {"id": "replanning-feedback", "type": "required_regex", "pattern": "replan|re-observ|observ(?:e|es|ing) again|closed[- ]loop", "message": "State the feedback or replanning boundary."},
-        {"id": "conditioning-inputs", "type": "required_regex", "pattern": "language.*(?:two|2) camera|(?:two|2) camera.*language", "message": "Name language and two camera views."},
-        {"id": "not-entirely-open-loop", "type": "forbidden_regex", "pattern": "executes? (?:all|the entire) (?:16|sixteen).*(?:open[- ]loop|without (?:new )?observ)", "message": "Do not describe the full predicted chunk as open-loop execution."}
+        {
+          "id": "prediction-horizon",
+          "type": "required_regex",
+          "pattern": "(?:predicts?|prediction (?:horizon|chunk)(?: of| is)?)\\s*(?:the next )?16",
+          "message": "Preserve the 16-action prediction horizon."
+        },
+        {
+          "id": "execution-horizon",
+          "type": "required_regex",
+          "pattern": "executes? (?:the (?:first|next) )?(?:four|4) actions",
+          "message": "Preserve the four-action execution horizon."
+        },
+        {
+          "id": "replanning-feedback",
+          "type": "required_regex",
+          "pattern": "replan|re-observ|observ(?:e|es|ing) again|closed[- ]loop",
+          "message": "State the feedback or replanning boundary."
+        },
+        {
+          "id": "conditioning-inputs",
+          "type": "required_regex",
+          "pattern": "language.*(?:two|2) camera|(?:two|2) camera.*language",
+          "message": "Name language and two camera views."
+        },
+        {
+          "id": "not-entirely-open-loop",
+          "type": "forbidden_regex",
+          "pattern": "executes? (?:all|the entire) (?:16|sixteen).*(?:open[- ]loop|without (?:new )?observ)",
+          "message": "Do not describe the full predicted chunk as open-loop execution."
+        }
       ]
     },
     {
@@ -155,10 +245,30 @@
         "Do not invent hardware, control frequency, seeds, or baseline versions."
       ],
       "machine_checks": [
-        {"id": "task-trial-count", "type": "required_regex", "pattern": "(?:six|6)(?: [a-z-]+){0,3} tasks?[\\s\\S]{0,80}(?:20|twenty) trials? per task|(?:20|twenty) trials? per task[\\s\\S]{0,80}(?:six|6)(?: [a-z-]+){0,3} tasks?", "message": "State six tasks and 20 trials per task."},
-        {"id": "success-event", "type": "required_regex", "pattern": "target region.*without human intervention|without human intervention.*target region", "message": "State the exact binary success event."},
-        {"id": "matched-data", "type": "required_regex", "pattern": "(?:same|matched)[\\s\\S]{0,40}120 demonstrations? (?:per|for each) task|120 demonstrations? (?:per|for each) task[\\s\\S]{0,40}(?:same|matched)", "message": "State the matched 120-demonstration budget."},
-        {"id": "wilson-interval", "type": "required_regex", "pattern": "Wilson 95% confidence interval", "message": "Name the Wilson 95% confidence interval."}
+        {
+          "id": "task-trial-count",
+          "type": "required_regex",
+          "pattern": "(?:six|6)(?: [a-z-]+){0,3} tasks?[\\s\\S]{0,80}(?:20|twenty) trials? per task|(?:20|twenty) trials? per task[\\s\\S]{0,80}(?:six|6)(?: [a-z-]+){0,3} tasks?",
+          "message": "State six tasks and 20 trials per task."
+        },
+        {
+          "id": "success-event",
+          "type": "required_regex",
+          "pattern": "target region.*without human intervention|without human intervention.*target region",
+          "message": "State the exact binary success event."
+        },
+        {
+          "id": "matched-data",
+          "type": "required_regex",
+          "pattern": "(?:same|matched)[\\s\\S]{0,40}120 demonstrations? (?:per|for each) task|120 demonstrations? (?:per|for each) task[\\s\\S]{0,40}(?:same|matched)",
+          "message": "State the matched 120-demonstration budget."
+        },
+        {
+          "id": "wilson-interval",
+          "type": "required_regex",
+          "pattern": "Wilson 95% confidence interval",
+          "message": "Name the Wilson 95% confidence interval."
+        }
       ]
     },
     {
@@ -187,12 +297,42 @@
         "Do not attribute the gain to an unisolated component."
       ],
       "machine_checks": [
-        {"id": "success-endpoints", "type": "required_regex", "pattern": "62%.*70%|70%.*62%", "message": "Report both success endpoints."},
-        {"id": "absolute-change", "type": "required_regex", "pattern": "(?:eight|8)[- ]percentage[- ]point", "message": "Report the absolute eight-percentage-point change."},
-        {"id": "latency-tradeoff", "type": "required_regex", "pattern": "40 ms.*68 ms|68 ms.*40 ms", "message": "Report both latency endpoints."},
-        {"id": "matched-hardware", "type": "required_regex", "pattern": "same hardware|matched hardware", "message": "Preserve the matched-hardware condition."},
-        {"id": "unchanged-tasks", "type": "required_regex", "pattern": "(?:two|2) (?:of (?:the )?(?:six|6) )?tasks?.*(?:unchanged|within uncertainty)", "message": "Report the unchanged tasks."},
-        {"id": "avoids-causal-attribution", "type": "forbidden_regex", "pattern": "gain (?:is|was) (?:caused|driven) by (?:the |our )?(?:component|module)", "message": "Do not invent a causal component attribution."}
+        {
+          "id": "success-endpoints",
+          "type": "required_regex",
+          "pattern": "62%.*70%|70%.*62%",
+          "message": "Report both success endpoints."
+        },
+        {
+          "id": "absolute-change",
+          "type": "required_regex",
+          "pattern": "(?:eight|8)[- ]percentage[- ]point",
+          "message": "Report the absolute eight-percentage-point change."
+        },
+        {
+          "id": "latency-tradeoff",
+          "type": "required_regex",
+          "pattern": "40 ms.*68 ms|68 ms.*40 ms",
+          "message": "Report both latency endpoints."
+        },
+        {
+          "id": "matched-hardware",
+          "type": "required_regex",
+          "pattern": "same hardware|matched hardware",
+          "message": "Preserve the matched-hardware condition."
+        },
+        {
+          "id": "unchanged-tasks",
+          "type": "required_regex",
+          "pattern": "(?:two|2) (?:of (?:the )?(?:six|6) )?tasks?.*(?:unchanged|within uncertainty)",
+          "message": "Report the unchanged tasks."
+        },
+        {
+          "id": "avoids-causal-attribution",
+          "type": "forbidden_regex",
+          "pattern": "gain (?:is|was) (?:caused|driven) by (?:the |our )?(?:component|module)",
+          "message": "Do not invent a causal component attribution."
+        }
       ]
     },
     {
@@ -222,12 +362,42 @@
         "Keep deployment and adaptation outside the claimed contribution."
       ],
       "machine_checks": [
-        {"id": "prior-assumption", "type": "required_regex", "pattern": "dense action coverage", "message": "State the restrictive prior assumption."},
-        {"id": "design-bridge", "type": "required_regex", "pattern": "uncertainty[- ]aware planner", "message": "Name the corresponding design response."},
-        {"id": "support-boundary", "type": "required_regex", "pattern": "dataset support", "message": "State how the planner treats unsupported trajectories."},
-        {"id": "empirical-axes", "type": "required_regex", "pattern": "return.*support[- ]violation|support[- ]violation.*return", "message": "Name both evaluation axes."},
-        {"id": "benchmark-scope", "type": "required_regex", "pattern": "(?:three|3) offline[- ]control benchmarks", "message": "Preserve the three-benchmark scope."},
-        {"id": "no-deployment-claim", "type": "forbidden_regex", "pattern": "deployed on (?:a )?real robot|enables online adaptation", "message": "Do not claim untested deployment or online adaptation."}
+        {
+          "id": "prior-assumption",
+          "type": "required_regex",
+          "pattern": "dense action coverage",
+          "message": "State the restrictive prior assumption."
+        },
+        {
+          "id": "design-bridge",
+          "type": "required_regex",
+          "pattern": "uncertainty[- ]aware planner",
+          "message": "Name the corresponding design response."
+        },
+        {
+          "id": "support-boundary",
+          "type": "required_regex",
+          "pattern": "dataset support",
+          "message": "State how the planner treats unsupported trajectories."
+        },
+        {
+          "id": "empirical-axes",
+          "type": "required_regex",
+          "pattern": "return.*support[- ]violation|support[- ]violation.*return",
+          "message": "Name both evaluation axes."
+        },
+        {
+          "id": "benchmark-scope",
+          "type": "required_regex",
+          "pattern": "(?:three|3) offline[- ]control benchmarks",
+          "message": "Preserve the three-benchmark scope."
+        },
+        {
+          "id": "no-deployment-claim",
+          "type": "forbidden_regex",
+          "pattern": "deployed on (?:a )?real robot|enables online adaptation",
+          "message": "Do not claim untested deployment or online adaptation."
+        }
       ]
     },
     {
@@ -257,12 +427,42 @@
         "Do not imply unseen-embodiment transfer."
       ],
       "machine_checks": [
-        {"id": "result-endpoints", "type": "required_regex", "pattern": "48%.*57%|57%.*48%", "message": "Report both success endpoints."},
-        {"id": "absolute-improvement", "type": "required_regex", "pattern": "(?:nine|9)[- ]percentage[- ]point", "message": "Report the absolute improvement."},
-        {"id": "generalization-axis", "type": "required_regex", "pattern": "unseen[- ]object", "message": "Name the tested unseen-object axis."},
-        {"id": "simulation-scope", "type": "required_regex", "pattern": "simulation[- ]only|in simulation", "message": "Preserve the simulation-only scope."},
-        {"id": "seed-count", "type": "required_regex", "pattern": "(?:five|5) (?:random )?seeds", "message": "Preserve five seeds."},
-        {"id": "no-sota", "type": "forbidden_regex", "pattern": "state[- ]of[- ]the[- ]art", "message": "Do not invent a state-of-the-art claim."}
+        {
+          "id": "result-endpoints",
+          "type": "required_regex",
+          "pattern": "48%.*57%|57%.*48%",
+          "message": "Report both success endpoints."
+        },
+        {
+          "id": "absolute-improvement",
+          "type": "required_regex",
+          "pattern": "(?:nine|9)[- ]percentage[- ]point",
+          "message": "Report the absolute improvement."
+        },
+        {
+          "id": "generalization-axis",
+          "type": "required_regex",
+          "pattern": "unseen[- ]object",
+          "message": "Name the tested unseen-object axis."
+        },
+        {
+          "id": "simulation-scope",
+          "type": "required_regex",
+          "pattern": "simulation[- ]only|in simulation",
+          "message": "Preserve the simulation-only scope."
+        },
+        {
+          "id": "seed-count",
+          "type": "required_regex",
+          "pattern": "(?:five|5) (?:random )?seeds",
+          "message": "Preserve five seeds."
+        },
+        {
+          "id": "no-sota",
+          "type": "forbidden_regex",
+          "pattern": "state[- ]of[- ]the[- ]art",
+          "message": "Do not invent a state-of-the-art claim."
+        }
       ]
     },
     {
@@ -292,11 +492,36 @@
         "Distinguish simulated evidence from untested real-robot robustness."
       ],
       "machine_checks": [
-        {"id": "horizon-boundary", "type": "required_regex", "pattern": "(?:horizon|beyond).*(?:50|fifty)|(?:50|fifty).*(?:step|horizon)", "message": "Preserve the observed horizon-50 boundary."},
-        {"id": "rollout-error", "type": "required_regex", "pattern": "prediction error.*rollout length|compounding model error", "message": "State the rollout-error observation."},
-        {"id": "simulation-only", "type": "required_regex", "pattern": "simulated locomotion|simulation[- ]only|only in simulation", "message": "Preserve the simulation scope."},
-        {"id": "robot-untested", "type": "required_regex", "pattern": "real[- ]robot robustness.*(?:not|remain|unexplored)|(?:not evaluated|untested).*real[- ]robot", "message": "State that real-robot robustness is untested."},
-        {"id": "no-universal-threshold", "type": "forbidden_regex", "pattern": "50 steps? is (?:a|the) (?:causal|universal) threshold", "message": "Do not invent a universal causal threshold."}
+        {
+          "id": "horizon-boundary",
+          "type": "required_regex",
+          "pattern": "(?:horizon|beyond).*(?:50|fifty)|(?:50|fifty).*(?:step|horizon)",
+          "message": "Preserve the observed horizon-50 boundary."
+        },
+        {
+          "id": "rollout-error",
+          "type": "required_regex",
+          "pattern": "prediction error.*rollout length|compounding model error",
+          "message": "State the rollout-error observation."
+        },
+        {
+          "id": "simulation-only",
+          "type": "required_regex",
+          "pattern": "simulated locomotion|simulation[- ]only|only in simulation",
+          "message": "Preserve the simulation scope."
+        },
+        {
+          "id": "robot-untested",
+          "type": "required_regex",
+          "pattern": "real[- ]robot robustness.*(?:not|remain|unexplored)|(?:not evaluated|untested).*real[- ]robot",
+          "message": "State that real-robot robustness is untested."
+        },
+        {
+          "id": "no-universal-threshold",
+          "type": "forbidden_regex",
+          "pattern": "50 steps? is (?:a|the) (?:causal|universal) threshold",
+          "message": "Do not invent a universal causal threshold."
+        }
       ]
     },
     {
@@ -326,11 +551,36 @@
         "End with a bounded future direction rather than an unsupported capability claim."
       ],
       "machine_checks": [
-        {"id": "method-contribution", "type": "required_regex", "pattern": "conservative value penalty", "message": "Restate the method contribution."},
-        {"id": "return-endpoints", "type": "required_regex", "pattern": "71.*76|76.*71", "message": "Report both normalized-return endpoints."},
-        {"id": "task-scope", "type": "required_regex", "pattern": "(?:three|3) D4RL tasks", "message": "Preserve the three-task D4RL scope."},
-        {"id": "seed-scope", "type": "required_regex", "pattern": "(?:three|3) seeds", "message": "Preserve the seed count."},
-        {"id": "no-deployment-expansion", "type": "forbidden_regex", "pattern": "successful online fine[- ]tuning|deployed (?:on|to) (?:a )?robot", "message": "Do not claim untested online or robot deployment."}
+        {
+          "id": "method-contribution",
+          "type": "required_regex",
+          "pattern": "conservative value penalty",
+          "message": "Restate the method contribution."
+        },
+        {
+          "id": "return-endpoints",
+          "type": "required_regex",
+          "pattern": "71.*76|76.*71",
+          "message": "Report both normalized-return endpoints."
+        },
+        {
+          "id": "task-scope",
+          "type": "required_regex",
+          "pattern": "(?:three|3) D4RL tasks",
+          "message": "Preserve the three-task D4RL scope."
+        },
+        {
+          "id": "seed-scope",
+          "type": "required_regex",
+          "pattern": "(?:three|3) seeds",
+          "message": "Preserve the seed count."
+        },
+        {
+          "id": "no-deployment-expansion",
+          "type": "forbidden_regex",
+          "pattern": "successful online fine[- ]tuning|deployed (?:on|to) (?:a )?robot",
+          "message": "Do not claim untested online or robot deployment."
+        }
       ]
     },
     {
@@ -360,12 +610,42 @@
         "Do not rank results measured under incomparable hardware or timing boundaries."
       ],
       "machine_checks": [
-        {"id": "metric-values", "type": "required_regex", "pattern": "43 (?:images/s|images per second).*(?:21 ms)|21 ms.*43 (?:images/s|images per second)", "message": "Report throughput and latency with units."},
-        {"id": "hardware-protocol", "type": "required_regex", "pattern": "(?:one|1|single) (?:NVIDIA )?A100", "message": "Name the single-A100 hardware."},
-        {"id": "batch-precision", "type": "required_regex", "pattern": "batch size (?:of )?1.*FP16|FP16.*batch size (?:of )?1", "message": "State batch size and precision."},
-        {"id": "timing-boundary", "type": "required_regex", "pattern": "exclud(?:e|es|ing)[\\s\\S]{0,160}model loading[\\s\\S]{0,160}includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding|includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding[\\s\\S]{0,160}exclud(?:e|es|ing)[\\s\\S]{0,160}model loading", "message": "Define the end-to-end timing boundary."},
-        {"id": "iteration-protocol", "type": "required_regex", "pattern": "100 warm[- ]up[\\s\\S]{0,80}1,?000 (?:measured )?iterations|1,?000 (?:measured )?iterations[\\s\\S]{0,80}(?:following|after) 100 warm[- ]up", "message": "State warm-up and measured iterations."},
-        {"id": "no-hardware-independent-rank", "type": "forbidden_regex", "pattern": "fastest (?:method|model) (?:overall|in general)|(?:results?|ranking|comparison) (?:are|is) hardware[- ]independent", "message": "Do not imply a hardware-independent ranking."}
+        {
+          "id": "metric-values",
+          "type": "required_regex",
+          "pattern": "43 (?:images/s|images per second).*(?:21 ms)|21 ms.*43 (?:images/s|images per second)",
+          "message": "Report throughput and latency with units."
+        },
+        {
+          "id": "hardware-protocol",
+          "type": "required_regex",
+          "pattern": "(?:one|1|single) (?:NVIDIA )?A100",
+          "message": "Name the single-A100 hardware."
+        },
+        {
+          "id": "batch-precision",
+          "type": "required_regex",
+          "pattern": "batch size (?:of )?1.*FP16|FP16.*batch size (?:of )?1",
+          "message": "State batch size and precision."
+        },
+        {
+          "id": "timing-boundary",
+          "type": "required_regex",
+          "pattern": "exclud(?:e|es|ing)[\\s\\S]{0,160}model loading[\\s\\S]{0,160}includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding|includ(?:e|es|ing)[\\s\\S]{0,160}preprocessing[\\s\\S]{0,160}action decoding[\\s\\S]{0,160}exclud(?:e|es|ing)[\\s\\S]{0,160}model loading",
+          "message": "Define the end-to-end timing boundary."
+        },
+        {
+          "id": "iteration-protocol",
+          "type": "required_regex",
+          "pattern": "100 warm[- ]up[\\s\\S]{0,80}1,?000 (?:measured )?iterations|1,?000 (?:measured )?iterations[\\s\\S]{0,80}(?:following|after) 100 warm[- ]up",
+          "message": "State warm-up and measured iterations."
+        },
+        {
+          "id": "no-hardware-independent-rank",
+          "type": "forbidden_regex",
+          "pattern": "fastest (?:method|model) (?:overall|in general)|(?:results?|ranking|comparison) (?:are|is) hardware[- ]independent",
+          "message": "Do not imply a hardware-independent ranking."
+        }
       ]
     },
     {
@@ -395,12 +675,42 @@
         "Do not convert held-out-kitchen evidence into cross-embodiment or open-world generalization."
       ],
       "machine_checks": [
-        {"id": "train-test-axis", "type": "required_regex", "pattern": "(?:four|4) kitchens?.*(?:two|2) held[- ]out kitchens?|(?:two|2) held[- ]out kitchens?.*(?:four|4) kitchens?", "message": "State the train and held-out kitchen counts."},
-        {"id": "task-count", "type": "required_regex", "pattern": "(?:eight|8) language[- ]conditioned manipulation tasks", "message": "State the eight-task scope."},
-        {"id": "trial-denominator", "type": "required_regex", "pattern": "(?:25|twenty[- ]five) trials? per task", "message": "State the per-task trial denominator."},
-        {"id": "checkpoint-control", "type": "required_regex", "pattern": "same checkpoint", "message": "State the matched checkpoint condition."},
-        {"id": "metric-direction", "type": "required_regex", "pattern": "(?:binary )?task success rate.*higher is better|higher is better.*(?:binary )?task success rate", "message": "Define the metric and direction."},
-        {"id": "no-axis-inflation", "type": "forbidden_regex", "pattern": "cross[- ]embodiment|open[- ]world generalization", "message": "Do not broaden the tested generalization axis."}
+        {
+          "id": "train-test-axis",
+          "type": "required_regex",
+          "pattern": "(?:four|4) kitchens?.*(?:two|2) held[- ]out kitchens?|(?:two|2) held[- ]out kitchens?.*(?:four|4) kitchens?",
+          "message": "State the train and held-out kitchen counts."
+        },
+        {
+          "id": "task-count",
+          "type": "required_regex",
+          "pattern": "(?:eight|8) language[- ]conditioned manipulation tasks",
+          "message": "State the eight-task scope."
+        },
+        {
+          "id": "trial-denominator",
+          "type": "required_regex",
+          "pattern": "(?:25|twenty[- ]five) trials? per task",
+          "message": "State the per-task trial denominator."
+        },
+        {
+          "id": "checkpoint-control",
+          "type": "required_regex",
+          "pattern": "same checkpoint",
+          "message": "State the matched checkpoint condition."
+        },
+        {
+          "id": "metric-direction",
+          "type": "required_regex",
+          "pattern": "(?:binary )?task success rate.*higher is better|higher is better.*(?:binary )?task success rate",
+          "message": "Define the metric and direction."
+        },
+        {
+          "id": "no-axis-inflation",
+          "type": "forbidden_regex",
+          "pattern": "cross[- ]embodiment|open[- ]world generalization",
+          "message": "Do not broaden the tested generalization axis."
+        }
       ]
     },
     {
@@ -430,13 +740,48 @@
         "Bound the conclusion to the three benchmarks and available uncertainty evidence."
       ],
       "machine_checks": [
-        {"id": "regularizer-contribution", "type": "required_regex", "pattern": "latent[- ]dynamics regularizer", "message": "Name the latent-dynamics regularizer."},
-        {"id": "benchmark-scope", "type": "required_regex", "pattern": "(?:three|3) benchmarks", "message": "Preserve the three-benchmark scope."},
-        {"id": "favorable-magnitudes", "type": "required_regex", "pattern": "2\\.4.*1\\.1|1\\.1.*2\\.4", "message": "Report both favorable magnitudes."},
-        {"id": "percentage-point-unit", "type": "required_regex", "pattern": "percentage points", "message": "Label the changes as percentage points."},
-        {"id": "null-benchmark", "type": "required_regex", "pattern": "(?:no consistent advantage|does not outperform|no improvement).*(?:third|remaining) benchmark|(?:third|remaining) benchmark.*(?:no consistent advantage|does not outperform|no improvement)", "message": "Preserve the null result on the third benchmark."},
-        {"id": "seed-aggregation", "type": "required_regex", "pattern": "mean(?:s)? over (?:five|5) seeds|averaged over (?:five|5) seeds", "message": "State the five-seed aggregation."},
-        {"id": "no-result-inflation", "type": "forbidden_regex", "pattern": "state[- ]of[- ]the[- ]art|statistically significant|improves? (?:on|across) all (?:three|3) benchmarks", "message": "Do not invent significance, SOTA, or uniform gains."}
+        {
+          "id": "regularizer-contribution",
+          "type": "required_regex",
+          "pattern": "latent[- ]dynamics regularizer",
+          "message": "Name the latent-dynamics regularizer."
+        },
+        {
+          "id": "benchmark-scope",
+          "type": "required_regex",
+          "pattern": "(?:three|3) benchmarks",
+          "message": "Preserve the three-benchmark scope."
+        },
+        {
+          "id": "favorable-magnitudes",
+          "type": "required_regex",
+          "pattern": "2\\.4.*1\\.1|1\\.1.*2\\.4",
+          "message": "Report both favorable magnitudes."
+        },
+        {
+          "id": "percentage-point-unit",
+          "type": "required_regex",
+          "pattern": "percentage points",
+          "message": "Label the changes as percentage points."
+        },
+        {
+          "id": "null-benchmark",
+          "type": "required_regex",
+          "pattern": "(?:no consistent advantage|does not outperform|no improvement).*(?:third|remaining) benchmark|(?:third|remaining) benchmark.*(?:no consistent advantage|does not outperform|no improvement)",
+          "message": "Preserve the null result on the third benchmark."
+        },
+        {
+          "id": "seed-aggregation",
+          "type": "required_regex",
+          "pattern": "mean(?:s)? over (?:five|5) seeds|averaged over (?:five|5) seeds",
+          "message": "State the five-seed aggregation."
+        },
+        {
+          "id": "no-result-inflation",
+          "type": "forbidden_regex",
+          "pattern": "state[- ]of[- ]the[- ]art|statistically significant|improves? (?:on|across) all (?:three|3) benchmarks",
+          "message": "Do not invent significance, SOTA, or uniform gains."
+        }
       ]
     },
     {
@@ -466,11 +811,36 @@
         "Do not imply real-robot validation or universal prevention of accumulated error."
       ],
       "machine_checks": [
-        {"id": "feedback-challenge", "type": "required_regex", "pattern": "action chunks?.*(?:without feedback|open[- ]loop).*(?:accumulat|compound).*(?:control )?errors?|(?:control )?errors?.*(?:accumulat|compound).*action chunks?.*(?:without feedback|open[- ]loop)", "message": "State the feedback-related action-chunk challenge."},
-        {"id": "replanning-design", "type": "required_regex", "pattern": "replan(?:s|ning)? (?:from|using|after).*(?:new|updated) observation|(?:new|updated) observation.*replan", "message": "Connect the design to refreshed observations."},
-        {"id": "feedback-frequency", "type": "required_regex", "pattern": "every (?:four|4) control steps", "message": "State the replanning frequency."},
-        {"id": "evaluation-scope", "type": "required_regex", "pattern": "(?:one|a single) closed[- ]loop manipulation benchmark", "message": "Preserve the single-benchmark scope."},
-        {"id": "no-capability-inflation", "type": "forbidden_regex", "pattern": "state[- ]of[- ]the[- ]art|eliminates? (?:control )?error accumulation|validated on (?:a )?real robot", "message": "Do not invent SOTA, universal prevention, or real-robot evidence."}
+        {
+          "id": "feedback-challenge",
+          "type": "required_regex",
+          "pattern": "action chunks?.*(?:without feedback|open[- ]loop).*(?:accumulat|compound).*(?:control )?errors?|(?:control )?errors?.*(?:accumulat|compound).*action chunks?.*(?:without feedback|open[- ]loop)",
+          "message": "State the feedback-related action-chunk challenge."
+        },
+        {
+          "id": "replanning-design",
+          "type": "required_regex",
+          "pattern": "replan(?:s|ning)? (?:from|using|after).*(?:new|updated) observation|(?:new|updated) observation.*replan",
+          "message": "Connect the design to refreshed observations."
+        },
+        {
+          "id": "feedback-frequency",
+          "type": "required_regex",
+          "pattern": "every (?:four|4) control steps",
+          "message": "State the replanning frequency."
+        },
+        {
+          "id": "evaluation-scope",
+          "type": "required_regex",
+          "pattern": "(?:one|a single) closed[- ]loop manipulation benchmark",
+          "message": "Preserve the single-benchmark scope."
+        },
+        {
+          "id": "no-capability-inflation",
+          "type": "forbidden_regex",
+          "pattern": "state[- ]of[- ]the[- ]art|eliminates? (?:control )?error accumulation|validated on (?:a )?real robot",
+          "message": "Do not invent SOTA, universal prevention, or real-robot evidence."
+        }
       ]
     },
     {
@@ -501,11 +871,36 @@
         "Attach an explicit verification placeholder to unsupported literature claims."
       ],
       "machine_checks": [
-        {"id": "three-families", "type": "required_regex", "pattern": "video world models?[\\s\\S]*latent control models?[\\s\\S]*occupancy world models?|occupancy world models?[\\s\\S]*latent control models?[\\s\\S]*video world models?", "message": "Cover all three literature families."},
-        {"id": "comparison-axes", "type": "required_regex", "pattern": "predict(?:ion)? target|RGB observations?.*(?:latent states?|spatial occupancy)|(?:latent states?|spatial occupancy).*RGB observations?", "message": "Organize the comparison by prediction target."},
-        {"id": "planning-position", "type": "required_regex", "pattern": "action[- ]conditioned.*latent.*planning|planning.*action[- ]conditioned.*latent", "message": "Position the proposed method by conditioning, representation, and use."},
-        {"id": "citation-boundary", "type": "required_regex", "pattern": "\\[CITATION NEEDED(?::[^\\]]+)?\\]", "message": "Mark unverified literature claims for citation verification."},
-        {"id": "no-comparative-invention", "type": "forbidden_regex", "pattern": "outperforms?|superior to|state[- ]of[- ]the[- ]art", "message": "Do not invent comparative performance."}
+        {
+          "id": "three-families",
+          "type": "required_regex",
+          "pattern": "video world models?[\\s\\S]*latent control models?[\\s\\S]*occupancy world models?|occupancy world models?[\\s\\S]*latent control models?[\\s\\S]*video world models?",
+          "message": "Cover all three literature families."
+        },
+        {
+          "id": "comparison-axes",
+          "type": "required_regex",
+          "pattern": "predict(?:ion)? target|RGB observations?.*(?:latent states?|spatial occupancy)|(?:latent states?|spatial occupancy).*RGB observations?",
+          "message": "Organize the comparison by prediction target."
+        },
+        {
+          "id": "planning-position",
+          "type": "required_regex",
+          "pattern": "action[- ]conditioned.*latent.*planning|planning.*action[- ]conditioned.*latent",
+          "message": "Position the proposed method by conditioning, representation, and use."
+        },
+        {
+          "id": "citation-boundary",
+          "type": "required_regex",
+          "pattern": "\\[CITATION NEEDED(?::[^\\]]+)?\\]",
+          "message": "Mark unverified literature claims for citation verification."
+        },
+        {
+          "id": "no-comparative-invention",
+          "type": "forbidden_regex",
+          "pattern": "outperforms?|superior to|state[- ]of[- ]the[- ]art",
+          "message": "Do not invent comparative performance."
+        }
       ]
     },
     {
@@ -536,12 +931,42 @@
         "Describe refreshed observations without implying privileged future information."
       ],
       "machine_checks": [
-        {"id": "input-dimensions", "type": "required_regex", "pattern": "224\\s*(?:x|×|by)\\s*224.*14[- ]D|14[- ]D.*224\\s*(?:x|×|by)\\s*224", "message": "State the image and proprioceptive dimensions."},
-        {"id": "language-input", "type": "required_regex", "pattern": "language instruction", "message": "Name the language input."},
-        {"id": "training-target", "type": "required_regex", "pattern": "(?:during training|training target).*(?:next )?(?:eight|8) actions|(?:next )?(?:eight|8) actions.*(?:during training|training target)", "message": "Identify the eight-action training target."},
-        {"id": "deployment-inputs", "type": "required_regex", "pattern": "(?:at deployment|deployment[- ]time).*(?:current image|current RGB).*(?:current )?proprioception.*language|language.*(?:at deployment|deployment[- ]time).*(?:current image|current RGB).*(?:current )?proprioception", "message": "Separate deployment-time inputs from supervision."},
-        {"id": "execution-replanning", "type": "required_regex", "pattern": "executes? (?:the (?:first|next) )?(?:four|4) actions?.*(?:new observation|replan)|(?:new observation|replan).*(?:four|4) actions", "message": "State the execution horizon and feedback."},
-        {"id": "no-future-observation", "type": "required_regex", "pattern": "no future observations?|does not (?:receive|use|access) future observations?|without (?:access to )?future observations?", "message": "State the deployment information boundary."}
+        {
+          "id": "input-dimensions",
+          "type": "required_regex",
+          "pattern": "224\\s*(?:x|×|by)\\s*224.*14[- ]D|14[- ]D.*224\\s*(?:x|×|by)\\s*224",
+          "message": "State the image and proprioceptive dimensions."
+        },
+        {
+          "id": "language-input",
+          "type": "required_regex",
+          "pattern": "language instruction",
+          "message": "Name the language input."
+        },
+        {
+          "id": "training-target",
+          "type": "required_regex",
+          "pattern": "(?:during training|training target).*(?:next )?(?:eight|8) actions|(?:next )?(?:eight|8) actions.*(?:during training|training target)",
+          "message": "Identify the eight-action training target."
+        },
+        {
+          "id": "deployment-inputs",
+          "type": "required_regex",
+          "pattern": "(?:at deployment|deployment[- ]time).*(?:current image|current RGB).*(?:current )?proprioception.*language|language.*(?:at deployment|deployment[- ]time).*(?:current image|current RGB).*(?:current )?proprioception",
+          "message": "Separate deployment-time inputs from supervision."
+        },
+        {
+          "id": "execution-replanning",
+          "type": "required_regex",
+          "pattern": "executes? (?:the (?:first|next) )?(?:four|4) actions?.*(?:new observation|replan)|(?:new observation|replan).*(?:four|4) actions",
+          "message": "State the execution horizon and feedback."
+        },
+        {
+          "id": "no-future-observation",
+          "type": "required_regex",
+          "pattern": "no future observations?|does not (?:receive|use|access) future observations?|without (?:access to )?future observations?",
+          "message": "State the deployment information boundary."
+        }
       ]
     },
     {
@@ -572,12 +997,42 @@
         "Constrain visual ranking to methods with comparable pretraining data."
       ],
       "machine_checks": [
-        {"id": "split-and-metric", "type": "required_regex", "pattern": "seen and unseen environments?.*(?:task )?success rate|(?:task )?success rate.*seen and unseen environments?", "message": "Define the split and metric."},
-        {"id": "units-and-direction", "type": "required_regex", "pattern": "(?:percent|%).*higher is better|higher is better.*(?:percent|%)", "message": "State percentage units and metric direction."},
-        {"id": "seed-aggregation", "type": "required_regex", "pattern": "mean (?:±|plus or minus|\\+/-) (?:the )?standard deviation.*(?:five|5) independent seeds", "message": "State aggregation, uncertainty, and independent seeds."},
-        {"id": "dagger-exception", "type": "required_regex", "pattern": "dagger|†", "message": "Define the extra-pretraining marker."},
-        {"id": "matched-emphasis", "type": "required_regex", "pattern": "bold.*best.*(?:same|within).*(?:pretraining|data) group|best.*(?:same|within).*(?:pretraining|data) group.*bold", "message": "Limit bold ranking to matched groups."},
-        {"id": "missing-not-zero", "type": "required_regex", "pattern": "(?:em dash|—).*(?:not reported|missing).*(?:not|rather than) zero|(?:not reported|missing).*(?:em dash|—).*(?:not|rather than) zero", "message": "Distinguish missing measurements from zero."}
+        {
+          "id": "split-and-metric",
+          "type": "required_regex",
+          "pattern": "seen and unseen environments?.*(?:task )?success rate|(?:task )?success rate.*seen and unseen environments?",
+          "message": "Define the split and metric."
+        },
+        {
+          "id": "units-and-direction",
+          "type": "required_regex",
+          "pattern": "(?:percent|%).*higher is better|higher is better.*(?:percent|%)",
+          "message": "State percentage units and metric direction."
+        },
+        {
+          "id": "seed-aggregation",
+          "type": "required_regex",
+          "pattern": "mean (?:±|plus or minus|\\+/-) (?:the )?standard deviation.*(?:five|5) independent seeds",
+          "message": "State aggregation, uncertainty, and independent seeds."
+        },
+        {
+          "id": "dagger-exception",
+          "type": "required_regex",
+          "pattern": "dagger|†",
+          "message": "Define the extra-pretraining marker."
+        },
+        {
+          "id": "matched-emphasis",
+          "type": "required_regex",
+          "pattern": "bold.*best.*(?:same|within).*(?:pretraining|data) group|best.*(?:same|within).*(?:pretraining|data) group.*bold",
+          "message": "Limit bold ranking to matched groups."
+        },
+        {
+          "id": "missing-not-zero",
+          "type": "required_regex",
+          "pattern": "(?:em dash|—).*(?:not reported|missing).*(?:not|rather than) zero|(?:not reported|missing).*(?:em dash|—).*(?:not|rather than) zero",
+          "message": "Distinguish missing measurements from zero."
+        }
       ]
     },
     {
@@ -608,12 +1063,42 @@
         "Report variability and the absence of a significance test."
       ],
       "machine_checks": [
-        {"id": "variant-values", "type": "required_regex", "pattern": "78\\.4[\\s\\S]*74\\.1[\\s\\S]*76\\.9[\\s\\S]*68\\.0|68\\.0[\\s\\S]*76\\.9[\\s\\S]*74\\.1[\\s\\S]*78\\.4", "message": "Report all four variant means."},
-        {"id": "individual-drops", "type": "required_regex", "pattern": "4\\.3.*1\\.5|1\\.5.*4\\.3", "message": "Quantify both individual drops."},
-        {"id": "joint-nonadditivity", "type": "required_regex", "pattern": "10\\.4.*(?:4\\.6|non[- ]additive|sum)|(?:4\\.6|non[- ]additive|sum).*10\\.4", "message": "Quantify or explicitly identify the non-additive joint drop."},
-        {"id": "interaction-caution", "type": "required_regex", "pattern": "(?:suggests?|consistent with).*(?:interaction|coupling)|(?:interaction|coupling).*(?:suggests?|consistent with)", "message": "Use cautious interaction language."},
-        {"id": "seed-and-variability", "type": "required_regex", "pattern": "(?:five|5) seeds.*standard deviation|standard deviation.*(?:five|5) seeds", "message": "State the seed count and variability statistic."},
-        {"id": "no-causal-significance", "type": "forbidden_regex", "pattern": "statistically significant|proves? (?:an )?interaction|caused by (?:component )?[AB]", "message": "Do not invent significance or identified causality."}
+        {
+          "id": "variant-values",
+          "type": "required_regex",
+          "pattern": "78\\.4[\\s\\S]*74\\.1[\\s\\S]*76\\.9[\\s\\S]*68\\.0|68\\.0[\\s\\S]*76\\.9[\\s\\S]*74\\.1[\\s\\S]*78\\.4",
+          "message": "Report all four variant means."
+        },
+        {
+          "id": "individual-drops",
+          "type": "required_regex",
+          "pattern": "4\\.3.*1\\.5|1\\.5.*4\\.3",
+          "message": "Quantify both individual drops."
+        },
+        {
+          "id": "joint-nonadditivity",
+          "type": "required_regex",
+          "pattern": "10\\.4.*(?:4\\.6|non[- ]additive|sum)|(?:4\\.6|non[- ]additive|sum).*10\\.4",
+          "message": "Quantify or explicitly identify the non-additive joint drop."
+        },
+        {
+          "id": "interaction-caution",
+          "type": "required_regex",
+          "pattern": "(?:suggests?|consistent with).*(?:interaction|coupling)|(?:interaction|coupling).*(?:suggests?|consistent with)",
+          "message": "Use cautious interaction language."
+        },
+        {
+          "id": "seed-and-variability",
+          "type": "required_regex",
+          "pattern": "(?:five|5) seeds.*standard deviation|standard deviation.*(?:five|5) seeds",
+          "message": "State the seed count and variability statistic."
+        },
+        {
+          "id": "no-causal-significance",
+          "type": "forbidden_regex",
+          "pattern": "statistically significant|proves? (?:an )?interaction|caused by (?:component )?[AB]",
+          "message": "Do not invent significance or identified causality."
+        }
       ]
     },
     {
@@ -643,11 +1128,36 @@
         "Commit to a concrete scope clarification without promising an unknown result."
       ],
       "machine_checks": [
-        {"id": "direct-no-answer", "type": "required_regex", "pattern": "(?:have not|did not|was not|has not been) (?:run|conducted|performed|evaluate).*(?:unseen[- ]object )?real[- ]robot|(?:unseen[- ]object )?real[- ]robot.*(?:have not|did not|was not|has not been) (?:run|conducted|performed|evaluate)", "message": "Answer directly that the requested test is unavailable."},
-        {"id": "simulator-evidence", "type": "required_regex", "pattern": "(?:200|two hundred) episodes?.*(?:four|4) seeds|(?:four|4) seeds.*(?:200|two hundred) episodes?", "message": "State the simulator evidence denominator."},
-        {"id": "robot-evidence", "type": "required_regex", "pattern": "(?:20|twenty) (?:real[- ]robot )?trials?.*seen objects?|seen objects?.*(?:20|twenty) (?:real[- ]robot )?trials?", "message": "State the seen-object real-robot scope."},
-        {"id": "revision-action", "type": "required_regex", "pattern": "(?:will|would) (?:narrow|restrict|revise|clarify).*(?:claim|scope|manuscript)|(?:claim|scope|manuscript).*(?:will|would) (?:narrow|restrict|revise|clarify)", "message": "Commit to a concrete scope clarification."},
-        {"id": "no-invented-result", "type": "forbidden_regex", "pattern": "we (?:have )?(?:added|conducted|completed).*(?:unseen[- ]object )?real[- ]robot|unseen[- ]object real[- ]robot.*(?:outperforms?|improves?|success rate)", "message": "Do not invent the requested experiment or outcome."}
+        {
+          "id": "direct-no-answer",
+          "type": "required_regex",
+          "pattern": "(?:have not|did not|was not|has not been) (?:run|conducted|performed|evaluate).*(?:unseen[- ]object )?real[- ]robot|(?:unseen[- ]object )?real[- ]robot.*(?:have not|did not|was not|has not been) (?:run|conducted|performed|evaluate)",
+          "message": "Answer directly that the requested test is unavailable."
+        },
+        {
+          "id": "simulator-evidence",
+          "type": "required_regex",
+          "pattern": "(?:200|two hundred) episodes?.*(?:four|4) seeds|(?:four|4) seeds.*(?:200|two hundred) episodes?",
+          "message": "State the simulator evidence denominator."
+        },
+        {
+          "id": "robot-evidence",
+          "type": "required_regex",
+          "pattern": "(?:20|twenty) (?:real[- ]robot )?trials?.*seen objects?|seen objects?.*(?:20|twenty) (?:real[- ]robot )?trials?",
+          "message": "State the seen-object real-robot scope."
+        },
+        {
+          "id": "revision-action",
+          "type": "required_regex",
+          "pattern": "(?:will|would) (?:narrow|restrict|revise|clarify).*(?:claim|scope|manuscript)|(?:claim|scope|manuscript).*(?:will|would) (?:narrow|restrict|revise|clarify)",
+          "message": "Commit to a concrete scope clarification."
+        },
+        {
+          "id": "no-invented-result",
+          "type": "forbidden_regex",
+          "pattern": "we (?:have )?(?:added|conducted|completed).*(?:unseen[- ]object )?real[- ]robot|unseen[- ]object real[- ]robot.*(?:outperforms?|improves?|success rate)",
+          "message": "Do not invent the requested experiment or outcome."
+        }
       ]
     },
     {
@@ -672,12 +1182,1048 @@
         "Do not upgrade the bounded conclusion into significance or proof of generalization."
       ],
       "machine_checks": [
-        {"id": "seed-count", "type": "required_regex", "pattern": "(?:five|5) (?:random )?seeds", "message": "Preserve the five-seed aggregation."},
-        {"id": "point-improvement", "type": "required_regex", "pattern": "2\\.3 percentage points", "message": "Preserve the magnitude and percentage-point unit."},
-        {"id": "negative-comparison", "type": "required_regex", "pattern": "(?:did not|does not|failed to) outperform (?:the )?baseline.*unseen (?:scenes|environments)|unseen (?:scenes|environments).*(?:did not|does not|failed to) outperform (?:the )?baseline", "message": "Preserve the negative unseen-environment comparison."},
-        {"id": "table-reference", "type": "required_regex", "pattern": "(?:Table|Tab\\.)\\s*3", "message": "Keep the Table 3 reference attached to the result."},
-        {"id": "generalization-boundary", "type": "required_regex", "pattern": "(?:cannot|do not|does not|fail(?:s|ed)? to) (?:prove|establish|demonstrate).*cross[- ]environment generalization|cross[- ]environment generalization.*(?:cannot|do not|does not|fail(?:s|ed)? to) (?:prove|establish|demonstrate)", "message": "Preserve the non-proof generalization boundary."},
-        {"id": "no-unit-or-significance-inflation", "type": "forbidden_regex", "pattern": "improv(?:e|es|ed|ement) (?:by |of )?2\\.3%|statistically significant|proves? cross[- ]environment generalization", "message": "Do not convert points to percent or invent significance/proof."}
+        {
+          "id": "seed-count",
+          "type": "required_regex",
+          "pattern": "(?:five|5) (?:random )?seeds",
+          "message": "Preserve the five-seed aggregation."
+        },
+        {
+          "id": "point-improvement",
+          "type": "required_regex",
+          "pattern": "2\\.3 percentage points",
+          "message": "Preserve the magnitude and percentage-point unit."
+        },
+        {
+          "id": "negative-comparison",
+          "type": "required_regex",
+          "pattern": "(?:did not|does not|failed to) outperform (?:the )?baseline.*unseen (?:scenes|environments)|unseen (?:scenes|environments).*(?:did not|does not|failed to) outperform (?:the )?baseline",
+          "message": "Preserve the negative unseen-environment comparison."
+        },
+        {
+          "id": "table-reference",
+          "type": "required_regex",
+          "pattern": "(?:Table|Tab\\.)\\s*3",
+          "message": "Keep the Table 3 reference attached to the result."
+        },
+        {
+          "id": "generalization-boundary",
+          "type": "required_regex",
+          "pattern": "(?:cannot|do not|does not|fail(?:s|ed)? to) (?:prove|establish|demonstrate).*cross[- ]environment generalization|cross[- ]environment generalization.*(?:cannot|do not|does not|fail(?:s|ed)? to) (?:prove|establish|demonstrate)",
+          "message": "Preserve the non-proof generalization boundary."
+        },
+        {
+          "id": "no-unit-or-significance-inflation",
+          "type": "forbidden_regex",
+          "pattern": "improv(?:e|es|ed|ement) (?:by |of )?2\\.3%|statistically significant|proves? cross[- ]environment generalization",
+          "message": "Do not convert points to percent or invent significance/proof."
+        }
+      ]
+    },
+    {
+      "id": "review-weaknesses-grounded",
+      "mode": "review",
+      "domain": "embodied_ai",
+      "section": "review",
+      "intent": "evidence",
+      "evidence_boundary": "Critique only what the supplied description states or omits; do not assert facts about reproducibility, training cost, or results beyond the description, and do not demand content the description already includes.",
+      "request": "Write the Weaknesses section of a peer review for the submission described in the facts.",
+      "facts": [
+        "The submission claims state-of-the-art results on two navigation benchmarks.",
+        "Its comparison table includes exactly two baselines, both published in 2021 or earlier.",
+        "The submission reports success rate only, without episode counts or confidence intervals.",
+        "The evaluation uses three scenes, while the abstract claims diverse environments.",
+        "The supplied description mentions no code release and no evaluation-protocol appendix."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.usage-note.review-evidence-scope.001"
+      ],
+      "manual_rubric": [
+        "Anchor every weakness in a specific statement or omission of the supplied description.",
+        "Distinguish missing evidence from wrong claims instead of collapsing both into one accusation.",
+        "Phrase each weakness so the authors can act on it."
+      ],
+      "machine_checks": [
+        {
+          "id": "mentions-two-baselines",
+          "type": "required_regex",
+          "pattern": "two baselines",
+          "message": "Ground the comparison-breadth weakness in the stated two-baseline table."
+        },
+        {
+          "id": "mentions-missing-uncertainty",
+          "type": "required_regex",
+          "pattern": "episode counts?|confidence intervals?",
+          "message": "Name the missing episode counts or confidence intervals."
+        },
+        {
+          "id": "mentions-three-scenes",
+          "type": "required_regex",
+          "pattern": "three scenes",
+          "message": "Contrast the three-scene evaluation with the diversity claim."
+        },
+        {
+          "id": "no-reproducibility-assertion",
+          "type": "forbidden_regex",
+          "pattern": "(?:not|cannot be|is un)reproducib|irreproducib",
+          "message": "Do not assert non-reproducibility; the description gives no evidence for it."
+        },
+        {
+          "id": "no-misconduct-language",
+          "type": "forbidden_regex",
+          "pattern": "fraud|dishonest|fabricat",
+          "message": "Do not use misconduct language."
+        }
+      ]
+    },
+    {
+      "id": "review-claim-evidence-mismatch",
+      "mode": "review",
+      "domain": "vision_language_action",
+      "section": "review",
+      "intent": "contrast",
+      "evidence_boundary": "Point out that simulation-only evidence does not support the real-world claim; do not allege misconduct, speculate about unreported results, or dismiss the simulation results as worthless.",
+      "request": "Write one review paragraph assessing whether the paper's claims match its evidence.",
+      "facts": [
+        "The abstract claims the policy generalizes to real-world manipulation.",
+        "All reported experiments run in two simulators.",
+        "No physical-robot trial is reported anywhere in the supplied description.",
+        "The introduction describes hardware evaluation as planned future work."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.usage-note.review-evidence-scope.001",
+        "general.sentence-pattern.result-boundary.001"
+      ],
+      "manual_rubric": [
+        "State the claim-evidence mismatch precisely: a real-world claim supported only by simulator results.",
+        "Treat the planned hardware evaluation as a plan, not as evidence.",
+        "Keep the criticism proportionate; the simulation results remain valid evidence for simulation claims."
+      ],
+      "machine_checks": [
+        {
+          "id": "names-simulation-evidence",
+          "type": "required_regex",
+          "pattern": "simulat",
+          "message": "Name the simulation-only evidence base."
+        },
+        {
+          "id": "flags-absent-real-trials",
+          "type": "required_regex",
+          "pattern": "(?:no|not|without)[^.\\n]{0,40}(?:physical|real[- ]world|hardware|real[- ]robot)",
+          "message": "State that no physical or real-world trial is reported."
+        },
+        {
+          "id": "no-misconduct-language",
+          "type": "forbidden_regex",
+          "pattern": "fraud|deceiv|dishonest",
+          "message": "Do not allege misconduct."
+        },
+        {
+          "id": "no-dismissal",
+          "type": "forbidden_regex",
+          "pattern": "(?:results?|evidence|experiments?|findings?)\\s+(?:is|are|would be|remains?|seems?)\\s+(?:essentially\\s+|effectively\\s+|largely\\s+)?(?:worthless|useless|meaningless)",
+          "message": "Do not assert that the simulation evidence is worthless; negated defenses of the evidence are acceptable."
+        }
+      ]
+    },
+    {
+      "id": "review-missing-ablation",
+      "mode": "review",
+      "domain": "world_models",
+      "section": "review",
+      "intent": "gap",
+      "evidence_boundary": "The description reports only the full method and one baseline; do not invent component-level numbers, do not claim to have run the authors' code, and keep the 4.1-point aggregate as given.",
+      "request": "Write one review weakness plus one matching question about the missing component analysis.",
+      "facts": [
+        "The method adds two components: a latent consistency loss and an ensemble of dynamics models.",
+        "The results table reports only the full method and one external baseline.",
+        "No component-wise ablation is described.",
+        "The claimed improvement over the baseline is 4.1 points in aggregate."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.sentence-pattern.review-actionable-question.001"
+      ],
+      "manual_rubric": [
+        "Tie the weakness to attribution: two new components, one aggregate number.",
+        "Ask a question the authors can answer with a standard ablation table.",
+        "Do not presume which component drives the gain."
+      ],
+      "machine_checks": [
+        {
+          "id": "requests-ablation",
+          "type": "required_regex",
+          "pattern": "ablation|component[- ]wise",
+          "message": "Request the component-wise analysis explicitly."
+        },
+        {
+          "id": "keeps-aggregate-number",
+          "type": "required_regex",
+          "pattern": "4\\.1",
+          "message": "Keep the stated 4.1-point aggregate improvement."
+        },
+        {
+          "id": "contains-question",
+          "type": "required_regex",
+          "pattern": "\\?",
+          "message": "Include an actual question for the authors."
+        },
+        {
+          "id": "no-claimed-reproduction",
+          "type": "forbidden_regex",
+          "pattern": "I (?:ran|reproduced|executed|re-ran)",
+          "message": "Do not claim to have run or reproduced the authors' code."
+        },
+        {
+          "id": "no-invented-attribution",
+          "type": "forbidden_regex",
+          "pattern": "(?:consistency loss|ensemble)[^.\\n]{0,50}(?:contributes?|accounts? for|adds?)[^.\\n]{0,20}\\d",
+          "message": "Do not invent numeric per-component attribution."
+        }
+      ]
+    },
+    {
+      "id": "review-questions-actionable",
+      "mode": "review",
+      "domain": "reinforcement_learning",
+      "section": "review",
+      "intent": "clarify",
+      "evidence_boundary": "Ask questions answerable from a standard experimental log; do not presuppose misconduct, do not ask rhetorical questions, and keep the stated one-million-step budget as given.",
+      "request": "Write two clarifying questions a reviewer would ask the authors about the training protocol.",
+      "facts": [
+        "The paper reports substantially improved sample efficiency for its off-policy algorithm.",
+        "The supplied description does not state the update-to-data (UTD) ratio.",
+        "The supplied description does not state the number of random seeds.",
+        "Environment interaction is reported as one million steps per task."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-actionable-question.001",
+        "rl.term.update-to-data-ratio.001",
+        "general.sentence-pattern.independent-runs.001"
+      ],
+      "manual_rubric": [
+        "Each question targets one missing, log-recoverable quantity.",
+        "Questions are neutral in tone and non-rhetorical.",
+        "The sample-efficiency claim is linked to the missing protocol details."
+      ],
+      "machine_checks": [
+        {
+          "id": "asks-questions",
+          "type": "required_regex",
+          "pattern": "\\?",
+          "message": "Write actual questions."
+        },
+        {
+          "id": "asks-utd",
+          "type": "required_regex",
+          "pattern": "update[- ]to[- ]data|UTD",
+          "message": "Ask for the update-to-data ratio."
+        },
+        {
+          "id": "asks-seeds",
+          "type": "required_regex",
+          "pattern": "seeds?",
+          "message": "Ask for the number of random seeds."
+        },
+        {
+          "id": "keeps-step-budget",
+          "type": "required_regex",
+          "pattern": "one million|1[, ]?000[, ]?000|1\\s?M",
+          "message": "Keep the stated one-million-step budget."
+        },
+        {
+          "id": "no-rhetorical-hostility",
+          "type": "forbidden_regex",
+          "pattern": "why did you not|surely|obviously",
+          "message": "Avoid rhetorical or hostile framing."
+        }
+      ]
+    },
+    {
+      "id": "review-significance-calibration",
+      "mode": "review",
+      "domain": "robot_learning",
+      "section": "review",
+      "intent": "causal_caution",
+      "evidence_boundary": "Request a statistical test, interval, or wording change; do not call the results meaningless, do not demand real-robot experiments, and keep every stated number.",
+      "request": "Write a review comment on the statistical reporting of the main result.",
+      "facts": [
+        "Table 2 reports a 2.8-point mean improvement over the strongest baseline.",
+        "Results average three random seeds.",
+        "No statistical test or interval is reported.",
+        "The paper text calls the improvement significant."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.usage-note.significant.001",
+        "general.sentence-pattern.review-actionable-question.001",
+        "general.sentence-pattern.result-variability.001"
+      ],
+      "manual_rubric": [
+        "Separate the observed 2.8-point mean from the unsupported significance wording.",
+        "Ask for a test, an interval, or a wording change as concrete remedies.",
+        "Keep the request proportionate to the three-seed evidence."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-mean",
+          "type": "required_regex",
+          "pattern": "2\\.8",
+          "message": "Keep the 2.8-point mean improvement."
+        },
+        {
+          "id": "keeps-seed-count",
+          "type": "required_regex",
+          "pattern": "three (?:random )?seeds|3 (?:random )?seeds",
+          "message": "Reference the three-seed averaging."
+        },
+        {
+          "id": "requests-statistics",
+          "type": "required_regex",
+          "pattern": "(?:statistical|significance) (?:test|analysis)|confidence interval",
+          "message": "Request a statistical test or interval."
+        },
+        {
+          "id": "no-dismissal",
+          "type": "forbidden_regex",
+          "pattern": "meaningless|worthless|invalidates? the",
+          "message": "Do not dismiss the results wholesale."
+        },
+        {
+          "id": "no-scope-creep",
+          "type": "forbidden_regex",
+          "pattern": "real[- ]robot",
+          "message": "Do not demand real-robot experiments; they are outside this comment's scope."
+        }
+      ]
+    },
+    {
+      "id": "review-disclosed-limitation-fairness",
+      "mode": "review",
+      "domain": "general",
+      "section": "review",
+      "intent": "acknowledge",
+      "evidence_boundary": "The limitation is already disclosed by the authors; credit the disclosure, probe its boundary if useful, and do not present the limitation as hidden or unacknowledged.",
+      "request": "Write a review comment about the fixed-viewpoint limitation of the submission.",
+      "facts": [
+        "The Limitations section already states that the method assumes a fixed camera viewpoint.",
+        "The experiments include a moving-camera stress test showing a 12-point degradation.",
+        "The conclusion repeats the fixed-viewpoint assumption."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-credit-disclosure.001",
+        "general.sentence-pattern.result-boundary.001"
+      ],
+      "manual_rubric": [
+        "Credit the authors for disclosing the assumption and measuring its cost.",
+        "Any further request builds on the disclosed 12-point degradation rather than restating it as a discovery.",
+        "Tone remains evaluative, not prosecutorial."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-degradation",
+          "type": "required_regex",
+          "pattern": "12",
+          "message": "Reference the measured 12-point degradation."
+        },
+        {
+          "id": "credits-disclosure",
+          "type": "required_regex",
+          "pattern": "acknowledg|disclos|already (?:state|note|discuss|report)|authors (?:state|note|report)",
+          "message": "Credit the existing disclosure."
+        },
+        {
+          "id": "no-false-omission",
+          "type": "forbidden_regex",
+          "pattern": "(?:fail(?:s|ed)? to|do(?:es)? not) (?:disclose|acknowledge|mention)",
+          "message": "Do not claim the limitation was undisclosed."
+        },
+        {
+          "id": "no-concealment-language",
+          "type": "forbidden_regex",
+          "pattern": "hidden|conceal",
+          "message": "Do not imply concealment."
+        }
+      ]
+    },
+    {
+      "id": "review-overall-rationale",
+      "mode": "review",
+      "domain": "general",
+      "section": "review",
+      "intent": "evidence",
+      "evidence_boundary": "Every judgment must trace to a listed strength or weakness; do not introduce new evidence, do not compare to unlisted papers, and do not give a numeric score.",
+      "request": "Write the overall assessment paragraph of a review, grounded in the listed strengths and weaknesses.",
+      "facts": [
+        "Strengths: clear problem formulation; strong results on two of three benchmarks; thorough related-work coverage.",
+        "Weaknesses: missing ablation for the auxiliary loss; no variance reporting; no improvement on the third benchmark.",
+        "The venue asks for an overall assessment paragraph without a numeric score."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-calibrated-assessment.001",
+        "general.sentence-pattern.result-boundary.001"
+      ],
+      "manual_rubric": [
+        "The paragraph weighs listed strengths against listed weaknesses explicitly.",
+        "Hedging is calibrated: firm where the lists are firm, open where they are open.",
+        "No verdict language beyond what the lists support."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-benchmark-split",
+          "type": "required_regex",
+          "pattern": "two of (?:the )?three|two out of (?:the )?three",
+          "message": "Preserve the two-of-three benchmark result."
+        },
+        {
+          "id": "mentions-ablation-gap",
+          "type": "required_regex",
+          "pattern": "ablation",
+          "message": "Weigh the missing ablation."
+        },
+        {
+          "id": "mentions-variance-gap",
+          "type": "required_regex",
+          "pattern": "variance|uncertainty|error bars?",
+          "message": "Weigh the missing variance reporting."
+        },
+        {
+          "id": "no-numeric-score",
+          "type": "forbidden_regex",
+          "pattern": "\\b\\d+\\s?/\\s?10\\b|score of \\d",
+          "message": "Do not give a numeric score."
+        },
+        {
+          "id": "no-unlisted-claims",
+          "type": "forbidden_regex",
+          "pattern": "state[- ]of[- ]the[- ]art",
+          "message": "Do not introduce claims absent from the lists."
+        }
+      ]
+    },
+    {
+      "id": "review-post-rebuttal-update",
+      "mode": "review",
+      "domain": "general",
+      "section": "review",
+      "intent": "concede",
+      "evidence_boundary": "Concede the seed concern as addressed, keep or reasonedly close the baseline concern, and do not introduce demands absent from the original review.",
+      "request": "Write the post-rebuttal reviewer response updating the assessment after the author reply.",
+      "facts": [
+        "The original review raised two concerns: only three seeds, and a missing comparison to baseline X.",
+        "The rebuttal adds a ten-seed run whose mean changes by at most 0.3 points from the original result.",
+        "The rebuttal does not add baseline X, citing an incompatible action space."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-post-rebuttal.001",
+        "general.sentence-pattern.rebuttal-concede.001"
+      ],
+      "manual_rubric": [
+        "The seeds concern is explicitly marked as resolved by the ten-seed evidence.",
+        "The baseline-X concern is either kept open or closed with the stated incompatibility reason.",
+        "No new demands appear."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-ten-seeds",
+          "type": "required_regex",
+          "pattern": "ten seeds|10 seeds|ten-seed|10-seed",
+          "message": "Reference the new ten-seed run."
+        },
+        {
+          "id": "keeps-delta",
+          "type": "required_regex",
+          "pattern": "0\\.3",
+          "message": "Keep the stated 0.3-point stability bound."
+        },
+        {
+          "id": "addresses-baseline-x",
+          "type": "required_regex",
+          "pattern": "baseline\\s+X",
+          "message": "Address the baseline X concern explicitly."
+        },
+        {
+          "id": "concedes-resolved-point",
+          "type": "required_regex",
+          "pattern": "address(?:es|ed)?|resolv(?:es|ed)|satisf(?:ies|ied)",
+          "message": "Concede the resolved concern explicitly."
+        },
+        {
+          "id": "no-new-demands",
+          "type": "forbidden_regex",
+          "pattern": "real[- ]robot|user stud(?:y|ies)",
+          "message": "Do not introduce demands absent from the original review."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-misread-metric",
+      "mode": "rebuttal",
+      "domain": "general",
+      "section": "rebuttal",
+      "intent": "respond",
+      "evidence_boundary": "Correct the misreading using only Table 3 as given; stay polite, quote the exact numbers and column semantics, and claim no experiments beyond Table 3.",
+      "request": "Write the rebuttal reply to a reviewer who read the wrong column of Table 3.",
+      "facts": [
+        "The reviewer states the method is worse than baseline B, quoting the Collisions column.",
+        "In the Collisions column, lower is better; the method reports 3.1 versus 4.8 for baseline B.",
+        "In the Success column, higher is better; the method reports 71.4 versus 66.9 for baseline B.",
+        "No results beyond Table 3 exist."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.rebuttal-correct.001",
+        "emb.term.task-success-rate.001"
+      ],
+      "manual_rubric": [
+        "The reply names the column semantics before re-stating the comparison.",
+        "All four numbers appear exactly once each in a coherent contrast.",
+        "The tone stays collegial with no blame language."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-success-numbers",
+          "type": "required_regex",
+          "pattern": "71\\.4",
+          "message": "Quote the method's success number."
+        },
+        {
+          "id": "keeps-baseline-success",
+          "type": "required_regex",
+          "pattern": "66\\.9",
+          "message": "Quote baseline B's success number."
+        },
+        {
+          "id": "keeps-collision-numbers",
+          "type": "required_regex",
+          "pattern": "3\\.1",
+          "message": "Quote the method's collision number."
+        },
+        {
+          "id": "explains-column-semantics",
+          "type": "required_regex",
+          "pattern": "lower is better|higher is better",
+          "message": "Explain the column direction."
+        },
+        {
+          "id": "no-blame-language",
+          "type": "forbidden_regex",
+          "pattern": "careless|failed to read|obviously",
+          "message": "Do not blame the reviewer."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-ablation-already-present",
+      "mode": "rebuttal",
+      "domain": "general",
+      "section": "rebuttal",
+      "intent": "respond",
+      "evidence_boundary": "Point to the existing ablation only; cite the section, table, and numbers as given, and promise no additional ablations.",
+      "request": "Write the rebuttal reply to a reviewer requesting an ablation that the paper already contains.",
+      "facts": [
+        "The reviewer requests an ablation of the memory module.",
+        "Section 5.3 and Table 6 already report the method without the memory module.",
+        "Without the memory module the method scores 58.2; the full method scores 63.5.",
+        "No ablations beyond Table 6 exist."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.rebuttal-correct.001",
+        "general.sentence-pattern.rebuttal-acknowledge.001"
+      ],
+      "manual_rubric": [
+        "The reply locates the requested evidence precisely (section and table).",
+        "Both numbers are quoted with their meaning.",
+        "No promise of further ablations appears."
+      ],
+      "machine_checks": [
+        {
+          "id": "cites-section",
+          "type": "required_regex",
+          "pattern": "5\\.3",
+          "message": "Cite Section 5.3."
+        },
+        {
+          "id": "cites-table",
+          "type": "required_regex",
+          "pattern": "Table 6",
+          "message": "Cite Table 6."
+        },
+        {
+          "id": "keeps-ablated-score",
+          "type": "required_regex",
+          "pattern": "58\\.2",
+          "message": "Quote the ablated score."
+        },
+        {
+          "id": "keeps-full-score",
+          "type": "required_regex",
+          "pattern": "63\\.5",
+          "message": "Quote the full-method score."
+        },
+        {
+          "id": "no-new-promises",
+          "type": "forbidden_regex",
+          "pattern": "will (?:run|add|include|provide)",
+          "message": "Do not promise additional ablations."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-cannot-add-experiment",
+      "mode": "rebuttal",
+      "domain": "robot_learning",
+      "section": "rebuttal",
+      "intent": "concede",
+      "evidence_boundary": "Concede that the second-platform evaluation is infeasible within the rebuttal window, restate the supported scope, and do not promise or presuppose the outcome of any unrun experiment.",
+      "request": "Write the rebuttal reply to a reviewer asking for evaluation on a second robot platform.",
+      "facts": [
+        "The reviewer asks for evaluation on a second robot platform.",
+        "The lab has access to exactly one platform during the rebuttal window.",
+        "Existing results cover 240 trials on that platform.",
+        "No second-platform data exists."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.rebuttal-no-evidence.001",
+        "general.sentence-pattern.rebuttal-concede.001",
+        "general.sentence-pattern.real-system-trials.001"
+      ],
+      "manual_rubric": [
+        "The infeasibility is conceded plainly with the stated access constraint.",
+        "The claim scope is narrowed to the evaluated platform.",
+        "No unrun experiment is given a predicted outcome."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-trial-count",
+          "type": "required_regex",
+          "pattern": "240",
+          "message": "Quote the 240 completed trials."
+        },
+        {
+          "id": "narrows-scope",
+          "type": "required_regex",
+          "pattern": "single platform|one platform|this platform|evaluated platform",
+          "message": "Restate the supported single-platform scope."
+        },
+        {
+          "id": "no-promised-outcome",
+          "type": "forbidden_regex",
+          "pattern": "will (?:show|demonstrate|confirm|transfer)",
+          "message": "Do not promise the outcome of an unrun experiment."
+        },
+        {
+          "id": "no-fabricated-preview",
+          "type": "forbidden_regex",
+          "pattern": "preliminary results",
+          "message": "Do not invent preliminary results."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-novelty-challenge",
+      "mode": "rebuttal",
+      "domain": "world_models",
+      "section": "rebuttal",
+      "intent": "position",
+      "evidence_boundary": "Differentiate from prior work P using only the given technical facts; acknowledge the shared latent state space, do not disparage P, and do not claim any empirical comparison that does not exist.",
+      "request": "Write the rebuttal reply to a reviewer who says the method closely resembles prior work P.",
+      "facts": [
+        "Prior work P learns dynamics from offline video only.",
+        "The submitted method conditions transitions on actions and trains online.",
+        "Both methods use a latent state space.",
+        "No head-to-head empirical comparison with P exists."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.position.002",
+        "general.sentence-pattern.position.001",
+        "wm.term.latent-dynamics.001"
+      ],
+      "manual_rubric": [
+        "The shared latent-space design is acknowledged before the differences.",
+        "Differences are stated as assumptions and training regimes, not as quality judgments.",
+        "No empirical superiority over P is claimed."
+      ],
+      "machine_checks": [
+        {
+          "id": "names-action-conditioning",
+          "type": "required_regex",
+          "pattern": "action",
+          "message": "State the action-conditioning difference."
+        },
+        {
+          "id": "acknowledges-shared-latent",
+          "type": "required_regex",
+          "pattern": "latent",
+          "message": "Acknowledge the shared latent state space."
+        },
+        {
+          "id": "no-empirical-superiority",
+          "type": "forbidden_regex",
+          "pattern": "outperforms? P|better than P|superior to P",
+          "message": "Do not claim an empirical comparison that does not exist."
+        },
+        {
+          "id": "no-disparagement",
+          "type": "forbidden_regex",
+          "pattern": "trivial|merely|simplistic",
+          "message": "Do not disparage the prior work."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-significance-present",
+      "mode": "rebuttal",
+      "domain": "general",
+      "section": "rebuttal",
+      "intent": "quantify",
+      "evidence_boundary": "Present only the existing statistics exactly as given; do not inflate the strength of evidence beyond the reported p-value and do not run or promise new tests.",
+      "request": "Write the rebuttal reply to a reviewer who doubts the robustness of the reported gains.",
+      "facts": [
+        "A paired t-test across 10 seeds is already reported in Appendix D.",
+        "The test gives p = 0.011.",
+        "The mean improvement is 2.4 points with a standard deviation of 1.1."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.usage-note.significant.001",
+        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.result-variability.001"
+      ],
+      "manual_rubric": [
+        "The reply routes the reviewer to the existing Appendix D analysis.",
+        "All three statistics are quoted exactly.",
+        "The strength wording matches a p of 0.011 without inflation."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-p-value",
+          "type": "required_regex",
+          "pattern": "0\\.011",
+          "message": "Quote the exact p-value."
+        },
+        {
+          "id": "keeps-mean",
+          "type": "required_regex",
+          "pattern": "2\\.4",
+          "message": "Quote the mean improvement."
+        },
+        {
+          "id": "keeps-std",
+          "type": "required_regex",
+          "pattern": "1\\.1",
+          "message": "Quote the standard deviation."
+        },
+        {
+          "id": "cites-appendix",
+          "type": "required_regex",
+          "pattern": "Appendix D",
+          "message": "Cite Appendix D."
+        },
+        {
+          "id": "no-inflation",
+          "type": "forbidden_regex",
+          "pattern": "highly significant|extremely significant|definitive(?:ly)?",
+          "message": "Do not inflate the evidential strength."
+        }
+      ]
+    },
+    {
+      "id": "rebuttal-multi-reviewer-conflict",
+      "mode": "rebuttal",
+      "domain": "embodied_ai",
+      "section": "rebuttal",
+      "intent": "respond",
+      "evidence_boundary": "Address both reviewers in one consistent global response; commit only to the one feasible simulation suite, and do not promise any real-robot study within the window.",
+      "request": "Write a single global rebuttal response that addresses two reviewers with conflicting requests.",
+      "facts": [
+        "Reviewer R1 asks for more simulation diversity.",
+        "Reviewer R2 says the simulation results are already sufficient and asks for real-robot evidence.",
+        "The compute budget allows exactly one additional simulation suite before the deadline.",
+        "A real-robot study is not possible within the rebuttal window.",
+        "Existing evidence covers four simulation suites and one real-robot pilot with 30 trials."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.rebuttal-no-evidence.001",
+        "general.sentence-pattern.rebuttal-matched-budget.001",
+        "general.sentence-pattern.real-system-trials.001"
+      ],
+      "manual_rubric": [
+        "Both reviewers are addressed by name with one consistent plan.",
+        "The single feasible commitment (one simulation suite) is stated once and not contradicted.",
+        "The existing 30-trial pilot is used as the only real-robot evidence."
+      ],
+      "machine_checks": [
+        {
+          "id": "addresses-r1",
+          "type": "required_regex",
+          "pattern": "R1",
+          "message": "Address reviewer R1 explicitly."
+        },
+        {
+          "id": "addresses-r2",
+          "type": "required_regex",
+          "pattern": "R2",
+          "message": "Address reviewer R2 explicitly."
+        },
+        {
+          "id": "keeps-pilot-trials",
+          "type": "required_regex",
+          "pattern": "30",
+          "message": "Reference the 30-trial real-robot pilot."
+        },
+        {
+          "id": "single-feasible-commitment",
+          "type": "required_regex",
+          "pattern": "one (?:additional|more) simulation suite",
+          "message": "Commit to exactly one additional simulation suite."
+        },
+        {
+          "id": "no-real-robot-promise",
+          "type": "forbidden_regex",
+          "pattern": "(?:will|plan to) (?:run|conduct|complete|add)[^.\\n]{0,40}real[- ]robot",
+          "message": "Do not promise a real-robot study within the window."
+        }
+      ]
+    },
+    {
+      "id": "paper-title-scope",
+      "mode": "paper",
+      "domain": "general",
+      "section": "title",
+      "intent": "scope",
+      "evidence_boundary": "The title must not claim universality; the scope sentence must name the verified low-data regime and the evaluation platforms as given.",
+      "request": "Write the paper title plus a one-sentence scope statement for the contribution described in the facts.",
+      "facts": [
+        "The contribution is an offline-to-online fine-tuning method for robot manipulation policies.",
+        "Evaluation covers two simulated benchmarks and one real robot arm.",
+        "The improvement is verified only in the low-data regime of at most 50 demonstrations."
+      ],
+      "expected_guide_id": "abstract",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.result-boundary.001",
+        "general.usage-note.generalization-axis.001"
+      ],
+      "manual_rubric": [
+        "The title names the mechanism and setting without universal quantifiers.",
+        "The scope sentence states the 50-demonstration boundary.",
+        "Simulated and real evaluations are not conflated."
+      ],
+      "machine_checks": [
+        {
+          "id": "names-offline-to-online",
+          "type": "required_regex",
+          "pattern": "offline",
+          "message": "Name the offline-to-online mechanism."
+        },
+        {
+          "id": "keeps-demo-boundary",
+          "type": "required_regex",
+          "pattern": "50 demonstrations|low[- ]data",
+          "message": "State the verified low-data boundary."
+        },
+        {
+          "id": "no-universal-claim",
+          "type": "forbidden_regex",
+          "pattern": "universal|general[- ]purpose|any robot|all tasks",
+          "message": "Do not claim universality."
+        }
+      ]
+    },
+    {
+      "id": "paper-method-reproducibility",
+      "mode": "paper",
+      "domain": "reinforcement_learning",
+      "section": "method",
+      "intent": "describe",
+      "evidence_boundary": "Disclose the training protocol exactly as given; do not claim that the released code guarantees exact reproduction of every number.",
+      "request": "Write the reproducibility paragraph of the experimental-setup description.",
+      "facts": [
+        "The off-policy agent trains with an update-to-data (UTD) ratio of 8.",
+        "Results average 10 random seeds and report mean and standard deviation.",
+        "The replay buffer holds one million transitions and the batch size is 256.",
+        "Code is released under the MIT license."
+      ],
+      "expected_guide_id": "method",
+      "expected_retrieval_ids": [
+        "rl.term.update-to-data-ratio.001",
+        "general.sentence-pattern.independent-runs.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "manual_rubric": [
+        "Every protocol constant appears with its field-standard name.",
+        "Seed count and dispersion statistic are stated together.",
+        "The code-release sentence avoids bit-wise reproduction guarantees."
+      ],
+      "machine_checks": [
+        {
+          "id": "names-utd",
+          "type": "required_regex",
+          "pattern": "update[- ]to[- ]data|UTD",
+          "message": "Name the UTD ratio."
+        },
+        {
+          "id": "keeps-utd-value",
+          "type": "required_regex",
+          "pattern": "(?:UTD|update[- ]to[- ]data)[^.\\n]{0,20}8|8[^.\\n]{0,20}(?:UTD|update[- ]to[- ]data)",
+          "message": "Keep the UTD value of 8 attached to the term."
+        },
+        {
+          "id": "keeps-seeds",
+          "type": "required_regex",
+          "pattern": "10 (?:random )?seeds|ten (?:random )?seeds",
+          "message": "Keep the ten-seed protocol."
+        },
+        {
+          "id": "keeps-batch",
+          "type": "required_regex",
+          "pattern": "256",
+          "message": "Keep the batch size."
+        },
+        {
+          "id": "keeps-buffer",
+          "type": "required_regex",
+          "pattern": "one million|1[, ]?000[, ]?000|1\\s?M",
+          "message": "Keep the buffer capacity."
+        },
+        {
+          "id": "no-exactness-guarantee",
+          "type": "forbidden_regex",
+          "pattern": "exact(?:ly)? reproduc|bit[- ]wise",
+          "message": "Do not guarantee exact reproduction."
+        }
+      ]
+    },
+    {
+      "id": "paper-related-work-concurrent",
+      "mode": "paper",
+      "domain": "vision_language_action",
+      "section": "related_work",
+      "intent": "position",
+      "evidence_boundary": "Mark work C as concurrent, state the technical difference as given, and claim neither priority nor empirical superiority over C.",
+      "request": "Write the concurrent-work paragraph of the Related Work section.",
+      "facts": [
+        "Concurrent work C, released one month before submission, also tokenizes robot actions for a vision-language-action policy.",
+        "The submitted method trains with flow matching on continuous actions, whereas C uses discrete token prediction.",
+        "No empirical comparison with C exists."
+      ],
+      "expected_guide_id": "related_work",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.position.002",
+        "general.sentence-pattern.position.001"
+      ],
+      "manual_rubric": [
+        "C is explicitly framed as concurrent rather than prior or subsequent.",
+        "The difference is stated on the action-representation axis without value judgment.",
+        "No comparison result is implied."
+      ],
+      "machine_checks": [
+        {
+          "id": "marks-concurrent",
+          "type": "required_regex",
+          "pattern": "concurrent",
+          "message": "Mark C as concurrent work."
+        },
+        {
+          "id": "names-flow-matching",
+          "type": "required_regex",
+          "pattern": "flow matching",
+          "message": "Name the flow-matching design."
+        },
+        {
+          "id": "names-discrete-tokens",
+          "type": "required_regex",
+          "pattern": "discrete",
+          "message": "Name C's discrete token prediction."
+        },
+        {
+          "id": "no-priority-claim",
+          "type": "forbidden_regex",
+          "pattern": "(?:we|our work) (?:precede|predate)|prior to C|before C appeared",
+          "message": "Do not claim priority over concurrent work."
+        },
+        {
+          "id": "no-superiority-claim",
+          "type": "forbidden_regex",
+          "pattern": "outperform(?:s|ed)? C|superior to C",
+          "message": "Do not claim empirical superiority over C."
+        }
+      ]
+    },
+    {
+      "id": "paper-ablation-negative-result",
+      "mode": "paper",
+      "domain": "world_models",
+      "section": "experiments",
+      "intent": "quantify",
+      "evidence_boundary": "Report the mixed ablation outcome honestly with all given numbers and directions; do not spin the auxiliary loss as clearly beneficial overall.",
+      "request": "Write the ablation-analysis paragraph for the auxiliary reconstruction loss.",
+      "facts": [
+        "Removing the auxiliary reconstruction loss improves aggregate return by 1.7 points.",
+        "The full model remains better on the two hardest tasks, by 3.2 and 2.6 points.",
+        "The benchmark has six tasks and results average 5 seeds."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.result-variability.001",
+        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.result-boundary.001"
+      ],
+      "manual_rubric": [
+        "The aggregate direction (removal helps) is stated before the per-task exceptions.",
+        "The trade-off is framed as measured behavior, not as advocacy for the component.",
+        "Seed count and task count are preserved."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-aggregate-delta",
+          "type": "required_regex",
+          "pattern": "1\\.7",
+          "message": "Keep the aggregate 1.7-point change."
+        },
+        {
+          "id": "keeps-hard-task-deltas",
+          "type": "required_regex",
+          "pattern": "3\\.2",
+          "message": "Keep the hardest-task margins."
+        },
+        {
+          "id": "keeps-second-margin",
+          "type": "required_regex",
+          "pattern": "2\\.6",
+          "message": "Keep the second hardest-task margin."
+        },
+        {
+          "id": "keeps-seed-count",
+          "type": "required_regex",
+          "pattern": "5 seeds|five seeds",
+          "message": "Keep the five-seed averaging."
+        },
+        {
+          "id": "states-removal-direction",
+          "type": "required_regex",
+          "pattern": "remov[a-z]*[^.\\n]{0,60}improv|improv[a-z]*[^.\\n]{0,60}remov",
+          "message": "State that removal improves the aggregate."
+        },
+        {
+          "id": "no-spin",
+          "type": "forbidden_regex",
+          "pattern": "clearly beneficial|essential component|indispensable",
+          "message": "Do not spin the component as clearly beneficial overall."
+        }
       ]
     }
   ]

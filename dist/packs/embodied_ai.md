@@ -243,6 +243,27 @@ An embodied-agent task in which a system uses observations acquired from an envi
 - `tan2023-knowledge-based-embodied-question` — [Knowledge-Based Embodied Question Answering](https://doi.org/10.1109/tpami.2023.3277206) (TPAMI 2023)
 - `majumdar2024-openeqa-embodied-question-answering` — [OpenEQA: Embodied Question Answering in the Era of Foundation Models](https://openaccess.thecvf.com/content/CVPR2024/html/Majumdar_OpenEQA_Embodied_Question_Answering_in_the_Era_of_Foundation_Models_CVPR_2024_paper.html) (CVPR 2024)
 
+### embodied reasoning
+
+`emb.definition.embodied-reasoning.001` · definition · embodied_ai, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Intermediate inference grounded in an agent's observations and task, such as spatial relations, action consequences, or subgoal structure, produced between perception and control so that decisions follow from stated premises rather than direct pattern matching.
+
+**Use:** State the reasoning format (language, keypoints, or plans), what grounds it (images, scene metadata, demonstrations), and how it is supervised or rewarded. Evaluate reasoning quality separately from downstream control success when the benchmark allows it.
+
+**Avoid:** Do not call generic chain-of-thought embodied reasoning when it never conditions on the agent's observations or task state, and do not report reasoning-benchmark gains as control gains without a control evaluation.
+
+**Patterns:**
+
+- The model produces {reasoning form} conditioned on {observation and task context} before predicting {action or keypoint}.
+- We evaluate embodied reasoning on {reasoning benchmark} and report control success separately on {control tasks}.
+
+**Verify in primary sources:**
+
+- `kim2025-robot-r1-reinforcement-learning` — [Robot-R1: Reinforcement Learning for Enhanced Embodied Reasoning in Robotics](https://proceedings.neurips.cc/paper_files/paper/2025/hash/ec46d737282bb408e642ed883a145c40-Abstract-Conference.html) (NeurIPS 2025)
+
 ### generalist robot policy
 
 `emb.definition.generalist-policy.001` · definition · robot_learning, embodied_ai · abstract, introduction, related_work, translation
@@ -287,6 +308,27 @@ Mapping linguistic instructions to actions by relating language to perceived ent
 
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
 - `shridhar2020alfred` — [ALFRED: A Benchmark for Interpreting Grounded Instructions for Everyday Tasks](https://openaccess.thecvf.com/content_CVPR_2020/html/Shridhar_ALFRED_A_Benchmark_for_Interpreting_Grounded_Instructions_for_Everyday_Tasks_CVPR_2020_paper.html) (CVPR 2020)
+
+### mobile manipulation
+
+`emb.definition.mobile-manipulation.001` · definition · embodied_ai, robot_learning, vision_language_action · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A robot task family in which a mobile base and a manipulator are controlled together, so task success depends on coordinating base placement or motion with arm trajectories rather than manipulating from a fixed base.
+
+**Use:** State how base and arm are coordinated (a joint policy, decoupled planning, or bi-level optimization), what determines base placement, and which fixed-base assumptions still hold. Report navigation and manipulation outcomes separately when the evaluation allows it.
+
+**Avoid:** Do not present fixed-base manipulation results as mobile manipulation, and do not silently reduce the problem to navigation followed by independent manipulation without stating that decoupling.
+
+**Patterns:**
+
+- The mobile manipulation policy coordinates {base motion} with {end-effector trajectory} to accomplish {task goal}.
+- Base waypoints are selected to satisfy {feasibility criterion}, after which the arm executes {manipulation primitive}.
+
+**Verify in primary sources:**
+
+- `wu2025-momanipvla-transferring-vision-language` — [MoManipVLA: Transferring Vision-language-action Models for General Mobile Manipulation](https://openaccess.thecvf.com/content/CVPR2025/html/Wu_MoManipVLA_Transferring_Vision-language-action_Models_for_General_Mobile_Manipulation_CVPR_2025_paper.html) (CVPR 2025)
 
 ### multimodal embodied perception
 
@@ -373,6 +415,27 @@ Manipulation conditioned on object or task descriptions whose evaluation vocabul
 - `wen2025-diffusionvla-scaling-robot-foundation` — [DiffusionVLA: Scaling Robot Foundation Models via Unified Diffusion and Autoregression](https://proceedings.mlr.press/v267/wen25g.html) (ICML 2025)
 - `zhang2025-vlabench-large-scale-benchmark` — [VLABench: A Large-Scale Benchmark for Language-Conditioned Robotics Manipulation with Long-Horizon Reasoning Tasks](https://openaccess.thecvf.com/content/ICCV2025/html/Zhang_VLABench_A_Large-Scale_Benchmark_for_Language-Conditioned_Robotics_Manipulation_with_Long-Horizon_ICCV_2025_paper.html) (ICCV 2025)
 
+### object rearrangement
+
+`emb.definition.rearrangement.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An embodied task family in which an agent changes the state of an environment to a specified goal configuration by locating, picking, moving, and placing objects, typically combining navigation with manipulation over long horizons.
+
+**Use:** Specify the goal-specification format, the skills composed (navigate, pick, place), success criteria per stage and overall, and whether the setting is simulated or real. Report stage-wise failures because long-horizon success compounds errors.
+
+**Avoid:** Do not report single-skill results as rearrangement, and do not omit the goal-specification format, since geometric, semantic, and language goals differ in difficulty.
+
+**Patterns:**
+
+- The agent rearranges {objects} from {initial configuration} to {goal specification} by composing {skills}.
+- We report per-stage success for {navigate, pick, place} together with end-to-end success on {benchmark}.
+
+**Verify in primary sources:**
+
+- `berges2023-galactic-scaling-end-end` — [Galactic: Scaling End-to-End Reinforcement Learning for Rearrangement at 100k Steps-per-Second](https://openaccess.thecvf.com/content/CVPR2023/html/Berges_Galactic_Scaling_End-to-End_Reinforcement_Learning_for_Rearrangement_at_100k_Steps-per-Second_CVPR_2023_paper.html) (CVPR 2023)
+
 ### simulation-to-real (sim-to-real) transfer
 
 `emb.definition.sim-to-real.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, experiments, translation
@@ -395,6 +458,48 @@ Training or developing a model in simulation and deploying or adapting it to a p
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `kumar2021rma` — [RMA: Rapid Motor Adaptation for Legged Robots](https://roboticsproceedings.org/rss17/p011.html) (RSS 2021)
 
+### social navigation
+
+`emb.definition.social-navigation.001` · definition · embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Embodied navigation among humans in which the agent must reach its goal while respecting human comfort and social conventions, so evaluation considers interaction quality, such as collisions, proximity, and yielding, in addition to goal success.
+
+**Use:** State how humans are modeled or replayed, which social criteria are measured (collision rate, personal-space violations, encounter outcomes), and whether social behavior comes from auxiliary objectives, rewards, or demonstrations.
+
+**Avoid:** Do not call navigation social merely because moving obstacles exist; the evaluation must measure human-aware behavior, not only goal success.
+
+**Patterns:**
+
+- The policy navigates to {goal} among {human models}, penalizing {social violation measure}.
+- We evaluate encounters with {metric set} beyond success rate on {benchmark}.
+
+**Verify in primary sources:**
+
+- `cancelli2023-exploiting-proximity-aware-tasks` — [Exploiting Proximity-Aware Tasks for Embodied Social Navigation](https://openaccess.thecvf.com/content/ICCV2023/html/Cancelli_Exploiting_Proximity-Aware_Tasks_for_Embodied_Social_Navigation_ICCV_2023_paper.html) (ICCV 2023)
+
+### synthetic data generation
+
+`emb.definition.synthetic-data-generation.001` · definition · embodied_ai, robot_learning · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Producing training scenes, trajectories, or annotations with generative or procedural models instead of collecting them from human operators or real environments, so dataset scale and diversity are limited by generation quality rather than collection effort.
+
+**Use:** State what is generated (scenes, actions, or labels), the generative mechanism, how physical feasibility is enforced or filtered, and how much real data remains in the loop. Report downstream policy performance, not only generation fidelity or speed.
+
+**Avoid:** Do not equate synthetic data generation with domain randomization, which varies parameters of an existing scene rather than generating new scenes or trajectories, and do not claim realism from visual quality alone.
+
+**Patterns:**
+
+- We generate {scenes or trajectories} from {conditioning input} with {generative model}, filtering samples that violate {feasibility check}.
+- Policies trained on the generated data improve {metric} by {amount} over {human-collected baseline}.
+
+**Verify in primary sources:**
+
+- `lee2025-dynscene-scalable-generation-dynamic` — [DynScene: Scalable Generation of Dynamic Robotic Manipulation Scenes for Embodied AI](https://openaccess.thecvf.com/content/CVPR2025/html/Lee_DynScene_Scalable_Generation_of_Dynamic_Robotic_Manipulation_Scenes_for_Embodied_CVPR_2025_paper.html) (CVPR 2025)
+
 ### topological memory for visual navigation
 
 `emb.definition.topological-memory.001` · definition · embodied_ai · introduction, related_work, method, translation
@@ -416,6 +521,28 @@ A graph-based spatial memory whose nodes represent selected observations, places
 
 - `cui2024-frontier-enhanced-topological-memory` — [Frontier-enhanced Topological Memory with Improved Exploration Awareness for Embodied Visual Navigation](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/8905_ECCV_2024_paper.php) (ECCV 2024)
 - `taniguchi2021-pose-invariant-topological-memory` — [Pose Invariant Topological Memory for Visual Navigation](https://openaccess.thecvf.com/content/ICCV2021/html/Taniguchi_Pose_Invariant_Topological_Memory_for_Visual_Navigation_ICCV_2021_paper.html) (ICCV 2021)
+
+### vision-language reward
+
+`emb.definition.vision-language-reward.001` · definition · embodied_ai, robot_learning, vision_language_action · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A dense reward or progress signal computed from a pretrained vision-language representation, typically the alignment between current observations and a goal given as language or an image, used to supervise control without hand-designed environment reward.
+
+**Use:** State the pretraining data and objective, whether the signal is used as reward, value, or representation, and how goals are specified (language or image). Validate the signal against task success, since alignment scores can be exploited or miscalibrated.
+
+**Avoid:** Do not treat vision-language alignment as ground-truth task progress without a success-based check, and do not conflate this observation-goal alignment signal with reward models fit to environment reward or with generative AI-feedback evaluators.
+
+**Patterns:**
+
+- The pretrained {vision-language model} assigns dense rewards as {alignment measure} between {observation} and {language or image goal}.
+- We verify the learned reward against {task success metric} before policy training on {tasks}.
+
+**Verify in primary sources:**
+
+- `ma2023-liv-language-image-representations` — [LIV: Language-Image Representations and Rewards for Robotic Control](https://proceedings.mlr.press/v202/ma23b.html) (ICML 2023)
+- `li2024-decisionnce-embodied-multimodal-representations` — [DecisionNCE: Embodied Multimodal Representations via Implicit Preference Learning](https://proceedings.mlr.press/v235/li24cr.html) (ICML 2024)
 
 ### visuomotor policy
 
@@ -482,6 +609,69 @@ A task in which an embodied agent follows a natural-language route instruction b
 **Verify in primary sources:**
 
 - `anderson2018vln` — [Vision-and-Language Navigation: Interpreting Visually-Grounded Navigation Instructions in Real Environments](https://openaccess.thecvf.com/content_cvpr_2018/html/Anderson_Vision-and-Language_Navigation_Interpreting_CVPR_2018_paper.html) (CVPR 2018)
+
+### AI feedback
+
+`rl.definition.ai-feedback.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training signal, such as rewards, preferences, or critiques, produced by a separate pretrained model that evaluates the learner's behavior, used in place of or in addition to environment reward or human feedback.
+
+**Use:** Identify the evaluator model, what it scores, and how often it is queried; state how its judgments are validated and how exploitation of evaluator weaknesses is detected. Keep AI feedback distinct from reward models fit to environment reward and from direct human feedback.
+
+**Avoid:** Do not present evaluator scores as ground-truth task success, and do not report gains from AI feedback without stating the evaluator's known failure modes.
+
+**Patterns:**
+
+- A {evaluator model} scores {agent behavior}, and the score is used as {reward or preference signal} during training.
+- We validate AI feedback against {human labels or task metrics} on {validation set}.
+
+**Verify in primary sources:**
+
+- `li2025-larm-large-auto-regressive` — [LARM: Large Auto-Regressive Model for Long-Horizon Embodied Intelligence](https://proceedings.mlr.press/v267/li25dj.html) (ICML 2025)
+
+### human-in-the-loop reinforcement learning
+
+`rl.definition.human-in-the-loop-rl.001` · definition · reinforcement_learning, embodied_ai · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A training regime in which humans participate during learning, for example by intervening in control, providing demonstrations on demand, or shaping rewards, so the policy is optimized from both autonomous interaction and human guidance.
+
+**Use:** Specify when and how humans intervene, how their input enters the objective (auxiliary loss, replay prioritization, or reward shaping), the amount of human effort required, and how performance behaves once guidance is withdrawn.
+
+**Avoid:** Do not conflate human-in-the-loop training with offline imitation from fixed demonstrations or with preference-based reward learning from post-hoc comparisons; state the interaction protocol explicitly.
+
+**Patterns:**
+
+- A human supervisor intervenes when {trigger condition}, and the intervention is incorporated through {mechanism}.
+- We report performance as a function of {human effort measure} to quantify the cost of guidance.
+
+**Verify in primary sources:**
+
+- `wu2023-human-guided-reinforcement-learning` — [Human-Guided Reinforcement Learning With Sim-to-Real Transfer for Autonomous Navigation](https://doi.org/10.1109/tpami.2023.3314762) (TPAMI 2023)
+
+### reward shaping
+
+`rl.definition.reward-shaping.001` · definition · reinforcement_learning, embodied_ai · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Modifying or augmenting the task reward with additional signals, such as progress terms or auxiliary bonuses, to densify feedback and accelerate learning, ideally without changing the optimal policy of the original objective.
+
+**Use:** State what is added to the terminal or task reward, whether shaping preserves optimal behavior (for example potential-based forms), and the engineering effort it requires; compare against learning from unshaped terminal rewards when feasible.
+
+**Avoid:** Do not present shaped-reward results as evidence the task is solvable from terminal rewards alone, and do not leave shaping terms undisclosed when they change the effective objective.
+
+**Patterns:**
+
+- We augment the terminal reward with {shaping signal}, which preserves {optimality property}.
+- From terminal rewards alone, performance drops to {value}, motivating {shaping or teacher scheme}.
+
+**Verify in primary sources:**
+
+- `jain2021-gridtopix-training-embodied-agents` — [GridToPix: Training Embodied Agents With Minimal Supervision](https://openaccess.thecvf.com/content/ICCV2021/html/Jain_GridToPix_Training_Embodied_Agents_With_Minimal_Supervision_ICCV_2021_paper.html) (ICCV 2021)
 
 ### chain-of-affordance reasoning
 
@@ -846,6 +1036,28 @@ The discrepancy between simulated and physical observations, dynamics, contacts,
 
 - `tobin2017domainrandomization` — [Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World](https://ieeexplore.ieee.org/document/8202133/) (IROS 2017)
 - `xia2018gibson` — [Gibson Env: Real-World Perception for Embodied Agents](https://openaccess.thecvf.com/content_cvpr_2018/html/Xia_Gibson_Env_Real-World_CVPR_2018_paper.html) (CVPR 2018)
+
+### tactile sensing
+
+`emb.term.tactile-sensing.001` · term · embodied_ai, robot_learning · introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Contact-based measurement at the robot's surfaces, such as forces, pressure, vibration, or binary contact events, that complements vision and proprioception by registering interactions those signals miss.
+
+**Use:** State the tactile modality and resolution (dense arrays versus sparse binary contacts), sensor placement, latency and alignment with other modalities, and the failure the signal prevents, for example decoupled robot-object motion that proprioceptive error cannot register.
+
+**Avoid:** Do not treat fingertip or skin tactile sensing as interchangeable with wrist force-torque sensing, and do not claim contact-rich competence from vision-only results.
+
+**Patterns:**
+
+- {Sparse binary or dense} tactile signals at {mounting locations} register {interaction event} that {other modality} misses.
+- We fuse tactile, proprioceptive, and visual streams with {latency budget} alignment for {contact-rich task}.
+
+**Verify in primary sources:**
+
+- `miller2025-enhancing-tactile-based-reinforcement` — [Enhancing Tactile-based Reinforcement Learning for Robotic Control](https://proceedings.neurips.cc/paper_files/paper/2025/hash/bc09efb501c801ed92e181e26a885c2d-Abstract-Conference.html) (NeurIPS 2025)
+- `wan2025-rapid-hand-robust-affordable` — [RAPID Hand: Robust, Affordable, Perception-Integrated, Dexterous Manipulation Platform for Embodied Intelligence](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8bead340bb510de5c8356f60ca039efc-Abstract-Conference.html) (NeurIPS 2025)
 
 ### task success rate
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "study_id": "section-writing-2026-07",
+  "study_id": "section-writing-2026-08",
   "guides": [
     {
       "id": "abstract",
@@ -8,7 +8,11 @@
       "section": "abstract",
       "label": "Abstract: claim-aligned empirical summary",
       "purpose": "Produce a compact summary whose problem, contribution, evidence, and scope exactly match the completed paper.",
-      "aliases": ["abstract", "摘要", "paper summary"],
+      "aliases": [
+        "abstract",
+        "摘要",
+        "paper summary"
+      ],
       "use_when": "Drafting or revising an AI-paper abstract after the methods and principal results are known.",
       "inputs": [
         "One-sentence problem and evaluated scope.",
@@ -126,7 +130,12 @@
       "section": "introduction",
       "label": "Introduction: limitation–insight–evidence alignment",
       "purpose": "Build an argument that moves from a scoped problem to a verified gap, design insight, contribution, and evidence without relying on a fixed paragraph count.",
-      "aliases": ["introduction", "intro", "引言", "贡献段"],
+      "aliases": [
+        "introduction",
+        "intro",
+        "引言",
+        "贡献段"
+      ],
       "use_when": "Planning, drafting, or restructuring an AI-paper Introduction.",
       "inputs": [
         "Paper type: method, new problem or setting, resource, empirical study, or theory.",
@@ -264,7 +273,13 @@
       "section": "experiments",
       "label": "Experiments: claim-to-evidence protocol",
       "purpose": "Design and write an experimental section in which each major empirical claim is tested under an explicit protocol and bounded interpretation.",
-      "aliases": ["experiments", "evaluation", "实验", "实验设置", "experimental setup"],
+      "aliases": [
+        "experiments",
+        "evaluation",
+        "实验",
+        "实验设置",
+        "experimental setup"
+      ],
       "use_when": "Planning or writing the complete empirical evaluation, before selecting a specialized table or analysis guide.",
       "inputs": [
         "Empirical claim list and one research question per claim.",
@@ -462,7 +477,13 @@
       "section": "experiments",
       "label": "Experimental analysis: evidence before interpretation",
       "purpose": "Turn verified results into precise analysis paragraphs without merely narrating a table or overstating a mechanism.",
-      "aliases": ["results analysis", "experiment analysis", "实验分析", "结果分析", "observations"],
+      "aliases": [
+        "results analysis",
+        "experiment analysis",
+        "实验分析",
+        "结果分析",
+        "observations"
+      ],
       "use_when": "Writing main-result, ablation, robustness, efficiency, or failure-analysis paragraphs after displays are finalized.",
       "inputs": [
         "The research question and comparison axis.",
@@ -566,7 +587,13 @@
       "section": "experiments",
       "label": "Tables: common construction and reporting standard",
       "purpose": "Make each table answer one research question with enough protocol information to interpret every comparison.",
-      "aliases": ["table", "tables", "表格", "caption", "表注"],
+      "aliases": [
+        "table",
+        "tables",
+        "表格",
+        "caption",
+        "表注"
+      ],
       "use_when": "Designing or auditing any quantitative experimental table.",
       "inputs": [
         "Research question and comparison axis.",
@@ -666,7 +693,12 @@
       "section": "experiments",
       "label": "Main-results table",
       "purpose": "Compare the proposed method with relevant baselines while making protocol equivalence and principal metrics visible.",
-      "aliases": ["main results table", "comparison table", "主结果表", "主表"],
+      "aliases": [
+        "main results table",
+        "comparison table",
+        "主结果表",
+        "主表"
+      ],
       "use_when": "The central table supports the paper's primary empirical comparison.",
       "inputs": [
         "Proposed variants and verified baseline set.",
@@ -741,7 +773,12 @@
       "section": "experiments",
       "label": "Ablation table",
       "purpose": "Test component, loss, data, or design claims with matched variants and conclusions no stronger than the intervention supports.",
-      "aliases": ["ablation table", "消融实验", "组件分析", "component study"],
+      "aliases": [
+        "ablation table",
+        "消融实验",
+        "组件分析",
+        "component study"
+      ],
       "use_when": "A table compares the full method with controlled variants.",
       "inputs": [
         "Full model and the claim attached to each component or design choice.",
@@ -816,7 +853,13 @@
       "section": "experiments",
       "label": "Generalization and robustness table",
       "purpose": "Make the training–evaluation shift or perturbation explicit and report performance across both reference and shifted conditions.",
-      "aliases": ["generalization table", "robustness table", "泛化表", "鲁棒性表", "unseen evaluation"],
+      "aliases": [
+        "generalization table",
+        "robustness table",
+        "泛化表",
+        "鲁棒性表",
+        "unseen evaluation"
+      ],
       "use_when": "Claims concern unseen tasks, objects, environments, embodiments, distributions, corruptions, or perturbations.",
       "inputs": [
         "Training distribution and exact held-out unit.",
@@ -889,7 +932,13 @@
       "section": "experiments",
       "label": "Efficiency and deployment table",
       "purpose": "Report quality jointly with the resource that defines efficiency under a reproducible measurement protocol.",
-      "aliases": ["efficiency table", "latency table", "compute table", "效率表", "部署效率"],
+      "aliases": [
+        "efficiency table",
+        "latency table",
+        "compute table",
+        "效率表",
+        "部署效率"
+      ],
       "use_when": "Claims concern sample, compute, memory, parameter, latency, throughput, energy, or deployment efficiency.",
       "inputs": [
         "Quality metric and the exact resource axis.",
@@ -964,7 +1013,13 @@
       "section": "experiments",
       "label": "Sensitivity, sweep, and scaling table",
       "purpose": "Show how conclusions change with a hyperparameter, data scale, model scale, horizon, or evaluation budget without cherry-picking.",
-      "aliases": ["sensitivity table", "hyperparameter table", "scaling table", "敏感性分析", "参数扫描"],
+      "aliases": [
+        "sensitivity table",
+        "hyperparameter table",
+        "scaling table",
+        "敏感性分析",
+        "参数扫描"
+      ],
       "use_when": "A claim or design choice depends on a selected value, range, or scale.",
       "inputs": [
         "Parameter or scale, unit, candidate range, and rationale.",
@@ -1039,7 +1094,12 @@
       "section": "related_work",
       "label": "Related Work: evidence-verified synthesis and positioning",
       "purpose": "Organize verified primary papers into problem-relevant families, compare them on explicit axes, and locate the present work without paper-by-paper narration or unsupported priority claims.",
-      "aliases": ["related work", "literature review", "相关工作", "文献综述"],
+      "aliases": [
+        "related work",
+        "literature review",
+        "相关工作",
+        "文献综述"
+      ],
       "use_when": "Planning, drafting, or revising an AI-paper Related Work section or a focused literature-positioning paragraph.",
       "inputs": [
         "The exact task, setting, and claim that the literature discussion must contextualize.",
@@ -1142,7 +1202,13 @@
       "section": "method",
       "label": "Method: executable specification and design rationale",
       "purpose": "Describe the problem formulation, components, objective, training procedure, and inference behavior precisely enough that a technically competent reader can reconstruct the method and test each claimed mechanism.",
-      "aliases": ["method", "methodology", "approach", "方法", "模型设计"],
+      "aliases": [
+        "method",
+        "methodology",
+        "approach",
+        "方法",
+        "模型设计"
+      ],
       "use_when": "Planning, drafting, or auditing an AI-paper Method section, algorithm description, or implementation-facing formulation.",
       "inputs": [
         "Operational task definition, notation, inputs, outputs, supervision, and assumptions.",
@@ -1247,7 +1313,12 @@
       "section": "limitations",
       "label": "Limitations: evidence boundary and consequential failure modes",
       "purpose": "State where the evidence, assumptions, resources, and deployment conditions stop supporting the paper's claims, and identify concrete failure modes without generic disclaimers.",
-      "aliases": ["limitations", "failure modes", "局限性", "不足"],
+      "aliases": [
+        "limitations",
+        "failure modes",
+        "局限性",
+        "不足"
+      ],
       "use_when": "Drafting a Limitations section, failure-boundary discussion, broader-impact caveat, or scoped response to an untested setting.",
       "inputs": [
         "The paper's claims and the exact evidence supporting each claim.",
@@ -1341,7 +1412,12 @@
       "section": "conclusion",
       "label": "Conclusion: contribution–evidence–scope closure",
       "purpose": "Close the paper by restating the solved problem, core contribution, principal verified evidence, and remaining boundary without adding new claims or repeating the abstract verbatim.",
-      "aliases": ["conclusion", "concluding remarks", "结论", "总结"],
+      "aliases": [
+        "conclusion",
+        "concluding remarks",
+        "结论",
+        "总结"
+      ],
       "use_when": "Drafting or revising the final paper section after claims, results, and limitations are stable.",
       "inputs": [
         "Final problem statement and contribution claims.",
@@ -1434,7 +1510,13 @@
       "section": "rebuttal",
       "label": "Rebuttal: answer–evidence–revision with fixed evidence",
       "purpose": "Respond directly to reviewer concerns using existing evidence, precise scope, and concrete manuscript changes while distinguishing correction, clarification, concession, and new work.",
-      "aliases": ["rebuttal", "reviewer response", "response letter", "审稿回复", "答辩"],
+      "aliases": [
+        "rebuttal",
+        "reviewer response",
+        "response letter",
+        "审稿回复",
+        "答辩"
+      ],
       "use_when": "Drafting a conference rebuttal, response-to-reviewers document, or concise answer to a technical concern.",
       "inputs": [
         "The reviewer's concern decomposed into factual questions or requested actions.",
@@ -1537,7 +1619,13 @@
       "section": "translation",
       "label": "Translation: proposition-first scientific English",
       "purpose": "Translate Chinese AI-paper prose by preserving the scientific proposition, terminology, notation, evidence strength, and discourse function before realizing it in field-standard English.",
-      "aliases": ["translation", "Chinese to English", "paper translation", "中英翻译", "论文翻译"],
+      "aliases": [
+        "translation",
+        "Chinese to English",
+        "paper translation",
+        "中英翻译",
+        "论文翻译"
+      ],
       "use_when": "Translating or bilingual-editing AI-paper text, captions, rebuttals, definitions, or technical explanations from Chinese into English.",
       "inputs": [
         "Source text plus its section, domain, intended readers, and neighboring sentences.",
@@ -1633,6 +1721,114 @@
         "general.usage-note.generalization-axis.001",
         "general.anti-pattern.ability-noun.001",
         "general.anti-pattern.perform-good.001"
+      ]
+    },
+    {
+      "id": "review",
+      "guide_type": "section_protocol",
+      "section": "review",
+      "label": "Peer review: grounded assessment with actionable requests",
+      "purpose": "Assess a submission by anchoring every judgment in its reported content, separating evidential statuses, making each weakness actionable, and calibrating the overall assessment to the listed evidence.",
+      "aliases": [
+        "peer review",
+        "reviewer report",
+        "review comments",
+        "审稿意见",
+        "评审"
+      ],
+      "use_when": "Writing reviewer comments, a weaknesses section, clarifying questions, an overall assessment, or a post-rebuttal update for a paper submission.",
+      "inputs": [
+        "The submission content available to the reviewer: claims, methods, reported results, disclosed limitations.",
+        "The venue's requested review structure and any scoring or formatting rules.",
+        "For post-rebuttal updates, the original concerns and the author response point by point."
+      ],
+      "moves": [
+        {
+          "id": "ground",
+          "label": "Ground every statement in the submission",
+          "required": true,
+          "checks": [
+            "Anchor each strength, weakness, and question to a specific claim, section, table, or omission.",
+            "Classify each criticism as absent, contradicted, or unverifiable before phrasing it.",
+            "Never assert unverifiable properties or misconduct; describe the claim-evidence gap instead."
+          ]
+        },
+        {
+          "id": "separate",
+          "label": "Separate summary, strengths, weaknesses, and questions",
+          "required": true,
+          "checks": [
+            "Summarize the contribution neutrally before evaluating it.",
+            "Keep disclosed limitations credited to the authors and probe their boundary instead of rediscovering them.",
+            "Keep each weakness distinct; do not bundle unrelated concerns."
+          ]
+        },
+        {
+          "id": "request",
+          "label": "Make weaknesses actionable",
+          "required": true,
+          "checks": [
+            "Pair each substantive weakness with a concrete, answerable request or question.",
+            "Request only what the authors can deliver within the venue's process.",
+            "Keep requests inside the review's scope; do not escalate to demands the concern does not justify."
+          ]
+        },
+        {
+          "id": "calibrate",
+          "label": "Calibrate the overall assessment",
+          "required": true,
+          "checks": [
+            "Trace the overall judgment to the listed strengths and weaknesses and nothing else.",
+            "Match hedging to evidence; avoid verdict language the review body does not support.",
+            "After a rebuttal, concede addressed points explicitly and keep unresolved ones with reasons."
+          ]
+        }
+      ],
+      "templates": [
+        {
+          "id": "weaknesses",
+          "name": "Grounded weaknesses section",
+          "when": "Writing the weaknesses portion of a review.",
+          "sequence": [
+            "Specific claim or reporting gap with its location.",
+            "Evidential status: absent, contradicted, or unverifiable.",
+            "Why it matters for the paper's main claim.",
+            "Concrete, answerable request."
+          ]
+        },
+        {
+          "id": "post-rebuttal",
+          "name": "Post-rebuttal update",
+          "when": "Updating the assessment after the author response.",
+          "sequence": [
+            "Concern-by-concern mapping to the response.",
+            "Explicit concession of addressed points.",
+            "Remaining concerns with stated reasons.",
+            "Updated overall assessment traceable to the above."
+          ]
+        }
+      ],
+      "verification": [
+        "Every criticism names its anchor in the submission and its evidential status.",
+        "No unverifiable property or misconduct implication is asserted as fact.",
+        "Disclosed limitations are credited, not rediscovered.",
+        "Each substantive weakness carries an answerable request.",
+        "The overall assessment introduces no claim absent from the review body."
+      ],
+      "avoid": [
+        "Asserting non-reproducibility, hidden results, or misconduct without packet evidence.",
+        "Presenting a disclosed limitation as an undisclosed flaw.",
+        "Rhetorical or hostile questions in place of answerable requests.",
+        "Dismissing an evidence base wholesale when it validly supports a narrower claim.",
+        "Verdicts or scores that exceed the venue's requested format or the listed evidence."
+      ],
+      "related_entry_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.sentence-pattern.review-actionable-question.001",
+        "general.sentence-pattern.review-calibrated-assessment.001",
+        "general.sentence-pattern.review-credit-disclosure.001",
+        "general.sentence-pattern.review-post-rebuttal.001",
+        "general.usage-note.review-evidence-scope.001"
       ]
     }
   ]

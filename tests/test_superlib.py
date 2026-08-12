@@ -436,14 +436,14 @@ class SuperLibraryCliTests(unittest.TestCase):
             for path in (ROOT / "dist" / "guides").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(guides), 16)
+        self.assertEqual(len(guides), 17)
         self.assertLess(max(path.stat().st_size for path in guides), 12_000)
         routes = [
             path
             for path in (ROOT / "dist" / "routes").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(routes), 18)
+        self.assertEqual(len(routes), 19)
         self.assertLess(max(path.stat().st_size for path in routes), 24_000)
         self.assertLess(
             (ROOT / "dist" / "routes" / "index.md").stat().st_size,
@@ -667,7 +667,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         listing = run_cli("guide", "--list", "--format", "json")
         self.assertEqual(listing.returncode, 0, listing.stderr)
         payload = json.loads(listing.stdout)
-        self.assertEqual(len(payload), 16)
+        self.assertEqual(len(payload), 17)
         guide = run_cli("guide", "experiments.table.efficiency")
         self.assertEqual(guide.returncode, 0, guide.stderr)
         self.assertIn("Define the resource", guide.stdout)
@@ -833,15 +833,15 @@ class SuperLibraryCliTests(unittest.TestCase):
     def test_section_writing_study_is_bounded_and_balanced(self):
         _, sources, _ = superlib.load_corpus()
         _, study = superlib.load_writing_guides()
-        self.assertEqual(study["counts"]["full_papers"], 40)
-        self.assertEqual(len(study["sample_source_ids"]), 40)
+        self.assertEqual(study["counts"]["full_papers"], 80)
+        self.assertEqual(len(study["sample_source_ids"]), 80)
         self.assertEqual(
             study["counts"]["by_domain"],
             {
-                "embodied_ai": 10,
-                "reinforcement_learning": 10,
-                "vision_language_action": 10,
-                "world_models": 10,
+                "embodied_ai": 20,
+                "reinforcement_learning": 20,
+                "vision_language_action": 20,
+                "world_models": 20,
             },
         )
         known = {source["id"] for source in sources}
@@ -854,7 +854,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         summary = superlib.source_analysis_summary(records)
         self.assertEqual(len(records), 300)
         self.assertEqual(summary["abstract_status"], {"analyzed": 288, "unavailable": 12})
-        self.assertEqual(summary["full_text_status"], {"not_sampled": 260, "structural_sample": 40})
+        self.assertEqual(summary["full_text_status"], {"not_sampled": 220, "structural_sample": 80})
         self.assertEqual(
             summary["papers_with_direct_library_links"],
             sum(bool(record["linked_entry_ids"]) for record in records),
@@ -1101,7 +1101,10 @@ class SuperLibraryCliTests(unittest.TestCase):
         known_guides = {guide["id"] for guide in guide_config["guides"]}
         cases = json.loads((ROOT / "evals" / "writing.json").read_text())["cases"]
         self.assertGreaterEqual(len(cases), 20)
-        self.assertEqual({case["mode"] for case in cases}, {"paper", "rebuttal", "translation"})
+        self.assertEqual(
+            {case["mode"] for case in cases},
+            {"paper", "rebuttal", "translation", "review"},
+        )
         for case in cases:
             self.assertTrue(case["manual_rubric"])
             self.assertTrue(case["machine_checks"])
@@ -1273,6 +1276,12 @@ class SuperLibraryCliTests(unittest.TestCase):
                 "but excludes model loading. Values use 1,000 measured iterations "
                 "after 100 warm-up iterations and do not imply a hardware-independent ranking."
             ),
+            "review-significance-calibration": (
+                "Table 2 reports a 2.8-point mean improvement averaged over "
+                "three random seeds, but no statistical test or confidence "
+                "interval accompanies it. Please add a significance test or "
+                "interval, or soften the wording of significant."
+            ),
         }
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -1382,6 +1391,12 @@ class SuperLibraryCliTests(unittest.TestCase):
                 "iterations following 100 warm-up iterations; they do not imply "
                 "a hardware-independent ranking."
             ),
+            "review-significance-calibration": (
+                "Table 2 reports a 2.8-point mean improvement averaged over "
+                "three random seeds, but no statistical test or confidence "
+                "interval accompanies it. Please add a significance test or "
+                "interval, or soften the wording of significant."
+            ),
         }
         weak = {
             case_id: "Our method is clearly state-of-the-art and robust."
@@ -1413,7 +1428,7 @@ class SuperLibraryCliTests(unittest.TestCase):
             self.assertEqual(prepared.returncode, 0, prepared.stderr)
             blind = json.loads(blind_path.read_text())
             key = json.loads(key_path.read_text())
-            self.assertEqual(len(blind["pairs"]), 2)
+            self.assertEqual(len(blind["pairs"]), 3)
             self.assertEqual(len(blind["rubric_dimensions"]), 6)
             self.assertTrue(blind["critical_errors"])
             self.assertTrue(all("assignment" not in pair for pair in blind["pairs"]))
@@ -1554,7 +1569,7 @@ class SuperLibraryCliTests(unittest.TestCase):
         self.assertTrue(any("independent=true" in error for error in errors))
         self.assertTrue(any("scores must contain exactly" in error for error in errors))
 
-    def test_coverage_gaps_prioritize_reviewed_unlinked_papers(self):
+    def test_coverage_gaps_order_remaining_unlinked_papers(self):
         result = run_cli("coverage-gaps", "--limit", "10", "--format", "json")
         self.assertEqual(result.returncode, 0, result.stderr)
         payload = json.loads(result.stdout)
@@ -1564,13 +1579,10 @@ class SuperLibraryCliTests(unittest.TestCase):
             superlib.source_analysis_records(sources, entries)
         )["papers_with_direct_library_links"]
         self.assertEqual(payload["summary"]["directly_linked_papers"], expected_links)
-        self.assertEqual(len(payload["records"]), 10)
-        self.assertTrue(
-            all(
-                record["outcome"] == "structural_sample_without_library_links"
-                for record in payload["records"]
-            )
-        )
+        # Every core paper now carries an explicit review disposition: it is
+        # either directly linked or recorded as a no-promotion outcome, so the
+        # review queue is empty until new sources or samples arrive.
+        self.assertEqual(payload["records"], [])
 
     def test_promotion_queue_is_deterministic_and_keeps_dedup_outcome(self):
         _, sources, entries = superlib.load_corpus()
@@ -1579,13 +1591,9 @@ class SuperLibraryCliTests(unittest.TestCase):
         first = superlib.promotion_queue_records(policy, records)
         second = superlib.promotion_queue_records(policy, records)
         self.assertEqual(first, second)
-        p0_count = sum(record["priority"] == "P0" for record in first)
-        self.assertEqual(p0_count, 11)
-        self.assertTrue(all(record["priority"] == "P0" for record in first[:p0_count]))
-        self.assertTrue(all(not record.get("linked_entry_ids") for record in first))
-        self.assertTrue(
-            all("record_no_promotion" in record["allowed_review_outcomes"] for record in first)
-        )
+        # With all 300 core papers reviewed (linked or explicitly
+        # no-promotion), the deterministic queue is empty.
+        self.assertEqual(first, [])
 
     def test_retrieval_eval_executes_top_k_routes(self):
         cases = json.loads((ROOT / "evals" / "retrieval.json").read_text())

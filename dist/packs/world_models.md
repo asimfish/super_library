@@ -49,6 +49,28 @@ A decision-making approach that represents trajectories or related planning vari
 - `janner2022-planning-diffusion-flexible-behavior` — [Planning with Diffusion for Flexible Behavior Synthesis](https://proceedings.mlr.press/v162/janner22a.html) (ICML 2022)
 - `huang2024-diffusion-models-optimizers-efficient` — [Diffusion Models as Optimizers for Efficient Planning in Offline RL](https://www.ecva.net/papers/eccv_2024/papers_ECCV/html/6735_ECCV_2024_paper.php) (ECCV 2024)
 
+### state abstraction
+
+`rl.definition.state-abstraction.001` · definition · reinforcement_learning, world_models · abstract, introduction, related_work, method, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A mapping from raw states or observations to a more compact representation that groups states carrying equivalent decision-relevant information, so that policies, values, or models can be learned over the abstract space.
+
+**Use:** State what information the abstraction preserves (for example values, dynamics, or temporal distances), how it is learned or constructed, and which downstream component consumes it. Report whether the abstraction is fixed or trained jointly, and support transfer or sample-efficiency claims with a no-abstraction baseline.
+
+**Avoid:** Do not call every learned encoder a state abstraction without stating the equivalence or information criterion it enforces, and do not equate abstraction quality with task return alone.
+
+**Patterns:**
+
+- The state abstraction maps {raw observations} to {compact representation} while preserving {decision-relevant quantity}.
+- We learn the abstraction with {objective} and reuse it across {downstream tasks}, improving sample efficiency over {no-abstraction baseline}.
+
+**Verify in primary sources:**
+
+- `lee2025-temporal-distance-aware-transition` — [Temporal Distance-aware Transition Augmentation for Offline Model-based Reinforcement Learning](https://proceedings.mlr.press/v267/lee25p.html) (ICML 2025)
+- `gomez2022-information-optimization-transferable-state` — [Information Optimization and Transferable State Abstractions in Deep Reinforcement Learning](https://doi.org/10.1109/tpami.2022.3200726) (TPAMI 2022)
+
 ### temporal-difference (TD) learning
 
 `rl.definition.temporal-difference.001` · definition · reinforcement_learning, world_models · introduction, related_work, method, translation
@@ -248,6 +270,27 @@ A dynamics model that represents a scene as entities or slots and models their a
 - `gx-chen2025-efficient-exploration-discriminative-world` — [Efficient Exploration and Discriminative World Model Learning with an Object-Centric Abstraction](https://iclr.cc/virtual/2025/poster/28750) (ICLR 2025)
 - `feng2025-learning-interactive-world-model` — [Learning Interactive World Model for Object-Centric Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2025/hash/8187faaf6759ef6d4e93293339bc656e-Abstract-Conference.html) (NeurIPS 2025)
 
+### objective mismatch (model-based RL)
+
+`wm.definition.objective-mismatch.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.
+
+**Use:** State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.
+
+**Avoid:** Do not report model accuracy alone as evidence of control quality, and do not use objective mismatch loosely for any underperformance unrelated to the model-policy interface.
+
+**Patterns:**
+
+- Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.
+- We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy.
+
+**Verify in primary sources:**
+
+- `lin2024-because-bilinear-causal-representation` — [BECAUSE: Bilinear Causal Representation for Generalizable Offline Model-based Reinforcement Learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/cff98e0b76e05fd1df5c9256724b3af1-Abstract-Conference.html) (NeurIPS 2024)
+
 ### occupancy world model
 
 `wm.definition.occupancy-world-model.001` · definition · world_models, embodied_ai · abstract, introduction, related_work, method
@@ -290,6 +333,28 @@ A dynamics model that represents a conditional distribution over future states o
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)
+
+### task-irrelevant distractors
+
+`wm.definition.task-irrelevant-distraction.001` · definition · world_models, reinforcement_learning · introduction, related_work, method, limitations, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Observation content that is predictable or salient but has no bearing on reward or action selection, so models or encoders that spend capacity on it degrade downstream control even when prediction metrics look good.
+
+**Use:** Name the distractor source (backgrounds, textures, or dynamics), state whether the training objective is reconstruction-based, and report control performance alongside prediction quality under distraction. Say how capacity is steered toward task-relevant content, for example task-aware losses, prototypes, or reconstruction-free objectives.
+
+**Avoid:** Do not equate low reconstruction error with a useful world model under distraction, and do not call every hard visual scene a distractor setting without separating task-relevant from irrelevant content.
+
+**Patterns:**
+
+- In {environment}, {distractor content} is predictable but irrelevant to {task}, degrading {reconstruction-based method}.
+- We steer model capacity toward task-relevant dynamics with {mechanism}, improving {control metric} under distraction.
+
+**Verify in primary sources:**
+
+- `hutson2024-policy-shaped-prediction-avoiding` — [Policy-shaped prediction: avoiding distractions in model-based reinforcement learning](https://proceedings.neurips.cc/paper_files/paper/2024/hash/17af43527227c5c96db0f8d4c6aadc4e-Abstract-Conference.html) (NeurIPS 2024)
+- `deng2022-dreamerpro-reconstruction-free-model` — [DreamerPro: Reconstruction-Free Model-Based Reinforcement Learning with Prototypical Representations](https://proceedings.mlr.press/v162/deng22a.html) (ICML 2022)
 
 ### task-oriented latent dynamics model
 
@@ -482,6 +547,27 @@ A learning target that contains a prediction produced by the current model or a 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
 - `hessel2018rainbow` — [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://ojs.aaai.org/index.php/AAAI/article/view/11796) (AAAI 2018)
+
+### update-to-data (UTD) ratio
+
+`rl.term.update-to-data-ratio.001` · term · reinforcement_learning, world_models · method, experiments, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+The number of gradient updates performed per collected environment step, a central knob for sample-efficient off-policy and model-based training that trades faster learning against overfitting to limited experience.
+
+**Use:** Report the UTD ratio whenever sample-efficiency claims are made, state whether it is fixed or adapted during training, and say how overfitting from high ratios is detected or mitigated, for example validation on held-out experience or regularization.
+
+**Avoid:** Do not compare sample efficiency across methods with different UTD ratios without disclosing them, and do not treat a higher ratio as free performance since it can overfit the replayed experience.
+
+**Patterns:**
+
+- We train with a UTD ratio of {value}, performing {updates} gradient updates per environment step.
+- The ratio is adapted by {detection mechanism} to balance under- and overfitting of {model or critic}.
+
+**Verify in primary sources:**
+
+- `dorka2023-dynamic-update-data-ratio` — [Dynamic Update-to-Data Ratio: Minimizing World Model Overfitting](https://iclr.cc/virtual/2023/poster/11616) (ICLR 2023)
 
 ### action-conditioned dynamics
 

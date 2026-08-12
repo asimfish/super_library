@@ -52,10 +52,11 @@ observation lists, and one venue's word limit as global defaults.
 
 ## Primary-paper section study
 
-`library/studies/section_writing_2026-07.json` records a 40-paper full-text
-calibration sample: ten papers each for reinforcement learning, embodied AI,
-world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS. Only aggregate
-document-level counts and source IDs are retained.
+`library/studies/section_writing_2026-08.json` records an 80-paper full-text
+calibration sample: twenty papers each for reinforcement learning, embodied AI,
+world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS. The
+document-level move detectors are stated explicitly in the study's method
+field. Only aggregate counts and source IDs are retained.
 
 The study is not used to claim that a phrase is statistically representative of
 accepted papers. It supports three design decisions:

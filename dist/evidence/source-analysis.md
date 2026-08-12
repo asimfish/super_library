@@ -8,12 +8,12 @@ coverage is not evidence that a paper contributed a reusable expression.
 - Core papers: 300
 - Abstract analyzed: 288
 - Abstract unavailable to the bounded collector: 12
-- Full-paper structural samples: 40
-- Papers directly linked from normalized library records: 88
-- Papers cited as representative entry sources: 72
-- Papers linked by completed promotion reviews: 24
-- Completed promotion reviews (including no-promotion): 25
-- Papers with no direct normalized-record link: 212
+- Full-paper structural samples: 80
+- Papers directly linked from normalized library records: 296
+- Papers cited as representative entry sources: 115
+- Papers linked by completed promotion reviews: 232
+- Completed promotion reviews (including no-promotion): 236
+- Papers with no direct normalized-record link: 4
 
 Open the [machine-readable per-paper ledger](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/evidence/source-analysis.jsonl) only when auditing coverage.
 For a literature claim, open the primary paper itself; neither this ledger

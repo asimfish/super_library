@@ -13,15 +13,16 @@ not a claim that this seed corpus models a venue-specific house style.
 Version 0.4 maintains an audited 300-paper 2021–2025 core from CVPR, ECCV, ICCV,
 NeurIPS, ICLR, ICML, and TPAMI. Papers are indexed into 23 topic families; their
 recurring terminology and writing moves are deduplicated into compact reusable
-records rather than copied once per paper. Sixteen selectively loaded protocols
+records rather than copied once per paper. Seventeen selectively loaded protocols
 now cover Abstract, Introduction, Related Work, Method, complete Experiments,
-result analysis, Limitations, Conclusion, Rebuttal, Translation, and five table
-types. Eighteen precomposed one-file routes keep common link-only
+result analysis, Limitations, Conclusion, Rebuttal, Peer Review, Translation,
+and five table types. Nineteen precomposed one-file routes keep common link-only
 tasks below 24,000 characters; five LaTeX assets turn the table protocols into
 editable reporting skeletons. A generated per-paper ledger separates metadata
 coverage, abstract analysis, full-paper structural sampling, and direct links to
-normalized records. A 20-case blind writing suite checks final-output facts and
-evidence boundaries. A separate paired professionalism benchmark now compares
+normalized records. A 38-case blind writing suite checks final-output facts and
+evidence boundaries across paper, rebuttal, peer-review, and translation
+modes. A separate paired professionalism benchmark now compares
 the same model with and without the library through randomized A/B review, six
 anchored quality dimensions, critical-error flags, paired bootstrap uncertainty,
 and rater-agreement reporting. A policy-driven promotion queue prioritizes the
@@ -197,11 +198,11 @@ be queried by a script, not pasted into an Agent.
 - `library/collections.json`: auditable paper-selection policies and minimums.
 - `library/writing_guides.json`: functional protocols for principal paper
   sections, rebuttal, translation, result analysis, and experiment table types.
-- `library/task_routes.json`: 18 precomposed routes for common domain/section
+- `library/task_routes.json`: 19 precomposed routes for common domain/section
   combinations; each rendered task pack is capped at 24,000 characters.
 - `library/table_templates.json` and `templates/tables/`: five source-controlled
   LaTeX table assets with explicit `SL_*` replacement tokens.
-- `library/studies/section_writing_2026-07.json`: source IDs and aggregate
+- `library/studies/section_writing_2026-08.json`: source IDs and aggregate
   structural observations from the bounded full-paper calibration study.
 - `library/coverage_policy.json`: review goals and deterministic scoring weights;
   goals are roadmap targets, not release assertions.
@@ -215,8 +216,8 @@ be queried by a script, not pasted into an Agent.
 - `skills/super-library/`: a self-contained skill with a bounded lookup script.
 - `scripts/superlib.py`: routing, bundle generation, search, analysis-depth audit,
   validation, build, statistics, source-health checks, and wording lint.
-- `evals/`: deterministic retrieval cases, 20 blind writing cases, and the paired
-  professionalism design for paper, rebuttal, and translation. Machine checks
+- `evals/`: deterministic retrieval cases, 38 blind writing cases, and the paired
+  professionalism design for paper, rebuttal, peer review, and translation. Machine checks
   cover objective invariants; randomized same-model A/B evaluation adds anchored
   human ratings, critical-error flags, paired effect estimates, and agreement.
 
@@ -231,7 +232,7 @@ Each entry distinguishes:
   an independently paraphrased synthesis, or a short multi-source attested
   collocation.
 
-The v0.4 reviewed snapshot contains **236 gold entries** and **336 primary-source
+The v0.4 reviewed snapshot contains **274 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -242,29 +243,38 @@ For recurring wording, 288 official conference abstracts were analyzed locally
 by document frequency; abstract text is not stored. Four cross-paper collocations
 survived manual screening and were promoted with source-level attestations. All
 12 TPAMI papers remain excluded from this abstract-level phrase-frequency study;
-five were subsequently reviewed through their primary paper text for normalized
-definitions or explicit deduplication decisions. Seventy-two core papers are
-representative sources cited directly by normalized records. Completed promotion reviews add
-sixteen unique paper-level links, bringing explicit normalized-record coverage
-to 88 without inserting every reviewed paper into default cards. Twenty-five
-promotion decisions are recorded: eight new normalized records, sixteen
-existing-record links, and one explicit no-promotion outcome. Inspect
+all twelve were subsequently reviewed—eight through their primary paper text
+and four through their official abstracts—for normalized definitions or explicit
+deduplication decisions. One hundred fifteen core papers are representative
+sources cited directly by normalized records. Completed promotion reviews add
+one hundred eighty-one unique paper-level links, bringing explicit
+normalized-record coverage to 296 without inserting every reviewed paper into
+default cards. Two hundred thirty-six promotion decisions are recorded: forty
+new normalized records, one hundred ninety-two existing-record links, and four
+explicit no-promotion outcomes. Every core paper now carries an explicit review
+disposition: 296 are directly linked and the remaining four are recorded
+no-promotion outcomes. Inspect
 `dist/evidence/source-analysis.jsonl`, run `analysis-status`, or use
 `promotion-status` instead of inferring analysis depth from the 300-paper count.
 See `library/corpus_report.json` and `library/promotion_decisions.jsonl`.
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
-structural samples, and 20 writing-behavior cases. Current progress is 88, 40,
-and 20 respectively. These are transparent improvement targets, not claims that
-the corpus is already complete. `coverage-gaps` ranks the next review candidates;
-reviewers may record `record_no_promotion` when a paper adds only redundant wording.
+structural samples, and 20 writing-behavior cases. Current progress is 296, 80,
+and 38 respectively, so every roadmap target is met, all 80 sampled papers
+carry reviewed normalized-record links, and the review queue is empty until
+new sources or samples arrive. Meeting the targets is not
+a claim that the corpus is complete: newly sampled papers without normalized
+links re-enter the review queue at the highest priority. `coverage-gaps` ranks
+the next review candidates; reviewers may record `record_no_promotion` when a
+paper adds only redundant wording.
 
-To calibrate section organization rather than collect prose, 40 official
-full-paper PDFs were analyzed locally: ten each from reinforcement learning,
-embodied AI, world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS.
+To calibrate section organization rather than collect prose, 80 official
+full-paper PDFs were analyzed locally: twenty each from reinforcement learning,
+embodied AI, world models, and VLA, across CVPR, ECCV, ICCV, ICML, and NeurIPS,
+with the move detectors stated explicitly in the study's method field.
 Only source IDs and aggregate document-level observations are retained. This
 sample informs the functional protocols but is not presented as a statistical
-model of venue style. See `library/studies/section_writing_2026-07.json` and
+model of venue style. See `library/studies/section_writing_2026-08.json` and
 `docs/WRITING_GUIDE_RESEARCH.md`.
 
 Fourteen short collocations carry locators to at least two independent papers.

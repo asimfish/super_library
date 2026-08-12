@@ -20,6 +20,7 @@ cards separately after choosing the protocol.
 - [Conclusion: contribution–evidence–scope closure](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/conclusion.md) — `conclusion` · section_protocol · section=conclusion
 - [Rebuttal: answer–evidence–revision with fixed evidence](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/rebuttal.md) — `rebuttal` · section_protocol · section=rebuttal
 - [Translation: proposition-first scientific English](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/translation.md) — `translation` · section_protocol · section=translation
+- [Peer review: grounded assessment with actionable requests](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/review.md) — `review` · section_protocol · section=review
 
 With a checkout, run `python3 scripts/superlib.py guide --list` or
 `python3 scripts/superlib.py guide <guide-id>`.

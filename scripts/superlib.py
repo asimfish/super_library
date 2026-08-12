@@ -56,7 +56,7 @@ TASK_ROUTES_PATH = LIBRARY / "task_routes.json"
 TABLE_TEMPLATES_PATH = LIBRARY / "table_templates.json"
 COVERAGE_POLICY_PATH = LIBRARY / "coverage_policy.json"
 PROMOTION_DECISIONS_PATH = LIBRARY / "promotion_decisions.jsonl"
-SECTION_STUDY_PATH = LIBRARY / "studies" / "section_writing_2026-07.json"
+SECTION_STUDY_PATH = LIBRARY / "studies" / "section_writing_2026-08.json"
 DIST_DIR = ROOT / "dist"
 ENTRY_SCHEMA_PATH = ROOT / "schemas" / "entry.schema.json"
 SOURCE_SCHEMA_PATH = ROOT / "schemas" / "source.schema.json"
@@ -601,12 +601,12 @@ def validate_writing_guides(
         for error in schema_validation_errors(guide_config, guide_schema)
     )
     errors.extend(
-        f"library/studies/section_writing_2026-07.json: schema: {error}"
+        f"library/studies/section_writing_2026-08.json: schema: {error}"
         for error in schema_validation_errors(study, study_schema)
     )
     for location, record in (
         ("library/writing_guides.json", guide_config),
-        ("library/studies/section_writing_2026-07.json", study),
+        ("library/studies/section_writing_2026-08.json", study),
     ):
         for field_path, text in iter_strings(record):
             if any(ord(character) < 32 for character in text):
@@ -665,14 +665,14 @@ def validate_writing_guides(
     unknown_sources = set(sample_ids) - set(sources_by_id)
     if unknown_sources:
         errors.append(
-            "library/studies/section_writing_2026-07.json: unknown sample "
+            "library/studies/section_writing_2026-08.json: unknown sample "
             f"source IDs: {sorted(unknown_sources)}"
         )
     counts = study.get("counts", {})
     full_papers = counts.get("full_papers")
     if full_papers != len(sample_ids):
         errors.append(
-            "library/studies/section_writing_2026-07.json: full_papers does "
+            "library/studies/section_writing_2026-08.json: full_papers does "
             "not match sample_source_ids"
         )
     known_sample = [
@@ -692,7 +692,7 @@ def validate_writing_guides(
     ):
         if counts.get(label) != dict(sorted(expected.items())):
             errors.append(
-                "library/studies/section_writing_2026-07.json: "
+                "library/studies/section_writing_2026-08.json: "
                 f"{label} does not match sampled source metadata"
             )
     return errors
@@ -2647,6 +2647,7 @@ def recommend_guide_id(
         "limitations": "limitations",
         "conclusion": "conclusion",
         "rebuttal": "rebuttal",
+        "review": "review",
         "translation": "translation",
     }
     for section, guide_id in section_guides.items():
@@ -4009,14 +4010,20 @@ def render_catalog(
     for entry in selected:
         card_url = f"{base}/{card_relative_path(entry)}"
         tag_text = ",".join(entry["tags"][:2])
-        if catalog_type in {"domain", "topic"}:
+        if catalog_type == "domain":
+            # The exhaustive per-domain index keeps only the kind; section
+            # metadata stays in the section and topic catalogs.
+            lines.append(
+                f"- [{entry['expression']}]({card_url}) — {entry['kind']}"
+            )
+            continue
+        if catalog_type == "topic":
             route_metadata = f"sections={','.join(entry['sections'])}"
         else:
             route_metadata = f"domains={','.join(entry['domains'])}"
-        tag_metadata = "" if catalog_type == "domain" else f" · tags={tag_text}"
         lines.append(
-            f"- [{entry['expression']}]({card_url}) — `{entry['id']}` · "
-            f"{entry['kind']} · {route_metadata}{tag_metadata}"
+            f"- [{entry['expression']}]({card_url}) — "
+            f"{entry['kind']} · {route_metadata} · tags={tag_text}"
         )
     return "\n".join(lines).rstrip() + "\n"
 
@@ -5070,7 +5077,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/writing_guides.json",
         "library/task_routes.json",
         "library/table_templates.json",
-        "library/studies/section_writing_2026-07.json",
+        "library/studies/section_writing_2026-08.json",
         "schemas/entry.schema.json",
         "schemas/source.schema.json",
         "schemas/catalog.schema.json",

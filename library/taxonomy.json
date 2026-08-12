@@ -22,7 +22,8 @@
     "limitations",
     "conclusion",
     "rebuttal",
-    "translation"
+    "translation",
+    "review"
   ],
   "intents": [
     "acknowledge",
@@ -93,8 +94,16 @@
     "JMLR",
     "arXiv"
   ],
-  "quality_tiers": ["gold", "silver", "bronze"],
-  "review_statuses": ["reviewed", "source_checked", "candidate"],
+  "quality_tiers": [
+    "gold",
+    "silver",
+    "bronze"
+  ],
+  "review_statuses": [
+    "reviewed",
+    "source_checked",
+    "candidate"
+  ],
   "provenance_types": [
     "original_pattern",
     "attested_collocation",

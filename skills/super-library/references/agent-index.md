@@ -43,6 +43,7 @@ scientific evidence. Verify primary papers for literature claims.
 - [conclusion](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/conclusion.md)
 - [rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/rebuttal.md)
 - [translation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/translation.md)
+- [review](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/review.md)
 
 ## Domain catalogs
 
@@ -77,7 +78,7 @@ python3 scripts/superlib.py bundle \
   --domain world_models --section rebuttal --intent respond
 ```
 
-Reviewed catalog: 236 normalized entries backed by a 300-paper recent collection plus earlier canonical sources. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/super-library-compact.md) and full
+Reviewed catalog: 274 normalized entries backed by a 300-paper recent collection plus earlier canonical sources. The legacy [single-file compact pack](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/super-library-compact.md) and full
 domain packs remain for compatibility, but they are not the default.
 A static release cannot establish what is currently latest or
 state-of-the-art.
