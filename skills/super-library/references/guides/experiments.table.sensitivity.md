@@ -42,7 +42,7 @@ Use when: One ordered variable is varied.
 
 1. Rows: ordered parameter or scale values with the default marked.
 2. Columns: claim-relevant metric, uncertainty, and changed resource.
-3. Caption: range, selection protocol, controls, runs, and default marker.
+3. Caption: opens by naming the system under sensitivity analysis, then range, selection protocol, controls, runs, and default marker.
 4. Analysis: trend, stable region, chosen point, and exception.
 
 ## Verification

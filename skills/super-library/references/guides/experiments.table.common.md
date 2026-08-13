@@ -25,8 +25,9 @@ Make each table answer one research question with enough protocol information to
 
 ### 2. Write a self-contained caption (required)
 
+- Open by naming the compared systems or methods; the first clause states what entities the table compares, not which metrics it lists.
 - Name task, dataset or environment, split, and evaluation setting.
-- Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules.
+- Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules; column arrows or one collective direction note suffice.
 - State consequential protocol differences or point to a precise footnote.
 
 ### 3. Structure rows and columns (required)
@@ -53,7 +54,7 @@ Make each table answer one research question with enough protocol information to
 
 Use when: The table reports comparable numeric results.
 
-1. What is evaluated and where.
+1. Which systems or methods are compared, and on what task or setting.
 2. Protocol or split.
 3. Metric names with arrows and units.
 4. Statistic, uncertainty, and number of independent runs.
@@ -74,6 +75,7 @@ Use when: The table reports comparable numeric results.
 - Mixing percentages and fractions in one metric without explicit units.
 - Averaging metrics with incompatible scales into an unexplained overall score.
 - Packing setup details into tiny cells that reviewers cannot read.
+- Opening the caption with metric names instead of the compared systems, or repeating a per-metric higher-or-lower-is-better gloss when arrows or one collective note already define direction.
 
 ## Retrieve related sentence cards only as needed
 

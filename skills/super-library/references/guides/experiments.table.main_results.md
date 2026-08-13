@@ -42,7 +42,7 @@ Use when: The same methods are evaluated under a common protocol across multiple
 
 1. Rows: method families, then the proposed method and named variants.
 2. Columns: protocol flags, task–metric groups, then a justified aggregate.
-3. Caption: setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.
+3. Caption: opens by naming the compared systems, then setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.
 4. Footnotes: implementation or protocol exceptions.
 
 ## Verification

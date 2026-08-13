@@ -616,8 +616,9 @@
           "label": "Write a self-contained caption",
           "required": true,
           "checks": [
+            "Open by naming the compared systems or methods; the first clause states what entities the table compares, not which metrics it lists.",
             "Name task, dataset or environment, split, and evaluation setting.",
-            "Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules.",
+            "Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules; column arrows or one collective direction note suffice.",
             "State consequential protocol differences or point to a precise footnote."
           ]
         },
@@ -658,7 +659,7 @@
           "name": "General quantitative caption",
           "when": "The table reports comparable numeric results.",
           "sequence": [
-            "What is evaluated and where.",
+            "Which systems or methods are compared, and on what task or setting.",
             "Protocol or split.",
             "Metric names with arrows and units.",
             "Statistic, uncertainty, and number of independent runs.",
@@ -678,7 +679,8 @@
         "Using decorative color or mandatory best/second-best colors.",
         "Mixing percentages and fractions in one metric without explicit units.",
         "Averaging metrics with incompatible scales into an unexplained overall score.",
-        "Packing setup details into tiny cells that reviewers cannot read."
+        "Packing setup details into tiny cells that reviewers cannot read.",
+        "Opening the caption with metric names instead of the compared systems, or repeating a per-metric higher-or-lower-is-better gloss when arrows or one collective note already define direction."
       ],
       "related_entry_ids": [
         "general.sentence-pattern.fair-comparison.001",
@@ -744,7 +746,7 @@
           "sequence": [
             "Rows: method families, then the proposed method and named variants.",
             "Columns: protocol flags, task–metric groups, then a justified aggregate.",
-            "Caption: setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
+            "Caption: opens by naming the compared systems, then setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
             "Footnotes: implementation or protocol exceptions."
           ]
         }
@@ -825,7 +827,7 @@
           "sequence": [
             "Rows: base, incremental or factorial variants, and full method.",
             "Columns: explicit component indicators followed by claim-relevant metrics.",
-            "Caption: matched resources, seeds, uncertainty, and full-model definition.",
+            "Caption: opens by naming the ablated system, then matched resources, seeds, uncertainty, and full-model definition.",
             "Analysis: largest supported effect, interaction, uncertainty, and exception."
           ]
         }
@@ -904,7 +906,7 @@
           "sequence": [
             "Rows: methods under comparable training data.",
             "Columns: seen reference, each named shift or severity, and a defined gap metric if useful.",
-            "Caption: held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
+            "Caption: opens by naming the compared systems, then held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
             "Analysis: shifted-condition difference, reference trade-off, consistency, and residual failure."
           ]
         }
@@ -983,7 +985,7 @@
           "sequence": [
             "Rows: methods and deployment variants.",
             "Columns: quality, parameters, peak memory, latency and/or throughput, and control rate when relevant.",
-            "Caption: hardware, precision, batch, input, timing boundary, repeats, and uncertainty.",
+            "Caption: opens by naming the compared systems, then hardware, precision, batch, input, timing boundary, repeats, and uncertainty; use column arrows or one collective direction note instead of per-metric higher-or-lower glosses.",
             "Analysis: matched-quality or matched-resource comparison and trade-off."
           ]
         }
@@ -1065,7 +1067,7 @@
           "sequence": [
             "Rows: ordered parameter or scale values with the default marked.",
             "Columns: claim-relevant metric, uncertainty, and changed resource.",
-            "Caption: range, selection protocol, controls, runs, and default marker.",
+            "Caption: opens by naming the system under sensitivity analysis, then range, selection protocol, controls, runs, and default marker.",
             "Analysis: trend, stable region, chosen point, and exception."
           ]
         }
