@@ -43,7 +43,7 @@ Use when: Several discrete modules are toggled.
 
 1. Rows: base, incremental or factorial variants, and full method.
 2. Columns: explicit component indicators followed by claim-relevant metrics.
-3. Caption: matched resources, seeds, uncertainty, and full-model definition.
+3. Caption: opens by naming the ablated system, then matched resources, seeds, uncertainty, and full-model definition.
 4. Analysis: largest supported effect, interaction, uncertainty, and exception.
 
 ## Verification

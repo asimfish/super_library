@@ -29056,7 +29056,7 @@
             "sequence": [
               "Rows: method families, then the proposed method and named variants.",
               "Columns: protocol flags, task–metric groups, then a justified aggregate.",
-              "Caption: setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
+              "Caption: opens by naming the compared systems, then setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
               "Footnotes: implementation or protocol exceptions."
             ],
             "when": "The same methods are evaluated under a common protocol across multiple tasks."
@@ -29135,7 +29135,7 @@
             "sequence": [
               "Rows: base, incremental or factorial variants, and full method.",
               "Columns: explicit component indicators followed by claim-relevant metrics.",
-              "Caption: matched resources, seeds, uncertainty, and full-model definition.",
+              "Caption: opens by naming the ablated system, then matched resources, seeds, uncertainty, and full-model definition.",
               "Analysis: largest supported effect, interaction, uncertainty, and exception."
             ],
             "when": "Several discrete modules are toggled."
@@ -29214,7 +29214,7 @@
             "sequence": [
               "Rows: methods under comparable training data.",
               "Columns: seen reference, each named shift or severity, and a defined gap metric if useful.",
-              "Caption: held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
+              "Caption: opens by naming the compared systems, then held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
               "Analysis: shifted-condition difference, reference trade-off, consistency, and residual failure."
             ],
             "when": "Methods are compared across seen and one or more unseen conditions."
@@ -29295,7 +29295,7 @@
             "sequence": [
               "Rows: methods and deployment variants.",
               "Columns: quality, parameters, peak memory, latency and/or throughput, and control rate when relevant.",
-              "Caption: hardware, precision, batch, input, timing boundary, repeats, and uncertainty.",
+              "Caption: opens by naming the compared systems, then hardware, precision, batch, input, timing boundary, repeats, and uncertainty; use column arrows or one collective direction note instead of per-metric higher-or-lower glosses.",
               "Analysis: matched-quality or matched-resource comparison and trade-off."
             ],
             "when": "Methods are compared for inference or control deployment."
@@ -29376,7 +29376,7 @@
             "sequence": [
               "Rows: ordered parameter or scale values with the default marked.",
               "Columns: claim-relevant metric, uncertainty, and changed resource.",
-              "Caption: range, selection protocol, controls, runs, and default marker.",
+              "Caption: opens by naming the system under sensitivity analysis, then range, selection protocol, controls, runs, and default marker.",
               "Analysis: trend, stable region, chosen point, and exception."
             ],
             "when": "One ordered variable is varied."
