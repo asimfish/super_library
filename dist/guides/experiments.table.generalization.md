@@ -41,7 +41,7 @@ Use when: Methods are compared across seen and one or more unseen conditions.
 
 1. Rows: methods under comparable training data.
 2. Columns: seen reference, each named shift or severity, and a defined gap metric if useful.
-3. Caption: held-out unit, selection protocol, metric, runs, uncertainty, and arrows.
+3. Caption: opens by naming the compared systems, then held-out unit, selection protocol, metric, runs, uncertainty, and arrows.
 4. Analysis: shifted-condition difference, reference trade-off, consistency, and residual failure.
 
 ## Verification

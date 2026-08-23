@@ -41,7 +41,7 @@ Use when: Methods are compared for inference or control deployment.
 
 1. Rows: methods and deployment variants.
 2. Columns: quality, parameters, peak memory, latency and/or throughput, and control rate when relevant.
-3. Caption: hardware, precision, batch, input, timing boundary, repeats, and uncertainty.
+3. Caption: opens by naming the compared systems, then hardware, precision, batch, input, timing boundary, repeats, and uncertainty; use column arrows or one collective direction note instead of per-metric higher-or-lower glosses.
 4. Analysis: matched-quality or matched-resource comparison and trade-off.
 
 ## Verification
