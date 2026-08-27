@@ -26,7 +26,7 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 
 ### 2. Lead with the answer (required)
 
-- Begin with yes, no, agreement, correction, or a one-sentence scoped answer.
+- Begin with yes, no, agreement, correction, or a one-sentence scoped answer; one opening clause that names the reviewer's concern, with or without brief thanks, is acceptable only when the same or the next sentence delivers that answer.
 - State the claim boundary before explanatory background when scope is disputed.
 - Acknowledge a valid concern without conceding unrelated claims.
 
@@ -41,6 +41,12 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 - Describe the exact manuscript change and where it will appear.
 - Distinguish completed analysis from a promised revision or future experiment.
 - Ensure the revision resolves the stated concern rather than only adding volume.
+
+### 5. Shape the response as an answer-then-limits arc (required)
+
+- When both the supporting evidence and its limits are substantive, give the direct answer with its evidence in one paragraph and the evidence boundary with the committed revision in a following paragraph.
+- State each supplied fact or number exactly once; do not restate a result as a transition between points.
+- Prefer plain verb phrases over stacked nominalizations so the response reads as an author addressing a colleague.
 
 ## Choose one internal template
 
@@ -64,7 +70,9 @@ Use when: The reviewer identifies an unsupported scope, untested condition, or r
 
 ## Verification
 
-- Every response begins with an answer rather than gratitude or background.
+- The scoped answer arrives within the first two sentences; any opening acknowledgment names the concern and never substitutes for the answer.
+- Answer-plus-evidence and limits-plus-revision occupy separate paragraphs when each is substantive.
+- No supplied fact or number is restated more than once.
 - Every numeric or comparative statement matches the submission or a clearly identified completed addition.
 - Promises correspond to concrete edits that can be delivered under the venue rules.
 - Tone is factual and respectful without exaggerating agreement or certainty.
@@ -73,6 +81,8 @@ Use when: The reviewer identifies an unsupported scope, untested condition, or r
 ## Avoid
 
 - Thanking the reviewer without answering the question.
+- Compressing answer, evidence, limits, and revision into one unbroken paragraph.
+- Restating the same number or claim in successive sentences as connective filler.
 - Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.
 - Promising broad experiments without completed results, resources, or permission.
 - Using significance, fairness, or state-of-the-art language without the required evidence.

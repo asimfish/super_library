@@ -29816,6 +29816,8 @@
         ],
         "avoid": [
           "Thanking the reviewer without answering the question.",
+          "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
+          "Restating the same number or claim in successive sentences as connective filler.",
           "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
           "Promising broad experiments without completed results, resources, or permission.",
           "Using significance, fairness, or state-of-the-art language without the required evidence."
@@ -29842,7 +29844,7 @@
           },
           {
             "checks": [
-              "Begin with yes, no, agreement, correction, or a one-sentence scoped answer.",
+              "Begin with yes, no, agreement, correction, or a one-sentence scoped answer; one opening clause that names the reviewer's concern, with or without brief thanks, is acceptable only when the same or the next sentence delivers that answer.",
               "State the claim boundary before explanatory background when scope is disputed.",
               "Acknowledge a valid concern without conceding unrelated claims."
             ],
@@ -29868,6 +29870,16 @@
             ],
             "id": "revision",
             "label": "Commit to a concrete revision",
+            "required": true
+          },
+          {
+            "checks": [
+              "When both the supporting evidence and its limits are substantive, give the direct answer with its evidence in one paragraph and the evidence boundary with the committed revision in a following paragraph.",
+              "State each supplied fact or number exactly once; do not restate a result as a transition between points.",
+              "Prefer plain verb phrases over stacked nominalizations so the response reads as an author addressing a colleague."
+            ],
+            "id": "shape",
+            "label": "Shape the response as an answer-then-limits arc",
             "required": true
           }
         ],
@@ -29908,7 +29920,9 @@
         ],
         "use_when": "Drafting a conference rebuttal, response-to-reviewers document, or concise answer to a technical concern.",
         "verification": [
-          "Every response begins with an answer rather than gratitude or background.",
+          "The scoped answer arrives within the first two sentences; any opening acknowledgment names the concern and never substitutes for the answer.",
+          "Answer-plus-evidence and limits-plus-revision occupy separate paragraphs when each is substantive.",
+          "No supplied fact or number is restated more than once.",
           "Every numeric or comparative statement matches the submission or a clearly identified completed addition.",
           "Promises correspond to concrete edits that can be delivered under the venue rules.",
           "Tone is factual and respectful without exaggerating agreement or certainty.",
@@ -30037,6 +30051,8 @@
           "Asserting non-reproducibility, hidden results, or misconduct without packet evidence.",
           "Presenting a disclosed limitation as an undisclosed flaw.",
           "Rhetorical or hostile questions in place of answerable requests.",
+          "Repeating the same submission fact or number in consecutive sentences.",
+          "A single dense paragraph that mixes the concern, its consequences, and several remedies without visible structure.",
           "Dismissing an evidence base wholesale when it validly supports a narrower claim.",
           "Verdicts or scores that exceed the venue's requested format or the listed evidence."
         ],
@@ -30072,11 +30088,22 @@
           {
             "checks": [
               "Pair each substantive weakness with a concrete, answerable request or question.",
+              "When more than one remedy would resolve the concern, enumerate the acceptable options explicitly as a short numbered or (i)/(ii) list so the authors can satisfy any one of them; do not bury alternatives in a run-on sentence.",
               "Request only what the authors can deliver within the venue's process.",
               "Keep requests inside the review's scope; do not escalate to demands the concern does not justify."
             ],
             "id": "request",
             "label": "Make weaknesses actionable",
+            "required": true
+          },
+          {
+            "checks": [
+              "Open the comment by naming the specific concern in one sentence; do not open with background or a restatement of the paper's numbers.",
+              "State each fact or number from the submission exactly once; a repeated fact reads as filler in a review.",
+              "When a criticism could be read more broadly than intended, close by scoping it explicitly: name what is not being claimed or demanded."
+            ],
+            "id": "present",
+            "label": "Present the comment for the author's working eye",
             "required": true
           },
           {
@@ -30130,6 +30157,8 @@
           "No unverifiable property or misconduct implication is asserted as fact.",
           "Disclosed limitations are credited, not rediscovered.",
           "Each substantive weakness carries an answerable request.",
+          "Alternative acceptable remedies appear as an explicit enumerated list rather than buried in prose.",
+          "No fact or number from the submission is restated more than once.",
           "The overall assessment introduces no claim absent from the review body."
         ]
       }
