@@ -5434,6 +5434,10 @@ def build_parser() -> argparse.ArgumentParser:
         collection["id"]
         for collection in read_json(COLLECTIONS_PATH).get("collections", [])
     ]
+    benchmark_suite_ids = [
+        suite["id"]
+        for suite in read_json(PROFESSIONALISM_BENCHMARK_PATH).get("suites", [])
+    ]
     parser = argparse.ArgumentParser(
         description="Retrieve and maintain the Super Library AI-writing corpus."
     )
@@ -5643,7 +5647,7 @@ def build_parser() -> argparse.ArgumentParser:
         "machine", help="score response invariants before blind human review"
     )
     benchmark_machine.add_argument(
-        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+        "--suite", choices=benchmark_suite_ids, default="full"
     )
     benchmark_machine.add_argument(
         "--responses", required=True, help="root containing baseline/ and super_library/"
@@ -5676,7 +5680,7 @@ def build_parser() -> argparse.ArgumentParser:
         "prepare", help="randomize paired responses into a blind review bundle"
     )
     benchmark_prepare.add_argument(
-        "--suite", choices=["smoke", "core", "experiments", "full"], default="full"
+        "--suite", choices=benchmark_suite_ids, default="full"
     )
     benchmark_prepare.add_argument(
         "--responses", required=True, help="root containing baseline/ and super_library/"

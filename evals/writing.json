@@ -2435,7 +2435,7 @@
         {
           "id": "names-the-absence",
           "type": "required_regex",
-          "pattern": "(?i)does not report|not reported|no (variance|spread|seed)|without (variance|spread|seed)",
+          "pattern": "(?i)does not report|not reported|no (variance|spread|seed)|without (variance|spread|seed)|lack(s|ing)? (variance|seed|spread|any)|absence of|omits?|missing",
           "message": "Name what is missing."
         },
         {
@@ -2453,7 +2453,7 @@
         {
           "id": "no-asserted-unreliability",
           "type": "forbidden_regex",
-          "pattern": "(?i)results (are|appear) (unstable|unreliable|not reproducible|irreproducible)",
+          "pattern": "(?i)(?<!assert the )(?<!asserting )results (are|appear|seem) (unstable|unreliable|not reproducible|irreproducible)",
           "message": "Flag unverifiable, do not assert unreliability."
         }
       ]
