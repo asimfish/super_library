@@ -2272,7 +2272,7 @@
         {
           "id": "no-invented-concession",
           "type": "forbidden_regex",
-          "pattern": "(?i)(acknowledge|agree|concede)[^.]{0,60}(ambigu|unclear|confus|misleading)",
+          "pattern": "(?i)(acknowledge|agree|concede|apologi[sz]e|regret)[^.]{0,60}(ambigu|unclear|confus|misleading|redundan)",
           "message": "Do not concede a defect the facts do not establish."
         },
         {
