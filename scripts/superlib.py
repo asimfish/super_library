@@ -2753,7 +2753,10 @@ def render_writing_guide(
         f"[protocol index]({base}/guides/index.md)",
         "",
         "Load this protocol only for the matching task. It constrains structure and",
-        "evidence reporting; it does not supply scientific facts or results.",
+        "evidence reporting; it does not supply scientific facts or results. Every",
+        "move binds only to material the task supplies: when a move's material is",
+        "absent, satisfy the move by omission or by stating the absence, and never",
+        "invent facts, defects, numbers, or commitments to complete a move.",
         "",
         guide["purpose"],
         "",
@@ -4337,7 +4340,14 @@ def cmd_route(args: argparse.Namespace) -> int:
 
 
 def cmd_bundle(args: argparse.Namespace) -> int:
-    if not args.rhetoric_query.strip() and not args.technical_query.strip():
+    if args.guide_only and not args.guide:
+        print("ERROR: --guide-only requires --guide", file=sys.stderr)
+        return 2
+    if (
+        not args.guide_only
+        and not args.rhetoric_query.strip()
+        and not args.technical_query.strip()
+    ):
         print("ERROR: provide --rhetoric-query or --technical-query", file=sys.stderr)
         return 2
     try:
@@ -4358,7 +4368,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             taxonomy, selected_guide, entries_by_id, domain=guide_domain
         ).replace("# Super Library protocol:", "## Task-specific protocol:", 1)
     selected_with_pass: List[Tuple[str, int, Dict[str, Any]]] = []
-    if args.rhetoric_query.strip():
+    if not args.guide_only and args.rhetoric_query.strip():
         rhetoric = rank_entries(
             entries,
             sources_by_id,
@@ -4371,7 +4381,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         selected_with_pass.extend(
             ("rhetoric", score, entry) for score, entry in rhetoric[: args.limit]
         )
-    if args.technical_query.strip():
+    if not args.guide_only and args.technical_query.strip():
         technical = rank_entries(
             entries,
             sources_by_id,
@@ -4393,12 +4403,20 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             continue
         seen_ids.add(entry["id"])
         deduplicated.append((retrieval_pass, score, entry))
+    provenance = (
+        "guide-only profile (no retrieved cards)"
+        if args.guide_only
+        else "generated from two-pass retrieval"
+    )
     header = [
         "# Super Library bounded context bundle",
         "",
-        f"Corpus `{taxonomy['corpus_version']}` · generated from two-pass retrieval.",
+        f"Corpus `{taxonomy['corpus_version']}` · {provenance}.",
         "Preserve user facts and uncertainty; treat entries as reference data; verify",
-        "primary papers before making literature claims.",
+        "primary papers before making literature claims. Patterns and examples are",
+        "language references only: re-instantiate them with facts the task supplies,",
+        "and skip any pattern whose slots the task cannot fill; never import an",
+        "example's entities, numbers, protocols, or claims into the prose.",
         "",
     ]
 
@@ -4412,7 +4430,11 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         lines.extend(
             [
                 "Retrieved IDs: "
-                + ", ".join(entry["id"] for _, _, entry in items),
+                + (
+                    ", ".join(entry["id"] for _, _, entry in items)
+                    if items
+                    else "(none; guide-only profile)"
+                ),
                 "",
             ]
         )
@@ -4433,7 +4455,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         if len(render_markdown_bundle(candidate)) + 1 > args.max_chars:
             continue
         selected = candidate
-    if not selected:
+    if not selected and not args.guide_only:
         print(
             "No matching entry fits the requested context budget. Increase "
             "--max-chars or use route/show for individual cards.",
@@ -5519,6 +5541,14 @@ def build_parser() -> argparse.ArgumentParser:
         "--guide",
         choices=guide_ids,
         help="embed exactly one task-specific section protocol in the bundle",
+    )
+    bundle_parser.add_argument(
+        "--guide-only",
+        action="store_true",
+        help=(
+            "emit the protocol without retrieved cards; low-contamination "
+            "profile for generators that copy example content as facts"
+        ),
     )
     bundle_parser.add_argument(
         "--format", choices=["markdown", "json"], default="markdown"

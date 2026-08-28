@@ -1532,9 +1532,10 @@
           "label": "Classify the concern",
           "required": true,
           "checks": [
-            "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
-            "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
-            "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous."
+    "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
+    "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
+    "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.",
+    "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state."
           ]
         },
         {
@@ -1558,14 +1559,15 @@
           ]
         },
         {
-          "id": "revision",
-          "label": "Commit to a concrete revision",
-          "required": true,
-          "checks": [
-            "Describe the exact manuscript change and where it will appear.",
-            "Distinguish completed analysis from a promised revision or future experiment.",
-            "Ensure the revision resolves the stated concern rather than only adding volume."
-          ]
+   "id": "revision",
+   "label": "Commit to a concrete revision",
+   "required": false,
+   "checks": [
+    "Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.",
+    "Describe the exact manuscript change and where it will appear.",
+    "Distinguish completed analysis from a promised revision or future experiment.",
+    "Ensure the revision resolves the stated concern rather than only adding volume."
+   ]
         },
         {
           "id": "shape",
@@ -1608,17 +1610,19 @@
         "No supplied fact or number is restated more than once.",
         "Every numeric or comparative statement matches the submission or a clearly identified completed addition.",
         "Promises correspond to concrete edits that can be delivered under the venue rules.",
-        "Tone is factual and respectful without exaggerating agreement or certainty.",
-        "No citation, experiment, result, or venue policy is invented."
-      ],
-      "avoid": [
-        "Thanking the reviewer without answering the question.",
-        "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
-        "Restating the same number or claim in successive sentences as connective filler.",
-        "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
-        "Promising broad experiments without completed results, resources, or permission.",
-        "Using significance, fairness, or state-of-the-art language without the required evidence."
-      ],
+  "Tone is factual and respectful without exaggerating agreement or certainty.",
+  "No citation, experiment, result, or venue policy is invented.",
+  "No concession, manuscript defect, or revision commitment appears unless the supplied facts establish it."
+ ],
+ "avoid": [
+  "Thanking the reviewer without answering the question.",
+  "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
+  "Restating the same number or claim in successive sentences as connective filler.",
+  "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
+  "Conceding a presentation flaw or promising a clarification edit that the supplied facts do not establish.",
+  "Promising broad experiments without completed results, resources, or permission.",
+  "Using significance, fairness, or state-of-the-art language without the required evidence."
+ ],
       "related_entry_ids": [
         "general.sentence-pattern.rebuttal-answer.001",
         "general.sentence-pattern.rebuttal-acknowledge.001",
