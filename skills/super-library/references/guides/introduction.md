@@ -51,6 +51,7 @@ Build an argument that moves from a scoped problem to a verified gap, design ins
 - Write parallel contributions at the same abstraction level.
 - Pair each empirical contribution with a named evaluation question or display.
 - Replace 'extensive experiments' with the evaluated axes and principal finding.
+- Preview only outcomes the supplied results state: never add a comparison, superiority claim, or guarantee word such as 'consistently' or 'ensures' that the material does not contain.
 
 ### 6. Close with scope (conditional)
 

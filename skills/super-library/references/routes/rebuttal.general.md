@@ -48,7 +48,7 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 - Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.
 - Answer each atomic concern once and preserve the reviewer's strongest interpretation.
 - Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.
-- Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state.
+- Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish.
 
 ##### 2. Lead with the answer (required)
 
@@ -65,7 +65,7 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 ##### 4. Commit to a concrete revision (conditional)
 
 - Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.
-- Describe the exact manuscript change and where it will appear.
+- Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.
 - Distinguish completed analysis from a promised revision or future experiment.
 - Ensure the revision resolves the stated concern rather than only adding volume.
 

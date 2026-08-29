@@ -25,6 +25,7 @@ Turn verified results into precise analysis paragraphs without merely narrating 
 
 - Point to the display and identify the rows, columns, or trend relevant to the question.
 - Quantify the difference in the metric's natural unit and distinguish relative from absolute change.
+- Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.
 - State whether the pattern is consistent across tasks, datasets, seeds, scales, or shifts.
 
 ### 2. Calibrate interpretation (required)

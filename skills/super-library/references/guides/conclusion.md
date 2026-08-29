@@ -36,6 +36,7 @@ Close the paper by restating the solved problem, core contribution, principal ve
 ### 3. End with a bounded implication (required)
 
 - Identify a specific remaining boundary or research direction grounded in the findings.
+- State untested settings as untested: never assert that performance degrades, transfers, or persists in any setting the supplied evidence did not evaluate.
 - Separate demonstrated capability from plausible broader impact.
 - Introduce no new method detail, citation-dependent literature claim, or result.
 

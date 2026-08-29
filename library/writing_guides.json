@@ -192,7 +192,8 @@
           "checks": [
             "Write parallel contributions at the same abstraction level.",
             "Pair each empirical contribution with a named evaluation question or display.",
-            "Replace 'extensive experiments' with the evaluated axes and principal finding."
+            "Replace 'extensive experiments' with the evaluated axes and principal finding.",
+            "Preview only outcomes the supplied results state: never add a comparison, superiority claim, or guarantee word such as 'consistently' or 'ensures' that the material does not contain."
           ]
         },
         {
@@ -499,6 +500,7 @@
           "checks": [
             "Point to the display and identify the rows, columns, or trend relevant to the question.",
             "Quantify the difference in the metric's natural unit and distinguish relative from absolute change.",
+            "Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.",
             "State whether the pattern is consistent across tasks, datasets, seeds, scales, or shifts."
           ]
         },
@@ -1454,6 +1456,7 @@
           "required": true,
           "checks": [
             "Identify a specific remaining boundary or research direction grounded in the findings.",
+            "State untested settings as untested: never assert that performance degrades, transfers, or persists in any setting the supplied evidence did not evaluate.",
             "Separate demonstrated capability from plausible broader impact.",
             "Introduce no new method detail, citation-dependent literature claim, or result."
           ]
@@ -1535,7 +1538,7 @@
     "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
     "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
     "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.",
-    "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state."
+    "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish."
           ]
         },
         {
@@ -1564,7 +1567,7 @@
    "required": false,
    "checks": [
     "Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.",
-    "Describe the exact manuscript change and where it will appear.",
+    "Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.",
     "Distinguish completed analysis from a promised revision or future experiment.",
     "Ensure the revision resolves the stated concern rather than only adding volume."
    ]
