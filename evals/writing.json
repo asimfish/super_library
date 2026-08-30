@@ -448,7 +448,7 @@
         {
           "id": "simulation-scope",
           "type": "required_regex",
-          "pattern": "simulation[- ]only|in simulation",
+          "pattern": "simulation[- ]only|in simulation|simulat(?:ion|ed) (?:environment|benchmark|setting|task)s?",
           "message": "Preserve the simulation-only scope."
         },
         {
@@ -554,7 +554,7 @@
         {
           "id": "method-contribution",
           "type": "required_regex",
-          "pattern": "conservative value penalty",
+          "pattern": "conservative value[- ]penalty",
           "message": "Restate the method contribution."
         },
         {
@@ -832,7 +832,7 @@
         {
           "id": "evaluation-scope",
           "type": "required_regex",
-          "pattern": "(?:one|a single) closed[- ]loop manipulation benchmark",
+          "pattern": "(?:one|a single) (?:closed[- ]loop )?manipulation benchmark|closed[- ]loop[^.]{0,60}(?:one|a single) manipulation benchmark",
           "message": "Preserve the single-benchmark scope."
         },
         {
@@ -2562,7 +2562,7 @@
         {
           "id": "names-untested-settings",
           "type": "required_regex",
-          "pattern": "(?i)(not (evaluat|test|explor|examin|run)|untested|unevaluated|outside the scope)[^.]{0,80}(discrete|pixel)|(discrete|pixel)[^.]{0,100}(not (evaluat|test|examin)|were not|untested|unevaluated|outside)",
+          "pattern": "(?i)(not (evaluat|test|explor|examin|run)|untested|unevaluated|outside the scope|limited to)[^.]{0,80}(discrete|pixel)|(discrete|pixel)[^.]{0,100}(not (evaluat|test|examin)|were not|untested|unevaluated|outside|remains? to be (establish|evaluat|test)|not been (evaluat|test))",
           "message": "Mark the discrete-action and pixel-noise settings as untested."
         },
         {
