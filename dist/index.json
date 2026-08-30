@@ -7013,7 +7013,7 @@
         "The current study does not establish transfer across unseen {embodiments or environments}."
       ],
       "expression": "name the generalization axis and held-out unit",
-      "guidance": "State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.'",
+      "guidance": "Use this pattern only when the supplied material itself states a held-out unit or an unseen-condition evaluation. State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.' If the material describes no hold-out, do not introduce generalization claims at all.",
       "id": "general.usage-note.generalization-axis.001",
       "intents": [
         "scope",

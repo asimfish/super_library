@@ -1464,7 +1464,7 @@ A VLA label emphasizes action generation for control, whereas an embodied langua
 
 Generalization is always relative to a specified shift, such as unseen objects, tasks, environments, users, embodiments, or combinations.
 
-**Use:** State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.'
+**Use:** Use this pattern only when the supplied material itself states a held-out unit or an unseen-condition evaluation. State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.' If the material describes no hold-out, do not introduce generalization claims at all.
 
 **Avoid:** Do not infer broad out-of-distribution generalization from a random train–test split over nearly identical samples.
 
