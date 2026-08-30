@@ -4368,6 +4368,24 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             taxonomy, selected_guide, entries_by_id, domain=guide_domain
         ).replace("# Super Library protocol:", "## Task-specific protocol:", 1)
     selected_with_pass: List[Tuple[str, int, Dict[str, Any]]] = []
+    pinned_ids: List[str] = []
+    if not args.guide_only:
+        route = recommend_task_route(
+            args.rhetoric_query or args.technical_query,
+            args.domain,
+            args.section,
+            args.intent,
+            args.guide,
+        )
+        if route:
+            pinned_ids = [
+                entry_id
+                for entry_id in route.get("entry_ids", [])
+                if entry_id in entries_by_id
+            ][: args.limit]
+            selected_with_pass.extend(
+                ("route", 0, entries_by_id[entry_id]) for entry_id in pinned_ids
+            )
     if not args.guide_only and args.rhetoric_query.strip():
         rhetoric = rank_entries(
             entries,
@@ -4378,9 +4396,13 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             args.intent,
             ("phrase", "sentence_pattern", "usage_note"),
         )
-        selected_with_pass.extend(
-            ("rhetoric", score, entry) for score, entry in rhetoric[: args.limit]
-        )
+        remaining = max(args.limit - len(pinned_ids), 0)
+        rhetoric_picks = [
+            ("rhetoric", score, entry)
+            for score, entry in rhetoric[: args.limit]
+            if entry["id"] not in set(pinned_ids)
+        ]
+        selected_with_pass.extend(rhetoric_picks[:remaining])
     if not args.guide_only and args.technical_query.strip():
         technical = rank_entries(
             entries,

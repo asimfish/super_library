@@ -457,6 +457,7 @@
       "related_work.vision_language_action": "routes/related_work.vision_language_action.md",
       "related_work.world_models": "routes/related_work.world_models.md",
       "review.general": "routes/review.general.md",
+      "title.general": "routes/title.general.md",
       "translation.general": "routes/translation.general.md"
     }
   }

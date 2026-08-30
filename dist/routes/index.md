@@ -24,3 +24,4 @@ Every route stays below 24,000 characters.
 - [Evidence-bounded reviewer rebuttal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/rebuttal.general.md) — `rebuttal.general` · domain=general · section=rebuttal · intent=respond
 - [Chinese-to-English scientific translation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/translation.general.md) — `translation.general` · domain=general · section=translation · intent=clarify
 - [Grounded peer-review assessment](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/review.general.md) — `review.general` · domain=general · section=review · intent=evidence
+- [Paper title and scope statement](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/routes/title.general.md) — `title.general` · domain=general · section=title · intent=scope

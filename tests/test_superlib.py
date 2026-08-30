@@ -443,7 +443,7 @@ class SuperLibraryCliTests(unittest.TestCase):
             for path in (ROOT / "dist" / "routes").glob("*.md")
             if path.name != "index.md"
         ]
-        self.assertEqual(len(routes), 19)
+        self.assertEqual(len(routes), 20)
         self.assertLess(max(path.stat().st_size for path in routes), 24_000)
         self.assertLess(
             (ROOT / "dist" / "routes" / "index.md").stat().st_size,

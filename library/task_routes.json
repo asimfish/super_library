@@ -395,6 +395,24 @@
         "general.usage-note.review-evidence-scope.001",
         "general.usage-note.significant.001"
       ]
+    },
+    {
+      "id": "title.general",
+      "label": "Paper title and scope statement",
+      "domain": "general",
+      "section": "title",
+      "intent": "scope",
+      "aliases": [
+        "paper title",
+        "title and scope",
+        "标题与范围声明"
+      ],
+      "entry_ids": [
+        "general.sentence-pattern.positive-scope.001",
+        "general.sentence-pattern.calibrated-strength.001",
+        "general.usage-note.effectiveness.001",
+        "general.usage-note.missing-zero-na.001"
+      ]
     }
   ]
 }

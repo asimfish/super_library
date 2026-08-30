@@ -28123,6 +28123,24 @@
         "intent": "evidence",
         "label": "Grounded peer-review assessment",
         "section": "review"
+      },
+      {
+        "aliases": [
+          "paper title",
+          "title and scope",
+          "标题与范围声明"
+        ],
+        "domain": "general",
+        "entry_ids": [
+          "general.sentence-pattern.positive-scope.001",
+          "general.sentence-pattern.calibrated-strength.001",
+          "general.usage-note.effectiveness.001",
+          "general.usage-note.missing-zero-na.001"
+        ],
+        "id": "title.general",
+        "intent": "scope",
+        "label": "Paper title and scope statement",
+        "section": "title"
       }
     ],
     "schema_version": "1.0"
