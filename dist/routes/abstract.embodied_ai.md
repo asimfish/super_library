@@ -265,7 +265,7 @@ Systematic evaluation varies identified factors—such as objects, placements, t
 
 Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.
 
-**Use:** Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more.
+**Use:** Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more. If the material states no measured outcome, open with what the method does and what the experiments evaluate; never convert 'evaluates {metric}' into 'improves {metric}'.
 
 **Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence, upgrade a scope term, or name a mechanism, protocol, or comparison the material does not state.
 

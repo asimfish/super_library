@@ -4533,7 +4533,7 @@
         "We show that {supported finding}, based on {evidence the material states}."
       ],
       "expression": "We present {method}, which {capability the supplied results state} on {evaluated setting}.",
-      "guidance": "Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more.",
+      "guidance": "Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more. If the material states no measured outcome, open with what the method does and what the experiments evaluate; never convert 'evaluates {metric}' into 'improves {metric}'.",
       "id": "general.sentence-pattern.claim-forward-opening.001",
       "intents": [
         "position",
@@ -6925,7 +6925,7 @@
         "Defensive: 'We do not claim novelty, completeness, or optimality.' Calibrated: '{Method} targets {stated problem}; {one adjacent problem} is outside this work's scope.'"
       ],
       "expression": "defensive hedging versus calibrated claiming",
-      "guidance": "Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Removing a hedge must never widen the claim beyond the supplied material: when in doubt, restate the scope positively instead of weakening the verb.",
+      "guidance": "Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Rewrite tone only, never content: every task, setting, protocol, and outcome named must already appear in the supplied material in those terms. Removing a hedge or restating scope must never add, upgrade, or rename anything the material does not state.",
       "id": "general.usage-note.anti-defensive-tone.001",
       "intents": [
         "position",

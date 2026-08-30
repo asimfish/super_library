@@ -13,7 +13,7 @@ making a scientific or literature claim.
 
 Distinguishes protective hedges added to preempt criticism, such as preemptive apologies, stacked disclaimers, and unprompted concessions, from calibrated hedges that mark genuinely unmeasured claims.
 
-**Use:** Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Removing a hedge must never widen the claim beyond the supplied material: when in doubt, restate the scope positively instead of weakening the verb.
+**Use:** Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Rewrite tone only, never content: every task, setting, protocol, and outcome named must already appear in the supplied material in those terms. Removing a hedge or restating scope must never add, upgrade, or rename anything the material does not state.
 
 **Avoid:** Do not delete evidential qualifiers such as the sample size, split, or evaluated setting as if they were defensive tone; those qualifiers bind the claim to its evidence and must stay.
 
