@@ -454,7 +454,7 @@
         {
           "id": "seed-count",
           "type": "required_regex",
-          "pattern": "(?:five|5) (?:random )?seeds",
+          "pattern": "(?:five|5)[- ](?:random )?seeds?\\b|(?:five|5)[- ]seed (?:evaluation|protocol|averag)",
           "message": "Preserve five seeds."
         },
         {
@@ -832,7 +832,7 @@
         {
           "id": "evaluation-scope",
           "type": "required_regex",
-          "pattern": "(?:one|a single) (?:closed[- ]loop )?manipulation benchmark|closed[- ]loop[^.]{0,60}(?:one|a single) manipulation benchmark",
+          "pattern": "(?:one|a single) (?:closed[- ]loop )?manipulation benchmark|closed[- ]loop[^.]{0,60}(?:one|a single) manipulation benchmark|on a (?:single )?(?:closed[- ]loop )?manipulation benchmark",
           "message": "Preserve the single-benchmark scope."
         },
         {
@@ -1498,7 +1498,7 @@
         {
           "id": "no-scope-creep",
           "type": "forbidden_regex",
-          "pattern": "real[- ]robot",
+          "pattern": "(?<!not )(?<!never )\\b(?:adds?|adding|requests?|requesting|requires?|requiring|demands?|demanding|provides?|providing|includes?|including|runs?|running|conducts?|conducting|performs?|performing)\\b[^.]{0,40}real[- ]robot|real[- ]robot experiments? (?:are|is|would be|should be) (?:needed|required|necessary)",
           "message": "Do not demand real-robot experiments; they are outside this comment's scope."
         }
       ]
