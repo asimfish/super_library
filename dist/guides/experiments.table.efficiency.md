@@ -3,7 +3,10 @@
 `experiments.table.efficiency` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Report quality jointly with the resource that defines efficiency under a reproducible measurement protocol.
 
@@ -41,7 +44,7 @@ Use when: Methods are compared for inference or control deployment.
 
 1. Rows: methods and deployment variants.
 2. Columns: quality, parameters, peak memory, latency and/or throughput, and control rate when relevant.
-3. Caption: hardware, precision, batch, input, timing boundary, repeats, and uncertainty.
+3. Caption: opens by naming the compared systems, then hardware, precision, batch, input, timing boundary, repeats, and uncertainty; use column arrows or one collective direction note instead of per-metric higher-or-lower glosses.
 4. Analysis: matched-quality or matched-resource comparison and trade-off.
 
 ## Verification

@@ -3,7 +3,10 @@
 `experiments.table.sensitivity` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Show how conclusions change with a hyperparameter, data scale, model scale, horizon, or evaluation budget without cherry-picking.
 
@@ -42,7 +45,7 @@ Use when: One ordered variable is varied.
 
 1. Rows: ordered parameter or scale values with the default marked.
 2. Columns: claim-relevant metric, uncertainty, and changed resource.
-3. Caption: range, selection protocol, controls, runs, and default marker.
+3. Caption: opens by naming the system under sensitivity analysis, then range, selection protocol, controls, runs, and default marker.
 4. Analysis: trend, stable region, chosen point, and exception.
 
 ## Verification

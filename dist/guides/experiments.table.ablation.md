@@ -3,7 +3,10 @@
 `experiments.table.ablation` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Test component, loss, data, or design claims with matched variants and conclusions no stronger than the intervention supports.
 
@@ -43,7 +46,7 @@ Use when: Several discrete modules are toggled.
 
 1. Rows: base, incremental or factorial variants, and full method.
 2. Columns: explicit component indicators followed by claim-relevant metrics.
-3. Caption: matched resources, seeds, uncertainty, and full-model definition.
+3. Caption: opens by naming the ablated system, then matched resources, seeds, uncertainty, and full-model definition.
 4. Analysis: largest supported effect, interaction, uncertainty, and exception.
 
 ## Verification

@@ -3,7 +3,10 @@
 `experiments.table.main_results` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Compare the proposed method with relevant baselines while making protocol equivalence and principal metrics visible.
 
@@ -42,7 +45,7 @@ Use when: The same methods are evaluated under a common protocol across multiple
 
 1. Rows: method families, then the proposed method and named variants.
 2. Columns: protocol flags, task–metric groups, then a justified aggregate.
-3. Caption: setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.
+3. Caption: opens by naming the compared systems, then setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.
 4. Footnotes: implementation or protocol exceptions.
 
 ## Verification

@@ -3,7 +3,10 @@
 `conclusion` · `section_protocol` · section `conclusion` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Close the paper by restating the solved problem, core contribution, principal verified evidence, and remaining boundary without adding new claims or repeating the abstract verbatim.
 
@@ -33,6 +36,7 @@ Close the paper by restating the solved problem, core contribution, principal ve
 ### 3. End with a bounded implication (required)
 
 - Identify a specific remaining boundary or research direction grounded in the findings.
+- State untested settings as untested: never assert that performance degrades, transfers, or persists in any setting the supplied evidence did not evaluate.
 - Separate demonstrated capability from plausible broader impact.
 - Introduce no new method detail, citation-dependent literature claim, or result.
 

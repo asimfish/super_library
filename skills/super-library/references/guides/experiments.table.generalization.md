@@ -3,7 +3,10 @@
 `experiments.table.generalization` · `table_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Make the training–evaluation shift or perturbation explicit and report performance across both reference and shifted conditions.
 
@@ -41,7 +44,7 @@ Use when: Methods are compared across seen and one or more unseen conditions.
 
 1. Rows: methods under comparable training data.
 2. Columns: seen reference, each named shift or severity, and a defined gap metric if useful.
-3. Caption: held-out unit, selection protocol, metric, runs, uncertainty, and arrows.
+3. Caption: opens by naming the compared systems, then held-out unit, selection protocol, metric, runs, uncertainty, and arrows.
 4. Analysis: shifted-condition difference, reference trade-off, consistency, and residual failure.
 
 ## Verification

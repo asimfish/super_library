@@ -10,7 +10,7 @@ paper adds no nonredundant terminology, definition, or writing pattern.
 
 - Directly linked core papers: 296/100
 - Full-text structural samples: 80/80
-- Writing behavior cases: 38/20
+- Writing behavior cases: 42/20
 
 ## Top 0 review candidates
 

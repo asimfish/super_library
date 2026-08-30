@@ -25,7 +25,10 @@ Do not load the core, catalogs, guide, or cards again for this task.
 `rebuttal` · `section_protocol` · section `rebuttal` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Respond directly to reviewer concerns using existing evidence, precise scope, and concrete manuscript changes while distinguishing correction, clarification, concession, and new work.
 
@@ -45,10 +48,11 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 - Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.
 - Answer each atomic concern once and preserve the reviewer's strongest interpretation.
 - Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.
+- Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish.
 
 ##### 2. Lead with the answer (required)
 
-- Begin with yes, no, agreement, correction, or a one-sentence scoped answer.
+- Begin with yes, no, agreement, correction, or a one-sentence scoped answer; one opening clause that names the reviewer's concern, with or without brief thanks, is acceptable only when the same or the next sentence delivers that answer.
 - State the claim boundary before explanatory background when scope is disputed.
 - Acknowledge a valid concern without conceding unrelated claims.
 
@@ -58,11 +62,18 @@ Respond directly to reviewer concerns using existing evidence, precise scope, an
 - Report metric, denominator, comparison, runs, and uncertainty when the response relies on a number.
 - If evidence is absent, say so and narrow the claim instead of inventing a result.
 
-##### 4. Commit to a concrete revision (required)
+##### 4. Commit to a concrete revision (conditional)
 
-- Describe the exact manuscript change and where it will appear.
+- Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.
+- Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.
 - Distinguish completed analysis from a promised revision or future experiment.
 - Ensure the revision resolves the stated concern rather than only adding volume.
+
+##### 5. Shape the response as an answer-then-limits arc (required)
+
+- When both the supporting evidence and its limits are substantive, give the direct answer with its evidence in one paragraph and the evidence boundary with the committed revision in a following paragraph.
+- State each supplied fact or number exactly once; do not restate a result as a transition between points.
+- Prefer plain verb phrases over stacked nominalizations so the response reads as an author addressing a colleague.
 
 #### Choose one internal template
 
@@ -86,16 +97,22 @@ Use when: The reviewer identifies an unsupported scope, untested condition, or r
 
 #### Verification
 
-- Every response begins with an answer rather than gratitude or background.
+- The scoped answer arrives within the first two sentences; any opening acknowledgment names the concern and never substitutes for the answer.
+- Answer-plus-evidence and limits-plus-revision occupy separate paragraphs when each is substantive.
+- No supplied fact or number is restated more than once.
 - Every numeric or comparative statement matches the submission or a clearly identified completed addition.
 - Promises correspond to concrete edits that can be delivered under the venue rules.
 - Tone is factual and respectful without exaggerating agreement or certainty.
 - No citation, experiment, result, or venue policy is invented.
+- No concession, manuscript defect, or revision commitment appears unless the supplied facts establish it.
 
 #### Avoid
 
 - Thanking the reviewer without answering the question.
+- Compressing answer, evidence, limits, and revision into one unbroken paragraph.
+- Restating the same number or claim in successive sentences as connective filler.
 - Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.
+- Conceding a presentation flaw or promising a clarification edit that the supplied facts do not establish.
 - Promising broad experiments without completed results, resources, or permission.
 - Using significance, fairness, or state-of-the-art language without the required evidence.
 

@@ -192,7 +192,8 @@
           "checks": [
             "Write parallel contributions at the same abstraction level.",
             "Pair each empirical contribution with a named evaluation question or display.",
-            "Replace 'extensive experiments' with the evaluated axes and principal finding."
+            "Replace 'extensive experiments' with the evaluated axes and principal finding.",
+            "Preview only outcomes the supplied results state: never add a comparison, superiority claim, or guarantee word such as 'consistently' or 'ensures' that the material does not contain."
           ]
         },
         {
@@ -499,6 +500,7 @@
           "checks": [
             "Point to the display and identify the rows, columns, or trend relevant to the question.",
             "Quantify the difference in the metric's natural unit and distinguish relative from absolute change.",
+            "Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.",
             "State whether the pattern is consistent across tasks, datasets, seeds, scales, or shifts."
           ]
         },
@@ -616,8 +618,9 @@
           "label": "Write a self-contained caption",
           "required": true,
           "checks": [
+            "Open by naming the compared systems or methods; the first clause states what entities the table compares, not which metrics it lists.",
             "Name task, dataset or environment, split, and evaluation setting.",
-            "Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules.",
+            "Define metric direction, units, aggregation, uncertainty, number of runs, abbreviations, and emphasis rules; column arrows or one collective direction note suffice.",
             "State consequential protocol differences or point to a precise footnote."
           ]
         },
@@ -658,7 +661,7 @@
           "name": "General quantitative caption",
           "when": "The table reports comparable numeric results.",
           "sequence": [
-            "What is evaluated and where.",
+            "Which systems or methods are compared, and on what task or setting.",
             "Protocol or split.",
             "Metric names with arrows and units.",
             "Statistic, uncertainty, and number of independent runs.",
@@ -678,7 +681,8 @@
         "Using decorative color or mandatory best/second-best colors.",
         "Mixing percentages and fractions in one metric without explicit units.",
         "Averaging metrics with incompatible scales into an unexplained overall score.",
-        "Packing setup details into tiny cells that reviewers cannot read."
+        "Packing setup details into tiny cells that reviewers cannot read.",
+        "Opening the caption with metric names instead of the compared systems, or repeating a per-metric higher-or-lower-is-better gloss when arrows or one collective note already define direction."
       ],
       "related_entry_ids": [
         "general.sentence-pattern.fair-comparison.001",
@@ -744,7 +748,7 @@
           "sequence": [
             "Rows: method families, then the proposed method and named variants.",
             "Columns: protocol flags, task–metric groups, then a justified aggregate.",
-            "Caption: setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
+            "Caption: opens by naming the compared systems, then setting, split, metric directions, aggregation, runs, emphasis, and extra-resource flags.",
             "Footnotes: implementation or protocol exceptions."
           ]
         }
@@ -825,7 +829,7 @@
           "sequence": [
             "Rows: base, incremental or factorial variants, and full method.",
             "Columns: explicit component indicators followed by claim-relevant metrics.",
-            "Caption: matched resources, seeds, uncertainty, and full-model definition.",
+            "Caption: opens by naming the ablated system, then matched resources, seeds, uncertainty, and full-model definition.",
             "Analysis: largest supported effect, interaction, uncertainty, and exception."
           ]
         }
@@ -904,7 +908,7 @@
           "sequence": [
             "Rows: methods under comparable training data.",
             "Columns: seen reference, each named shift or severity, and a defined gap metric if useful.",
-            "Caption: held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
+            "Caption: opens by naming the compared systems, then held-out unit, selection protocol, metric, runs, uncertainty, and arrows.",
             "Analysis: shifted-condition difference, reference trade-off, consistency, and residual failure."
           ]
         }
@@ -983,7 +987,7 @@
           "sequence": [
             "Rows: methods and deployment variants.",
             "Columns: quality, parameters, peak memory, latency and/or throughput, and control rate when relevant.",
-            "Caption: hardware, precision, batch, input, timing boundary, repeats, and uncertainty.",
+            "Caption: opens by naming the compared systems, then hardware, precision, batch, input, timing boundary, repeats, and uncertainty; use column arrows or one collective direction note instead of per-metric higher-or-lower glosses.",
             "Analysis: matched-quality or matched-resource comparison and trade-off."
           ]
         }
@@ -1065,7 +1069,7 @@
           "sequence": [
             "Rows: ordered parameter or scale values with the default marked.",
             "Columns: claim-relevant metric, uncertainty, and changed resource.",
-            "Caption: range, selection protocol, controls, runs, and default marker.",
+            "Caption: opens by naming the system under sensitivity analysis, then range, selection protocol, controls, runs, and default marker.",
             "Analysis: trend, stable region, chosen point, and exception."
           ]
         }
@@ -1452,6 +1456,7 @@
           "required": true,
           "checks": [
             "Identify a specific remaining boundary or research direction grounded in the findings.",
+            "State untested settings as untested: never assert that performance degrades, transfers, or persists in any setting the supplied evidence did not evaluate.",
             "Separate demonstrated capability from plausible broader impact.",
             "Introduce no new method detail, citation-dependent literature claim, or result."
           ]
@@ -1530,9 +1535,10 @@
           "label": "Classify the concern",
           "required": true,
           "checks": [
-            "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
-            "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
-            "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous."
+    "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
+    "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
+    "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.",
+    "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish."
           ]
         },
         {
@@ -1540,7 +1546,7 @@
           "label": "Lead with the answer",
           "required": true,
           "checks": [
-            "Begin with yes, no, agreement, correction, or a one-sentence scoped answer.",
+            "Begin with yes, no, agreement, correction, or a one-sentence scoped answer; one opening clause that names the reviewer's concern, with or without brief thanks, is acceptable only when the same or the next sentence delivers that answer.",
             "State the claim boundary before explanatory background when scope is disputed.",
             "Acknowledge a valid concern without conceding unrelated claims."
           ]
@@ -1556,13 +1562,24 @@
           ]
         },
         {
-          "id": "revision",
-          "label": "Commit to a concrete revision",
+   "id": "revision",
+   "label": "Commit to a concrete revision",
+   "required": false,
+   "checks": [
+    "Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.",
+    "Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.",
+    "Distinguish completed analysis from a promised revision or future experiment.",
+    "Ensure the revision resolves the stated concern rather than only adding volume."
+   ]
+        },
+        {
+          "id": "shape",
+          "label": "Shape the response as an answer-then-limits arc",
           "required": true,
           "checks": [
-            "Describe the exact manuscript change and where it will appear.",
-            "Distinguish completed analysis from a promised revision or future experiment.",
-            "Ensure the revision resolves the stated concern rather than only adding volume."
+            "When both the supporting evidence and its limits are substantive, give the direct answer with its evidence in one paragraph and the evidence boundary with the committed revision in a following paragraph.",
+            "State each supplied fact or number exactly once; do not restate a result as a transition between points.",
+            "Prefer plain verb phrases over stacked nominalizations so the response reads as an author addressing a colleague."
           ]
         }
       ],
@@ -1591,18 +1608,24 @@
         }
       ],
       "verification": [
-        "Every response begins with an answer rather than gratitude or background.",
+        "The scoped answer arrives within the first two sentences; any opening acknowledgment names the concern and never substitutes for the answer.",
+        "Answer-plus-evidence and limits-plus-revision occupy separate paragraphs when each is substantive.",
+        "No supplied fact or number is restated more than once.",
         "Every numeric or comparative statement matches the submission or a clearly identified completed addition.",
         "Promises correspond to concrete edits that can be delivered under the venue rules.",
-        "Tone is factual and respectful without exaggerating agreement or certainty.",
-        "No citation, experiment, result, or venue policy is invented."
-      ],
-      "avoid": [
-        "Thanking the reviewer without answering the question.",
-        "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
-        "Promising broad experiments without completed results, resources, or permission.",
-        "Using significance, fairness, or state-of-the-art language without the required evidence."
-      ],
+  "Tone is factual and respectful without exaggerating agreement or certainty.",
+  "No citation, experiment, result, or venue policy is invented.",
+  "No concession, manuscript defect, or revision commitment appears unless the supplied facts establish it."
+ ],
+ "avoid": [
+  "Thanking the reviewer without answering the question.",
+  "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
+  "Restating the same number or claim in successive sentences as connective filler.",
+  "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
+  "Conceding a presentation flaw or promising a clarification edit that the supplied facts do not establish.",
+  "Promising broad experiments without completed results, resources, or permission.",
+  "Using significance, fairness, or state-of-the-art language without the required evidence."
+ ],
       "related_entry_ids": [
         "general.sentence-pattern.rebuttal-answer.001",
         "general.sentence-pattern.rebuttal-acknowledge.001",
@@ -1769,8 +1792,19 @@
           "required": true,
           "checks": [
             "Pair each substantive weakness with a concrete, answerable request or question.",
+            "When more than one remedy would resolve the concern, enumerate the acceptable options explicitly as a short numbered or (i)/(ii) list so the authors can satisfy any one of them; do not bury alternatives in a run-on sentence.",
             "Request only what the authors can deliver within the venue's process.",
             "Keep requests inside the review's scope; do not escalate to demands the concern does not justify."
+          ]
+        },
+        {
+          "id": "present",
+          "label": "Present the comment for the author's working eye",
+          "required": true,
+          "checks": [
+            "Open the comment by naming the specific concern in one sentence; do not open with background or a restatement of the paper's numbers.",
+            "State each fact or number from the submission exactly once; a repeated fact reads as filler in a review.",
+            "When a criticism could be read more broadly than intended, close by scoping it explicitly: name what is not being claimed or demanded."
           ]
         },
         {
@@ -1813,12 +1847,16 @@
         "No unverifiable property or misconduct implication is asserted as fact.",
         "Disclosed limitations are credited, not rediscovered.",
         "Each substantive weakness carries an answerable request.",
+        "Alternative acceptable remedies appear as an explicit enumerated list rather than buried in prose.",
+        "No fact or number from the submission is restated more than once.",
         "The overall assessment introduces no claim absent from the review body."
       ],
       "avoid": [
         "Asserting non-reproducibility, hidden results, or misconduct without packet evidence.",
         "Presenting a disclosed limitation as an undisclosed flaw.",
         "Rhetorical or hostile questions in place of answerable requests.",
+        "Repeating the same submission fact or number in consecutive sentences.",
+        "A single dense paragraph that mixes the concern, its consequences, and several remedies without visible structure.",
         "Dismissing an evidence base wholesale when it validly supports a narrower claim.",
         "Verdicts or scores that exceed the venue's requested format or the listed evidence."
       ],

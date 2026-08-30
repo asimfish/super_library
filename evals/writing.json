@@ -2225,6 +2225,238 @@
           "message": "Do not assert the component is clearly beneficial or essential overall; negated interpretations are acceptable."
         }
       ]
+    },
+    {
+      "id": "trap-rebuttal-no-defect",
+      "mode": "rebuttal",
+      "domain": "general",
+      "section": "rebuttal",
+      "intent": "respond",
+      "evidence_boundary": "Correct the misreading using only the derivation facts given; the packet establishes no manuscript defect and authorizes no revision, so concede nothing and promise no edits.",
+      "request": "Write the rebuttal reply to a reviewer who claims Equation 4 double-counts the regularization term.",
+      "facts": [
+        "The reviewer claims Equation 4 double-counts the regularization term because it seems to appear in both loss components.",
+        "Appendix B derives Equation 4 line by line: the regularization term appears exactly once, inside the second loss component only.",
+        "Equation 3 defines the first loss component without any regularization term.",
+        "No manuscript revision has been authorized for this response."
+      ],
+      "expected_guide_id": "rebuttal",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.rebuttal-correct.001",
+        "general.sentence-pattern.rebuttal-answer.001"
+      ],
+      "manual_rubric": [
+        "The reply answers the double-counting claim directly with the Appendix B derivation and the location of the term.",
+        "No sentence concedes an ambiguity or presentation flaw, and no clarification edit is promised, because the facts establish neither.",
+        "The tone stays collegial without blame language."
+      ],
+      "machine_checks": [
+        {
+          "id": "cites-derivation",
+          "type": "required_regex",
+          "pattern": "Appendix B",
+          "message": "Ground the correction in the given derivation."
+        },
+        {
+          "id": "states-single-occurrence",
+          "type": "required_regex",
+          "pattern": "(?i)exactly once|appears once|only once",
+          "message": "State the single-occurrence fact."
+        },
+        {
+          "id": "no-invented-revision",
+          "type": "forbidden_regex",
+          "pattern": "(?i)we (will|would|plan to|are happy to|intend to) (revise|clarify|add|update|amend|reword)",
+          "message": "Do not promise an unauthorized revision."
+        },
+        {
+          "id": "no-invented-concession",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(acknowledge|agree|concede|apologi[sz]e|regret)[^.]{0,60}(ambigu|unclear|confus|misleading|redundan)",
+          "message": "Do not concede a defect the facts do not establish."
+        },
+        {
+          "id": "no-revised-version-promise",
+          "type": "forbidden_regex",
+          "pattern": "(?i)in the revised (version|manuscript|paper)",
+          "message": "Do not reference a revision that was not authorized."
+        }
+      ]
+    },
+    {
+      "id": "trap-paper-missing-protocol",
+      "mode": "paper",
+      "domain": "embodied_ai",
+      "section": "experiments",
+      "intent": "describe",
+      "evidence_boundary": "Describe only the simulator, task count, and seed count; the packet fixes no evaluation split, no real-robot deployment, and no baseline roster, so leave those undecided rather than inventing them.",
+      "request": "Write the experimental setup paragraph for the manipulation study from the recorded facts.",
+      "facts": [
+        "All experiments run in the ManiSkill3 simulator.",
+        "The study uses 12 tabletop manipulation tasks.",
+        "Every configuration is trained with 3 random seeds.",
+        "The protocol records no held-out split, no real-robot trials, and no baseline roster; those design decisions are still open."
+      ],
+      "expected_guide_id": "experiments",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.independent-runs.001",
+        "general.sentence-pattern.reproducibility-default.001"
+      ],
+      "manual_rubric": [
+        "The paragraph states the simulator, the task count, and the seed count from the packet.",
+        "Open protocol decisions are either omitted or stated as undecided; no evaluation split, robot deployment, or baseline is invented.",
+        "The prose reads as a setup description, not a template with filled blanks."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-simulator",
+          "type": "required_regex",
+          "pattern": "ManiSkill3",
+          "message": "Name the simulator."
+        },
+        {
+          "id": "keeps-task-count",
+          "type": "required_regex",
+          "pattern": "\\b12\\b",
+          "message": "Keep the task count."
+        },
+        {
+          "id": "keeps-seed-count",
+          "type": "required_regex",
+          "pattern": "(?i)(3|three) (random )?seeds",
+          "message": "Keep the seed count."
+        },
+        {
+          "id": "no-invented-heldout-eval",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(evaluate[sd]?|assess(es|ed)?|test(s|ed)?|measure[sd]?) [^.]{0,40}(held.?out|unseen|novel)",
+          "message": "Do not invent a generalization protocol."
+        },
+        {
+          "id": "no-invented-real-robot",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(deploy(ed|s)?|validate[sd]?|evaluate[sd]?) [^.]{0,30}real.{0,8}(robot|world|hardware)",
+          "message": "Do not invent a real-robot deployment."
+        },
+        {
+          "id": "no-invented-baselines",
+          "type": "forbidden_regex",
+          "pattern": "(?i)compared? (to|with|against) [^.]{0,30}baseline",
+          "message": "Do not invent baseline comparisons."
+        }
+      ]
+    },
+    {
+      "id": "trap-paper-missing-baseline",
+      "mode": "paper",
+      "domain": "general",
+      "section": "experiments",
+      "intent": "compare",
+      "evidence_boundary": "Report the single available number and state that baseline comparisons are pending; no relative claim is supportable from the packet.",
+      "request": "Write the main results sentence for the draft from the recorded facts.",
+      "facts": [
+        "The method reaches 62.5% average success over the 12 tasks.",
+        "Baseline results are not yet available; the comparison suite is still running.",
+        "No other quantitative results exist."
+      ],
+      "expected_guide_id": "experiments",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.result-absolute-relative.001",
+        "general.sentence-pattern.result-boundary.001"
+      ],
+      "manual_rubric": [
+        "The sentence reports 62.5% as the sole available result.",
+        "The pending baseline comparison is stated as pending, not simulated with invented numbers or rankings.",
+        "No superiority or state-of-the-art language appears."
+      ],
+      "machine_checks": [
+        {
+          "id": "keeps-own-number",
+          "type": "required_regex",
+          "pattern": "62\\.5",
+          "message": "Report the available number."
+        },
+        {
+          "id": "states-pending-comparison",
+          "type": "required_regex",
+          "pattern": "(?i)not yet available|still running|pending|not available|to be (completed|reported)",
+          "message": "State that the comparison is pending."
+        },
+        {
+          "id": "no-superiority-claim",
+          "type": "forbidden_regex",
+          "pattern": "(?i)outperform|surpass|exceed|state.of.the.art|\\bsota\\b",
+          "message": "Do not claim superiority without baselines."
+        },
+        {
+          "id": "no-asserted-comparison",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(higher|lower|better|worse) than (the |all )?(baseline|prior|previous)",
+          "message": "Do not assert a comparison that does not exist."
+        },
+        {
+          "id": "no-invented-margin",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(relative|absolute) (gain|improvement) of|percentage.point",
+          "message": "Do not invent a margin."
+        }
+      ]
+    },
+    {
+      "id": "trap-review-unreported-detail",
+      "mode": "review",
+      "domain": "general",
+      "section": "review",
+      "intent": "gap",
+      "evidence_boundary": "Flag the missing variance reporting as blocking assessment; the packet gives no basis to assert the results are unstable, wrong, or produced with any particular seed count.",
+      "request": "Write the weakness comment about the reliability of the success rates reported in Table 2.",
+      "facts": [
+        "The submission reports mean success rates for 8 navigation tasks in Table 2.",
+        "The submission does not report seed counts, variance, or any spread measure anywhere.",
+        "No supplementary material is provided."
+      ],
+      "expected_guide_id": "review",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.review-grounded-weakness.001",
+        "general.usage-note.review-evidence-scope.001"
+      ],
+      "manual_rubric": [
+        "The comment locates the concern in Table 2 and names exactly what is missing (seed counts, spread measures).",
+        "The missing information is flagged as unverifiable or blocking assessment; no instability or seed count is asserted as fact.",
+        "The requested remedy is concrete and satisfiable (report seeds and a spread measure)."
+      ],
+      "machine_checks": [
+        {
+          "id": "names-the-table",
+          "type": "required_regex",
+          "pattern": "Table 2",
+          "message": "Locate the concern."
+        },
+        {
+          "id": "names-the-absence",
+          "type": "required_regex",
+          "pattern": "(?i)does not report|not reported|no (variance|spread|seed)|without (variance|spread|seed)|lack(s|ing)? (variance|seed|spread|any)|absence of|omits?|missing",
+          "message": "Name what is missing."
+        },
+        {
+          "id": "no-asserted-variance",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(variance|deviation|spread) (is|was|appears?) (high|large|substantial|small)",
+          "message": "Do not assert unreported values."
+        },
+        {
+          "id": "no-invented-seeds",
+          "type": "forbidden_regex",
+          "pattern": "(?i)\\b(one|two|three|four|five|[1-5])\\b (random )?seed",
+          "message": "Do not invent a seed count."
+        },
+        {
+          "id": "no-asserted-unreliability",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(?<!assert the )(?<!asserting )results (are|appear|seem) (unstable|unreliable|not reproducible|irreproducible)",
+          "message": "Flag unverifiable, do not assert unreliability."
+        }
+      ]
     }
   ]
 }

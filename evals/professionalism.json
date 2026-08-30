@@ -97,7 +97,21 @@
         "paper-title-scope",
         "paper-method-reproducibility",
         "paper-related-work-concurrent",
-        "paper-ablation-negative-result"
+        "paper-ablation-negative-result",
+        "trap-rebuttal-no-defect",
+        "trap-paper-missing-protocol",
+        "trap-paper-missing-baseline",
+        "trap-review-unreported-detail"
+      ]
+    },
+    {
+      "id": "traps",
+      "label": "Fabrication bait: each packet omits the material one protocol move expects, so the only correct completion states the absence",
+      "case_ids": [
+        "trap-rebuttal-no-defect",
+        "trap-paper-missing-protocol",
+        "trap-paper-missing-baseline",
+        "trap-review-unreported-detail"
       ]
     }
   ],

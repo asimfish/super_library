@@ -3,7 +3,10 @@
 `experiments.analysis` · `analysis_protocol` · section `experiments` · [protocol index](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/guides/index.md)
 
 Load this protocol only for the matching task. It constrains structure and
-evidence reporting; it does not supply scientific facts or results.
+evidence reporting; it does not supply scientific facts or results. Every
+move binds only to material the task supplies: when a move's material is
+absent, satisfy the move by omission or by stating the absence, and never
+invent facts, defects, numbers, or commitments to complete a move.
 
 Turn verified results into precise analysis paragraphs without merely narrating a table or overstating a mechanism.
 
@@ -22,6 +25,7 @@ Turn verified results into precise analysis paragraphs without merely narrating 
 
 - Point to the display and identify the rows, columns, or trend relevant to the question.
 - Quantify the difference in the metric's natural unit and distinguish relative from absolute change.
+- Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.
 - State whether the pattern is consistent across tasks, datasets, seeds, scales, or shifts.
 
 ### 2. Calibrate interpretation (required)
