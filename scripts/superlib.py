@@ -4377,7 +4377,11 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             args.intent,
             args.guide,
         )
-        if route:
+        # Guide-backed sections get their protocol from the guide and
+        # query-relevant cards from retrieval; pins lead the bundle only for
+        # guide-less sections (e.g. title), where soft retrieval otherwise
+        # ranks pattern cards whose examples do not fit the task.
+        if route and not route.get("guide_id"):
             pinned_ids = [
                 entry_id
                 for entry_id in route.get("entry_ids", [])
