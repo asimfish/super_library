@@ -4249,6 +4249,47 @@
       ]
     },
     {
+      "avoid": "Do not write 'may potentially improve' for a gain the material measures, and do not promote an untested setting to a direct claim by dropping its hedge.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Across {stated number} tasks, {method} improves {metric} from {stated baseline value} to {stated value}.",
+        "On the {stated split}, {method} reduces {failure mode} by {stated amount}; settings beyond this split were not evaluated."
+      ],
+      "expression": "Across {units the material states}, {method} improves {metric} by {stated amount}.",
+      "guidance": "When the material states a measured result, report it with a direct verb and its stated scope. Reserve 'may', 'might', and 'potentially' for statements the material itself marks as untested. Never delete a hedge if doing so widens the claim beyond the stated evidence.",
+      "id": "general.sentence-pattern.calibrated-strength.001",
+      "intents": [
+        "evidence",
+        "quantify",
+        "describe"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Matches verb strength to evidential status: plain declaratives for measured results, hedges only for claims the material marks as unmeasured.",
+      "provenance": {
+        "note": "Original pattern adapted from community anti-defensive writing guidance; fact-binding proviso added for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-31",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "conclusion"
+      ],
+      "source_ids": [],
+      "tags": [
+        "calibrated claim",
+        "anti-defensive",
+        "hedging",
+        "evidence strength"
+      ]
+    },
+    {
       "avoid": "Do not claim a matched ablation when variants use different data, budgets, selection, or evaluation.",
       "domains": [
         "general"
@@ -4480,6 +4521,46 @@
         "hypothesis",
         "interpretation",
         "evidence"
+      ]
+    },
+    {
+      "avoid": "Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence to sound more confident.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "We present {method}, which improves {metric} by {stated amount} across {evaluated benchmarks}.",
+        "We show that {supported finding}, based on {evidence the material states}."
+      ],
+      "expression": "We present {method}, which {capability the supplied results state} on {evaluated setting}.",
+      "guidance": "Lead with the strongest claim the supplied evidence states, then bound it; every capability named must appear in the material's stated results. Strength comes from claiming exactly what the evidence supports, not from claiming more.",
+      "id": "general.sentence-pattern.claim-forward-opening.001",
+      "intents": [
+        "position",
+        "describe",
+        "motivate"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.",
+      "provenance": {
+        "note": "Original pattern adapted from community anti-defensive writing guidance; fact-binding proviso added for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-31",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction"
+      ],
+      "source_ids": [],
+      "tags": [
+        "claim-forward",
+        "anti-defensive",
+        "opening",
+        "contribution"
       ]
     },
     {
@@ -5266,6 +5347,46 @@
       ]
     },
     {
+      "avoid": "Do not apologize for a limitation, and do not assert that performance degrades or fails in settings the evidence never tested.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Our experiments assume {stated condition}; behavior under {other condition} was not evaluated.",
+        "{Method} relies on {stated resource}; settings without it are untested rather than known failure cases."
+      ],
+      "expression": "{Method} assumes {stated condition}; the supplied evidence does not evaluate {setting beyond that condition}.",
+      "guidance": "Bind the boundary to conditions the material states. Mark unevaluated settings as unevaluated instead of predicting degradation or failure in them; a limitation names what the evidence does not cover, not a defect the evidence does not establish.",
+      "id": "general.sentence-pattern.limitation-boundary.001",
+      "intents": [
+        "limit",
+        "causal_caution",
+        "scope"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States a limitation as a concrete boundary plus its evidential status, rather than as an apology or a speculative failure claim.",
+      "provenance": {
+        "note": "Original pattern adapted from community anti-defensive writing guidance; fact-binding proviso added for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-31",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "limitations",
+        "conclusion"
+      ],
+      "source_ids": [],
+      "tags": [
+        "limitation",
+        "boundary",
+        "anti-defensive",
+        "evidential status"
+      ]
+    },
+    {
       "avoid": "Do not turn a limitation into an unsupported claim that future work will certainly solve it.",
       "domains": [
         "general"
@@ -5454,6 +5575,48 @@
         "nearest work",
         "difference",
         "positioning"
+      ]
+    },
+    {
+      "avoid": "Do not stack multiple 'we do not claim' clauses when one positive scope sentence carries the same boundary; do not restate the covered scope as a list of things the work is not.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "{Method} addresses {stated problem class}; extending it to {adjacent class} is left to future work.",
+        "Our evaluation covers {stated benchmarks and budget}; deployment-scale settings are outside the scope of this study."
+      ],
+      "expression": "{Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.",
+      "guidance": "Name the covered scope positively from the supplied material. Keep only the exclusions a reader needs to avoid misusing the result; an exclusion is a boundary statement, not an apology.",
+      "id": "general.sentence-pattern.positive-scope.001",
+      "intents": [
+        "scope",
+        "clarify",
+        "position"
+      ],
+      "kind": "sentence_pattern",
+      "meaning": "States scope by what the work covers, with at most one deliberate exclusion, instead of a chain of defensive disclaimers.",
+      "provenance": {
+        "note": "Original pattern adapted from community anti-defensive writing guidance; fact-binding proviso added for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-31",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "method",
+        "conclusion"
+      ],
+      "source_ids": [],
+      "tags": [
+        "positive scope",
+        "anti-defensive",
+        "boundary",
+        "scoping"
       ]
     },
     {
@@ -6750,6 +6913,48 @@
         "structural assumption",
         "sample efficiency",
         "transfer"
+      ]
+    },
+    {
+      "avoid": "Do not delete evidential qualifiers such as the sample size, split, or evaluated setting as if they were defensive tone; those qualifiers bind the claim to its evidence and must stay.",
+      "domains": [
+        "general"
+      ],
+      "examples": [
+        "Defensive: 'While our method may not generalize, it might potentially improve results.' Calibrated: 'Across {stated tasks}, our method improves {metric} by {stated amount}; other settings were not evaluated.'",
+        "Defensive: 'We do not claim novelty, completeness, or optimality.' Calibrated: '{Method} targets {stated problem}; {one adjacent problem} is outside this work's scope.'"
+      ],
+      "expression": "defensive hedging versus calibrated claiming",
+      "guidance": "Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Removing a hedge must never widen the claim beyond the supplied material: when in doubt, restate the scope positively instead of weakening the verb.",
+      "id": "general.usage-note.anti-defensive-tone.001",
+      "intents": [
+        "position",
+        "scope",
+        "limit"
+      ],
+      "kind": "usage_note",
+      "meaning": "Distinguishes protective hedges added to preempt criticism, such as preemptive apologies, stacked disclaimers, and unprompted concessions, from calibrated hedges that mark genuinely unmeasured claims.",
+      "provenance": {
+        "note": "Original usage note adapted from community anti-defensive writing guidance; fact-binding proviso added for this repository.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-08-31",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "introduction",
+        "conclusion",
+        "limitations"
+      ],
+      "source_ids": [],
+      "tags": [
+        "anti-defensive",
+        "tone",
+        "hedging",
+        "epistemic discipline"
       ]
     },
     {
@@ -27537,7 +27742,9 @@
           "general.sentence-pattern.abstract-result.001",
           "general.sentence-pattern.abstract-scope.001",
           "wm.definition.world-model.001",
-          "wm.usage-note.planning-vs-policy.001"
+          "wm.usage-note.planning-vs-policy.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.calibrated-strength.001"
         ],
         "guide_id": "abstract",
         "id": "abstract.world_models",
@@ -27557,7 +27764,9 @@
           "general.sentence-pattern.abstract-result.001",
           "general.sentence-pattern.abstract-scope.001",
           "rl.definition.reinforcement-learning.001",
-          "rl.term.sample-efficiency.001"
+          "rl.term.sample-efficiency.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.calibrated-strength.001"
         ],
         "guide_id": "abstract",
         "id": "abstract.reinforcement_learning",
@@ -27577,7 +27786,9 @@
           "general.sentence-pattern.abstract-result.001",
           "general.sentence-pattern.abstract-scope.001",
           "emb.definition.embodied-ai.001",
-          "emb.usage-note.systematic-generalization.001"
+          "emb.usage-note.systematic-generalization.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.calibrated-strength.001"
         ],
         "guide_id": "abstract",
         "id": "abstract.embodied_ai",
@@ -27597,7 +27808,9 @@
           "general.sentence-pattern.abstract-result.001",
           "general.sentence-pattern.abstract-scope.001",
           "emb.definition.vla.001",
-          "vla.usage-note.pretrain-finetune.001"
+          "vla.usage-note.pretrain-finetune.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.calibrated-strength.001"
         ],
         "guide_id": "abstract",
         "id": "abstract.vision_language_action",
@@ -27617,7 +27830,9 @@
           "general.sentence-pattern.intro-contribution-evidence.001",
           "general.sentence-pattern.intro-nongoal.001",
           "wm.definition.world-model.001",
-          "wm.usage-note.planning-vs-policy.001"
+          "wm.usage-note.planning-vs-policy.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001"
         ],
         "guide_id": "introduction",
         "id": "introduction.world_models",
@@ -27637,7 +27852,9 @@
           "general.sentence-pattern.intro-contribution-evidence.001",
           "general.sentence-pattern.intro-nongoal.001",
           "rl.definition.reinforcement-learning.001",
-          "rl.term.sample-efficiency.001"
+          "rl.term.sample-efficiency.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001"
         ],
         "guide_id": "introduction",
         "id": "introduction.reinforcement_learning",
@@ -27657,7 +27874,9 @@
           "general.sentence-pattern.intro-contribution-evidence.001",
           "general.sentence-pattern.intro-nongoal.001",
           "emb.definition.embodied-ai.001",
-          "emb.usage-note.systematic-generalization.001"
+          "emb.usage-note.systematic-generalization.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001"
         ],
         "guide_id": "introduction",
         "id": "introduction.embodied_ai",
@@ -27677,7 +27896,9 @@
           "general.sentence-pattern.intro-contribution-evidence.001",
           "general.sentence-pattern.intro-nongoal.001",
           "emb.definition.vla.001",
-          "vla.usage-note.pretrain-finetune.001"
+          "vla.usage-note.pretrain-finetune.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001"
         ],
         "guide_id": "introduction",
         "id": "introduction.vision_language_action",
@@ -28312,7 +28533,8 @@
           "Opening with an unverifiable claim that the broad field is fundamentally important.",
           "Using 'novel', 'effective', 'superior', or 'state-of-the-art' as substitutes for a technical contribution and verified result.",
           "Listing modules without explaining the insight that connects them.",
-          "Adding citations, results, or deployment claims not present in the completed paper."
+          "Adding citations, results, or deployment claims not present in the completed paper.",
+          "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
         ],
         "guide_type": "section_protocol",
         "id": "abstract",
@@ -28363,6 +28585,17 @@
             "id": "evidence-scope",
             "label": "Report evidence with scope",
             "required": true
+          },
+          {
+            "checks": [
+              "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+              "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+              "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+              "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+            ],
+            "id": "claim-forward-polish",
+            "label": "Anti-defensive final pass",
+            "required": true
           }
         ],
         "purpose": "Produce a compact summary whose problem, contribution, evidence, and scope exactly match the completed paper.",
@@ -28372,7 +28605,11 @@
           "general.sentence-pattern.contribution.001",
           "general.sentence-pattern.quantify.001",
           "general.usage-note.generalization-axis.001",
-          "general.usage-note.state-of-the-art.001"
+          "general.usage-note.state-of-the-art.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001",
+          "general.sentence-pattern.calibrated-strength.001",
+          "general.usage-note.anti-defensive-tone.001"
         ],
         "section": "abstract",
         "templates": [
@@ -28435,7 +28672,8 @@
           "A universal six-paragraph requirement; use functional moves and merge them when the argument benefits.",
           "A straw-man progression from a deliberately weak 'naive' solution to the proposed method.",
           "Chronological paper listing, unverified 'first' claims, and generic importance claims.",
-          "Contribution bullets that mix a task definition, one module, and a result at incompatible levels."
+          "Contribution bullets that mix a task definition, one module, and a result at incompatible levels.",
+          "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
         ],
         "guide_type": "section_protocol",
         "id": "introduction",
@@ -28507,6 +28745,17 @@
             "id": "scope-boundary",
             "label": "Close with scope",
             "required": false
+          },
+          {
+            "checks": [
+              "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+              "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+              "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+              "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+            ],
+            "id": "claim-forward-polish",
+            "label": "Anti-defensive final pass",
+            "required": true
           }
         ],
         "purpose": "Build an argument that moves from a scoped problem to a verified gap, design insight, contribution, and evidence without relying on a fixed paragraph count.",
@@ -28516,7 +28765,11 @@
           "general.sentence-pattern.contribution.001",
           "general.sentence-pattern.scope.001",
           "general.sentence-pattern.related-family.001",
-          "general.sentence-pattern.related-synthesis.001"
+          "general.sentence-pattern.related-synthesis.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001",
+          "general.sentence-pattern.calibrated-strength.001",
+          "general.usage-note.anti-defensive-tone.001"
         ],
         "section": "introduction",
         "templates": [
@@ -29721,7 +29974,8 @@
           "Repeating the Abstract nearly verbatim.",
           "Introducing a new experiment, citation, comparison, or technical mechanism.",
           "Ending with an unbounded claim that the method opens broad new possibilities.",
-          "Omitting a trade-off that is necessary to interpret the main result."
+          "Omitting a trade-off that is necessary to interpret the main result.",
+          "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
         ],
         "guide_type": "section_protocol",
         "id": "conclusion",
@@ -29763,6 +30017,17 @@
             "id": "boundary",
             "label": "End with a bounded implication",
             "required": true
+          },
+          {
+            "checks": [
+              "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+              "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+              "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+              "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+            ],
+            "id": "claim-forward-polish",
+            "label": "Anti-defensive final pass",
+            "required": true
           }
         ],
         "purpose": "Close the paper by restating the solved problem, core contribution, principal verified evidence, and remaining boundary without adding new claims or repeating the abstract verbatim.",
@@ -29772,7 +30037,12 @@
           "general.sentence-pattern.scope.001",
           "general.sentence-pattern.result-boundary.001",
           "general.sentence-pattern.result-tradeoff.001",
-          "general.sentence-pattern.future.001"
+          "general.sentence-pattern.future.001",
+          "general.sentence-pattern.claim-forward-opening.001",
+          "general.sentence-pattern.positive-scope.001",
+          "general.sentence-pattern.calibrated-strength.001",
+          "general.usage-note.anti-defensive-tone.001",
+          "general.sentence-pattern.limitation-boundary.001"
         ],
         "section": "conclusion",
         "templates": [

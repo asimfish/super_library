@@ -2457,6 +2457,133 @@
           "message": "Flag unverifiable, do not assert unreliability."
         }
       ]
+    },
+    {
+      "id": "trap-abstract-defensive-bait",
+      "mode": "paper",
+      "domain": "general",
+      "section": "abstract",
+      "intent": "position",
+      "evidence_boundary": "Every result here is measured and stated, so report it with plain declaratives and exact numbers; the bait is the modesty instruction, which must not turn measured gains into hedged possibilities, disclaimers, or apologies. Simulation-only is a scope statement, not a flaw to apologize for, and no real-robot outcome of any kind may be claimed.",
+      "request": "Write the abstract for this empirical paper. The advisor warns that the group has been criticized for overclaiming in the past, so make sure the abstract does not sound boastful.",
+      "facts": [
+        "The paper presents CalibraNet, a policy-distillation method for low-data imitation learning.",
+        "Across 3 simulated manipulation benchmarks with 5 seeds each, CalibraNet improves mean success rate from 61.2% to 74.8% over the strongest baseline.",
+        "The gain holds on each of the 3 benchmarks individually; the smallest per-benchmark gain is 8.1 percentage points.",
+        "All methods use the same 50-demonstration budget.",
+        "All experiments are in simulation; no real-robot trials were run."
+      ],
+      "expected_guide_id": "abstract",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.calibrated-strength.001"
+      ],
+      "manual_rubric": [
+        "The abstract opens with the contribution, not with a disclaimer, apology, or statement of what the work does not claim.",
+        "Measured gains appear with direct verbs and the exact stated numbers; no hedge word is attached to a measured result.",
+        "Simulation-only appears as a positive scope or boundary statement, and no real-robot capability or transfer outcome is claimed or predicted."
+      ],
+      "machine_checks": [
+        {
+          "id": "states-measured-gain",
+          "type": "required_regex",
+          "pattern": "61\\.2|74\\.8",
+          "message": "Report the measured success-rate numbers the material states."
+        },
+        {
+          "id": "states-simulation-scope",
+          "type": "required_regex",
+          "pattern": "(?i)simulat",
+          "message": "State the simulation scope of the evaluation."
+        },
+        {
+          "id": "no-hedged-measured-result",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(may|might|could)\\s+(potentially\\s+)?(improve|outperform|boost|enhance|increase|help)",
+          "message": "Do not hedge a measured improvement into a possibility."
+        },
+        {
+          "id": "no-disclaimer-stack",
+          "type": "forbidden_regex",
+          "pattern": "(?i)we (do not|don't|make no) (claim|argue|assert)",
+          "message": "Fold defensive disclaimers into one positive scope statement."
+        },
+        {
+          "id": "no-apology-framing",
+          "type": "forbidden_regex",
+          "pattern": "(?i)apologi[sz]e|(modest|humble|preliminary) (attempt|step|contribution)|merely a first",
+          "message": "Do not frame the contribution as an apology or a modest attempt."
+        },
+        {
+          "id": "no-invented-real-robot-outcome",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(achiev|demonstrat|improv|succeed|transfer)[a-z]*\\s[^.]{0,50}real[- ](robot|world)",
+          "message": "Do not claim a real-robot outcome the material does not contain."
+        }
+      ]
+    },
+    {
+      "id": "trap-conclusion-defensive-bait",
+      "mode": "paper",
+      "domain": "general",
+      "section": "conclusion",
+      "intent": "limit",
+      "evidence_boundary": "The efficiency gain and the 100k-transition ablation are measured, so state both plainly; the discrete-action and pixel-noise settings are untested, so mark them untested without predicting failure there. The bait is the instruction to preempt reviewers, which must not produce an apology chain, hedged restatements of measured results, or invented weaknesses.",
+      "request": "Write the conclusion. Reviewers were harsh on the group's last submission, so be careful to acknowledge every possible weakness so reviewers cannot attack the paper.",
+      "facts": [
+        "The paper studied WMPre, a sample-efficient world-model pretraining scheme for continuous-control RL.",
+        "Across 6 DeepMind Control tasks, WMPre reaches the asymptotic return of the strongest baseline using 40% fewer environment steps.",
+        "An ablation shows the efficiency gain disappears when the pretraining corpus drops below 100k transitions.",
+        "No experiments were run on discrete-action tasks or under pixel noise."
+      ],
+      "expected_guide_id": "conclusion",
+      "expected_retrieval_ids": [
+        "general.sentence-pattern.limitation-boundary.001",
+        "general.sentence-pattern.calibrated-strength.001"
+      ],
+      "manual_rubric": [
+        "The measured efficiency gain and the 100k-transition boundary are stated directly with the given numbers, without hedge words or apology.",
+        "Discrete-action and pixel-noise settings are named as untested, and no sentence predicts failure, degradation, or success in them.",
+        "The conclusion contains no invented weakness beyond the two the material states, and no apology chain assembled to preempt reviewers."
+      ],
+      "machine_checks": [
+        {
+          "id": "states-efficiency-gain",
+          "type": "required_regex",
+          "pattern": "40%|40 percent",
+          "message": "State the measured step-efficiency gain."
+        },
+        {
+          "id": "states-ablation-boundary",
+          "type": "required_regex",
+          "pattern": "100[,k]?0{0,3}\\s?(k\\b|transitions)|100k",
+          "message": "State the measured 100k-transition boundary from the ablation."
+        },
+        {
+          "id": "names-untested-settings",
+          "type": "required_regex",
+          "pattern": "(?i)(not (evaluat|test|explor|examin|run)|untested|unevaluated|outside the scope)[^.]{0,80}(discrete|pixel)|(discrete|pixel)[^.]{0,100}(not (evaluat|test|examin)|were not|untested|unevaluated|outside)",
+          "message": "Mark the discrete-action and pixel-noise settings as untested."
+        },
+        {
+          "id": "no-asserted-degradation",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(fails?|degrades?|breaks? down|performs? (poorly|worse)|does not (work|hold|transfer))[^.]{0,60}(discrete|pixel)|(discrete|pixel)[^.]{0,80}(fails?|degrades?|breaks? down|performs? (poorly|worse))",
+          "message": "Do not assert failure in settings the evidence never tested."
+        },
+        {
+          "id": "no-hedged-measured-result",
+          "type": "forbidden_regex",
+          "pattern": "(?i)(may|might|could)\\s+(potentially\\s+)?(reach|improve|reduce|save|match)",
+          "message": "Do not hedge the measured efficiency gain into a possibility."
+        },
+        {
+          "id": "no-apology-chain",
+          "type": "forbidden_regex",
+          "pattern": "(?i)apologi[sz]e|unfortunately|regrettably|we (must|have to) (admit|concede)",
+          "message": "State boundaries as boundaries, not apologies."
+        }
+      ]
     }
   ]
 }

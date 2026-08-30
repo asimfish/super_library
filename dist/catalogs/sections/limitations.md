@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 15
+Entries: 17
 
 - [Our results suggest that {bounded interpretation}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.results-suggest.001.md) — phrase · domains=general · tags=cautious interpretation,results suggest
 - [{unit} not seen during training](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.unseen-during-training.001.md) — phrase · domains=general · tags=held-out split,generalization
@@ -18,5 +18,7 @@ Entries: 15
 - [This pattern is consistent with {hypothesis}, although {alternative} is not controlled.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.result-hypothesis-caution.001.md) — sentence_pattern · domains=general · tags=calibrated interpretation,alternative explanation
 - [We focus on {scope}; {non-goal} remains outside the present study.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.intro-nongoal.001.md) — sentence_pattern · domains=general · tags=non-goal,introduction scope
 - [We observe no consistent advantage on {scope}; the difference remains within {uncertainty}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.result-null.001.md) — sentence_pattern · domains=general · tags=null result,no consistent advantage
+- [{Method} assumes {stated condition}; the supplied evidence does not evaluate {setting beyond that condition}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.limitation-boundary.001.md) — sentence_pattern · domains=general · tags=limitation,boundary
+- [defensive hedging versus calibrated claiming](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.anti-defensive-tone.001.md) — usage_note · domains=general · tags=anti-defensive,tone
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split

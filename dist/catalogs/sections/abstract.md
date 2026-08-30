@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 28
+Entries: 32
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -19,6 +19,7 @@ Entries: 28
 - [{unit} not seen during training](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.unseen-during-training.001.md) — phrase · domains=general · tags=held-out split,generalization
 - [A central challenge is to {objective} while {constraint}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.motivate.001.md) — sentence_pattern · domains=general · tags=motivation,challenge
 - [Across {evaluation scope}, {method} changes {metric} by {value} relative to {comparator}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-result.001.md) — sentence_pattern · domains=general · tags=abstract result,quantified evidence
+- [Across {units the material states}, {method} improves {metric} by {stated amount}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.calibrated-strength.001.md) — sentence_pattern · domains=general · tags=calibrated claim,anti-defensive
 - [For {task}, existing methods remain limited by {specific constraint}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-gap.001.md) — sentence_pattern · domains=general · tags=abstract gap,specific limitation
 - [On {metric}, {method} changes {baseline value} to {method value}, an {absolute or relative} difference of {value}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.result-absolute-relative.001.md) — sentence_pattern · domains=general · tags=absolute difference,relative improvement
 - [Our key insight is that {insight}, which enables {capability}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-insight.001.md) — sentence_pattern · domains=general · tags=abstract insight,central observation
@@ -26,7 +27,10 @@ Entries: 28
 - [These results support {scoped conclusion} under {evaluated conditions}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-scope.001.md) — sentence_pattern · domains=general · tags=abstract conclusion,scope boundary
 - [Under {evaluated setting}, {method} consistently {measured outcome}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.scope.001.md) — sentence_pattern · domains=general · tags=empirical scope,consistent
 - [We introduce {method}, which {mechanism} to {objective}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-method.001.md) — sentence_pattern · domains=general · tags=abstract method sentence,method overview
+- [We present {method}, which {capability the supplied results state} on {evaluated setting}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.claim-forward-opening.001.md) — sentence_pattern · domains=general · tags=claim-forward,anti-defensive
 - [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — sentence_pattern · domains=general · tags=result,improvement
+- [{Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.positive-scope.001.md) — sentence_pattern · domains=general · tags=positive scope,anti-defensive
+- [defensive hedging versus calibrated claiming](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.anti-defensive-tone.001.md) — usage_note · domains=general · tags=anti-defensive,tone
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split
 - [performance is usually a mass noun when reporting an aggregate result](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.performance.001.md) — usage_note · domains=general · tags=performance,performances

@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 11
+Entries: 12
 
 - [In contrast to {comparison class}, {difference}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.in-contrast.001.md) — phrase · domains=general · tags=contrast,difference
 - [In this paper, we propose {method}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.propose.001.md) — phrase · domains=general · tags=introduce method,proposal
@@ -14,5 +14,6 @@ Entries: 11
 - [Unless otherwise specified, we use {default configuration} in all experiments.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.reproducibility-default.001.md) — sentence_pattern · domains=general · tags=implementation details,default setting
 - [Unlike {comparison class}, which {defining behavior}, our approach {distinct behavior}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.contrast.001.md) — sentence_pattern · domains=general · tags=contrast,unlike
 - [We use {term} to denote {operational meaning}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.define.001.md) — sentence_pattern · domains=general · tags=definition,terminology
+- [{Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.positive-scope.001.md) — sentence_pattern · domains=general · tags=positive scope,anti-defensive
 - [inductive bias](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.term.inductive-bias.001.md) — term · domains=general · tags=inductive bias,architectural prior
 - [respectively requires an unambiguous one-to-one ordering](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.respectively.001.md) — usage_note · domains=general · tags=respectively,分别

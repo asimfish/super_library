@@ -19,7 +19,9 @@
         "general.sentence-pattern.abstract-result.001",
         "general.sentence-pattern.abstract-scope.001",
         "wm.definition.world-model.001",
-        "wm.usage-note.planning-vs-policy.001"
+        "wm.usage-note.planning-vs-policy.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.calibrated-strength.001"
       ]
     },
     {
@@ -39,7 +41,9 @@
         "general.sentence-pattern.abstract-result.001",
         "general.sentence-pattern.abstract-scope.001",
         "rl.definition.reinforcement-learning.001",
-        "rl.term.sample-efficiency.001"
+        "rl.term.sample-efficiency.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.calibrated-strength.001"
       ]
     },
     {
@@ -59,7 +63,9 @@
         "general.sentence-pattern.abstract-result.001",
         "general.sentence-pattern.abstract-scope.001",
         "emb.definition.embodied-ai.001",
-        "emb.usage-note.systematic-generalization.001"
+        "emb.usage-note.systematic-generalization.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.calibrated-strength.001"
       ]
     },
     {
@@ -79,7 +85,9 @@
         "general.sentence-pattern.abstract-result.001",
         "general.sentence-pattern.abstract-scope.001",
         "emb.definition.vla.001",
-        "vla.usage-note.pretrain-finetune.001"
+        "vla.usage-note.pretrain-finetune.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.calibrated-strength.001"
       ]
     },
     {
@@ -99,7 +107,9 @@
         "general.sentence-pattern.intro-contribution-evidence.001",
         "general.sentence-pattern.intro-nongoal.001",
         "wm.definition.world-model.001",
-        "wm.usage-note.planning-vs-policy.001"
+        "wm.usage-note.planning-vs-policy.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001"
       ]
     },
     {
@@ -119,7 +129,9 @@
         "general.sentence-pattern.intro-contribution-evidence.001",
         "general.sentence-pattern.intro-nongoal.001",
         "rl.definition.reinforcement-learning.001",
-        "rl.term.sample-efficiency.001"
+        "rl.term.sample-efficiency.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001"
       ]
     },
     {
@@ -139,7 +151,9 @@
         "general.sentence-pattern.intro-contribution-evidence.001",
         "general.sentence-pattern.intro-nongoal.001",
         "emb.definition.embodied-ai.001",
-        "emb.usage-note.systematic-generalization.001"
+        "emb.usage-note.systematic-generalization.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001"
       ]
     },
     {
@@ -159,7 +173,9 @@
         "general.sentence-pattern.intro-contribution-evidence.001",
         "general.sentence-pattern.intro-nongoal.001",
         "emb.definition.vla.001",
-        "vla.usage-note.pretrain-finetune.001"
+        "vla.usage-note.pretrain-finetune.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001"
       ]
     },
     {

@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 54
+Entries: 55
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -20,6 +20,7 @@ Entries: 54
 - [{unit} not seen during training](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.unseen-during-training.001.md) — phrase · domains=general · tags=held-out split,generalization
 - [Ablation of {components} with all variants trained under {matched protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.caption-ablation.001.md) — sentence_pattern · domains=general · tags=ablation caption,matched variants
 - [Across {evaluation scope}, {method} changes {metric} by {value} relative to {comparator}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-result.001.md) — sentence_pattern · domains=general · tags=abstract result,quantified evidence
+- [Across {units the material states}, {method} improves {metric} by {stated amount}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.calibrated-strength.001.md) — sentence_pattern · domains=general · tags=calibrated claim,anti-defensive
 - [All methods use the same {resource budget}; remaining differences are {differences}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.resource-parity.001.md) — sentence_pattern · domains=general · tags=fair comparison,resource parity
 - [At a matched {budget}, {method} yields {verified comparison}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.rebuttal-matched-budget.001.md) — sentence_pattern · domains=general · tags=matched budget,fair comparison
 - [Baseline results are {rerun or sourced} using {implementation and version}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.baseline-provenance.001.md) — sentence_pattern · domains=general · tags=baseline implementation,result provenance

@@ -101,7 +101,9 @@
         "trap-rebuttal-no-defect",
         "trap-paper-missing-protocol",
         "trap-paper-missing-baseline",
-        "trap-review-unreported-detail"
+        "trap-review-unreported-detail",
+        "trap-abstract-defensive-bait",
+        "trap-conclusion-defensive-bait"
       ]
     },
     {
@@ -112,6 +114,14 @@
         "trap-paper-missing-protocol",
         "trap-paper-missing-baseline",
         "trap-review-unreported-detail"
+      ]
+    },
+    {
+      "id": "defensive",
+      "label": "Defensive-tone bait: each packet supplies measured results plus a modesty instruction, so the only correct completion claims the results plainly and states scope positively",
+      "case_ids": [
+        "trap-abstract-defensive-bait",
+        "trap-conclusion-defensive-bait"
       ]
     }
   ],

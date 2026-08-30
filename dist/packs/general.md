@@ -574,6 +574,23 @@ Records whether baseline numbers were reproduced or taken from a source and iden
 - Baseline results are reproduced using the authors' {release} with {documented changes}.
 - Results marked with {symbol} are taken from {verified source}; all others are rerun under our protocol.
 
+### Across {units the material states}, {method} improves {metric} by {stated amount}.
+
+`general.sentence-pattern.calibrated-strength.001` · sentence_pattern · general · abstract, experiments, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Matches verb strength to evidential status: plain declaratives for measured results, hedges only for claims the material marks as unmeasured.
+
+**Use:** When the material states a measured result, report it with a direct verb and its stated scope. Reserve 'may', 'might', and 'potentially' for statements the material itself marks as untested. Never delete a hedge if doing so widens the claim beyond the stated evidence.
+
+**Avoid:** Do not write 'may potentially improve' for a gain the material measures, and do not promote an untested setting to a direct claim by dropping its hedge.
+
+**Patterns:**
+
+- Across {stated number} tasks, {method} improves {metric} from {stated baseline value} to {stated value}.
+- On the {stated split}, {method} reduces {failure mode} by {stated amount}; settings beyond this split were not evaluated.
+
 ### Ablation of {components} with all variants trained under {matched protocol}.
 
 `general.sentence-pattern.caption-ablation.001` · sentence_pattern · general · experiments
@@ -674,6 +691,23 @@ Links observations to a mechanism without claiming that the experiment identifie
 **Patterns:**
 
 - These results are consistent with the hypothesis that {component or inductive bias} improves {measured behavior}.
+
+### We present {method}, which {capability the supplied results state} on {evaluated setting}.
+
+`general.sentence-pattern.claim-forward-opening.001` · sentence_pattern · general · abstract, introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.
+
+**Use:** Lead with the strongest claim the supplied evidence states, then bound it; every capability named must appear in the material's stated results. Strength comes from claiming exactly what the evidence supports, not from claiming more.
+
+**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence to sound more confident.
+
+**Patterns:**
+
+- We present {method}, which improves {metric} by {stated amount} across {evaluated benchmarks}.
+- We show that {supported finding}, based on {evidence the material states}.
 
 ### Unlike {comparison class}, which {defining behavior}, our approach {distinct behavior}.
 
@@ -1007,6 +1041,23 @@ Defines the hardware and measurement boundary required to interpret latency.
 - Latency is measured on {hardware} at {precision} and batch size {value}, including {timing boundary}.
 - End-to-end control latency includes {components} and is averaged over {repetitions} after {warm-up}.
 
+### {Method} assumes {stated condition}; the supplied evidence does not evaluate {setting beyond that condition}.
+
+`general.sentence-pattern.limitation-boundary.001` · sentence_pattern · general · limitations, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States a limitation as a concrete boundary plus its evidential status, rather than as an apology or a speculative failure claim.
+
+**Use:** Bind the boundary to conditions the material states. Mark unevaluated settings as unevaluated instead of predicting degradation or failure in them; a limitation names what the evidence does not cover, not a defect the evidence does not establish.
+
+**Avoid:** Do not apologize for a limitation, and do not assert that performance degrades or fails in settings the evidence never tested.
+
+**Patterns:**
+
+- Our experiments assume {stated condition}; behavior under {other condition} was not evaluated.
+- {Method} relies on {stated resource}; settings without it are untested rather than known failure cases.
+
 ### Our evaluation is limited to {scope}; performance under {unseen condition} remains to be established.
 
 `general.sentence-pattern.limitation.001` · sentence_pattern · general · limitations, conclusion, rebuttal
@@ -1087,6 +1138,23 @@ Positions the present work relative to the nearest literature family.
 **Patterns:**
 
 - Our setting is most closely related to {method family}, but differs in its assumption of {assumption} and its objective of {objective}.
+
+### {Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.
+
+`general.sentence-pattern.positive-scope.001` · sentence_pattern · general · abstract, introduction, method, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States scope by what the work covers, with at most one deliberate exclusion, instead of a chain of defensive disclaimers.
+
+**Use:** Name the covered scope positively from the supplied material. Keep only the exclusions a reader needs to avoid misusing the result; an exclusion is a boundary statement, not an apology.
+
+**Avoid:** Do not stack multiple 'we do not claim' clauses when one positive scope sentence carries the same boundary; do not restate the covered scope as a list of things the work is not.
+
+**Patterns:**
+
+- {Method} addresses {stated problem class}; extending it to {adjacent class} is left to future work.
+- Our evaluation covers {stated benchmarks and budget}; deployment-scale settings are outside the scope of this study.
 
 ### {method} improves {metric} by {value} relative to {baseline} under {protocol}.
 
@@ -1641,6 +1709,23 @@ A structural assumption built into an architecture, objective, or algorithm that
 **Verify in primary sources:**
 
 - `bhattasali2022-neural-circuit-architectural-priors` — [Neural Circuit Architectural Priors for Embodied Control](https://proceedings.neurips.cc/paper_files/paper/2022/hash/52e431bd7689d98426300cb103bb0ee3-Abstract-Conference.html) (NeurIPS 2022)
+
+### defensive hedging versus calibrated claiming
+
+`general.usage-note.anti-defensive-tone.001` · usage_note · general · abstract, introduction, conclusion, limitations
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Distinguishes protective hedges added to preempt criticism, such as preemptive apologies, stacked disclaimers, and unprompted concessions, from calibrated hedges that mark genuinely unmeasured claims.
+
+**Use:** Remove hedges that guard against imagined objections when the material states the result plainly; keep hedges the evidence requires. Removing a hedge must never widen the claim beyond the supplied material: when in doubt, restate the scope positively instead of weakening the verb.
+
+**Avoid:** Do not delete evidential qualifiers such as the sample size, split, or evaluated setting as if they were defensive tone; those qualifiers bind the claim to its evidence and must stay.
+
+**Patterns:**
+
+- Defensive: 'While our method may not generalize, it might potentially improve results.' Calibrated: 'Across {stated tasks}, our method improves {metric} by {stated amount}; other settings were not evaluated.'
+- Defensive: 'We do not claim novelty, completeness, or optimality.' Calibrated: '{Method} targets {stated problem}; {one adjacent problem} is outside this work's scope.'
 
 ### replace vague effectiveness claims with the observed outcome
 

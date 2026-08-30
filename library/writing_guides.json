@@ -60,6 +60,17 @@
             "Distinguish absolute change from relative change and percentage points.",
             "End with the supported implication or boundary, not a universal superiority claim."
           ]
+        },
+        {
+          "id": "claim-forward-polish",
+          "label": "Anti-defensive final pass",
+          "required": true,
+          "checks": [
+            "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+            "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+            "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+            "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+          ]
         }
       ],
       "templates": [
@@ -113,7 +124,8 @@
         "Opening with an unverifiable claim that the broad field is fundamentally important.",
         "Using 'novel', 'effective', 'superior', or 'state-of-the-art' as substitutes for a technical contribution and verified result.",
         "Listing modules without explaining the insight that connects them.",
-        "Adding citations, results, or deployment claims not present in the completed paper."
+        "Adding citations, results, or deployment claims not present in the completed paper.",
+        "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
       ],
       "related_entry_ids": [
         "general.sentence-pattern.motivate.001",
@@ -121,7 +133,11 @@
         "general.sentence-pattern.contribution.001",
         "general.sentence-pattern.quantify.001",
         "general.usage-note.generalization-axis.001",
-        "general.usage-note.state-of-the-art.001"
+        "general.usage-note.state-of-the-art.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001",
+        "general.sentence-pattern.calibrated-strength.001",
+        "general.usage-note.anti-defensive-tone.001"
       ]
     },
     {
@@ -204,6 +220,17 @@
             "State assumptions or non-goals that prevent an overbroad reading.",
             "Keep the boundary consistent with the Limitations and Experiments sections."
           ]
+        },
+        {
+          "id": "claim-forward-polish",
+          "label": "Anti-defensive final pass",
+          "required": true,
+          "checks": [
+            "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+            "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+            "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+            "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+          ]
         }
       ],
       "templates": [
@@ -257,7 +284,8 @@
         "A universal six-paragraph requirement; use functional moves and merge them when the argument benefits.",
         "A straw-man progression from a deliberately weak 'naive' solution to the proposed method.",
         "Chronological paper listing, unverified 'first' claims, and generic importance claims.",
-        "Contribution bullets that mix a task definition, one module, and a result at incompatible levels."
+        "Contribution bullets that mix a task definition, one module, and a result at incompatible levels.",
+        "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
       ],
       "related_entry_ids": [
         "general.sentence-pattern.motivate.001",
@@ -265,7 +293,11 @@
         "general.sentence-pattern.contribution.001",
         "general.sentence-pattern.scope.001",
         "general.sentence-pattern.related-family.001",
-        "general.sentence-pattern.related-synthesis.001"
+        "general.sentence-pattern.related-synthesis.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001",
+        "general.sentence-pattern.calibrated-strength.001",
+        "general.usage-note.anti-defensive-tone.001"
       ]
     },
     {
@@ -1460,6 +1492,17 @@
             "Separate demonstrated capability from plausible broader impact.",
             "Introduce no new method detail, citation-dependent literature claim, or result."
           ]
+        },
+        {
+          "id": "claim-forward-polish",
+          "label": "Anti-defensive final pass",
+          "required": true,
+          "checks": [
+            "Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.",
+            "State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.",
+            "Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.",
+            "Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone."
+          ]
         }
       ],
       "templates": [
@@ -1498,7 +1541,8 @@
         "Repeating the Abstract nearly verbatim.",
         "Introducing a new experiment, citation, comparison, or technical mechanism.",
         "Ending with an unbounded claim that the method opens broad new possibilities.",
-        "Omitting a trade-off that is necessary to interpret the main result."
+        "Omitting a trade-off that is necessary to interpret the main result.",
+        "Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution."
       ],
       "related_entry_ids": [
         "general.sentence-pattern.contribution.001",
@@ -1506,7 +1550,12 @@
         "general.sentence-pattern.scope.001",
         "general.sentence-pattern.result-boundary.001",
         "general.sentence-pattern.result-tradeoff.001",
-        "general.sentence-pattern.future.001"
+        "general.sentence-pattern.future.001",
+        "general.sentence-pattern.claim-forward-opening.001",
+        "general.sentence-pattern.positive-scope.001",
+        "general.sentence-pattern.calibrated-strength.001",
+        "general.usage-note.anti-defensive-tone.001",
+        "general.sentence-pattern.limitation-boundary.001"
       ]
     },
     {
@@ -1535,10 +1584,10 @@
           "label": "Classify the concern",
           "required": true,
           "checks": [
-    "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
-    "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
-    "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.",
-    "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish."
+            "Separate misunderstanding, missing explanation, valid limitation, factual error, and request for new evidence.",
+            "Answer each atomic concern once and preserve the reviewer's strongest interpretation.",
+            "Do not frame disagreement as reviewer confusion when the manuscript was ambiguous.",
+            "Never manufacture a concession: when the supplied facts show the reviewer misread and do not establish a manuscript defect, correct the misreading politely instead of conceding an ambiguity or presentation flaw the facts do not state; a polite correction needs no apology, so do not apologize for a defect the facts do not establish."
           ]
         },
         {
@@ -1562,15 +1611,15 @@
           ]
         },
         {
-   "id": "revision",
-   "label": "Commit to a concrete revision",
-   "required": false,
-   "checks": [
-    "Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.",
-    "Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.",
-    "Distinguish completed analysis from a promised revision or future experiment.",
-    "Ensure the revision resolves the stated concern rather than only adding volume."
-   ]
+          "id": "revision",
+          "label": "Commit to a concrete revision",
+          "required": false,
+          "checks": [
+            "Commit a revision only when the task supplies an authorized change or the concern itself establishes a manuscript defect to fix; when nothing needs to change, state that the manuscript already addresses the concern instead of inventing a clarification edit.",
+            "Describe the exact manuscript change, and name a section, figure, or line location only when the supplied materials state one; otherwise describe the change without inventing a location.",
+            "Distinguish completed analysis from a promised revision or future experiment.",
+            "Ensure the revision resolves the stated concern rather than only adding volume."
+          ]
         },
         {
           "id": "shape",
@@ -1613,19 +1662,19 @@
         "No supplied fact or number is restated more than once.",
         "Every numeric or comparative statement matches the submission or a clearly identified completed addition.",
         "Promises correspond to concrete edits that can be delivered under the venue rules.",
-  "Tone is factual and respectful without exaggerating agreement or certainty.",
-  "No citation, experiment, result, or venue policy is invented.",
-  "No concession, manuscript defect, or revision commitment appears unless the supplied facts establish it."
- ],
- "avoid": [
-  "Thanking the reviewer without answering the question.",
-  "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
-  "Restating the same number or claim in successive sentences as connective filler.",
-  "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
-  "Conceding a presentation flaw or promising a clarification edit that the supplied facts do not establish.",
-  "Promising broad experiments without completed results, resources, or permission.",
-  "Using significance, fairness, or state-of-the-art language without the required evidence."
- ],
+        "Tone is factual and respectful without exaggerating agreement or certainty.",
+        "No citation, experiment, result, or venue policy is invented.",
+        "No concession, manuscript defect, or revision commitment appears unless the supplied facts establish it."
+      ],
+      "avoid": [
+        "Thanking the reviewer without answering the question.",
+        "Compressing answer, evidence, limits, and revision into one unbroken paragraph.",
+        "Restating the same number or claim in successive sentences as connective filler.",
+        "Claiming that the reviewer misunderstood when the manuscript omitted the needed distinction.",
+        "Conceding a presentation flaw or promising a clarification edit that the supplied facts do not establish.",
+        "Promising broad experiments without completed results, resources, or permission.",
+        "Using significance, fairness, or state-of-the-art language without the required evidence."
+      ],
       "related_entry_ids": [
         "general.sentence-pattern.rebuttal-answer.001",
         "general.sentence-pattern.rebuttal-acknowledge.001",

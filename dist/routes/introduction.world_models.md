@@ -80,6 +80,13 @@ Build an argument that moves from a scoped problem to a verified gap, design ins
 - State assumptions or non-goals that prevent an overbroad reading.
 - Keep the boundary consistent with the Limitations and Experiments sections.
 
+##### 7. Anti-defensive final pass (required)
+
+- Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.
+- State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.
+- Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.
+- Keep every evidential qualifier such as the sample size, split, or evaluated setting: those bind the claim to its evidence and are not defensive tone.
+
 #### Choose one internal template
 
 ##### Technique paper
@@ -128,6 +135,7 @@ Use when: The main contribution is explanatory or formal rather than architectur
 - A straw-man progression from a deliberately weak 'naive' solution to the proposed method.
 - Chronological paper listing, unverified 'first' claims, and generic importance claims.
 - Contribution bullets that mix a task definition, one module, and a result at incompatible levels.
+- Hedging a measured result with 'may', 'might', or 'potentially', or spending the opening on disclaimers instead of the supported contribution.
 
 #### Retrieve related sentence cards only as needed
 
@@ -137,6 +145,10 @@ Use when: The main contribution is explanatory or formal rather than architectur
 - [Under {evaluated setting}, {method} consistently {measured outcome}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.scope.001.md) — `general.sentence-pattern.scope.001`
 - [A complementary line of work studies {adjacent problem}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.related-family.001.md) — `general.sentence-pattern.related-family.001`
 - [These approaches share {common objective}, but differ in {technical axes}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.related-synthesis.001.md) — `general.sentence-pattern.related-synthesis.001`
+- [We present {method}, which {capability the supplied results state} on {evaluated setting}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.claim-forward-opening.001.md) — `general.sentence-pattern.claim-forward-opening.001`
+- [{Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.positive-scope.001.md) — `general.sentence-pattern.positive-scope.001`
+- [Across {units the material states}, {method} improves {metric} by {stated amount}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.calibrated-strength.001.md) — `general.sentence-pattern.calibrated-strength.001`
+- [defensive hedging versus calibrated claiming](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.anti-defensive-tone.001.md) — `general.usage-note.anti-defensive-tone.001`
 
 Calibration and external-skill research are documented in the
 [writing-guide research note](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/docs/WRITING_GUIDE_RESEARCH.md); extracted paper prose is
@@ -256,6 +268,40 @@ World models may support decisions by optimizing actions at test time, by traini
 
 - `hafner2020dreamer` — [Dream to Control: Learning Behaviors by Latent Imagination](https://openreview.net/forum?id=S1lOTC4tDS) (ICLR 2020)
 - `hansen2022tdmpc` — [Temporal Difference Learning for Model Predictive Control](https://proceedings.mlr.press/v162/hansen22a.html) (ICML 2022)
+
+### We present {method}, which {capability the supplied results state} on {evaluated setting}.
+
+`general.sentence-pattern.claim-forward-opening.001` · sentence_pattern · general · abstract, introduction
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.
+
+**Use:** Lead with the strongest claim the supplied evidence states, then bound it; every capability named must appear in the material's stated results. Strength comes from claiming exactly what the evidence supports, not from claiming more.
+
+**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence to sound more confident.
+
+**Patterns:**
+
+- We present {method}, which improves {metric} by {stated amount} across {evaluated benchmarks}.
+- We show that {supported finding}, based on {evidence the material states}.
+
+### {Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.
+
+`general.sentence-pattern.positive-scope.001` · sentence_pattern · general · abstract, introduction, method, conclusion
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+States scope by what the work covers, with at most one deliberate exclusion, instead of a chain of defensive disclaimers.
+
+**Use:** Name the covered scope positively from the supplied material. Keep only the exclusions a reader needs to avoid misusing the result; an exclusion is a boundary statement, not an apology.
+
+**Avoid:** Do not stack multiple 'we do not claim' clauses when one positive scope sentence carries the same boundary; do not restate the covered scope as a list of things the work is not.
+
+**Patterns:**
+
+- {Method} addresses {stated problem class}; extending it to {adjacent class} is left to future work.
+- Our evaluation covers {stated benchmarks and budget}; deployment-scale settings are outside the scope of this study.
 
 ## Exit check
 

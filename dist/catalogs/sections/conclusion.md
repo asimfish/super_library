@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 24
+Entries: 28
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -16,6 +16,7 @@ Entries: 24
 - [We find that {observed pattern}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.find-that.001.md) — phrase · domains=general · tags=finding,observed pattern
 - [We show that {result}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.phrase.show.001.md) — phrase · domains=general · tags=show result,evidence
 - [Across {evaluation scope}, {method} changes {metric} by {value} relative to {comparator}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.abstract-result.001.md) — sentence_pattern · domains=general · tags=abstract result,quantified evidence
+- [Across {units the material states}, {method} improves {metric} by {stated amount}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.calibrated-strength.001.md) — sentence_pattern · domains=general · tags=calibrated claim,anti-defensive
 - [An important next step is to evaluate {capability} under {condition}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.future.001.md) — sentence_pattern · domains=general · tags=future work,next step
 - [Our evaluation is limited to {scope}; performance under {unseen condition} remains to be established.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.limitation.001.md) — sentence_pattern · domains=general · tags=limitation,evaluation scope
 - [Our main contribution is {artifact or insight} that {verified capability}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.contribution.001.md) — sentence_pattern · domains=general · tags=contribution,main contribution
@@ -24,6 +25,9 @@ Entries: 24
 - [This gain comes with {cost}, revealing a trade-off between {axes}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.result-tradeoff.001.md) — sentence_pattern · domains=general · tags=trade-off,quality efficiency
 - [This pattern is consistent with {hypothesis}, although {alternative} is not controlled.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.result-hypothesis-caution.001.md) — sentence_pattern · domains=general · tags=calibrated interpretation,alternative explanation
 - [Under {evaluated setting}, {method} consistently {measured outcome}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.scope.001.md) — sentence_pattern · domains=general · tags=empirical scope,consistent
+- [{Method} assumes {stated condition}; the supplied evidence does not evaluate {setting beyond that condition}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.limitation-boundary.001.md) — sentence_pattern · domains=general · tags=limitation,boundary
+- [{Method} targets {setting the material states}; {one adjacent setting} is outside the scope of this work.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.positive-scope.001.md) — sentence_pattern · domains=general · tags=positive scope,anti-defensive
+- [defensive hedging versus calibrated claiming](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.anti-defensive-tone.001.md) — usage_note · domains=general · tags=anti-defensive,tone
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split
 - [performance is usually a mass noun when reporting an aggregate result](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.performance.001.md) — usage_note · domains=general · tags=performance,performances
 - [replace vague effectiveness claims with the observed outcome](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.effectiveness.001.md) — usage_note · domains=general · tags=effectiveness,prove effectiveness

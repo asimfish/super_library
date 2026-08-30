@@ -59,7 +59,7 @@ flowchart LR
 Three sentences capture the whole design:
 
 1. **Every concept has exactly one reviewed record** — 300 audited papers are
-   deduplicated into 274 records instead of being pasted into context.
+   deduplicated into 279 records instead of being pasted into context.
 2. **Every record carries its own discipline** — meaning, usage boundary,
    anti-patterns, original sentence templates, and the primary papers that a
    writer must reopen before making a claim.
@@ -104,7 +104,7 @@ What makes this more than a glossary entry:
 | **Patterns** | translation-ese — original `{placeholder}` templates, never copied sentences |
 | **Verify in primary sources** | citing papers nobody checked — the links are the papers that ground this record |
 
-Every one of the 274 records has this shape, hand-reviewed to `gold` tier.
+Every one of the 279 records has this shape, hand-reviewed to `gold` tier.
 Seventeen section protocols apply the same discipline at paragraph level
 (Abstract, Method, complete Experiments, Rebuttal, Peer Review, Translation,
 five table types), and 19 precomposed routes bundle a protocol with its records
@@ -136,7 +136,7 @@ flowchart LR
     R -->|"recurring concept,<br/>no coverage"| PROM["promote a new record"]
     R -->|"already covered"| LNK["link the existing record"]
     R -->|"only redundant wording"| NOP["record no-promotion"]
-    PROM --> REC["274 deduplicated records"]
+    PROM --> REC["279 deduplicated records"]
     LNK --> REC
     PROM --> LED["decision ledger<br/>236 audited outcomes"]
     LNK --> LED
@@ -264,7 +264,7 @@ python3 scripts/superlib.py benchmark prompt rebuttal-existing-evidence
 
 ```text
 library/                    # canonical hand-reviewed source data
-├── entries/*.jsonl         #   274 gold records
+├── entries/*.jsonl         #   279 gold records
 ├── sources.jsonl           #   336 primary-paper metadata records with stable links
 ├── writing_guides.json     #   17 section/rebuttal/review/translation/table protocols
 ├── task_routes.json        #   19 precomposed one-file routes
@@ -295,7 +295,7 @@ docs/                       # architecture, data model, writing-guide research
 
 | Dimension | v0.4 |
 |---|---|
-| Reviewed gold records | **274** |
+| Reviewed gold records | **279** |
 | Primary sources with canonical URLs | **336** (300/300 core URLs verified reachable) |
 | Core papers with explicit review dispositions | **300/300** — 296 linked, 4 no-promotions |
 | Promotion ledger | 236 decisions: 40 promotions · 192 links · 4 no-promotions |
@@ -306,7 +306,7 @@ docs/                       # architecture, data model, writing-guide research
 <details>
 <summary><b>Full scope statements</b> — what these numbers do and do not claim</summary>
 
-The v0.4 reviewed snapshot contains **274 gold entries** and **336 primary-source
+The v0.4 reviewed snapshot contains **279 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
