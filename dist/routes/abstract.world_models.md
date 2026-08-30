@@ -69,6 +69,7 @@ Produce a compact summary whose problem, contribution, evidence, and scope exact
 
 ##### 5. Anti-defensive final pass (required)
 
+- Polish tone only, never content: every task, setting, protocol, mechanism, and comparison named in the final pass must already appear in the supplied material in those terms; if a claim-forward rewrite would add, upgrade, or rename one, keep the original wording instead.
 - Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.
 - State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.
 - Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.
@@ -264,9 +265,9 @@ World models may support decisions by optimizing actions at test time, by traini
 
 Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.
 
-**Use:** Lead with the strongest claim the supplied evidence states, then bound it; every capability named must appear in the material's stated results. Strength comes from claiming exactly what the evidence supports, not from claiming more.
+**Use:** Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more.
 
-**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence to sound more confident.
+**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence, upgrade a scope term, or name a mechanism, protocol, or comparison the material does not state.
 
 **Patterns:**
 

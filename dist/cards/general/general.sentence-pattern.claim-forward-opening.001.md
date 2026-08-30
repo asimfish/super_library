@@ -13,9 +13,9 @@ making a scientific or literature claim.
 
 Opens with the contribution itself instead of a disclaimer about what the work does not do or does not claim.
 
-**Use:** Lead with the strongest claim the supplied evidence states, then bound it; every capability named must appear in the material's stated results. Strength comes from claiming exactly what the evidence supports, not from claiming more.
+**Use:** Open with the supported contribution stated in the material's own terms, then bound it. Reuse the material's nouns for tasks, settings, protocols, and mechanisms; never substitute a broader term for a narrower one the material uses. Strength comes from claiming exactly what the evidence supports, not from claiming more.
 
-**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence to sound more confident.
+**Avoid:** Do not open with 'does not attempt', 'is not intended to', or an apology before the contribution is stated; never widen a claim beyond the supplied evidence, upgrade a scope term, or name a mechanism, protocol, or comparison the material does not state.
 
 **Patterns:**
 

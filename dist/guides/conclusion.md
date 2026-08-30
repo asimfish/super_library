@@ -42,6 +42,7 @@ Close the paper by restating the solved problem, core contribution, principal ve
 
 ### 4. Anti-defensive final pass (required)
 
+- Polish tone only, never content: every task, setting, protocol, mechanism, and comparison named in the final pass must already appear in the supplied material in those terms; if a claim-forward rewrite would add, upgrade, or rename one, keep the original wording instead.
 - Open with the contribution the supplied results support, never with a disclaimer, apology, or list of things the work does not do.
 - State scope positively: name what the work covers, keep at most the exclusions a reader needs, and fold stacked 'we do not claim' disclaimers into one boundary sentence.
 - Use plain declaratives for measured results and reserve 'may', 'might', or 'potentially' for claims the material marks as untested; never remove a hedge if doing so widens a claim beyond the supplied evidence.
