@@ -50,6 +50,16 @@
       "should_activate": true
     },
     {
+      "id": "positive-table-to-narrative",
+      "prompt": "My experimental results read like a numeric laundry list. Write the analysis around the findings, keeping Table 3 and its caption unchanged and preserving the condition where the method loses.",
+      "should_activate": true
+    },
+    {
+      "id": "negative-narrative-no-manuscript",
+      "prompt": "Compute the normalized returns and regenerate the benchmark plots; do not draft or revise manuscript prose.",
+      "should_activate": false
+    },
+    {
       "id": "negative-code",
       "prompt": "Debug this Python data loader and add regression tests for the file-handle leak.",
       "should_activate": false

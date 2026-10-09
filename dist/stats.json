@@ -1,9 +1,9 @@
 {
-  "entries": 274,
+  "entries": 276,
   "sources": 336,
   "by_domain": {
     "embodied_ai": 59,
-    "general": 98,
+    "general": 100,
     "reinforcement_learning": 92,
     "robot_learning": 72,
     "vision_language_action": 33,
@@ -15,12 +15,12 @@
     "phrase": 14,
     "sentence_pattern": 78,
     "term": 57,
-    "usage_note": 29
+    "usage_note": 31
   },
   "by_section": {
-    "abstract": 68,
+    "abstract": 69,
     "conclusion": 24,
-    "experiments": 85,
+    "experiments": 87,
     "introduction": 138,
     "limitations": 36,
     "method": 157,
@@ -30,12 +30,12 @@
     "translation": 165
   },
   "by_tier": {
-    "gold": 274
+    "gold": 276
   },
   "by_provenance": {
     "attested_collocation": 14,
     "original_pattern": 87,
-    "paraphrased_synthesis": 124,
+    "paraphrased_synthesis": 126,
     "terminology": 49
   },
   "by_topic_family": {
@@ -194,7 +194,7 @@
     "full_text_structural_samples": 80,
     "full_text_structural_samples_goal": 80,
     "full_text_structural_samples_remaining": 0,
-    "writing_behavior_cases": 42,
+    "writing_behavior_cases": 47,
     "writing_behavior_cases_goal": 20,
     "writing_behavior_cases_remaining": 0,
     "direct_links_by_domain": {

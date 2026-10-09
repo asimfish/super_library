@@ -2675,6 +2675,22 @@ def recommend_guide_id(
     )
     if any(signal in query_lower for signal in full_section_signals):
         return "experiments"
+    # A prose request can mention a table, ablation, latency, or generalization
+    # without asking us to construct that display. Explicit captions retain
+    # their specialized protocols; full-section requests above retain theirs.
+    analysis_signals = (
+        "results analysis", "result analysis", "experiment analysis",
+        "result paragraph", "results paragraph", "analysis passage",
+        "experimental narrative", "table to prose", "table-to-prose",
+        "实验分析", "结果分析", "实验叙事", "结果段", "流水账", "数字堆砌",
+    )
+    caption_signals = ("caption", "表注", "表题")
+    if (
+        any(signal in query_lower for signal in analysis_signals)
+        and not any(signal in query_lower for signal in caption_signals)
+        and "experiments.analysis" in available
+    ):
+        return "experiments.analysis"
     routes = (
         (
             "experiments.table.main_results",
@@ -4403,6 +4419,18 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             continue
         seen_ids.add(entry["id"])
         deduplicated.append((retrieval_pass, score, entry))
+    # Keep each pass's ranking but give technical concepts a chance before
+    # rhetorical records consume the entire context budget.
+    pass_groups = [
+        [item for item in deduplicated if item[0] == retrieval_pass]
+        for retrieval_pass in ("rhetoric", "technical")
+    ]
+    deduplicated = [
+        group[position]
+        for position in range(len(deduplicated))
+        for group in pass_groups
+        if position < len(group)
+    ]
     provenance = (
         "guide-only profile (no retrieved cards)"
         if args.guide_only
@@ -4449,25 +4477,14 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             )
         return "\n".join(lines).rstrip()
 
-    selected: List[Tuple[str, int, Dict[str, Any]]] = []
-    for retrieval_pass, score, entry in deduplicated:
-        candidate = [*selected, (retrieval_pass, score, entry)]
-        if len(render_markdown_bundle(candidate)) + 1 > args.max_chars:
-            continue
-        selected = candidate
-    if not selected and not args.guide_only:
-        print(
-            "No matching entry fits the requested context budget. Increase "
-            "--max-chars or use route/show for individual cards.",
-            file=sys.stderr,
-        )
-        return 2
-    if args.format == "json":
+    def render_bundle(items: Sequence[Tuple[str, int, Dict[str, Any]]]) -> str:
+        if args.format != "json":
+            return render_markdown_bundle(items)
         payload = {
             "corpus_version": taxonomy["corpus_version"],
             "max_chars": args.max_chars,
             "guide": selected_guide,
-            "retrieved_ids": [entry["id"] for _, _, entry in selected],
+            "retrieved_ids": [entry["id"] for _, _, entry in items],
             "entries": [
                 {
                     "retrieval_pass": retrieval_pass,
@@ -4478,12 +4495,31 @@ def cmd_bundle(args: argparse.Namespace) -> int:
                         for source_id in entry["source_ids"]
                     ],
                 }
-                for retrieval_pass, score, entry in selected
+                for retrieval_pass, score, entry in items
             ],
         }
-        print(json.dumps(payload, ensure_ascii=False, indent=2))
-    else:
-        print(render_markdown_bundle(selected))
+        return json.dumps(payload, ensure_ascii=False, indent=2)
+
+    if len(render_bundle([])) + 1 > args.max_chars:
+        print(
+            "The complete protocol exceeds the requested context budget. "
+            "Increase --max-chars or select a smaller protocol.",
+            file=sys.stderr,
+        )
+        return 2
+    selected: List[Tuple[str, int, Dict[str, Any]]] = []
+    for retrieval_pass, score, entry in deduplicated:
+        candidate = [*selected, (retrieval_pass, score, entry)]
+        if len(render_bundle(candidate)) + 1 <= args.max_chars:
+            selected = candidate
+    if not selected and not args.guide_only:
+        print(
+            "No matching entry fits the requested context budget. Increase "
+            "--max-chars or use route/show for individual cards.",
+            file=sys.stderr,
+        )
+        return 2
+    print(render_bundle(selected))
     return 0
 
 
@@ -5539,7 +5575,7 @@ def build_parser() -> argparse.ArgumentParser:
         "--max-chars",
         type=int,
         default=24_000,
-        help="maximum approximate Markdown characters in the bundle",
+        help="maximum serialized output characters, including formatting and newline",
     )
     bundle_parser.add_argument(
         "--guide",

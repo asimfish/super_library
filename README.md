@@ -59,7 +59,7 @@ flowchart LR
 Three sentences capture the whole design:
 
 1. **Every concept has exactly one reviewed record** — 300 audited papers are
-   deduplicated into 274 records instead of being pasted into context.
+   deduplicated into 276 records instead of being pasted into context.
 2. **Every record carries its own discipline** — meaning, usage boundary,
    anti-patterns, original sentence templates, and the primary papers that a
    writer must reopen before making a claim.
@@ -104,7 +104,7 @@ What makes this more than a glossary entry:
 | **Patterns** | translation-ese — original `{placeholder}` templates, never copied sentences |
 | **Verify in primary sources** | citing papers nobody checked — the links are the papers that ground this record |
 
-Every one of the 274 records has this shape, hand-reviewed to `gold` tier.
+Every one of the 276 records has this shape, reviewed to `gold` tier.
 Seventeen section protocols apply the same discipline at paragraph level
 (Abstract, Method, complete Experiments, Rebuttal, Peer Review, Translation,
 five table types), and 19 precomposed routes bundle a protocol with its records
@@ -136,7 +136,7 @@ flowchart LR
     R -->|"recurring concept,<br/>no coverage"| PROM["promote a new record"]
     R -->|"already covered"| LNK["link the existing record"]
     R -->|"only redundant wording"| NOP["record no-promotion"]
-    PROM --> REC["274 deduplicated records"]
+    PROM --> REC["276 deduplicated records"]
     LNK --> REC
     PROM --> LED["decision ledger<br/>236 audited outcomes"]
     LNK --> LED
@@ -145,8 +145,8 @@ flowchart LR
     B --> A["routes · protocols<br/>catalogs · cards"]
 ```
 
-A fourth, supporting decision: **everything is measurable.** 74 tests, 31
-deterministic retrieval evals, a 38-case blind writing suite, a bounded
+A fourth, supporting decision: **infrastructure has explicit checks.** 84 tests, 42
+deterministic retrieval evals, a 47-case blind writing suite, a bounded
 source-health check over all canonical URLs, and a same-model paired
 professionalism benchmark (blind A/B with anchored human rubrics — the harness
 is complete; no effectiveness claim is made until a rated run exists).
@@ -264,14 +264,14 @@ python3 scripts/superlib.py benchmark prompt rebuttal-existing-evidence
 
 ```text
 library/                    # canonical hand-reviewed source data
-├── entries/*.jsonl         #   274 gold records
+├── entries/*.jsonl         #   276 gold records
 ├── sources.jsonl           #   336 primary-paper metadata records with stable links
 ├── writing_guides.json     #   17 section/rebuttal/review/translation/table protocols
 ├── task_routes.json        #   19 precomposed one-file routes
 ├── topics.json             #   23 controlled topic families and query aliases
 ├── coverage_policy.json    #   review goals and deterministic queue weights
 ├── promotion_decisions.jsonl  # audited review outcomes with dedup rationales
-├── studies/                #   full-paper calibration study (IDs + aggregates only)
+├── studies/                #   aggregate and paragraph-level structural studies; no prose
 └── taxonomy.json           #   controlled domains, sections, intents, venues, kinds
 
 dist/                       # generated agent artifacts (progressive retrieval layers)
@@ -293,20 +293,21 @@ docs/                       # architecture, data model, writing-guide research
 
 ## 7. Numbers and audit trail
 
-| Dimension | v0.4 |
+| Dimension | Maintained checkout |
 |---|---|
-| Reviewed gold records | **274** |
-| Primary sources with canonical URLs | **336** (300/300 core URLs verified reachable) |
+| Reviewed gold records | **276** |
+| Primary sources with canonical URLs | **336** (300/300 core URLs reachable at the last coverage audit) |
 | Core papers with explicit review dispositions | **300/300** — 296 linked, 4 no-promotions |
 | Promotion ledger | 236 decisions: 40 promotions · 192 links · 4 no-promotions |
 | Full-paper structural samples | 80 (twenty per domain, detectors stated in the study method) |
-| Blind writing suite | 38 cases across paper, rebuttal, peer-review, translation |
-| Gates | 74 tests · 31 retrieval evals · byte budgets · zero-drift builds |
+| Paragraph-level narrative calibration | 12 passages from 7 existing sources; no additional coverage count |
+| Blind writing suite | 47 cases across paper, rebuttal, peer-review, translation |
+| Gates | 84 tests · 42 retrieval evals · byte budgets · zero-drift builds |
 
 <details>
 <summary><b>Full scope statements</b> — what these numbers do and do not claim</summary>
 
-The v0.4 reviewed snapshot contains **274 gold entries** and **336 primary-source
+The maintained checkout contains **276 gold entries** and **336 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,
@@ -333,7 +334,7 @@ or use `promotion-status` instead of inferring analysis depth from the
 
 The current roadmap targets 100 directly linked core papers, 80 full-text
 structural samples, and 20 writing-behavior cases. Current progress is 296, 80,
-and 38 respectively, so every roadmap target is met and the review queue is
+and 47 respectively, so every roadmap target is met and the review queue is
 empty until new sources or samples arrive. Meeting the targets is not a claim
 that the corpus is complete: newly sampled papers without normalized links
 re-enter the review queue at the highest priority.
@@ -345,6 +346,16 @@ Only source IDs and aggregate document-level observations are retained. This
 sample informs the functional protocols but is not presented as a statistical
 model of venue style. See `library/studies/section_writing_2026-08.json` and
 `docs/WRITING_GUIDE_RESEARCH.md`.
+
+The 2026-10-09 narrative revision adds twelve paragraph-level annotations from
+seven existing papers and two normalized usage records. It teaches evidence
+placement, finding-led analysis, and conditional non-repetition of retained
+table cells; it does not omit required standalone facts or supply a mechanism.
+Its five-case benchmark slice includes a standalone-fidelity control. These
+additions are checkout changes, not a claim that the old `v0.4.0` release tag
+contains them. Earlier paired evaluations did not establish a general writing
+benefit; this revision has not yet received fresh paired independent ratings.
+See [the narrative revision and editorial illustration](docs/EXPERIMENT_NARRATIVE.md).
 
 Fourteen short collocations carry locators to at least two independent papers.
 Original sentence frames are explicitly labeled as structural guardrails; they

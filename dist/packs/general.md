@@ -1743,6 +1743,49 @@ Respectively maps two or more ordered lists element by element and should be use
 - The {first method} and {second method} obtain {first value} and {second value}, respectively.
 - We use {value one} for {setting one} and {value two} for {setting two}.
 
+### preserve evidence without repeating every table cell
+
+`general.usage-note.result-display-allocation.001` · usage_note · general · experiments, abstract
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+Scientific fidelity concerns the complete requested deliverable; a result paragraph accompanying a retained table need not repeat every value already reported there.
+
+**Use:** Keep full values, uncertainty, units, and protocols in an internal evidence ledger and their final manuscript locations. Use setup for shared protocols, captions for display interpretation, tables for coverage, and analysis for decisive comparisons. Leave redundant cells in a retained display only when the task permits it. Standalone passages, exact translations, explicit all-value requests, and absent displays require all specified quantities and qualifiers. Preserve adverse cases that change the prose claim even when their exact cells remain in the table.
+
+**Avoid:** Do not cite an absent display, hide negative outcomes, turn a missing uncertainty into a precise claim, or impose a fixed quota on numbers. Fewer numbers alone is not better writing.
+
+**Patterns:**
+
+- {method} gains {value in natural units} on {named condition} but loses {value in natural units} on {exception condition} (Table {id}).
+
+**Verify in primary sources:**
+
+- `chi2023diffusionpolicy` — [Diffusion Policy: Visuomotor Policy Learning via Action Diffusion](https://roboticsproceedings.org/rss19/p026.html) (RSS 2023)
+- `deng2022-dreamerpro-reconstruction-free-model` — [DreamerPro: Reconstruction-Free Model-Based Reinforcement Learning with Prototypical Representations](https://proceedings.mlr.press/v162/deng22a.html) (ICML 2022)
+
+### finding-led experimental narrative
+
+`general.usage-note.result-narrative.001` · usage_note · general · experiments
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+A result paragraph answers an empirical question by selecting evidence and connecting comparisons, rather than converting a table into a row-by-row report.
+
+**Use:** Identify one supported finding and its comparison axis. Anchor it with the decisive magnitude, trend, regime change, uncertainty, or cost. Keep a claim-changing exception beside the claim it limits. Retain the technical subject across sentences; let an existing diagnostic answer a specific unresolved question. An empirical conclusion is enough when no mechanism evidence exists. Sequences are decision aids, not slots or a mandatory sentence count.
+
+**Avoid:** Do not manufacture a mechanism, future experiment, or rhetorical bridge. Hedged speculation is still unsupported when the task supplies no evidence for it. Avoid one sentence per table row and repetitive effectiveness summaries.
+
+**Patterns:**
+
+- {supported finding and comparison axis} (Table {id}). Under {matched condition}, {decisive comparison}; under {exception condition}, {contrasting observation}.
+
+**Verify in primary sources:**
+
+- `hansen2024tdmpc2` — [TD-MPC2: Scalable, Robust World Models for Continuous Control](https://proceedings.iclr.cc/paper_files/paper/2024/hash/cf73d57b6dcda32b293df7c2d5341f49-Abstract-Conference.html) (ICLR 2024)
+- `chen2021decisiontransformer` — [Decision Transformer: Reinforcement Learning via Sequence Modeling](https://papers.nips.cc/paper_files/paper/2021/hash/7f489f642a0ddb10272b5c31057f0663-Abstract.html) (NeurIPS 2021)
+- `jiang2023vima` — [VIMA: Robot Manipulation with Multimodal Prompts](https://proceedings.mlr.press/v202/jiang23b.html) (ICML 2023)
+
 ### absent from the manuscript versus contradicted by the manuscript versus unverifiable from the manuscript
 
 `general.usage-note.review-evidence-scope.001` · usage_note · general · review

@@ -71,8 +71,9 @@ Design and write an experimental section in which each major empirical claim is 
 
 ##### 5. Answer the primary research questions (required)
 
-- Lead each result paragraph with the question or comparison axis.
-- Point to the display, quantify the relevant difference, state consistency or exceptions, then give a calibrated interpretation.
+- Organize paragraphs by findings that answer the research questions, not by table row. Open with the supported finding or the question when it is not yet clear.
+- Use the display for full numerical coverage and the prose for a decisive comparison, a trend, or a claim-changing exception. Keep interpretation separate from measurement; omit explanations that the supplied evidence cannot support.
+- Put shared metrics, uncertainty, selection, and resource protocols in setup or a self-contained caption rather than repeating them in every result sentence. Standalone passages and translations must still preserve their required facts.
 - Report null, negative, unstable, or adverse results when they bear on the claim.
 
 ##### 6. Add only claim-relevant analyses (conditional)

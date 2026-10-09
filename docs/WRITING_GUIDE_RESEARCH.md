@@ -62,7 +62,41 @@ The study is not used to claim that a phrase is statistically representative of
 accepted papers. It supports three design decisions:
 
 1. section templates are functional moves rather than fixed heading sequences;
-2. result analysis must add quantified comparisons, uncertainty, and boundaries
-   after a display pointer;
+2. result analysis must connect supported findings to comparisons, uncertainty,
+   and boundaries, with full details recoverable from their manuscript locations;
 3. protocol completeness and comparison fairness are explicit checks rather than
    inferred from fluent prose.
+
+## Paragraph-level narrative calibration, 2026-10-09
+
+[experimental_narrative_2026-10.json](../library/studies/experimental_narrative_2026-10.json)
+adds twelve manually annotated passages from seven existing sources. Unlike the
+80-paper document-level detector study, it examines paragraph ordering, numerical
+roles, and the division of work between setup, displays, and analysis. Each
+annotation carries a primary-PDF URL, checksum, locator, transferable structural
+rule, and a boundary. This is one agent's purposive synthesis, not independent
+expert review or a statistical survey of venue style. It adds no papers to the
+300-paper coverage count.
+
+The annotations distinguish recurring strategies: an aggregate result followed
+by a diagnostic in [TD-MPC2](https://proceedings.iclr.cc/paper_files/paper/2024/file/cf73d57b6dcda32b293df7c2d5341f49-Paper-Conference.pdf),
+a question followed by a changed reward condition in
+[Decision Transformer](https://proceedings.neurips.cc/paper_files/paper/2021/file/7f489f642a0ddb10272b5c31057f0663-Paper.pdf),
+and a favorable comparison qualified by harder-task degradation in
+[VIMA](https://proceedings.mlr.press/v202/jiang23b/jiang23b.pdf).
+These are structural observations, not quotations or claims that their source
+interpretations are always scientifically justified.
+
+The revision upgrades the existing `experiments` and `experiments.analysis`
+protocols and adds two normalized usage records. It does not add a mandatory
+study file to writing context. In a retained-display task, the display supplies
+full coverage and the paragraph selects decisive evidence; standalone passages,
+exact translations, and explicit all-value requests retain all required values.
+No fixed numeric density, opening phrase, paragraph length, or five-sentence
+template is imposed. Explanations are optional and evidence-bound.
+
+Five new writing cases exercise four domain-specific comparisons and a
+standalone-fidelity control. Their machine checks cover only observable facts;
+manual review must judge selection, cohesion, omitted exceptions, and claim
+scope. [EXPERIMENT_NARRATIVE.md](EXPERIMENT_NARRATIVE.md) contains an editorial
+illustration and the proposed effectiveness protocol, not a measured win.

@@ -15,7 +15,7 @@ The benchmark asks two different questions:
    fixed, does access to the pinned Super Library improve the output over the
    no-library baseline?
 
-The 20 source tasks remain in `evals/writing.json`. The separate
+The 47 source tasks remain in `evals/writing.json`. The separate
 `evals/professionalism.json` defines the treatment conditions, suites, six
 professionalism dimensions, five critical-error classes, provisional quality
 gates, and deterministic bootstrap settings. Keeping these files separate
@@ -48,6 +48,16 @@ prevents the generation prompt from revealing the scoring contract.
 The `smoke` suite tests the harness only. Use `core` for a lower-cost balanced
 manual run, `experiments` for the reporting stress slice, and `full` for an
 effectiveness claim.
+
+The five-case `narrative` slice diagnoses selective evidence and paragraph
+organization. It includes a standalone-fidelity control so less repetition
+cannot be mistaken for permission to omit required facts. A task explicitly
+retaining a display may leave redundant cells there; raters still check the
+direction, scope, and adverse outcomes. This slice alone does not support a
+general writing-effectiveness claim. Pin both evaluation JSON files and the
+library commit; previous 38-case runs remain historical evidence under their
+original configuration and rubrics. Do not compare scores across revisions as
+if only the treatment changed.
 
 ## Rubric
 

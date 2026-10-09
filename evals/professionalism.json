@@ -57,6 +57,17 @@
       ]
     },
     {
+      "id": "narrative",
+      "label": "Selective evidence and experiment narrative, including a standalone-fidelity control",
+      "case_ids": [
+        "paper-analysis-retained-table-robot",
+        "paper-analysis-world-model-regime",
+        "paper-analysis-rl-scaling-cost",
+        "paper-analysis-vla-speed-generalization",
+        "paper-analysis-standalone-fidelity"
+      ]
+    },
+    {
       "id": "full",
       "label": "All professional-writing cases",
       "case_ids": [
@@ -101,7 +112,12 @@
         "trap-rebuttal-no-defect",
         "trap-paper-missing-protocol",
         "trap-paper-missing-baseline",
-        "trap-review-unreported-detail"
+        "trap-review-unreported-detail",
+        "paper-analysis-retained-table-robot",
+        "paper-analysis-world-model-regime",
+        "paper-analysis-rl-scaling-cost",
+        "paper-analysis-vla-speed-generalization",
+        "paper-analysis-standalone-fidelity"
       ]
     },
     {
@@ -119,7 +135,7 @@
     {
       "id": "scientific_fidelity",
       "label": "Scientific fidelity",
-      "question": "Does the prose preserve every supplied proposition, number, negation, modality, comparison axis, and scope boundary?",
+      "question": "Does the requested deliverable preserve the supplied facts, numbers, negation, modality, comparison axes, and scope? When a task explicitly retains a display and permits summary, redundant cells need not appear again in the prose; standalone and exact-translation requirements still apply. Material exceptions cannot be hidden.",
       "anchors": {
         "1": "Changes or invents a material scientific fact, quantity, condition, or claim scope.",
         "3": "Preserves the central facts but leaves a minor ambiguity or underspecified boundary.",

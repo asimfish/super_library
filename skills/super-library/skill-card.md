@@ -55,6 +55,10 @@ organization without manuscript writing.
 - **Meaning drift:** preserve notation, quantities, negation, uncertainty,
   comparison scope, and citation placement, then run the limited lint and manual
   scientific checks.
+- **Numerical laundry lists or selective omission:** distinguish complete
+  evidence in retained displays from repetition in analysis; preserve material
+  exceptions and all standalone/translation-required values. No numeric quota
+  or mechanism-filling instruction is used.
 
 ## Quality contract
 

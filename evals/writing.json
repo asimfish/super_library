@@ -2457,6 +2457,307 @@
           "message": "Flag unverifiable, do not assert unreliability."
         }
       ]
+    },
+    {
+      "id": "paper-analysis-retained-table-robot",
+      "mode": "paper",
+      "domain": "embodied_ai",
+      "section": "experiments",
+      "intent": "evidence",
+      "evidence_boundary": "Table 3 and its caption remain in the manuscript unchanged. The paragraph need not repeat every cell, but must preserve conclusions and material exceptions. No significance test, causal diagnostic, or other robot evaluation exists.",
+      "request": "Write one result-analysis paragraph answering whether the policy improves manipulation success across the evaluated task conditions.",
+      "facts": [
+        "Retained Table 3 reports successful trials out of 20 independent trials per task, on the same robot with matched training data and selection protocol. Higher success is better; no uncertainty estimate was computed.",
+        "Baseline / proposed successful trials: unobstructed pick 18/20 / 18/20; occluded pick 10/20 / 15/20; cluttered pick 8/20 / 13/20; door opening 16/20 / 13/20.",
+        "Across all four equally weighted tasks, success rises from 65% to 73.75%; the gain on each of occluded and cluttered pick is 25 percentage points, while door opening falls by 15 percentage points.",
+        "No evidence identifies why performance changes. No additional trial, unseen-embodiment test, or statistical significance test was run."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.usage-note.result-narrative.001",
+        "general.usage-note.result-display-allocation.001"
+      ],
+      "manual_rubric": [
+        "Make the task-dependent finding identifiable without enumerating all four rows.",
+        "Use a verified quantitative anchor for the gains and preserve both the unchanged unobstructed condition and the door-opening reversal.",
+        "Do not interpret the aggregate as universal improvement or invent occlusion-handling mechanisms.",
+        "It is legitimate to leave protocol details and redundant exact cells in the retained table and caption; their absence from this paragraph alone is not a fidelity failure."
+      ],
+      "machine_checks": [
+        {
+          "id": "display-pointer",
+          "type": "required_regex",
+          "pattern": "Table\\s*3",
+          "message": "Point to the retained results table."
+        },
+        {
+          "id": "conditioned-gain",
+          "type": "required_regex",
+          "pattern": "occlu[\\s\\S]*clutter|clutter[\\s\\S]*occlu",
+          "message": "Identify both picking conditions with improved observed success."
+        },
+        {
+          "id": "quantitative-anchor",
+          "type": "required_regex",
+          "pattern": "25[- ]percentage[- ]point|25 percentage points|8\\.75[- ]percentage[- ]point|8\\.75 percentage points|65%[^.\\n]{0,80}73\\.75%|10/20[^.\\n]{0,60}15/20|8/20[^.\\n]{0,60}13/20",
+          "message": "Include at least one verified, relevant magnitude; do not require every cell."
+        },
+        {
+          "id": "retains-reversal",
+          "type": "required_regex",
+          "pattern": "door[- ]opening|opening (?:the )?door",
+          "message": "Do not conceal the adverse door-opening condition; direction requires manual checking."
+        },
+        {
+          "id": "retains-null",
+          "type": "required_regex",
+          "pattern": "unobstructed|unoccluded",
+          "message": "Preserve the unchanged unobstructed condition; meaning requires manual checking."
+        },
+        {
+          "id": "no-universal-ranking",
+          "type": "forbidden_regex",
+          "pattern": "(?:improves|outperforms|dominates) (?:on |across )?(?:all|every) (?:four )?(?:tasks|conditions)",
+          "message": "The method does not improve every task condition."
+        }
+      ]
+    },
+    {
+      "id": "paper-analysis-world-model-regime",
+      "mode": "paper",
+      "domain": "world_models",
+      "section": "experiments",
+      "intent": "evidence",
+      "evidence_boundary": "Figure 5, Table 2, and their captions remain available. Summarization may leave redundant values there but cannot hide the horizon reversal or the lack of downstream improvement. No mechanism or equivalence test exists.",
+      "request": "Write a compact analysis passage explaining what the prediction and control evaluations establish about the world model.",
+      "facts": [
+        "Retained Figure 5 reports action-conditioned open-loop prediction MSE, lower is better, as mean plus or minus standard deviation over five independently trained models.",
+        "Baseline / proposed MSE at horizons 1, 5, 20: 0.08 +/- 0.01 / 0.07 +/- 0.01; 0.20 +/- 0.03 / 0.12 +/- 0.02; 0.48 +/- 0.05 / 0.50 +/- 0.06.",
+        "Retained Table 2 reports closed-loop planning returns under matched interaction budgets and the same planner, higher is better: baseline 72 +/- 7, proposed 70 +/- 7, over five independently trained models.",
+        "The proposed model has lower mean prediction MSE at horizons 1 and 5, but not at horizon 20; observed planning returns do not improve. No statistical significance or equivalence test was run."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.usage-note.result-narrative.001",
+        "wm.usage-note.one-vs-multistep.001"
+      ],
+      "manual_rubric": [
+        "Connect the two evaluations into a single bounded argument rather than listing every MSE and return.",
+        "Preserve the short/intermediate-horizon benefit, the horizon-20 reversal, and the lack of observed planning benefit.",
+        "Use at least one relevant quantitative contrast, keeping units and uncertainty recoverable from the retained displays.",
+        "Do not conclude that overlapping dispersion proves equivalence, or that better open-loop prediction implies better control."
+      ],
+      "machine_checks": [
+        {
+          "id": "prediction-display",
+          "type": "required_regex",
+          "pattern": "(?:Figure|Fig\\.)\\s*5",
+          "message": "Point to the prediction evidence."
+        },
+        {
+          "id": "control-display",
+          "type": "required_regex",
+          "pattern": "Table\\s*2",
+          "message": "Point to the control evidence."
+        },
+        {
+          "id": "horizon-boundary",
+          "type": "required_regex",
+          "pattern": "(?:horizon(?: of)?|steps?|step)[^.\\n]{0,15}20|20[- ]step",
+          "message": "Preserve the long-horizon boundary."
+        },
+        {
+          "id": "control-outcome",
+          "type": "required_regex",
+          "pattern": "planning|closed[- ]loop|control",
+          "message": "Discuss the downstream outcome; its direction needs manual verification."
+        },
+        {
+          "id": "no-guarantee",
+          "type": "forbidden_regex",
+          "pattern": "guarantees?[^.\\n]{0,40}(?:planning|control)|proves?[^.\\n]{0,40}(?:equivalence|better control)",
+          "message": "Do not upgrade the comparison into a guarantee or proof."
+        }
+      ]
+    },
+    {
+      "id": "paper-analysis-rl-scaling-cost",
+      "mode": "paper",
+      "domain": "reinforcement_learning",
+      "section": "experiments",
+      "intent": "evidence",
+      "evidence_boundary": "Figure 4 and its caption are retained. Report the observed scaling pattern and cost, not a scaling law, statistical equivalence, or an untested larger model. Data and interactions are matched but compute costs differ.",
+      "request": "Write a result-analysis paragraph assessing whether increasing model capacity provides a useful improvement in this experiment.",
+      "facts": [
+        "Retained Figure 4 reports normalized return, higher is better, as mean plus or minus standard deviation across five training seeds, with matched data, environment interactions, and model selection.",
+        "Model size / normalized return / GPU-hours on the same hardware: 5M / 52 +/- 4 / 3; 20M / 68 +/- 3 / 7; 80M / 70 +/- 4 / 22; 320M / 69 +/- 5 / 86.",
+        "The mean rises by 16 normalized-return points from 5M to 20M. The 80M and 320M means offer no clear continued gain relative to the reported variation; training cost continues to rise.",
+        "No significance, equivalence, causal-mechanism, or fitted scaling-law analysis was run."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.usage-note.result-narrative.001",
+        "general.usage-note.result-display-allocation.001"
+      ],
+      "manual_rubric": [
+        "Organize the paragraph around improvement at smaller scales and diminishing observed returns at larger scales.",
+        "Select numerical anchors that make the useful gain and resource cost understandable, not one sentence per model size.",
+        "Keep no clear continued gain distinct from equivalence and do not extrapolate beyond 320M.",
+        "Disclose that matched data and interactions do not mean matched compute."
+      ],
+      "machine_checks": [
+        {
+          "id": "display-pointer",
+          "type": "required_regex",
+          "pattern": "(?:Figure|Fig\\.)\\s*4",
+          "message": "Point to the retained scaling display."
+        },
+        {
+          "id": "gain-anchor",
+          "type": "required_regex",
+          "pattern": "16[- ](?:normalized[- ]return )?points|16 normalized[- ]return points|52[^.\\n]{0,50}68",
+          "message": "Retain the useful small-to-medium capacity improvement."
+        },
+        {
+          "id": "cost-unit",
+          "type": "required_regex",
+          "pattern": "GPU[- ]hours|GPU hours",
+          "message": "Name the resource whose cost increases."
+        },
+        {
+          "id": "observed-boundary",
+          "type": "required_regex",
+          "pattern": "diminish|plateau|saturat|no clear|little|not[^.\\n]{0,30}gain",
+          "message": "Preserve the boundary to observed scaling; interpretation needs manual review."
+        },
+        {
+          "id": "no-scaling-proof",
+          "type": "forbidden_regex",
+          "pattern": "proves?[^.\\n]{0,35}(?:scaling|equivalence)|continues? to improve (?:at|across) all",
+          "message": "Do not claim a proved law or uninterrupted improvement."
+        }
+      ]
+    },
+    {
+      "id": "paper-analysis-vla-speed-generalization",
+      "mode": "paper",
+      "domain": "vision_language_action",
+      "section": "experiments",
+      "intent": "evidence",
+      "evidence_boundary": "Table 5 and its self-contained caption remain in the paper. Do not omit the held-out object degradation, treat mean latency as a hard real-time guarantee, or invent a representation mechanism.",
+      "request": "Write a compact result analysis of whether the faster VLA variant is preferable for the evaluated deployment setting.",
+      "facts": [
+        "Retained Table 5 compares the full model and a compressed variant on identical hardware, precision, training data, selection protocol, and execution horizon.",
+        "Full / compressed mean model-query latency is 48 / 24 ms. This excludes sensing, communication, and actuation; it is not end-to-end task latency and no tail-latency statistic was recorded.",
+        "Full / compressed success on seen objects is 78% / 80%; on held-out objects it is 64% / 52%. Each condition includes 100 trials per method; no uncertainty estimate or significance test was computed.",
+        "No unseen embodiment, unseen task, or causal diagnostic was evaluated."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.usage-note.result-narrative.001",
+        "vla.usage-note.control-latency.001"
+      ],
+      "manual_rubric": [
+        "Frame the finding as a latency-versus-held-out-object-success trade-off, not an unconditional deployment recommendation.",
+        "Anchor both the speed benefit and the adverse generalization effect; redundant seen-object endpoints can remain in the retained table.",
+        "Keep model-query latency separate from the closed-loop system budget and preserve the missing tail-latency boundary when discussing real time.",
+        "Do not invent a compression mechanism or statistical significance."
+      ],
+      "machine_checks": [
+        {
+          "id": "display-pointer",
+          "type": "required_regex",
+          "pattern": "Table\\s*5",
+          "message": "Point to the retained deployment comparison."
+        },
+        {
+          "id": "latency-axis",
+          "type": "required_regex",
+          "pattern": "model[- ]query|query latency|inference latency",
+          "message": "Name the measured latency axis."
+        },
+        {
+          "id": "latency-anchor",
+          "type": "required_regex",
+          "pattern": "48[^.\\n]{0,40}24|halv|(?:two|2)[- ]fold|2[×x]",
+          "message": "Retain the measured speed benefit."
+        },
+        {
+          "id": "generalization-cost",
+          "type": "required_regex",
+          "pattern": "held[- ]out[^.\\n]{0,70}(?:52|12|fall|drop|lower|declin)|(?:52|12|fall|drop|lower|declin)[^.\\n]{0,70}held[- ]out",
+          "message": "Preserve the adverse held-out object result; verify its direction manually."
+        },
+        {
+          "id": "no-deployment-guarantee",
+          "type": "forbidden_regex",
+          "pattern": "guarantees?[^.\\n]{0,40}(?:real[- ]time|control)|universally preferable",
+          "message": "A mean model-query latency does not guarantee real-time deployment."
+        }
+      ]
+    },
+    {
+      "id": "paper-analysis-standalone-fidelity",
+      "mode": "paper",
+      "domain": "general",
+      "section": "experiments",
+      "intent": "quantify",
+      "evidence_boundary": "The requested passage must stand alone: no table, figure, caption, or setup accompanies it. Explicitly preserve every supplied measurement and qualifier, without inventing a display pointer or significance test.",
+      "request": "Write a standalone result-analysis passage from these facts. It may use more than one paragraph to remain readable.",
+      "facts": [
+        "Under matched hardware, training data, and model selection, mean success rises from 62% to 70%, an 8-percentage-point gain.",
+        "Mean model-query latency rises from 40 ms to 68 ms; this excludes sensing and actuation.",
+        "Gains occur on four of six tasks; two tasks are unchanged within the reported uncertainty.",
+        "No statistical significance test was run, and no experiment identifies which component causes the gain."
+      ],
+      "expected_guide_id": "experiments.analysis",
+      "expected_retrieval_ids": [
+        "general.usage-note.result-display-allocation.001",
+        "general.sentence-pattern.result-tradeoff.001"
+      ],
+      "manual_rubric": [
+        "Do not use the retained-display exemption: all supplied measurements and scope qualifiers belong in the passage.",
+        "Organize the facts into the observed success gain, latency cost, and limits rather than one overloaded sentence.",
+        "No invented table pointer, statistical claim, or causal mechanism appears."
+      ],
+      "machine_checks": [
+        {
+          "id": "success-endpoints",
+          "type": "required_regex",
+          "pattern": "62%[\\s\\S]*70%|70%[\\s\\S]*62%",
+          "message": "Standalone prose must preserve both success endpoints."
+        },
+        {
+          "id": "absolute-gain",
+          "type": "required_regex",
+          "pattern": "(?:8|eight)[- ]percentage[- ]point",
+          "message": "Preserve the absolute gain in the correct unit."
+        },
+        {
+          "id": "latency-endpoints",
+          "type": "required_regex",
+          "pattern": "40[\\s\\S]*68|68[\\s\\S]*40",
+          "message": "Preserve both model-query latency endpoints and verify their units manually."
+        },
+        {
+          "id": "task-coverage",
+          "type": "required_regex",
+          "pattern": "(?:four|4) (?:of|out of) (?:the )?(?:six|6)",
+          "message": "Preserve the limited task coverage."
+        },
+        {
+          "id": "no-invented-display",
+          "type": "forbidden_regex",
+          "pattern": "(?:Table|Figure|Fig\\.)\\s*\\d",
+          "message": "No display accompanies the passage."
+        },
+        {
+          "id": "test-boundary",
+          "type": "required_regex",
+          "pattern": "no (?:statistical )?significance test|significance (?:was )?not (?:tested|assessed)|did not[^.\\n]{0,20}(?:test|assess)[^.\\n]{0,20}significance",
+          "message": "Preserve the absence of a significance test."
+        }
+      ]
     }
   ]
 }

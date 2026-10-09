@@ -22,7 +22,7 @@ library/
 ├── writing_guides.json   bounded section and table protocols
 ├── task_routes.json      bounded task/domain fast-path bundles
 ├── table_templates.json  reviewed LaTeX table-asset registry
-├── studies/*.json        aggregate calibration audits; no paper prose
+├── studies/*.json        aggregate/paragraph calibration audits; no paper prose
 └── watchlist.json        wording-lint rules
 ```
 
@@ -58,6 +58,15 @@ Section protocols are separate from sentence cards: a protocol defines required
 inputs, functional moves, internal templates, and verification, while cards
 supply a few reusable expressions. This prevents all structural guides from
 entering every writing context.
+
+Experiment narrative uses this existing boundary, not a new retrieval tier.
+`experiments.analysis` handles finding-led prose, selective numerical evidence,
+cohesion, and conditional evidence placement. The complete `experiments` guide
+contains a compact form of the same rule so its one-file domain routes retain it.
+Two normalized usage cards provide reusable guardrails; the paragraph study is
+maintainer evidence and is never injected into a writing bundle. Explicit prose
+queries route to analysis even when they mention latency or ablations; caption
+queries retain their specialized table protocol.
 
 The generated task routes are a bounded one-file alternative to levels 2–5 for
 common combinations of domain and section. Each route contains only the relevant
@@ -121,7 +130,12 @@ Append `--guide <guide-id>` when the task needs one section, rebuttal, translati
 analysis, or table protocol.
 The two searches are intentionally different. Rhetorical filtering uses section
 and intent; technical filtering omits them so a rebuttal can still retrieve a
-method definition. `--max-chars` bounds the emitted Markdown.
+method definition. Records are considered in alternating rhetoric/technical
+rank order so rhetorical guidance cannot automatically consume the entire
+budget first. `--max-chars` bounds the serialized output in either Markdown or
+JSON, including formatting, source metadata, and the final newline. A protocol
+and each retained record stay complete. A protocol that cannot fit is rejected
+with exit code 2 and empty stdout, including the guide-only profile.
 
 `route` returns URLs and recommended card IDs without loading the card bodies.
 For structured paper sections, rebuttals, and translations it also recommends one guide;

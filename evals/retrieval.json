@@ -493,5 +493,26 @@
     ],
     "expected_guide_id": "review",
     "expected_task_pack_id": "review.general"
+  },
+  {
+    "id": "narrative-table-to-prose",
+    "query": "experimental narrative table to prose selective evidence",
+    "domain": "embodied_ai", "section": "experiments", "intent": "evidence", "limit": 4,
+    "expected_entry_ids": ["general.usage-note.result-narrative.001", "general.usage-note.result-display-allocation.001"],
+    "expected_guide_id": "experiments.analysis"
+  },
+  {
+    "id": "narrative-zh-laundry-list",
+    "query": "实验叙事避免流水账和数字堆砌",
+    "domain": "world_models", "section": "experiments", "intent": "evidence", "limit": 4,
+    "expected_entry_ids": ["general.usage-note.result-narrative.001", "general.usage-note.result-display-allocation.001"],
+    "expected_guide_id": "experiments.analysis"
+  },
+  {
+    "id": "narrative-latency-is-prose",
+    "query": "VLA latency result analysis finding-led experimental narrative",
+    "domain": "vision_language_action", "section": "experiments", "intent": "evidence", "limit": 4,
+    "expected_entry_ids": ["general.usage-note.result-narrative.001"],
+    "expected_guide_id": "experiments.analysis"
   }
 ]

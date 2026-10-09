@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "id": "experimental-narrative-2026-10",
+  "as_of": "2026-10-09",
+  "method": "One agent read the published primary-paper PDFs and manually annotated selected experiment passages at paragraph level. Annotations describe ordering, evidence placement, and claim boundaries; they do not score scientific correctness. Source files were processed outside the repository with pdftotext. Only independent structural summaries, locators, and PDF checksums are retained, not extracted prose. This is a purposive calibration sample, not an independent multi-reviewer study or a frequency estimate.",
+  "scope": "Seven existing corpus sources, twelve passages, covering reinforcement learning, world models, embodied AI, and VLA. This supplements the 80-paper document-level detector study without adding papers to the coverage count.",
+  "artifacts": [
+    {"source_id":"hansen2024tdmpc2","pdf_url":"https://proceedings.iclr.cc/paper_files/paper/2024/file/cf73d57b6dcda32b293df7c2d5341f49-Paper-Conference.pdf","sha256":"bd610738b6611b021060d3aea227cc833339376a70835dcbb317dd626b9c65ba"},
+    {"source_id":"chen2021decisiontransformer","pdf_url":"https://proceedings.neurips.cc/paper_files/paper/2021/file/7f489f642a0ddb10272b5c31057f0663-Paper.pdf","sha256":"075d32eba700062cef24a6f6138432e2584cc1770518092add54e407ce0a5b31"},
+    {"source_id":"jiang2023vima","pdf_url":"https://proceedings.mlr.press/v202/jiang23b/jiang23b.pdf","sha256":"bbd044f3d0cf9025430c9595086eaa2eccd69488c3c3d0d7b661eb19e8459e50"},
+    {"source_id":"chi2023diffusionpolicy","pdf_url":"https://roboticsproceedings.org/rss19/p026.pdf","sha256":"723a030b809be1958d03b06472ac79934fd64e5a890cdfeffd9508a353101a25"},
+    {"source_id":"deng2022-dreamerpro-reconstruction-free-model","pdf_url":"https://proceedings.mlr.press/v162/deng22a/deng22a.pdf","sha256":"8e095aa19ee88d0346cfa719ab08e780b71d3526ac110f2cf41102d8e73cad69"},
+    {"source_id":"chattopadhyay2021-robustnav-benchmarking-robustness-embodied","pdf_url":"https://openaccess.thecvf.com/content/ICCV2021/papers/Chattopadhyay_RobustNav_Towards_Benchmarking_Robustness_in_Embodied_Navigation_ICCV_2021_paper.pdf","sha256":"8301e805e5a034bb9cf6aa8f9ceef1b8ca3cf0ae1b5ab1b9b8c53490f72aeb3a"},
+    {"source_id":"zhang2025-up-vla-unified-understanding","pdf_url":"https://raw.githubusercontent.com/mlresearch/v267/main/assets/zhang25w/zhang25w.pdf","sha256":"43d6bc3a4ce4438160707ce094e5fb43f9e7e970b660309cad4824ad17f65ff1"}
+  ],
+  "annotations": [
+    {
+      "id":"tdmpc2-main","source_id":"hansen2024tdmpc2","domain":"world_models","locator":"Section 4.1, Comparison to existing methods, printed pp. 6-7; Figures 4-6 and Appendix G",
+      "structure":["comparison","aggregate trend","difficult conditions","diagnostic pointer"],
+      "observation":"The paragraph moves from overall performance to difficult task families and training instability, while directing detailed task results and gradients to separate displays.",
+      "numeric_role":"Task count establishes evaluation scope; individual curve values are not recited.",
+      "transfer_rule":"Use an aggregate finding to motivate an existing diagnostic or difficult-regime comparison.",
+      "boundary":"Do not infer matched resources from this narrative: baseline parameter counts and update ratios differ and are disclosed in setup."
+    },
+    {
+      "id":"tdmpc2-scaling","source_id":"hansen2024tdmpc2","domain":"world_models","locator":"Section 4.1, Scaling TD-MPC2 to 317M parameters, printed p. 7; Figure 7 and Table 1",
+      "structure":["aggregation definition","scaling trend","extrapolation boundary","resource pointer"],
+      "observation":"The paragraph describes growth with model size and separates that observation from a formal scaling law. Costs and per-model scores remain in Table 1.",
+      "numeric_role":"Model scale identifies the tested range, rather than repeating the score at each scale.",
+      "transfer_rule":"State a supported trend across a range; retain the resource cost and distinguish observation from extrapolation.",
+      "boundary":"Do not adopt the paper's expectation of further improvement as a general rule or claim saturation was statistically tested."
+    },
+    {
+      "id":"dt-atari","source_id":"chen2021decisiontransformer","domain":"reinforcement_learning","locator":"Section 4.1, printed pp. 5-6; Table 1",
+      "structure":["protocol","baseline provenance","coverage-qualified comparison"],
+      "observation":"A table contains per-game scores; the concluding prose qualifies competitiveness by how many games satisfy the comparison rather than listing scores.",
+      "numeric_role":"The count of covered games constrains the breadth of the claim.",
+      "transfer_rule":"Use coverage and exceptions to qualify a cross-task conclusion; keep baseline provenance recoverable.",
+      "boundary":"The sampled paper calls dispersion variance in the caption and standard deviation in the prose. Do not transfer that ambiguity into a template."
+    },
+    {
+      "id":"dt-delayed","source_id":"chen2021decisiontransformer","domain":"reinforcement_learning","locator":"Section 5.5, printed pp. 8-9; Table 6",
+      "structure":["empirical question","reward intervention","contrasting responses","bounded conclusion"],
+      "observation":"The passage asks about sparse rewards, describes the delayed-reward setting, and contrasts methods' responses without enumerating the table cells.",
+      "numeric_role":"Full dense and delayed scores remain in Table 6; the prose explains the experimental contrast.",
+      "transfer_rule":"Explain what a controlled setting changes before drawing the corresponding empirical conclusion.",
+      "boundary":"Do not generalize from delayed rewards on these datasets to every sparse-reward problem."
+    },
+    {
+      "id":"vima-scaling","source_id":"jiang2023vima","domain":"vision_language_action","locator":"Section 5.2, Model Scaling and Data Scaling, printed pp. 6-7; Figure 4",
+      "structure":["comparison axis","cross-range trend","data-budget contrast","hypothesis"],
+      "observation":"Model-size and data-size comparisons receive distinct paragraphs. Selective data-budget anchors support efficiency claims; a representation-based explanation is labeled as a hypothesis.",
+      "numeric_role":"Capacity range and selected data fractions identify the tested axes rather than repeating every success rate.",
+      "transfer_rule":"Separate scale from data efficiency and distinguish an explanatory hypothesis from the measured trend.",
+      "boundary":"Do not copy a hypothesis into a new paper when that paper has no corresponding evidence."
+    },
+    {
+      "id":"vima-generalization","source_id":"jiang2023vima","domain":"vision_language_action","locator":"Section 5.2, Progressive Generalization, printed p. 7; Figure 5",
+      "structure":["increasing shift","relative degradation","shared failure boundary","comparison"],
+      "observation":"The paragraph compares degradation across increasingly difficult levels and acknowledges that all methods deteriorate on novel tasks.",
+      "numeric_role":"Selected degradation contrasts describe the relative advantage while preserving a common failure boundary.",
+      "transfer_rule":"Place the difficult-regime exception beside a favorable generalization claim.",
+      "boundary":"Lower degradation is not an absence of degradation or demonstrated real-robot transfer."
+    },
+    {
+      "id":"dp-horizon","source_id":"chi2023diffusionpolicy","domain":"embodied_ai","locator":"Section V, The tradeoff in action horizon, printed p. 5; Figure 6",
+      "structure":["design tension","observed trade-off","conditional operating choice"],
+      "observation":"The passage relates action consistency to slower feedback and reports a tested horizon choice, rather than claiming longer horizons always help.",
+      "numeric_role":"The selected horizon illustrates the tested operating choice; the full sweep stays in the figure.",
+      "transfer_rule":"Describe both sides of a design trade-off and keep the chosen setting conditional on tested tasks.",
+      "boundary":"A selected horizon is not a universal optimum or proof of a mechanism."
+    },
+    {
+      "id":"dp-pusht","source_id":"chi2023diffusionpolicy","domain":"embodied_ai","locator":"Section VI.A, Result Analysis, printed p. 6; Table V and Figure 8",
+      "structure":["performance contrast","behavioral evidence","failure categories"],
+      "observation":"The analysis uses selected success and overlap comparisons, then examines stage-transition behavior and observed baseline failures. It does not recite all encoder variants.",
+      "numeric_role":"Main outcome anchors and failure counts serve different evidential functions.",
+      "transfer_rule":"Use actually observed behavior to extend an outcome comparison; quantitative and qualitative evidence need distinct roles.",
+      "boundary":"Some causal explanations in the paper are stronger than a generic template should allow; retain the new task's actual control limits."
+    },
+    {
+      "id":"dreamerpro-variance","source_id":"deng2022-dreamerpro-reconstruction-free-model","domain":"world_models","locator":"Section 4.1, printed p. 5; Figure 2 and Table 1",
+      "structure":["aggregate outcome","task-specific observation","seed instability"],
+      "observation":"The favorable outcome is followed by a seed-level instability on Finger Spin, with selected return anchors explaining why aggregate dispersion matters.",
+      "numeric_role":"Seed outcomes diagnose an exception instead of merely adding more favorable averages.",
+      "transfer_rule":"Explain consequential variability as part of the result, not as a footnote detached from the claim.",
+      "boundary":"Do not equate low variance with high quality or use a few seeds as proof of stability."
+    },
+    {
+      "id":"dreamerpro-latents","source_id":"deng2022-dreamerpro-reconstruction-free-model","domain":"world_models","locator":"Section 4.3, printed p. 6; Figures 4-5",
+      "structure":["diagnostic question","representation visualization","residual limitation"],
+      "observation":"The diagnostic describes reconstructions and nearest-neighbor behavior, then acknowledges that backgrounds can still influence the representation.",
+      "numeric_role":"Training steps identify the visualization condition, not a new performance ranking.",
+      "transfer_rule":"A diagnostic can refine a mechanism hypothesis while revealing what the method has not solved.",
+      "boundary":"A visualization does not uniquely identify a causal explanation; retain alternatives."
+    },
+    {
+      "id":"robustnav-sensors","source_id":"chattopadhyay2021-robustnav-benchmarking-robustness-embodied","domain":"embodied_ai","locator":"Section 5.1, clean depth sensor finding, printed p. 15696; Table 2",
+      "structure":["sensor comparison","matched clean outcome","corrupted-condition gap","resource caveat"],
+      "observation":"The passage contrasts sensor modalities, selects a severe-corruption gap, and notes the cost of adding sensors instead of ranking every corruption row.",
+      "numeric_role":"A range of gaps anchors the named severe conditions.",
+      "transfer_rule":"Name the sensing assumption and cost when interpreting robustness, not just the favorable metric.",
+      "boundary":"The clean depth sensor is an explicit assumption; this does not show robustness when all modalities are corrupted."
+    },
+    {
+      "id":"upvla-regimes","source_id":"zhang2025-up-vla-unified-understanding","domain":"vision_language_action","locator":"Section 5.3, printed p. 7; Figure 6",
+      "structure":["matched deployment setup","seen tasks","new objects","precise operations"],
+      "observation":"Real-robot performance is organized by task families and capabilities rather than by model rows; the trial denominator is established before the analysis.",
+      "numeric_role":"Attempts define the evaluation denominator while per-task success rates stay in the display.",
+      "transfer_rule":"Separate generalization axes and group comparisons by the tested capability, with shared protocol reported once.",
+      "boundary":"Borrow the organization, not broad causal claims about semantic or spatial understanding from success rates alone."
+    }
+  ],
+  "normalized_entry_ids": ["general.usage-note.result-narrative.001","general.usage-note.result-display-allocation.001"],
+  "guide_ids": ["experiments","experiments.analysis"],
+  "limitations": [
+    "Selected passages do not establish that any one opening, sentence count, numeric density, or transition is standard across venues.",
+    "No blind writer or human expert evaluated this synthesis; improved professional prose is an unverified effectiveness hypothesis.",
+    "Accepted papers may contain ambiguous statistics or overstated interpretations. The library adopts structural strategies, not every source claim or adjective.",
+    "PDF checksums identify the reviewed bytes, not publication quality or permanent future availability."
+  ]
+}

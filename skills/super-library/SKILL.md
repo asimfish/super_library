@@ -1,6 +1,6 @@
 ---
 name: super-library
-description: Retrieve source-traceable terminology, definitions, sentence patterns, and bounded section protocols for professional AI/ML research writing. Use for drafting or revising abstracts, introductions, related work, methods, experiments, result analyses, tables, limitations, conclusions, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models.
+description: Retrieve source-traceable terminology, definitions, sentence patterns, and bounded section protocols for professional AI/ML research writing. Use for drafting or revising abstracts, introductions, related work, methods, experiments, result analyses, tables, limitations, conclusions, reviewer rebuttals, and Chinese–English technical translations, especially in world models, reinforcement learning, embodied AI, robot learning, and vision-language-action models. Do not use for coding, numerical benchmarking without manuscript prose, or non-academic writing.
 ---
 
 # Super Library
@@ -128,6 +128,11 @@ reviewer directly.
 - In experiments, bind claims to research questions and evidence; disclose metric
   direction, units, denominator, aggregation, uncertainty, selection, baseline
   provenance, and material resource differences.
+- Allocate evidence across setup, retained displays, captions, and analysis rather
+  than repeating every number in each paragraph. For result prose use
+  `experiments.analysis`: a supported finding, selective evidence, and material
+  exceptions. Skip unsupported explanations. Standalone passages, translations,
+  and explicit all-value requests must retain their required quantities.
 - Make tables interpretable without prose. Never encode missing as zero, use
   color as the only cue, or emphasize a best result across incomparable protocols.
 - State observations before interpretations and preserve exceptions, trade-offs,

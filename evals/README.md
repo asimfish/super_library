@@ -28,7 +28,7 @@ For a complete run, store files as `<case-id>.md` and use
 pass. A human must apply every `manual_rubric` item and verify scientific claims,
 citations, terminology consistency, source overlap, and translation fidelity.
 
-The 20-case suite checks Related Work synthesis, evidence-bounded rebuttal,
+The 47-case suite checks Related Work synthesis, evidence-bounded rebuttal,
 Chinese–English technical translation, action-chunking and train/deployment
 method boundaries, real-robot setup, result analysis, Introduction alignment,
 and Abstract scope. It also covers mixed or null results, Limitations,
@@ -37,6 +37,17 @@ ablation interactions, and requests for experiments that were not run. Cases
 with `expected_guide_id` should load that one protocol without loading the entire
 guide directory. The suite does not measure venue-specific house style or
 certify scientific correctness.
+
+The `narrative` paired slice adds five cases: retained-table robot outcomes,
+world-model horizon/control mismatch, RL scaling costs, VLA latency versus
+held-out-object success, and standalone numerical fidelity. Retained-display
+cases explicitly permit leaving redundant cells in the unchanged display;
+standalone cases do not. Raters must judge the requested artifact in its stated
+context, not count numbers or penalize legitimate non-repetition. Material
+exceptions and required standalone values remain mandatory. Historical runs
+used older case lists; reproduce them from their pinned commit rather than
+re-scoring them as a current 47-case run. The four upstream fabrication-trap
+cases remain in the full suite and in their separate `traps` slice.
 
 ## Blind paired professionalism benchmark
 

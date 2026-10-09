@@ -336,8 +336,9 @@
           "label": "Answer the primary research questions",
           "required": true,
           "checks": [
-            "Lead each result paragraph with the question or comparison axis.",
-            "Point to the display, quantify the relevant difference, state consistency or exceptions, then give a calibrated interpretation.",
+            "Organize paragraphs by findings that answer the research questions, not by table row. Open with the supported finding or the question when it is not yet clear.",
+            "Use the display for full numerical coverage and the prose for a decisive comparison, a trend, or a claim-changing exception. Keep interpretation separate from measurement; omit explanations that the supplied evidence cannot support.",
+            "Put shared metrics, uncertainty, selection, and resource protocols in setup or a self-contained caption rather than repeating them in every result sentence. Standalone passages and translations must still preserve their required facts.",
             "Report null, negative, unstable, or adverse results when they bear on the claim."
           ]
         },
@@ -477,39 +478,55 @@
       "guide_type": "analysis_protocol",
       "section": "experiments",
       "label": "Experimental analysis: evidence before interpretation",
-      "purpose": "Turn verified results into precise analysis paragraphs without merely narrating a table or overstating a mechanism.",
+      "purpose": "Organize verified results into a finding-led argument: select quantitative evidence, connect comparisons, and preserve claim-changing exceptions without reciting a table or inventing an explanation.",
       "aliases": [
         "results analysis",
         "experiment analysis",
         "实验分析",
         "结果分析",
-        "observations"
+        "observations",
+        "experimental narrative",
+        "table to prose",
+        "实验叙事",
+        "数字堆砌",
+        "流水账"
       ],
       "use_when": "Writing main-result, ablation, robustness, efficiency, or failure-analysis paragraphs after displays are finalized.",
       "inputs": [
         "The research question and comparison axis.",
-        "Exact table or figure location and verified values.",
-        "Aggregation, uncertainty, and statistical unit.",
-        "Expected mechanism, plausible alternatives, exceptions, and failure cases."
+        "Verified values and display locations; identify which tables, captions, and setup remain available to the reader.",
+        "Aggregation, uncertainty, statistical unit, and whether the requested passage is standalone or must preserve every supplied quantity.",
+        "Supported comparisons, claim-changing exceptions, failure cases, and any supplied mechanism evidence. Missing evidence is not a slot to fill."
       ],
       "moves": [
         {
-          "id": "evidence",
-          "label": "State the evidence",
+          "id": "evidence-allocation",
+          "label": "Plan evidence placement internally",
           "required": true,
           "checks": [
-            "Point to the display and identify the rows, columns, or trend relevant to the question.",
-            "Quantify the difference in the metric's natural unit and distinguish relative from absolute change.",
+            "Keep a compact internal ledger of claims, values, uncertainty, comparability, exceptions, and locations. Distinguish preservation across the deliverable from repetition in each paragraph; do not print the ledger unless asked.",
+            "Setup defines the shared protocol; captions make displays interpretable; tables retain the full results; analysis explains the comparison that matters. Never refer to an absent table to justify omission.",
+            "For standalone passages, translation, explicit all-value requests, or missing displays, retain all required quantities and qualifiers. Split dense material across sentences or paragraphs rather than dropping facts."
+          ]
+        },
+        {
+          "id": "evidence",
+          "label": "State one supported finding and select its evidence",
+          "required": true,
+          "checks": [
+            "Open with the finding that answers the research question, or briefly establish the question if needed. Name the comparison axis and attach the relevant display pointer; a question heading is optional.",
+            "Select numerical anchors for magnitude, a regime change, uncertainty, a cost, or an exception. Use natural units and distinguish absolute from relative change; do not narrate every row, duplicate endpoints and derived gains without purpose, or impose a fixed number quota.",
             "Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.",
-            "State whether the pattern is consistent across tasks, datasets, seeds, scales, or shifts."
+            "Describe the supported pattern across settings, including its extent. Compare the strongest relevant matched baseline, not an easier comparator or only the largest gain. Preserve important reversals and null outcomes in the prose."
           ]
         },
         {
           "id": "interpretation",
           "label": "Calibrate interpretation",
-          "required": true,
+          "required": false,
           "checks": [
-            "Use 'is consistent with' or 'suggests' for a mechanism not directly identified.",
+            "Add an explanation only when supplied analysis supports it. A result paragraph may end at a bounded empirical conclusion; do not append a generic mechanism sentence to sound persuasive.",
+            "Use 'is consistent with' or 'suggests' for an explicitly supported but not identified mechanism. Hedging does not license an invented explanation.",
             "Name alternative explanations such as scale, data, tuning, or compute when they remain uncontrolled.",
             "Do not equate lack of statistical significance with equivalence."
           ]
@@ -523,6 +540,16 @@
             "State quality–efficiency, robustness–accuracy, or data–compute trade-offs explicitly.",
             "Connect a failure case to the claim it limits."
           ]
+        },
+        {
+          "id": "cohesion",
+          "label": "Connect the argument without exposing the scaffold",
+          "required": true,
+          "checks": [
+            "Order paragraphs by the empirical question: overall outcome, where it changes, then a diagnostic or trade-off when actually evaluated. Each paragraph advances the argument rather than re-announcing a display.",
+            "Reuse the technical subject and comparison axis to connect sentences. Use however, whereas, or under only for a real contrast; avoid repeated result summaries and decorative transitions.",
+            "Treat template sequences as choices, not a mandatory sentence count. Merge compatible moves, vary openings naturally, and omit unsupported moves rather than inventing a bridge, test, mechanism, or revision."
+          ]
         }
       ],
       "templates": [
@@ -531,11 +558,10 @@
           "name": "Main result paragraph",
           "when": "A table or figure answers one primary research question.",
           "sequence": [
-            "Question and display pointer.",
-            "Quantified main comparison.",
-            "Consistency across relevant settings.",
-            "Calibrated explanation.",
-            "Exception, uncertainty, or trade-off."
+            "Supported finding or brief question, with the relevant comparison and display pointer.",
+            "Decisive quantitative contrast or cross-setting trend; use the retained display for full coverage.",
+            "Claim-changing exception, uncertainty, or cost placed beside the conclusion it qualifies.",
+            "Bounded empirical answer; add mechanism interpretation only if separately supported."
           ]
         },
         {
@@ -543,11 +569,31 @@
           "name": "Ablation paragraph",
           "when": "Variants test components, losses, data sources, or design choices.",
           "sequence": [
-            "Component question and full-model anchor.",
-            "Matched variant comparison.",
-            "Magnitude relative to uncertainty.",
+            "Component question and matched comparison, with a full-model reference recoverable from prose or the retained display.",
+            "The contrast that distinguishes the design alternatives, not one sentence for every variant.",
+            "Magnitude relative to reported uncertainty; preserve an unfavorable or null effect.",
             "Interaction or non-additivity if modules are coupled.",
             "Narrow conclusion about contribution, not universal necessity."
+          ]
+        },
+        {
+          "id": "regime-paragraph",
+          "name": "Regime-dependent or null result",
+          "when": "A favorable aggregate conceals a reversal, saturation, or no detectable advantage.",
+          "sequence": [
+            "Name where the advantage holds and where it does not, with the shared display pointer.",
+            "Select the contrast or uncertainty that makes this boundary visible.",
+            "Limit the conclusion to the tested regime; no detectable difference is not proof of equivalence."
+          ]
+        },
+        {
+          "id": "diagnostic-chain",
+          "name": "Outcome followed by a diagnostic",
+          "when": "Separate experiments actually investigate a question raised by the main result.",
+          "sequence": [
+            "Summarize the outcome and the unresolved empirical question it leaves.",
+            "Introduce the existing diagnostic and the variable it changes or measures.",
+            "Use its decisive evidence to refine, not merely repeat, the earlier conclusion; retain alternative explanations."
           ]
         },
         {
@@ -565,17 +611,23 @@
       ],
       "verification": [
         "Every adjective such as consistent, substantial, stable, or efficient is tied to a visible statistic or named condition.",
-        "The prose does not repeat every cell; it selects the comparison that answers the stated question.",
+        "Each paragraph has an identifiable empirical point; deleting a numerical anchor would remove evidence for magnitude, regime, uncertainty, cost, or a material exception. A necessary standalone value remains even when it is not an anchor.",
+        "The prose does not repeat every cell of a retained display. All required quantities remain recoverable at their promised locations, and omitted cells cannot reverse or materially weaken the prose claim.",
+        "Shared protocol details are recoverable in setup or captions; no standalone excerpt silently depends on them.",
         "Interpretations preserve uncertainty and do not exceed the intervention or control structure.",
         "Negative and anomalous results are not silently omitted from the described trend."
       ],
       "avoid": [
         "Beginning every sentence with 'Table X shows' and paraphrasing the full table.",
+        "Turning reporting checklists into one overloaded sentence, or repeating 'These results demonstrate the effectiveness' after every comparison.",
+        "Using a favorable average to conceal a reversal, or deleting required numbers merely to reduce numeric density.",
         "Using 'because' or 'due to' when an ablation only establishes association.",
         "Describing a one-benchmark gain as general improvement.",
         "Calling overlapping error bars a significance test or non-overlapping bars proof of a mechanism."
       ],
       "related_entry_ids": [
+        "general.usage-note.result-narrative.001",
+        "general.usage-note.result-display-allocation.001",
         "general.phrase.results-suggest.001",
         "general.sentence-pattern.causal-caution.001",
         "general.sentence-pattern.quantify.001",
