@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1120" viewBox="0 0 1800 1120" role="img" aria-labelledby="title desc">
 <title id="title">Super Library: AI research writing specification and contextual dictionary</title>
-<desc id="desc">Offline papers are reviewed into one canonical library and built into bounded views. At runtime author facts enter selective retrieval, a bounded bundle, original composition and output review. Primary sources are reopened for scientific verification. Lint and blind effectiveness evaluation have different authority. Six dictionary profiles are a seed, not complete coverage.</desc>
+<desc id="desc">Offline papers are reviewed into one canonical library and built into bounded views. At runtime author facts enter selective retrieval, a bounded bundle, original composition and output review. A shared positive-match helper prefers complete concept names while retaining domain filters. Primary sources are reopened for scientific verification. Fourteen dictionary profiles are selective coverage, not a complete upgrade or proof of better prose.</desc>
 <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#58677b"/></marker></defs>
 <style>text{font-family:Arial,Helvetica,sans-serif;fill:#223045}.heading{font-size:32px;font-weight:700}.section{font-size:23px;font-weight:700}.node{font-size:23px;font-weight:700}.small{font-size:17px}.tiny{font-size:15px}.body{font-size:20px}.mono{font-family:monospace;font-size:17px}</style>
 <rect width="1800" height="1120" fill="#ffffff"/>
@@ -19,7 +19,7 @@
 <path d="M 1340 275 L 1390 275" fill="none" stroke="#58677b" stroke-width="2"  marker-end="url(#arrow)"/>
 <text x="50" y="414" class="section">B / Runtime writing path</text>
 <g data-path="AGENTS.md"><rect x="50" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="68" y="506" class="node">Author task + facts</text><text x="68" y="545" class="small">domain / section / intent / evidence</text><text x="68" y="576" class="tiny">Required quantities and known limits</text></g>
-<g data-path="scripts/superlib.py"><rect x="385" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="403" y="506" class="node">Select context</text><text x="403" y="545" class="small">route or two-pass retrieval</text><text x="403" y="576" class="tiny">One protocol; rhetoric + technical terms</text></g>
+<g data-path="scripts/retrieval.py"><rect x="385" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="403" y="506" class="node">Select context</text><text x="403" y="545" class="small">route or two-pass retrieval</text><text x="403" y="576" class="tiny">Positive collocations; controlled filters</text></g>
 <g data-path="scripts/writing_spec.py"><rect x="720" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="738" y="506" class="node">Bounded bundle</text><text x="738" y="545" class="small">compact rules + selected records</text><text x="738" y="576" class="tiny">Full serialized output &lt;= max-chars</text></g>
 <g data-path="skills/super-library/SKILL.md"><rect x="1055" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="1073" y="506" class="node">Agent composition</text><text x="1073" y="545" class="small">original prose from supplied facts</text><text x="1073" y="576" class="tiny">Examples are conditional, not evidence</text></g>
 <g data-path="scripts/superlib.py"><rect x="1390" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="1408" y="506" class="node">Output review</text><text x="1408" y="545" class="small">limited lint + semantic review</text><text x="1408" y="576" class="tiny">Claims, numbers, citations, scope</text></g>
@@ -42,7 +42,7 @@
 <rect x="610" y="686" width="560" height="238" fill="#ffffff" stroke="#8492a6"/>
 <text x="630" y="723" class="node">Contextual dictionary</text>
 <text x="630" y="758" class="mono">library/entries/*.jsonl</text>
-<text x="630" y="795" class="body">276 entries; 6 enriched profiles in this seed</text>
+<text x="630" y="795" class="body">278 entries; 14 enriched profiles</text>
 <text x="630" y="831" class="body">Sense / part of speech / collocations / scope</text>
 <text x="630" y="867" class="body">Same facts: misuse / preferred / reason</text>
 <text x="630" y="903" class="small">Success rate is not automatically accuracy or return</text>

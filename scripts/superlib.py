@@ -29,6 +29,7 @@ if __package__:
     from .writing_spec import (
         compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
     )
+    from .retrieval import exact_positive_match, explicitly_scoped_general
 else:
     from professional_benchmark import (
         ProfessionalBenchmarkError,
@@ -43,6 +44,7 @@ else:
     from writing_spec import (
         compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
     )
+    from retrieval import exact_positive_match, explicitly_scoped_general
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -1884,6 +1886,8 @@ def search_score(entry: Dict[str, Any], query: str) -> int:
         score += 2 * guidance.split().count(token)
         score += examples.split().count(token)
         score += 3 * metadata.split().count(token)
+    if not score and exact_positive_match(entry, query):
+        score = 1
     if score and entry["provenance"]["type"] == "attested_collocation":
         score += 2
     return score
@@ -1961,7 +1965,7 @@ def filter_entries(
             continue
         if topics:
             if "general" in entry["domains"]:
-                if not include_general:
+                if not include_general and not explicitly_scoped_general(entry):
                     continue
             elif not set(topics).intersection(entry.get("topic_families", [])):
                 continue
@@ -2020,6 +2024,7 @@ def rank_entries(
     ranked = [item for item in ranked if item[0] > 0]
     ranked.sort(
         key=lambda item: (
+            not any(exact_positive_match(item[1], variant) for variant in query_variants),
             -item[0],
             {"gold": 0, "silver": 1, "bronze": 2}[item[1]["quality"]["tier"]],
             item[1]["id"],
@@ -5162,6 +5167,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         shutil.copyfile(source_path, skill_specs_dir / source_path.name)
     prune_generated_tree(skill_specs_dir, {p.name for p in specs_dir.glob("*.md")})
     shutil.copyfile(ROOT / "scripts" / "writing_spec.py", SKILL_DIR / "scripts" / "writing_spec.py")
+    shutil.copyfile(ROOT / "scripts" / "retrieval.py", SKILL_DIR / "scripts" / "retrieval.py")
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
     skill_guides_dir.mkdir(parents=True, exist_ok=True)
     for generated_path in guides_dir.glob("*.md"):

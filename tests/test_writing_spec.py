@@ -57,12 +57,12 @@ class WritingSpecificationTests(unittest.TestCase):
         self.assertIn("experiments.scope", {r["id"] for r in payload["writing_spec"]["rules"]})
         self.assertNotIn("contrast", json.dumps(payload["writing_spec"]))
 
-    def test_rules_and_usage_profiles_validate_without_new_terms(self):
+    def test_rules_and_usage_profiles_validate_with_reviewed_reporting_expansion(self):
         taxonomy, sources, entries = superlib.load_corpus()
         self.assertEqual(superlib.validate_corpus(taxonomy, sources, entries), [])
         profiles = [e for e in entries if e.get("lexical_profile")]
-        self.assertEqual(len(profiles), 6)
-        self.assertEqual(len(entries), 276)
+        self.assertEqual(len(profiles), 14)
+        self.assertEqual(len(entries), 278)
         self.assertEqual(writing_spec.reference_errors(self.config, entries, taxonomy["sections"]), [])
         for e in profiles:
             for pair in e["lexical_profile"]["contrasts"]:
@@ -129,7 +129,8 @@ class WritingSpecificationTests(unittest.TestCase):
         tree = ET.parse(ROOT / "docs/assets/ai-writing-architecture.svg")
         text = " ".join(tree.getroot().itertext())
         self.assertIn("not STE compliance", text)
-        self.assertIn("276 entries; 6 enriched profiles", text)
+        self.assertIn("278 entries; 14 enriched profiles", text)
+        self.assertIn("Positive collocations; controlled filters", text)
         self.assertIn("12 rules", text)
         self.assertIn("not an automated correctness guarantee", text)
         self.assertIn("No fresh efficacy result is claimed", text)

@@ -278,14 +278,28 @@ A dynamics model that represents a scene as entities or slots and models their a
 
 The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.
 
-**Use:** State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.
+**Use:** Distinguish the prediction objective from the downstream control objective. Name a mismatch source or alignment mechanism only when supported; report model-quality and control metrics separately and state the training and evaluation distributions.
 
 **Avoid:** Do not report model accuracy alone as evidence of control quality, and do not use objective mismatch loosely for any underperformance unrelated to the model-policy interface.
 
 **Patterns:**
 
-- Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.
-- We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy.
+- {model} has lower prediction error but does not improve {control metric} under {protocol}.
+- We optimize {supplied alignment objective} and evaluate both {prediction metric} and {control metric}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: A prediction/control objective distinction, not an automatic diagnosis of why a particular controller fails.
+- Collocations: objective mismatch, prediction accuracy versus control performance, model-policy alignment
+- Not interchangeable with: compounding model error, distribution shift
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {model} has lower prediction error than {baseline}; control return is unchanged; no mechanism was isolated.
+- Misuse: The lower error confirms that the world model improves planning.
+- Preferred: Prediction error is lower, but control return is unchanged under {protocol}.
+- Why: Separates the two measured outcomes without inventing a control gain or an identified causal mechanism.
 
 **Verify in primary sources:**
 
@@ -985,6 +999,103 @@ A sampling procedure that propagates multiple hypothetical trajectories through 
 **Verify in primary sources:**
 
 - `chua2018pets` — [Deep Reinforcement Learning in a Handful of Trials using Probabilistic Dynamics Models](https://proceedings.neurips.cc/paper_files/paper/2018/hash/3de568f8597b94bda53149c7d7f5958c-Abstract.html) (NeurIPS 2018)
+
+### confidence interval
+
+`general.usage-note.confidence-interval.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An interval estimate of a specified statistic using a method with stated nominal coverage; it is not the observed spread of individual trials.
+
+**Use:** Name the statistic, confidence level, interval method, independent sampling unit, and aggregation. For a bootstrap, disclose the resampling unit and dependence structure. Report uncertainty for the difference when comparing methods; overlapping marginal intervals alone do not resolve the comparison.
+
+**Avoid:** Do not label mean ± standard deviation as a confidence interval, treat episodes from one policy as independent training runs, or infer equivalence from an interval containing zero. Do not select bootstrap settings or fabricate an interval when only a mean was supplied.
+
+**Patterns:**
+
+- We report {statistic} with a {level}% confidence interval computed using {method} over {independent units}.
+- The estimated difference in {metric} is {value}, with a {level}% {interval method} confidence interval of {bounds}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Uncertainty about a named statistic under a stated sampling design. The interval method must be provided or justified, not inferred from a sentence template.
+- Collocations: confidence interval, bootstrap confidence interval, interval estimate
+- Not interchangeable with: standard deviation, standard error, credible interval
+- Rule references: claims.calibration, sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only {mean} and the standard deviation {sd} across {runs} training runs are supplied; no interval was computed.
+- Misuse: The {level}% confidence interval is {mean} ± {sd}.
+- Preferred: The mean is {mean}, with a standard deviation of {sd} across {runs} training runs.
+- Why: Retains the supplied descriptive statistic without fabricating an interval or nominal coverage.
+
+**Verify in primary sources:**
+
+- `agarwal2021statisticalprecipice` — [Deep Reinforcement Learning at the Edge of the Statistical Precipice](https://proceedings.neurips.cc/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html) (NeurIPS 2021)
+
+### name the generalization axis and held-out unit
+
+`general.usage-note.generalization-axis.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+Generalization is always relative to a specified shift, such as unseen objects, tasks, environments, users, embodiments, or combinations.
+
+**Use:** State what was held out during training and what unit is averaged at evaluation. Prefer 'generalization to unseen objects' over an unqualified 'generalization ability.'
+
+**Avoid:** Do not infer broad out-of-distribution generalization from a random train–test split over nearly identical samples.
+
+**Patterns:**
+
+- We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
+- The current study does not establish transfer across unseen {embodiments or environments}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: reporting instruction
+- Scope: A reporting framework for named held-out units, not a claim of transfer across untested shifts.
+- Collocations: generalization axis, held-out evaluation, generalization to unseen environments
+- Not interchangeable with: random train-test split, cross-embodiment transfer
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only objects were held out; environments and embodiments were unchanged.
+- Misuse: The policy generalizes across environments and embodiments.
+- Preferred: We evaluate generalization to held-out objects in the same environment and embodiment.
+- Why: Binds the conclusion to the tested shift and avoids adding untested transfer axes.
+
+### percentage-point difference versus relative percent change
+
+`general.usage-note.percentage-points.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, experiments, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+For a metric expressed in percent, subtracting two percentage values gives a percentage-point difference; relative percent change divides the difference by the stated nonzero reference value.
+
+**Use:** State the metric, comparator and endpoints or a traceable display. Label absolute differences as percentage points and relative changes as percent relative to the reference. Respect metric direction and aggregation; a relative change from a zero reference is undefined.
+
+**Avoid:** Do not silently turn relative improvement into percentage points, assign an aggregate difference to every task, or call points on a normalized score percentage points without a percentage scale.
+
+**Patterns:**
+
+- Success rate rises from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Relative to {baseline value}, {error metric} decreases by {relative change}%; lower values indicate better performance.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: measurement phrases
+- Scope: Percentage-point differences apply only to percent-scale metrics; relative percent changes require a named nonzero reference.
+- Collocations: percentage points, percentage-point difference, percentage change, relative percent change
+- Not interchangeable with: relative percentage improvement, normalized-score points
+- Rule references: sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: On the same protocol, success rate changes from {baseline}% to {method}%; the subtraction is {difference} percentage points.
+- Misuse: Success rate improves by {difference}%.
+- Preferred: Success rate increases from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Why: Makes the absolute unit and reference explicit; do not compute new quantities unless the task permits it and the endpoints are available.
 
 ### aleatoric versus epistemic uncertainty in learned dynamics
 

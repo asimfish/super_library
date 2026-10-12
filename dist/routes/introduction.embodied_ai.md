@@ -255,14 +255,28 @@ The study of agents that perceive and act within an environment, where their obs
 
 Systematic evaluation varies identified factors—such as objects, placements, task templates, prompt compositions, environments, or embodiments—while documenting which combinations were withheld.
 
-**Use:** Define each split procedurally and report results by axis. Use 'zero-shot' only when the evaluated factor or combination was absent from training under the stated protocol.
+**Use:** Define each split procedurally and report results by axis. For zero-shot evaluation, state target-task demonstrations, in-context examples, and parameter updates allowed at test time; distinguish no target adaptation from an unseen factor or composition and disclose known pretraining exposure.
 
-**Avoid:** Do not collapse all held-out conditions into one generalization score that hides qualitatively different shifts.
+**Avoid:** Do not collapse qualitatively different shifts into one generalization score, call fine-tuned target-task performance zero-shot, or assert that pretraining excluded every test concept without evidence.
 
 **Patterns:**
 
 - We report separate results for unseen objects, unseen task compositions, and unseen embodiments.
 - The hardest split holds out both {factor one} and {factor two} during training.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: evaluation phrases
+- Scope: Generalization is conditional on the split and adaptation protocol; no-target adaptation does not establish absence from all pretraining.
+- Collocations: zero-shot generalization, generalization to unseen objects, held-out task compositions
+- Not interchangeable with: target-task fine-tuning, absence from all pretraining
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} is fine-tuned on {target demonstrations} and evaluated on held-out objects; pretraining exposure is unknown.
+- Misuse: The policy achieves zero-shot generalization to completely unseen concepts.
+- Preferred: After fine-tuning on {target demonstrations}, the policy is evaluated on held-out objects.
+- Why: Preserves adaptation and the held-out axis; does not invent pretraining exclusion or reclassify fine-tuning as zero-shot.
 
 **Verify in primary sources:**
 

@@ -40,8 +40,17 @@ and [the source/adaptation note](AI_WRITING_SPEC.md). General rules have a singl
 canonical registry. Section guides still own section narration and tables;
 existing entries still own terms. Optional `lexical_profile` fields supply sense,
 part of speech, collocations, confusables, rule references and original
-fact-conditioned contrast pairs. Six entries have this new profile; no duplicate
+fact-conditioned contrast pairs. Fourteen entries have this optional profile; no duplicate
 dictionary or new default retrieval tier is introduced.
+
+The feedback iteration in [ADR-007](adr/ADR-007-positive-lexical-retrieval-and-reporting-scope.md)
+adds a shared `scripts/retrieval.py` positive-match predicate. A complete expression
+or positive collocation ranks ahead of incidental keyword overlap; existing scores
+break ties. Hyphen/space/case normalization does not turn a warning, contrast, or
+non-equivalent term into a positive alias. Domain/topic filters still apply first.
+Cross-domain reporting notes have explicit controlled domains; unscoped general
+rhetoric stays excluded from the technical pass. The portable skill receives the
+same helper verbatim. This is not semantic search or a correctness classifier.
 
 `scripts/writing_spec.py` is a pure selection/rendering boundary with no network
 or model calls. Bundles, one-file routes and the fallback core receive applicable
@@ -57,6 +66,10 @@ explain its nodes interactively without becoming another corpus owner. Neither
 diagram beauty, build checks nor limited wording lint proves writing efficacy.
 The paired blind evaluation boundary and the negative historical findings remain
 unchanged. Reviewed feedback is a maintainer process, not automatic learning.
+The eight-query development snapshot in
+`library/studies/feedback_retrieval_2026-10.json` records reproducible before/after
+retrieval, not a held-out test or writing-effectiveness score; it is not injected
+into default writing context.
 
 ## Progressive disclosure
 

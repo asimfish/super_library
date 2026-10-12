@@ -1,13 +1,13 @@
 {
-  "entries": 276,
-  "sources": 336,
+  "entries": 278,
+  "sources": 337,
   "by_domain": {
-    "embodied_ai": 59,
-    "general": 100,
-    "reinforcement_learning": 92,
-    "robot_learning": 72,
-    "vision_language_action": 33,
-    "world_models": 49
+    "embodied_ai": 61,
+    "general": 102,
+    "reinforcement_learning": 95,
+    "robot_learning": 74,
+    "vision_language_action": 36,
+    "world_models": 52
   },
   "by_kind": {
     "anti_pattern": 3,
@@ -15,27 +15,27 @@
     "phrase": 14,
     "sentence_pattern": 78,
     "term": 57,
-    "usage_note": 31
+    "usage_note": 33
   },
   "by_section": {
-    "abstract": 69,
+    "abstract": 70,
     "conclusion": 24,
-    "experiments": 87,
+    "experiments": 89,
     "introduction": 138,
     "limitations": 36,
     "method": 157,
-    "rebuttal": 43,
+    "rebuttal": 45,
     "related_work": 180,
     "review": 6,
-    "translation": 165
+    "translation": 167
   },
   "by_tier": {
-    "gold": 276
+    "gold": 278
   },
   "by_provenance": {
     "attested_collocation": 14,
-    "original_pattern": 87,
-    "paraphrased_synthesis": 126,
+    "original_pattern": 88,
+    "paraphrased_synthesis": 127,
     "terminology": 49
   },
   "by_topic_family": {
@@ -73,7 +73,7 @@
     "ICML": 74,
     "ICRA": 2,
     "IROS": 2,
-    "NeurIPS": 76,
+    "NeurIPS": 77,
     "RSS": 7,
     "TPAMI": 13
   },
@@ -84,7 +84,7 @@
     "2018": 8,
     "2019": 4,
     "2020": 5,
-    "2021": 48,
+    "2021": 49,
     "2022": 51,
     "2023": 63,
     "2024": 74,

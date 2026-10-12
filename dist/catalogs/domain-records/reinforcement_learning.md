@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 90
+Entries: 93
 
 - [actor–critic method](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.actor-critic.001.md) — definition
 - [advantage function](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.advantage-function.001.md) — definition
@@ -88,10 +88,13 @@ Entries: 90
 - [update-to-data (UTD) ratio](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.update-to-data-ratio.001.md) — term
 - [value overestimation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.value-overestimation.001.md) — term
 - [aleatoric versus epistemic uncertainty in learned dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.aleatoric-epistemic.001.md) — usage_note
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note
 - [distinguish interpolation within dataset support from extrapolation beyond it](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.support-generalization.001.md) — usage_note
 - [distinguish safety constraints from robustness to perturbations](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.safe-robust.001.md) — usage_note
 - [model rollout horizon trades synthetic coverage against accumulated error](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.rollout-horizon.001.md) — usage_note
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note
 - [on-policy versus off-policy learning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.on-off-policy.001.md) — usage_note
 - [online planning versus policy learning in imagination](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.planning-vs-policy.001.md) — usage_note
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note
 - [policy evaluation versus control](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.policy-evaluation-control.001.md) — usage_note
 - [separate centralized information during training from each agent's execution-time observations](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.usage-note.marl-observability.001.md) — usage_note

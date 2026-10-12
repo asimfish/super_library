@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 47
+Entries: 50
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition
 - [diffusion-based trajectory planning / diffusion planning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.definition.diffusion-planning.001.md) — definition
@@ -48,7 +48,10 @@ Entries: 47
 - [trajectory sampling for uncertainty propagation](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.term.trajectory-sampling.001.md) — term
 - [update-to-data (UTD) ratio](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/reinforcement_learning/rl.term.update-to-data-ratio.001.md) — term
 - [aleatoric versus epistemic uncertainty in learned dynamics](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.aleatoric-epistemic.001.md) — usage_note
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note
 - [evaluate multi-step consistency separately from one-step prediction](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.multistep-consistency.001.md) — usage_note
 - [model rollout horizon trades synthetic coverage against accumulated error](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.rollout-horizon.001.md) — usage_note
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note
 - [one-step accuracy does not by itself establish long-horizon fidelity](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.one-vs-multistep.001.md) — usage_note
 - [online planning versus policy learning in imagination](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/world_models/wm.usage-note.planning-vs-policy.001.md) — usage_note
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note

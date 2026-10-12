@@ -43,10 +43,10 @@ a citation index.
 ### AI writing specification and contextual dictionary
 
 The STE-inspired adaptation separates **12 writing rules** from the existing
-terminology records and section protocols. Six existing records now carry a
+terminology records and section protocols. Fourteen records now carry a
 contextual usage profile: sense, part of speech, collocations, non-equivalent
 terms, and original fact-conditioned contrast examples with editing reasons.
-This is a six-record seed, not a claim that all 276 records have been upgraded.
+This is selective enrichment, not a claim that all 278 records have been upgraded.
 No aerospace dictionary, universal word whitelist, tense ban, or sentence ceiling
 is imported. Normal bundles automatically include only applicable rule summaries;
 they do not require another full-spec read.
@@ -58,6 +58,12 @@ they do not require another full-spec read.
 Inspect one specification with `python3 scripts/superlib.py spec experiments`,
 or one enriched entry with `python3 scripts/superlib.py show emb.term.task-success-rate.001`.
 The architecture describes implemented boundaries, not demonstrated prose benefits.
+The feedback iteration adds a shared positive-collocation matcher and explicitly
+scoped statistical reporting notes; it does not admit all general rhetoric into
+technical retrieval. Confidence intervals and percentage-point differences have
+their own usage boundaries. Existing latency, generalization, return and
+prediction/control records are enriched rather than duplicated. See
+[the probe results and remaining efficacy gap](docs/FEEDBACK_ITERATION.md).
 Use the feature-branch checkout; the old pinned `v0.4.0` links are not updated.
 
 Super Library gives the agent exactly that: one reviewed **record** per
@@ -79,7 +85,7 @@ flowchart LR
 Three sentences capture the whole design:
 
 1. **Every concept has exactly one reviewed record** — 300 audited papers are
-   deduplicated into 276 records instead of being pasted into context.
+   deduplicated into 278 records instead of being pasted into context.
 2. **Every record carries its own discipline** — meaning, usage boundary,
    anti-patterns, original sentence templates, and the primary papers that a
    writer must reopen before making a claim.
@@ -124,7 +130,7 @@ What makes this more than a glossary entry:
 | **Patterns** | translation-ese — original `{placeholder}` templates, never copied sentences |
 | **Verify in primary sources** | citing papers nobody checked — the links are the papers that ground this record |
 
-Every one of the 276 records has this shape, reviewed to `gold` tier.
+Every one of the 278 records has this shape, reviewed to `gold` tier.
 Seventeen section protocols apply the same discipline at paragraph level
 (Abstract, Method, complete Experiments, Rebuttal, Peer Review, Translation,
 five table types), and 19 precomposed routes bundle a protocol with its records
@@ -156,7 +162,7 @@ flowchart LR
     R -->|"recurring concept,<br/>no coverage"| PROM["promote a new record"]
     R -->|"already covered"| LNK["link the existing record"]
     R -->|"only redundant wording"| NOP["record no-promotion"]
-    PROM --> REC["276 deduplicated records"]
+    PROM --> REC["278 deduplicated records"]
     LNK --> REC
     PROM --> LED["decision ledger<br/>236 audited outcomes"]
     LNK --> LED
@@ -165,7 +171,7 @@ flowchart LR
     B --> A["routes · protocols<br/>catalogs · cards"]
 ```
 
-A fourth, supporting decision: **infrastructure has explicit checks.** 84 tests, 42
+A fourth, supporting decision: **infrastructure has explicit checks.** 104 tests, 42
 deterministic retrieval evals, a 47-case blind writing suite, a bounded
 source-health check over all canonical URLs, and a same-model paired
 professionalism benchmark (blind A/B with anchored human rubrics — the harness
@@ -284,8 +290,8 @@ python3 scripts/superlib.py benchmark prompt rebuttal-existing-evidence
 
 ```text
 library/                    # canonical hand-reviewed source data
-├── entries/*.jsonl         #   276 gold records
-├── sources.jsonl           #   336 primary-paper metadata records with stable links
+├── entries/*.jsonl         #   278 gold records
+├── sources.jsonl           #   337 primary-paper metadata records with stable links
 ├── writing_guides.json     #   17 section/rebuttal/review/translation/table protocols
 ├── task_routes.json        #   19 precomposed one-file routes
 ├── topics.json             #   23 controlled topic families and query aliases
@@ -315,19 +321,19 @@ docs/                       # architecture, data model, writing-guide research
 
 | Dimension | Maintained checkout |
 |---|---|
-| Reviewed gold records | **276** |
-| Primary sources with canonical URLs | **336** (300/300 core URLs reachable at the last coverage audit) |
+| Reviewed gold records | **278** |
+| Primary sources with canonical URLs | **337** (300/300 core URLs reachable at the last coverage audit) |
 | Core papers with explicit review dispositions | **300/300** — 296 linked, 4 no-promotions |
 | Promotion ledger | 236 decisions: 40 promotions · 192 links · 4 no-promotions |
 | Full-paper structural samples | 80 (twenty per domain, detectors stated in the study method) |
 | Paragraph-level narrative calibration | 12 passages from 7 existing sources; no additional coverage count |
 | Blind writing suite | 47 cases across paper, rebuttal, peer-review, translation |
-| Gates | 84 tests · 42 retrieval evals · byte budgets · zero-drift builds |
+| Gates | 104 tests · 42 retrieval evals · byte budgets · zero-drift builds |
 
 <details>
 <summary><b>Full scope statements</b> — what these numbers do and do not claim</summary>
 
-The maintained checkout contains **276 gold entries** and **336 primary-source
+The maintained checkout contains **278 gold entries** and **337 primary-source
 records with canonical URLs**. Exactly 300 sources form the recent five-year core: 125
 reinforcement-learning, 90 embodied-AI, 55 world-model, and 30 VLA papers.
 The collection contains 32 CVPR, 21 ECCV, 33 ICCV, 71 NeurIPS, 64 ICLR, 67 ICML,

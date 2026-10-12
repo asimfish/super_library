@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "id": "feedback-retrieval-2026-10-12",
+  "reviewed_at": "2026-10-12",
+  "baseline_commit": "9890df2863c51b09bed9635b5938affe44fbb109",
+  "method": "Maintainer-selected diagnostics using rank_entries, kinds term/definition/usage_note, include_general=False, one named domain. Same queries on an isolated baseline checkout and the feature checkout. No section or topic restriction in this eight-query snapshot; separate regression tests cover those filters.",
+  "limitations": "These are development probes, not a held-out relevance benchmark or a generated-writing test. Content and ranking change together; this snapshot does not isolate their contributions or establish narrative quality.",
+  "cases": [
+    {
+      "query": "percentage points",
+      "domain": "embodied_ai",
+      "expected_id": "general.usage-note.percentage-points.001",
+      "before_top4": [
+        "emb.term.task-success-rate.001"
+      ],
+      "after_top4": [
+        "general.usage-note.percentage-points.001",
+        "emb.term.task-success-rate.001"
+      ]
+    },
+    {
+      "query": "percentage change",
+      "domain": "vision_language_action",
+      "expected_id": "general.usage-note.percentage-points.001",
+      "before_top4": [
+        "emb.term.task-success-rate.001"
+      ],
+      "after_top4": [
+        "general.usage-note.percentage-points.001",
+        "emb.term.task-success-rate.001"
+      ]
+    },
+    {
+      "query": "model query latency",
+      "domain": "vision_language_action",
+      "expected_id": "vla.usage-note.control-latency.001",
+      "before_top4": [
+        "emb.definition.3d-vla-world-model.001",
+        "vla.usage-note.control-latency.001",
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.vla.001"
+      ],
+      "after_top4": [
+        "vla.usage-note.control-latency.001",
+        "emb.definition.3d-vla-world-model.001",
+        "emb.definition.embodied-language-model.001",
+        "emb.definition.vla.001"
+      ]
+    },
+    {
+      "query": "zero-shot generalization",
+      "domain": "vision_language_action",
+      "expected_id": "emb.usage-note.systematic-generalization.001",
+      "before_top4": [
+        "emb.usage-note.systematic-generalization.001"
+      ],
+      "after_top4": [
+        "emb.usage-note.systematic-generalization.001",
+        "general.usage-note.generalization-axis.001"
+      ]
+    },
+    {
+      "query": "prediction error downstream control",
+      "domain": "world_models",
+      "expected_id": "wm.definition.objective-mismatch.001",
+      "before_top4": [
+        "wm.term.compounding-model-error.001",
+        "wm.definition.task-irrelevant-distraction.001",
+        "wm.definition.objective-mismatch.001",
+        "wm.term.action-conditioned-dynamics.001"
+      ],
+      "after_top4": [
+        "wm.definition.objective-mismatch.001",
+        "wm.term.compounding-model-error.001",
+        "wm.definition.task-irrelevant-distraction.001",
+        "wm.term.action-conditioned-dynamics.001"
+      ]
+    },
+    {
+      "query": "discounted return",
+      "domain": "reinforcement_learning",
+      "expected_id": "rl.definition.return.001",
+      "before_top4": [
+        "rl.definition.return.001",
+        "rl.definition.average-reward-rl.001",
+        "rl.term.return-distribution.001",
+        "rl.definition.risk-sensitive-rl.001"
+      ],
+      "after_top4": [
+        "rl.definition.return.001",
+        "rl.definition.average-reward-rl.001",
+        "rl.term.return-distribution.001",
+        "rl.definition.risk-sensitive-rl.001"
+      ]
+    },
+    {
+      "query": "matched interaction budget",
+      "domain": "reinforcement_learning",
+      "expected_id": "rl.term.sample-efficiency.001",
+      "before_top4": [
+        "rl.definition.meta-rl.001",
+        "rl.definition.offline-to-online.001",
+        "rl.term.deployment-efficiency.001",
+        "rl.term.sample-efficiency.001"
+      ],
+      "after_top4": [
+        "rl.term.sample-efficiency.001",
+        "rl.definition.meta-rl.001",
+        "rl.definition.offline-to-online.001",
+        "rl.term.deployment-efficiency.001"
+      ]
+    },
+    {
+      "query": "confidence interval",
+      "domain": "embodied_ai",
+      "expected_id": "general.usage-note.confidence-interval.001",
+      "before_top4": [],
+      "after_top4": [
+        "general.usage-note.confidence-interval.001"
+      ]
+    }
+  ]
+}

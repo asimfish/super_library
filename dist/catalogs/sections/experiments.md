@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 56
+Entries: 58
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -52,9 +52,11 @@ Entries: 56
 - [We report {statistic} over {number} independent {runs or seeds}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.independent-runs.001.md) — sentence_pattern · domains=general · tags=random seeds,independent runs
 - [{method} improves {metric} by {value} relative to {baseline} under {protocol}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.quantify.001.md) — sentence_pattern · domains=general · tags=result,improvement
 - [A dash denotes an unreported value, not a measured zero.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.missing-zero-na.001.md) — usage_note · domains=general · tags=missing values,table dash
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=confidence interval,bootstrap
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality
 - [finding-led experimental narrative](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.result-narrative.001.md) — usage_note · domains=general · tags=experimental narrative,results analysis
-- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=generalization ability,held-out split
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=percentage points,percentage change
 - [performance is usually a mass noun when reporting an aggregate result](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.performance.001.md) — usage_note · domains=general · tags=performance,performances
 - [preserve evidence without repeating every table cell](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.result-display-allocation.001.md) — usage_note · domains=general · tags=evidence placement,retained table
 - [replace vague effectiveness claims with the observed outcome](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.effectiveness.001.md) — usage_note · domains=general · tags=effectiveness,prove effectiveness

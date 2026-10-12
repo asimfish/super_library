@@ -59,6 +59,9 @@ organization without manuscript writing.
   are not global word approval. Rule summaries do not ban tenses or impose sentence
   ceilings. Contrast examples bind only to their declared hypothetical facts.
   The shared pure renderer adds no network, credential or external-effect capability.
+  Positive-match precedence reads only expressions and positive collocations,
+  not contrast text or confusables. The shared matcher performs no I/O and cannot
+  bypass the caller's domain/topic filters; it is not a semantic validator.
 - **Numerical laundry lists or selective omission:** distinguish complete
   evidence in retained displays from repetition in analysis; preserve material
   exceptions and all standalone/translation-required values. No numeric quota

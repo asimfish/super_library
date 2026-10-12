@@ -22,6 +22,20 @@ The cumulative sum of future rewards, commonly weighting a reward received k ste
 - The objective maximizes the expected discounted return {equation}.
 - We report undiscounted episode return while using {discount} for training.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: An accumulated reward quantity under the declared horizon and discount convention. Training objectives may differ from evaluation returns.
+- Collocations: discounted return, undiscounted episode return, expected discounted return
+- Not interchangeable with: per-step reward, success rate
+- Rule references: terms.consistency, sentences.attachment
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Evaluation sums undiscounted rewards over each episode; training uses discount factor {gamma}.
+- Misuse: The reported discounted return is {value}.
+- Preferred: The reported undiscounted episode return is {value}; training uses discount factor {gamma}.
+- Why: Retains the evaluation quantity instead of transferring the training discount convention to the metric.
+
 **Verify in primary sources:**
 
 - `schulman2015trpo` — [Trust Region Policy Optimization](https://proceedings.mlr.press/v37/schulman15.html) (ICML 2015)

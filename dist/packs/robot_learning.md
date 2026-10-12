@@ -1447,14 +1447,28 @@ Imitation learning is the broader problem of learning behavior from demonstratio
 
 Systematic evaluation varies identified factors—such as objects, placements, task templates, prompt compositions, environments, or embodiments—while documenting which combinations were withheld.
 
-**Use:** Define each split procedurally and report results by axis. Use 'zero-shot' only when the evaluated factor or combination was absent from training under the stated protocol.
+**Use:** Define each split procedurally and report results by axis. For zero-shot evaluation, state target-task demonstrations, in-context examples, and parameter updates allowed at test time; distinguish no target adaptation from an unseen factor or composition and disclose known pretraining exposure.
 
-**Avoid:** Do not collapse all held-out conditions into one generalization score that hides qualitatively different shifts.
+**Avoid:** Do not collapse qualitatively different shifts into one generalization score, call fine-tuned target-task performance zero-shot, or assert that pretraining excluded every test concept without evidence.
 
 **Patterns:**
 
 - We report separate results for unseen objects, unseen task compositions, and unseen embodiments.
 - The hardest split holds out both {factor one} and {factor two} during training.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: evaluation phrases
+- Scope: Generalization is conditional on the split and adaptation protocol; no-target adaptation does not establish absence from all pretraining.
+- Collocations: zero-shot generalization, generalization to unseen objects, held-out task compositions
+- Not interchangeable with: target-task fine-tuning, absence from all pretraining
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} is fine-tuned on {target demonstrations} and evaluated on held-out objects; pretraining exposure is unknown.
+- Misuse: The policy achieves zero-shot generalization to completely unseen concepts.
+- Preferred: After fine-tuning on {target demonstrations}, the policy is evaluated on held-out objects.
+- Why: Preserves adaptation and the held-out axis; does not invent pretraining exclusion or reclassify fine-tuning as zero-shot.
 
 **Verify in primary sources:**
 
@@ -1484,9 +1498,44 @@ A VLA label emphasizes action generation for control, whereas an embodied langua
 - `driess2023palme` — [PaLM-E: An Embodied Multimodal Language Model](https://proceedings.mlr.press/v202/driess23a.html) (ICML 2023)
 - `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
 
+### confidence interval
+
+`general.usage-note.confidence-interval.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An interval estimate of a specified statistic using a method with stated nominal coverage; it is not the observed spread of individual trials.
+
+**Use:** Name the statistic, confidence level, interval method, independent sampling unit, and aggregation. For a bootstrap, disclose the resampling unit and dependence structure. Report uncertainty for the difference when comparing methods; overlapping marginal intervals alone do not resolve the comparison.
+
+**Avoid:** Do not label mean ± standard deviation as a confidence interval, treat episodes from one policy as independent training runs, or infer equivalence from an interval containing zero. Do not select bootstrap settings or fabricate an interval when only a mean was supplied.
+
+**Patterns:**
+
+- We report {statistic} with a {level}% confidence interval computed using {method} over {independent units}.
+- The estimated difference in {metric} is {value}, with a {level}% {interval method} confidence interval of {bounds}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Uncertainty about a named statistic under a stated sampling design. The interval method must be provided or justified, not inferred from a sentence template.
+- Collocations: confidence interval, bootstrap confidence interval, interval estimate
+- Not interchangeable with: standard deviation, standard error, credible interval
+- Rule references: claims.calibration, sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only {mean} and the standard deviation {sd} across {runs} training runs are supplied; no interval was computed.
+- Misuse: The {level}% confidence interval is {mean} ± {sd}.
+- Preferred: The mean is {mean}, with a standard deviation of {sd} across {runs} training runs.
+- Why: Retains the supplied descriptive statistic without fabricating an interval or nominal coverage.
+
+**Verify in primary sources:**
+
+- `agarwal2021statisticalprecipice` — [Deep Reinforcement Learning at the Edge of the Statistical Precipice](https://proceedings.neurips.cc/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html) (NeurIPS 2021)
+
 ### name the generalization axis and held-out unit
 
-`general.usage-note.generalization-axis.001` · usage_note · general, embodied_ai, robot_learning · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
+`general.usage-note.generalization-axis.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
 
 **Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
 
@@ -1500,6 +1549,51 @@ Generalization is always relative to a specified shift, such as unseen objects, 
 
 - We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
 - The current study does not establish transfer across unseen {embodiments or environments}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: reporting instruction
+- Scope: A reporting framework for named held-out units, not a claim of transfer across untested shifts.
+- Collocations: generalization axis, held-out evaluation, generalization to unseen environments
+- Not interchangeable with: random train-test split, cross-embodiment transfer
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only objects were held out; environments and embodiments were unchanged.
+- Misuse: The policy generalizes across environments and embodiments.
+- Preferred: We evaluate generalization to held-out objects in the same environment and embodiment.
+- Why: Binds the conclusion to the tested shift and avoids adding untested transfer axes.
+
+### percentage-point difference versus relative percent change
+
+`general.usage-note.percentage-points.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, experiments, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+For a metric expressed in percent, subtracting two percentage values gives a percentage-point difference; relative percent change divides the difference by the stated nonzero reference value.
+
+**Use:** State the metric, comparator and endpoints or a traceable display. Label absolute differences as percentage points and relative changes as percent relative to the reference. Respect metric direction and aggregation; a relative change from a zero reference is undefined.
+
+**Avoid:** Do not silently turn relative improvement into percentage points, assign an aggregate difference to every task, or call points on a normalized score percentage points without a percentage scale.
+
+**Patterns:**
+
+- Success rate rises from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Relative to {baseline value}, {error metric} decreases by {relative change}%; lower values indicate better performance.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: measurement phrases
+- Scope: Percentage-point differences apply only to percent-scale metrics; relative percent changes require a named nonzero reference.
+- Collocations: percentage points, percentage-point difference, percentage change, relative percent change
+- Not interchangeable with: relative percentage improvement, normalized-score points
+- Rule references: sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: On the same protocol, success rate changes from {baseline}% to {method}%; the subtraction is {difference} percentage points.
+- Misuse: Success rate improves by {difference}%.
+- Preferred: Success rate increases from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Why: Makes the absolute unit and reference explicit; do not compute new quantities unless the task permits it and the endpoints are available.
 
 ### distinguish interpolation within dataset support from extrapolation beyond it
 
@@ -1539,10 +1633,25 @@ Inference latency measures computation time per policy update, while control fre
 
 - On {hardware}, the policy requires {latency statistic} per update and sustains {frequency} Hz with {execution scheme}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrases
+- Scope: Measure per-query latency separately from command rate and end-to-end response time under the declared execution scheme.
+- Collocations: model query latency, policy inference latency, control frequency
+- Not interchangeable with: action throughput, end-to-end response time
+- Rule references: terms.consistency, sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} has {latency} per model query; the executed command rate was not measured.
+- Misuse: The robot operates at {inverse latency} Hz.
+- Preferred: The policy has a model-query latency of {latency}; the executed control frequency was not measured.
+- Why: An inverse latency is not a measured command rate, especially with action chunks or non-blocking execution.
+
 **Verify in primary sources:**
 
 - `hou2025-dita-scaling-diffusion-transformer` — [Dita: Scaling Diffusion Transformer for Generalist Vision-Language-Action Policy](https://openaccess.thecvf.com/content/ICCV2025/html/Hou_Dita_Scaling_Diffusion_Transformer_for_Generalist_Vision-Language-Action_Policy_ICCV_2025_paper.html) (ICCV 2025)
 - `zheng2025-tracevla-visual-trace-prompting` — [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness for Generalist Robotic Policies](https://iclr.cc/virtual/2025/poster/29130) (ICLR 2025)
+- `kim2025openvla` — [OpenVLA: An Open-Source Vision-Language-Action Model](https://proceedings.mlr.press/v270/kim25c.html) (CoRL 2025)
 
 ### open-loop action prediction versus closed-loop execution
 

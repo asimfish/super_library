@@ -1040,6 +1040,20 @@ Defines metric direction, interpretation, and the statistical unit used for aggr
 - Higher values of {metric} indicate {capability}; results are averaged over {tasks} and then over {seeds}.
 - Lower {metric} indicates {meaning}; each value is averaged over {evaluation unit}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: sentence pattern
+- Scope: Declare metric direction, scale and aggregation unit; distinguish the experimental unit from repeated observations.
+- Collocations: metric direction, aggregation unit, independent training runs
+- Not interchangeable with: number of evaluation episodes, uncertainty estimate
+- Rule references: sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Each of {runs} independent training runs is evaluated for {episodes} episodes; a statistic is computed across runs.
+- Misuse: Results are averaged over {episodes} independent runs.
+- Preferred: Each of {runs} independent training runs is evaluated for {episodes} episodes; {statistic} is computed across runs.
+- Why: Does not relabel episodes from one trained policy as independent training runs.
+
 ### A central challenge is to {objective} while {constraint}.
 
 `general.sentence-pattern.motivate.001` · sentence_pattern · general · abstract, introduction, related_work
@@ -1642,6 +1656,41 @@ A structural assumption built into an architecture, objective, or algorithm that
 
 - `bhattasali2022-neural-circuit-architectural-priors` — [Neural Circuit Architectural Priors for Embodied Control](https://proceedings.neurips.cc/paper_files/paper/2022/hash/52e431bd7689d98426300cb103bb0ee3-Abstract-Conference.html) (NeurIPS 2022)
 
+### confidence interval
+
+`general.usage-note.confidence-interval.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · experiments, rebuttal, translation
+
+**Provenance:** `paraphrased_synthesis` · **Quality:** `gold+reviewed`
+
+An interval estimate of a specified statistic using a method with stated nominal coverage; it is not the observed spread of individual trials.
+
+**Use:** Name the statistic, confidence level, interval method, independent sampling unit, and aggregation. For a bootstrap, disclose the resampling unit and dependence structure. Report uncertainty for the difference when comparing methods; overlapping marginal intervals alone do not resolve the comparison.
+
+**Avoid:** Do not label mean ± standard deviation as a confidence interval, treat episodes from one policy as independent training runs, or infer equivalence from an interval containing zero. Do not select bootstrap settings or fabricate an interval when only a mean was supplied.
+
+**Patterns:**
+
+- We report {statistic} with a {level}% confidence interval computed using {method} over {independent units}.
+- The estimated difference in {metric} is {value}, with a {level}% {interval method} confidence interval of {bounds}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Uncertainty about a named statistic under a stated sampling design. The interval method must be provided or justified, not inferred from a sentence template.
+- Collocations: confidence interval, bootstrap confidence interval, interval estimate
+- Not interchangeable with: standard deviation, standard error, credible interval
+- Rule references: claims.calibration, sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only {mean} and the standard deviation {sd} across {runs} training runs are supplied; no interval was computed.
+- Misuse: The {level}% confidence interval is {mean} ± {sd}.
+- Preferred: The mean is {mean}, with a standard deviation of {sd} across {runs} training runs.
+- Why: Retains the supplied descriptive statistic without fabricating an interval or nominal coverage.
+
+**Verify in primary sources:**
+
+- `agarwal2021statisticalprecipice` — [Deep Reinforcement Learning at the Edge of the Statistical Precipice](https://proceedings.neurips.cc/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html) (NeurIPS 2021)
+
 ### replace vague effectiveness claims with the observed outcome
 
 `general.usage-note.effectiveness.001` · usage_note · general · abstract, experiments, conclusion, rebuttal, translation
@@ -1675,7 +1724,7 @@ Original conditional contrast; do not import its facts into a draft:
 
 ### name the generalization axis and held-out unit
 
-`general.usage-note.generalization-axis.001` · usage_note · general, embodied_ai, robot_learning · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
+`general.usage-note.generalization-axis.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
 
 **Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
 
@@ -1689,6 +1738,20 @@ Generalization is always relative to a specified shift, such as unseen objects, 
 
 - We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.
 - The current study does not establish transfer across unseen {embodiments or environments}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: reporting instruction
+- Scope: A reporting framework for named held-out units, not a claim of transfer across untested shifts.
+- Collocations: generalization axis, held-out evaluation, generalization to unseen environments
+- Not interchangeable with: random train-test split, cross-embodiment transfer
+- Rule references: claims.calibration, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Only objects were held out; environments and embodiments were unchanged.
+- Misuse: The policy generalizes across environments and embodiments.
+- Preferred: We evaluate generalization to held-out objects in the same environment and embodiment.
+- Why: Binds the conclusion to the tested shift and avoids adding untested transfer axes.
 
 ### A dash denotes an unreported value, not a measured zero.
 
@@ -1722,6 +1785,37 @@ Modal verbs and evidential verbs serve different functions rather than forming o
 **Patterns:**
 
 - The results suggest that {hypothesis}, but do not establish {stronger causal claim}.
+
+### percentage-point difference versus relative percent change
+
+`general.usage-note.percentage-points.001` · usage_note · general, world_models, reinforcement_learning, embodied_ai, robot_learning, vision_language_action · abstract, experiments, rebuttal, translation
+
+**Provenance:** `original_pattern` · **Quality:** `gold+reviewed`
+
+For a metric expressed in percent, subtracting two percentage values gives a percentage-point difference; relative percent change divides the difference by the stated nonzero reference value.
+
+**Use:** State the metric, comparator and endpoints or a traceable display. Label absolute differences as percentage points and relative changes as percent relative to the reference. Respect metric direction and aggregation; a relative change from a zero reference is undefined.
+
+**Avoid:** Do not silently turn relative improvement into percentage points, assign an aggregate difference to every task, or call points on a normalized score percentage points without a percentage scale.
+
+**Patterns:**
+
+- Success rate rises from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Relative to {baseline value}, {error metric} decreases by {relative change}%; lower values indicate better performance.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: measurement phrases
+- Scope: Percentage-point differences apply only to percent-scale metrics; relative percent changes require a named nonzero reference.
+- Collocations: percentage points, percentage-point difference, percentage change, relative percent change
+- Not interchangeable with: relative percentage improvement, normalized-score points
+- Rule references: sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: On the same protocol, success rate changes from {baseline}% to {method}%; the subtraction is {difference} percentage points.
+- Misuse: Success rate improves by {difference}%.
+- Preferred: Success rate increases from {baseline}% to {method}%, a gain of {difference} percentage points.
+- Why: Makes the absolute unit and reference explicit; do not compute new quantities unless the task permits it and the endpoints are available.
 
 ### performance is usually a mass noun when reporting an aggregate result
 

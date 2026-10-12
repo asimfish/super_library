@@ -3,7 +3,7 @@
 Thin rhetorical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 27
+Entries: 29
 
 - [generalization ability / robustness ability](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.ability-noun.001.md) — anti_pattern · domains=general · tags=Chinglish,generalization ability
 - [more superior / more optimal](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.anti-pattern.more-superior.001.md) — anti_pattern · domains=general · tags=comparative,translation
@@ -25,8 +25,10 @@ Entries: 27
 - [Although {qualified premise}, {bounded conclusion}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.translation-preserve.001.md) — sentence_pattern · domains=general · tags=translation,although
 - [We use {term} to denote {operational meaning}.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.sentence-pattern.define.001.md) — sentence_pattern · domains=general · tags=definition,terminology
 - [inductive bias](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.term.inductive-bias.001.md) — term · domains=general · tags=inductive bias,architectural prior
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=confidence interval,bootstrap
 - [Distinguish possibility, interpretation, empirical evidence, and formal proof.](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.modality.001.md) — usage_note · domains=general · tags=translation,modality
-- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,embodied_ai,robot_learning · tags=generalization ability,held-out split
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=generalization ability,held-out split
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note · domains=general,world_models,reinforcement_learning,embodied_ai,robot_learning,vision_language_action · tags=percentage points,percentage change
 - [performance is usually a mass noun when reporting an aggregate result](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.performance.001.md) — usage_note · domains=general · tags=performance,performances
 - [replace vague effectiveness claims with the observed outcome](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.effectiveness.001.md) — usage_note · domains=general · tags=effectiveness,prove effectiveness
 - [respectively requires an unambiguous one-to-one ordering](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.respectively.001.md) — usage_note · domains=general · tags=respectively,分别

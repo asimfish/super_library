@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 56
+Entries: 58
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition
@@ -54,10 +54,12 @@ Entries: 56
 - [task success rate](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.task-success-rate.001.md) — term
 - [teleoperated robot demonstration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.teleoperation-demonstration.001.md) — term
 - [temporal ensembling of overlapping action predictions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.temporal-ensembling.001.md) — term
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note
 - [decompose the embodiment gap into physical and visual disparities](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.embodiment-gap.001.md) — usage_note
 - [distinguish VLA policies from embodied language models](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.vla-vs-elm.001.md) — usage_note
 - [evaluate embodied generalization along separately controlled axes](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.systematic-generalization.001.md) — usage_note
 - [heterogeneous robot action spaces require an explicit alignment strategy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.heterogeneous-actions.001.md) — usage_note
 - [imitation learning versus behavioral cloning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/robot_learning/emb.usage-note.imitation-bc.001.md) — usage_note
 - [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note
 - [separate prediction horizon, execution horizon, and feedback frequency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.chunking-feedback.001.md) — usage_note

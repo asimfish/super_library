@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
 from writing_spec import render_lexical_profile
+from retrieval import exact_positive_match
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -83,6 +84,8 @@ def score(entry: Dict[str, Any], query: str) -> int:
         value += 2 * guidance.split().count(token)
         value += examples.split().count(token)
         value += 3 * metadata.split().count(token)
+    if not value and exact_positive_match(entry, query):
+        value = 1
     if value and entry["provenance"]["type"] == "attested_collocation":
         value += 2
     return value
@@ -135,7 +138,10 @@ def rank(
         )
     ]
     ranked = [item for item in ranked if item[0] > 0]
-    ranked.sort(key=lambda item: (-item[0], item[1]["id"]))
+    ranked.sort(key=lambda item: (
+        not any(exact_positive_match(item[1], variant) for variant in variants),
+        -item[0], item[1]["id"],
+    ))
     return ranked
 
 

@@ -200,6 +200,20 @@ Defines metric direction, interpretation, and the statistical unit used for aggr
 - Higher values of {metric} indicate {capability}; results are averaged over {tasks} and then over {seeds}.
 - Lower {metric} indicates {meaning}; each value is averaged over {evaluation unit}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: sentence pattern
+- Scope: Declare metric direction, scale and aggregation unit; distinguish the experimental unit from repeated observations.
+- Collocations: metric direction, aggregation unit, independent training runs
+- Not interchangeable with: number of evaluation episodes, uncertainty estimate
+- Rule references: sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: Each of {runs} independent training runs is evaluated for {episodes} episodes; a statistic is computed across runs.
+- Misuse: Results are averaged over {episodes} independent runs.
+- Preferred: Each of {runs} independent training runs is evaluated for {episodes} episodes; {statistic} is computed across runs.
+- Why: Does not relabel episodes from one trained policy as independent training runs.
+
 ### We report {statistic} over {number} independent {runs or seeds}.
 
 `general.sentence-pattern.independent-runs.001` · sentence_pattern · general · experiments, rebuttal

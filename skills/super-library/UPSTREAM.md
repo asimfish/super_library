@@ -1,5 +1,26 @@
 # Provenance of the narrative revision
 
+## Retrieval-feedback revision, 2026-10-12
+
+Based on repository commit `9890df2863c51b09bed9635b5938affe44fbb109`.
+The shared positive-match helper is independently implemented here, not imported
+from another skill. It uses no new dependency, network, credential or I/O
+capability. Eight maintained development probes record the exact baseline and
+feature rankings in `library/studies/feedback_retrieval_2026-10.json`; they are not
+a held-out relevance test or a generated-writing evaluation. Native parity,
+domain/topic exclusion, negative-alias and budget tests cover the changes.
+
+Six existing records are enriched; two distinct statistical/reporting usage notes
+are added, bringing the optional profiles to fourteen. The confidence-interval
+note independently synthesizes Agarwal et al., NeurIPS 2021, Section 2, Figure 2
+and Section 4.1. The original paper is linked in repository source metadata, not
+redistributed or relicensed. Percentage-point guidance and all contrasts are
+original fact-conditioned explanations, not paper quotations or real results.
+The frozen 300-paper collection and old writing-evaluation conditions are unchanged.
+The primary locators and remaining efficacy gap are recorded in
+`docs/FEEDBACK_ITERATION.md`. No global catalog installation or governance
+certification is claimed.
+
 ## AI writing specification revision, 2026-10-12
 
 Independent synthesis of Karpathy's public post

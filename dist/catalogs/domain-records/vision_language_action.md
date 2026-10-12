@@ -3,7 +3,7 @@
 Thin technical index for corpus `0.4.0`. Select 3–8 cards; do not open
 every link. Read the [universal core](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/core.md) first.
 
-Entries: 30
+Entries: 33
 
 - [3D vision-language-action generative world model (paper-specific usage)](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.3d-vla-world-model.001.md) — definition
 - [action chunking](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.definition.action-chunking.001.md) — definition
@@ -28,10 +28,13 @@ Entries: 30
 - [teleoperated robot demonstration](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.teleoperation-demonstration.001.md) — term
 - [temporal ensembling of overlapping action predictions](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.term.temporal-ensembling.001.md) — term
 - [visual trace prompting](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.term.visual-trace-prompting.001.md) — term
+- [confidence interval](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.confidence-interval.001.md) — usage_note
 - [distinguish VLA policies from embodied language models](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.vla-vs-elm.001.md) — usage_note
 - [evaluate embodied generalization along separately controlled axes](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.systematic-generalization.001.md) — usage_note
 - [heterogeneous robot action spaces require an explicit alignment strategy](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.heterogeneous-actions.001.md) — usage_note
+- [name the generalization axis and held-out unit](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.generalization-axis.001.md) — usage_note
 - [open-loop action prediction versus closed-loop execution](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.usage-note.open-closed-loop.001.md) — usage_note
+- [percentage-point difference versus relative percent change](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/general/general.usage-note.percentage-points.001.md) — usage_note
 - [policy inference latency and control frequency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.usage-note.control-latency.001.md) — usage_note
 - [separate multimodal pretraining from robot-policy fine-tuning](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/vision_language_action/vla.usage-note.pretrain-finetune.001.md) — usage_note
 - [separate prediction horizon, execution horizon, and feedback frequency](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/cards/embodied_ai/emb.usage-note.chunking-feedback.001.md) — usage_note

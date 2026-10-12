@@ -164,9 +164,15 @@
     "百分比": [
       "percentage points relative percent"
     ],
+    "百分点": [
+      "percentage points"
+    ],
     "相关工作": [
       "related work",
       "position prior methods"
+    ],
+    "相对百分比变化": [
+      "relative percent change"
     ],
     "真实机器人实验": [
       "real robot trials success criterion reset protocol"
@@ -185,7 +191,7 @@
       "results analysis quantified comparison exception trade-off"
     ],
     "置信区间": [
-      "confidence interval uncertainty"
+      "confidence interval"
     ],
     "表格": [
       "table caption metric direction"
@@ -2959,7 +2965,7 @@
       ]
     },
     {
-      "avoid": "Do not collapse all held-out conditions into one generalization score that hides qualitatively different shifts.",
+      "avoid": "Do not collapse qualitatively different shifts into one generalization score, call fine-tuned target-task performance zero-shot, or assert that pretraining excluded every test concept without evidence.",
       "domains": [
         "embodied_ai",
         "robot_learning",
@@ -2970,7 +2976,7 @@
         "The hardest split holds out both {factor one} and {factor two} during training."
       ],
       "expression": "evaluate embodied generalization along separately controlled axes",
-      "guidance": "Define each split procedurally and report results by axis. Use 'zero-shot' only when the evaluated factor or combination was absent from training under the stated protocol.",
+      "guidance": "Define each split procedurally and report results by axis. For zero-shot evaluation, state target-task demonstrations, in-context examples, and parameter updates allowed at test time; distinguish no target adaptation from an unseen factor or composition and disclose known pretraining exposure.",
       "id": "emb.usage-note.systematic-generalization.001",
       "intents": [
         "compare",
@@ -2979,13 +2985,38 @@
         "limit"
       ],
       "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "zero-shot generalization",
+          "generalization to unseen objects",
+          "held-out task compositions"
+        ],
+        "contrasts": [
+          {
+            "after": "After fine-tuning on {target demonstrations}, the policy is evaluated on held-out objects.",
+            "before": "The policy achieves zero-shot generalization to completely unseen concepts.",
+            "facts": "{method} is fine-tuned on {target demonstrations} and evaluated on held-out objects; pretraining exposure is unknown.",
+            "reason": "Preserves adaptation and the held-out axis; does not invent pretraining exclusion or reclassify fine-tuning as zero-shot."
+          }
+        ],
+        "not_equivalent_to": [
+          "target-task fine-tuning",
+          "absence from all pretraining"
+        ],
+        "part_of_speech": "evaluation phrases",
+        "rule_ids": [
+          "claims.calibration",
+          "experiments.scope"
+        ],
+        "scope": "Generalization is conditional on the split and adaptation protocol; no-target adaptation does not establish absence from all pretraining."
+      },
       "meaning": "Systematic evaluation varies identified factors—such as objects, placements, task templates, prompt compositions, environments, or embodiments—while documenting which combinations were withheld.",
       "provenance": {
         "note": "Independent evaluation guidance synthesized from multimodal-prompt and cross-embodiment studies.",
         "type": "paraphrased_synthesis"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -5361,13 +5392,38 @@
         "quantify"
       ],
       "kind": "sentence_pattern",
+      "lexical_profile": {
+        "collocations": [
+          "metric direction",
+          "aggregation unit",
+          "independent training runs"
+        ],
+        "contrasts": [
+          {
+            "after": "Each of {runs} independent training runs is evaluated for {episodes} episodes; {statistic} is computed across runs.",
+            "before": "Results are averaged over {episodes} independent runs.",
+            "facts": "Each of {runs} independent training runs is evaluated for {episodes} episodes; a statistic is computed across runs.",
+            "reason": "Does not relabel episodes from one trained policy as independent training runs."
+          }
+        ],
+        "not_equivalent_to": [
+          "number of evaluation episodes",
+          "uncertainty estimate"
+        ],
+        "part_of_speech": "sentence pattern",
+        "rule_ids": [
+          "sentences.attachment",
+          "experiments.scope"
+        ],
+        "scope": "Declare metric direction, scale and aggregation unit; distinguish the experimental unit from repeated observations."
+      },
       "meaning": "Defines metric direction, interpretation, and the statistical unit used for aggregation.",
       "provenance": {
         "note": "Original experimental-writing pattern authored after the section-writing audit.",
         "type": "original_pattern"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -6791,6 +6847,83 @@
       ]
     },
     {
+      "avoid": "Do not label mean ± standard deviation as a confidence interval, treat episodes from one policy as independent training runs, or infer equivalence from an interval containing zero. Do not select bootstrap settings or fabricate an interval when only a mean was supplied.",
+      "domains": [
+        "general",
+        "world_models",
+        "reinforcement_learning",
+        "embodied_ai",
+        "robot_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "We report {statistic} with a {level}% confidence interval computed using {method} over {independent units}.",
+        "The estimated difference in {metric} is {value}, with a {level}% {interval method} confidence interval of {bounds}."
+      ],
+      "expression": "confidence interval",
+      "guidance": "Name the statistic, confidence level, interval method, independent sampling unit, and aggregation. For a bootstrap, disclose the resampling unit and dependence structure. Report uncertainty for the difference when comparing methods; overlapping marginal intervals alone do not resolve the comparison.",
+      "id": "general.usage-note.confidence-interval.001",
+      "intents": [
+        "quantify",
+        "clarify",
+        "scope",
+        "limit"
+      ],
+      "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "confidence interval",
+          "bootstrap confidence interval",
+          "interval estimate"
+        ],
+        "contrasts": [
+          {
+            "after": "The mean is {mean}, with a standard deviation of {sd} across {runs} training runs.",
+            "before": "The {level}% confidence interval is {mean} ± {sd}.",
+            "facts": "Only {mean} and the standard deviation {sd} across {runs} training runs are supplied; no interval was computed.",
+            "reason": "Retains the supplied descriptive statistic without fabricating an interval or nominal coverage."
+          }
+        ],
+        "not_equivalent_to": [
+          "standard deviation",
+          "standard error",
+          "credible interval"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "claims.calibration",
+          "sentences.attachment",
+          "experiments.scope"
+        ],
+        "scope": "Uncertainty about a named statistic under a stated sampling design. The interval method must be provided or justified, not inferred from a sentence template."
+      },
+      "meaning": "An interval estimate of a specified statistic using a method with stated nominal coverage; it is not the observed spread of individual trials.",
+      "provenance": {
+        "note": "Independent evaluation guidance grounded in the primary paper's Section 2, Figure 2 and Section 4.1; examples and contrasts are original placeholders, not copied results. The suitable interval method remains task-specific.",
+        "type": "paraphrased_synthesis"
+      },
+      "quality": {
+        "last_reviewed": "2026-10-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "experiments",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [
+        "agarwal2021statisticalprecipice"
+      ],
+      "tags": [
+        "confidence interval",
+        "bootstrap",
+        "uncertainty",
+        "independent runs",
+        "置信区间"
+      ]
+    },
+    {
       "avoid": "Avoid 'the experiments prove the effectiveness and superiority of our method.'",
       "domains": [
         "general"
@@ -6864,8 +6997,11 @@
       "avoid": "Do not infer broad out-of-distribution generalization from a random train–test split over nearly identical samples.",
       "domains": [
         "general",
+        "world_models",
+        "reinforcement_learning",
         "embodied_ai",
-        "robot_learning"
+        "robot_learning",
+        "vision_language_action"
       ],
       "examples": [
         "We evaluate generalization to unseen {objects or tasks} by holding out {unit} during training.",
@@ -6880,13 +7016,38 @@
         "clarify"
       ],
       "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "generalization axis",
+          "held-out evaluation",
+          "generalization to unseen environments"
+        ],
+        "contrasts": [
+          {
+            "after": "We evaluate generalization to held-out objects in the same environment and embodiment.",
+            "before": "The policy generalizes across environments and embodiments.",
+            "facts": "Only objects were held out; environments and embodiments were unchanged.",
+            "reason": "Binds the conclusion to the tested shift and avoids adding untested transfer axes."
+          }
+        ],
+        "not_equivalent_to": [
+          "random train-test split",
+          "cross-embodiment transfer"
+        ],
+        "part_of_speech": "reporting instruction",
+        "rule_ids": [
+          "claims.calibration",
+          "experiments.scope"
+        ],
+        "scope": "A reporting framework for named held-out units, not a claim of transfer across untested shifts."
+      },
       "meaning": "Generalization is always relative to a specified shift, such as unseen objects, tasks, environments, users, embodiments, or combinations.",
       "provenance": {
         "note": "Original cross-domain usage guidance authored for this repository.",
         "type": "original_pattern"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -6989,6 +7150,81 @@
         "claim strength",
         "may",
         "suggest"
+      ]
+    },
+    {
+      "avoid": "Do not silently turn relative improvement into percentage points, assign an aggregate difference to every task, or call points on a normalized score percentage points without a percentage scale.",
+      "domains": [
+        "general",
+        "world_models",
+        "reinforcement_learning",
+        "embodied_ai",
+        "robot_learning",
+        "vision_language_action"
+      ],
+      "examples": [
+        "Success rate rises from {baseline}% to {method}%, a gain of {difference} percentage points.",
+        "Relative to {baseline value}, {error metric} decreases by {relative change}%; lower values indicate better performance."
+      ],
+      "expression": "percentage-point difference versus relative percent change",
+      "guidance": "State the metric, comparator and endpoints or a traceable display. Label absolute differences as percentage points and relative changes as percent relative to the reference. Respect metric direction and aggregation; a relative change from a zero reference is undefined.",
+      "id": "general.usage-note.percentage-points.001",
+      "intents": [
+        "quantify",
+        "compare",
+        "clarify"
+      ],
+      "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "percentage points",
+          "percentage-point difference",
+          "percentage change",
+          "relative percent change"
+        ],
+        "contrasts": [
+          {
+            "after": "Success rate increases from {baseline}% to {method}%, a gain of {difference} percentage points.",
+            "before": "Success rate improves by {difference}%.",
+            "facts": "On the same protocol, success rate changes from {baseline}% to {method}%; the subtraction is {difference} percentage points.",
+            "reason": "Makes the absolute unit and reference explicit; do not compute new quantities unless the task permits it and the endpoints are available."
+          }
+        ],
+        "not_equivalent_to": [
+          "relative percentage improvement",
+          "normalized-score points"
+        ],
+        "part_of_speech": "measurement phrases",
+        "rule_ids": [
+          "sentences.attachment",
+          "experiments.scope"
+        ],
+        "scope": "Percentage-point differences apply only to percent-scale metrics; relative percent changes require a named nonzero reference."
+      },
+      "meaning": "For a metric expressed in percent, subtracting two percentage values gives a percentage-point difference; relative percent change divides the difference by the stated nonzero reference value.",
+      "provenance": {
+        "note": "Original mathematical reporting guidance; not a paper quotation or source-specific empirical claim. Complements, rather than duplicates, the existing result-absolute-relative sentence pattern.",
+        "type": "original_pattern"
+      },
+      "quality": {
+        "last_reviewed": "2026-10-12",
+        "status": "reviewed",
+        "tier": "gold"
+      },
+      "sections": [
+        "abstract",
+        "experiments",
+        "rebuttal",
+        "translation"
+      ],
+      "source_ids": [],
+      "tags": [
+        "percentage points",
+        "percentage change",
+        "relative improvement",
+        "absolute difference",
+        "百分点",
+        "相对提升"
       ]
     },
     {
@@ -8849,13 +9085,38 @@
         "quantify"
       ],
       "kind": "definition",
+      "lexical_profile": {
+        "collocations": [
+          "discounted return",
+          "undiscounted episode return",
+          "expected discounted return"
+        ],
+        "contrasts": [
+          {
+            "after": "The reported undiscounted episode return is {value}; training uses discount factor {gamma}.",
+            "before": "The reported discounted return is {value}.",
+            "facts": "Evaluation sums undiscounted rewards over each episode; training uses discount factor {gamma}.",
+            "reason": "Retains the evaluation quantity instead of transferring the training discount convention to the metric."
+          }
+        ],
+        "not_equivalent_to": [
+          "per-step reward",
+          "success rate"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "terms.consistency",
+          "sentences.attachment"
+        ],
+        "scope": "An accumulated reward quantity under the declared horizon and discount convention. Training objectives may differ from evaluation returns."
+      },
       "meaning": "The cumulative sum of future rewards, commonly weighting a reward received k steps later by a discount factor raised to k.",
       "provenance": {
         "note": "Independent synthesis of linked primary sources; no source sentence copied.",
         "type": "paraphrased_synthesis"
       },
       "quality": {
-        "last_reviewed": "2026-07-29",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -11006,13 +11267,39 @@
         "compare"
       ],
       "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "model query latency",
+          "policy inference latency",
+          "control frequency"
+        ],
+        "contrasts": [
+          {
+            "after": "The policy has a model-query latency of {latency}; the executed control frequency was not measured.",
+            "before": "The robot operates at {inverse latency} Hz.",
+            "facts": "{method} has {latency} per model query; the executed command rate was not measured.",
+            "reason": "An inverse latency is not a measured command rate, especially with action chunks or non-blocking execution."
+          }
+        ],
+        "not_equivalent_to": [
+          "action throughput",
+          "end-to-end response time"
+        ],
+        "part_of_speech": "noun phrases",
+        "rule_ids": [
+          "terms.consistency",
+          "sentences.attachment",
+          "experiments.scope"
+        ],
+        "scope": "Measure per-query latency separately from command rate and end-to-end response time under the declared execution scheme."
+      },
       "meaning": "Inference latency measures computation time per policy update, while control frequency describes how often commands are issued; chunking and asynchronous execution can make them differ.",
       "provenance": {
         "note": "Measurement distinction for deployment-oriented VLA comparisons.",
         "type": "paraphrased_synthesis"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -11023,7 +11310,8 @@
       ],
       "source_ids": [
         "hou2025-dita-scaling-diffusion-transformer",
-        "zheng2025-tracevla-visual-trace-prompting"
+        "zheng2025-tracevla-visual-trace-prompting",
+        "kim2025openvla"
       ],
       "tags": [
         "latency",
@@ -11524,11 +11812,11 @@
         "reinforcement_learning"
       ],
       "examples": [
-        "Although {model} attains low prediction error, {policy} underperforms because {mismatch source}.",
-        "We mitigate objective mismatch by {alignment mechanism}, improving {return metric} at matched model accuracy."
+        "{model} has lower prediction error but does not improve {control metric} under {protocol}.",
+        "We optimize {supplied alignment objective} and evaluate both {prediction metric} and {control metric}."
       ],
       "expression": "objective mismatch (model-based RL)",
-      "guidance": "State where the mismatch enters (training distribution, loss weighting, confounders, or value-irrelevant detail) and how the method aligns model learning with control, for example value-aware, policy-aware, or causal objectives. Evaluate with both model-quality and policy-return metrics.",
+      "guidance": "Distinguish the prediction objective from the downstream control objective. Name a mismatch source or alignment mechanism only when supported; report model-quality and control metrics separately and state the training and evaluation distributions.",
       "id": "wm.definition.objective-mismatch.001",
       "intents": [
         "define",
@@ -11537,13 +11825,38 @@
         "clarify"
       ],
       "kind": "definition",
+      "lexical_profile": {
+        "collocations": [
+          "objective mismatch",
+          "prediction accuracy versus control performance",
+          "model-policy alignment"
+        ],
+        "contrasts": [
+          {
+            "after": "Prediction error is lower, but control return is unchanged under {protocol}.",
+            "before": "The lower error confirms that the world model improves planning.",
+            "facts": "{model} has lower prediction error than {baseline}; control return is unchanged; no mechanism was isolated.",
+            "reason": "Separates the two measured outcomes without inventing a control gain or an identified causal mechanism."
+          }
+        ],
+        "not_equivalent_to": [
+          "compounding model error",
+          "distribution shift"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "claims.calibration",
+          "experiments.scope"
+        ],
+        "scope": "A prediction/control objective distinction, not an automatic diagnosis of why a particular controller fails."
+      },
       "meaning": "The misalignment between the objective used to train a dynamics model, typically prediction accuracy on collected data, and the downstream objective of policy performance, so a model that predicts well can still induce a poor policy.",
       "provenance": {
         "note": "Independent paraphrase of the model-policy objective mismatch as analyzed through causal representation for offline model-based RL; no source sentence copied.",
         "type": "paraphrased_synthesis"
       },
       "quality": {
-        "last_reviewed": "2026-08-11",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -17526,6 +17839,33 @@
     "scope": "Eighty papers from the audited 2021-2025 collection were sampled across reinforcement learning, embodied AI, world models, and vision-language-action models, twenty per domain from CVPR, ECCV, ICCV, ICML, and NeurIPS, to calibrate Abstract, Introduction, Experiments, analysis, and table protocols."
   },
   "sources": [
+    {
+      "authors": [
+        "Rishabh Agarwal",
+        "Max Schwarzer",
+        "Pablo Samuel Castro",
+        "Aaron Courville",
+        "Marc G. Bellemare"
+      ],
+      "domains": [
+        "reinforcement_learning"
+      ],
+      "id": "agarwal2021statisticalprecipice",
+      "identifiers": {
+        "neurips": "f514cec81cb148559cf475e7426eed5e"
+      },
+      "publication_status": "published",
+      "title": "Deep Reinforcement Learning at the Edge of the Statistical Precipice",
+      "topics": [
+        "reinforcement_learning",
+        "evaluation",
+        "statistical_uncertainty"
+      ],
+      "url": "https://proceedings.neurips.cc/paper/2021/hash/f514cec81cb148559cf475e7426eed5e-Abstract.html",
+      "venue": "NeurIPS",
+      "verified_at": "2026-10-12",
+      "year": 2021
+    },
     {
       "authors": [
         "Peter Anderson",
