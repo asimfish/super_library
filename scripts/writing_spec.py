@@ -68,7 +68,9 @@ def reference_errors(config: Mapping[str, Any], entries: Sequence[Mapping[str, A
             errors.append(f"writing spec: {rule['id']}: unknown sections {sorted(unknown)}")
     for entry in entries:
         profile = entry.get("lexical_profile")
-        if isinstance(profile, dict) and isinstance(profile.get("rule_ids"), list):
+        if (isinstance(profile, dict)
+                and isinstance(profile.get("rule_ids"), list)
+                and all(isinstance(rule_id, str) for rule_id in profile["rule_ids"])):
             unknown = set(profile["rule_ids"]) - set(ids)
             if unknown:
                 errors.append(f"writing spec: {entry['id']}: unknown rule IDs {sorted(unknown)}")

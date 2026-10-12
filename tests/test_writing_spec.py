@@ -84,6 +84,14 @@ class WritingSpecificationTests(unittest.TestCase):
         stripped = [{k: v for k, v in e.items() if k != "lexical_profile"} for e in entries]
         self.assertEqual(superlib.validate_corpus(taxonomy, sources, stripped), [])
 
+    def test_malformed_profile_reference_reports_schema_error_without_crashing(self):
+        taxonomy, sources, entries = superlib.load_corpus()
+        entries = copy.deepcopy(entries)
+        entry = next(e for e in entries if e.get("lexical_profile"))
+        entry["lexical_profile"]["rule_ids"] = [{"id": "facts.preserve"}]
+        errors = superlib.validate_corpus(taxonomy, sources, entries)
+        self.assertTrue(any("rule_ids" in e and "schema" in e for e in errors))
+
     def test_rule_selection_is_deterministic_and_does_not_grow_with_corpus(self):
         core = writing_spec.compact_spec(self.config)
         self.assertEqual(len(core["rules"]), 6)
