@@ -40,6 +40,26 @@ a citation index.
 
 ## 2. The idea
 
+### AI writing specification and contextual dictionary
+
+The STE-inspired adaptation separates **12 writing rules** from the existing
+terminology records and section protocols. Six existing records now carry a
+contextual usage profile: sense, part of speech, collocations, non-equivalent
+terms, and original fact-conditioned contrast examples with editing reasons.
+This is a six-record seed, not a claim that all 276 records have been upgraded.
+No aerospace dictionary, universal word whitelist, tense ban, or sentence ceiling
+is imported. Normal bundles automatically include only applicable rule summaries;
+they do not require another full-spec read.
+
+![AI writing architecture](docs/assets/ai-writing-architecture.svg)
+
+[Design and verified source mapping](docs/AI_WRITING_SPEC.md) ·
+[Decision and trade-offs](docs/adr/ADR-006-ai-writing-spec-and-semantic-dictionary.md).
+Inspect one specification with `python3 scripts/superlib.py spec experiments`,
+or one enriched entry with `python3 scripts/superlib.py show emb.term.task-success-rate.001`.
+The architecture describes implemented boundaries, not demonstrated prose benefits.
+Use the feature-branch checkout; the old pinned `v0.4.0` links are not updated.
+
 Super Library gives the agent exactly that: one reviewed **record** per
 concept, and a **bounded lookup path** so the right records reach the context
 window without flooding it.

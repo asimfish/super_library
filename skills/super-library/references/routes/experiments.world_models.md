@@ -18,6 +18,20 @@ Do not load the core, catalogs, guide, or cards again for this task.
 - State evidence before interpretation and retain exceptions, trade-offs,
   null results, and failure boundaries that affect the claim.
 
+## AI writing specification
+
+AI-paper adaptation, not STE compliance. Rules do not supply facts. Hard constraints need semantic review; preferences allow technically justified exceptions. No universal word whitelist or sentence-length ceiling.
+
+- `facts.preserve` [must]: Preserve facts, numbers, notation, negation, uncertainty and citation scope; never fill an unsupported template slot.
+- `terms.consistency` [must]: Use a stable term for each defined concept; retain domain terminology and distinguish related but non-equivalent metrics or components.
+- `claims.calibration` [must]: Bind significance, causality, generalization and ranking to their required evidence; hedging does not license an unsupported mechanism.
+- `sentences.direct` [prefer]: Give each sentence a clear main claim. Prefer direct verbs; retain passive voice, tense and technical noun phrases when they preserve the intended focus.
+- `sentences.attachment` [must]: Place each condition, unit, denominator and uncertainty next to the quantity or claim it qualifies; make pronouns and list mappings unambiguous.
+- `paragraphs.focus` [prefer]: Organize a paragraph around one question or finding. Connect sentences through the same subject or a real comparison, not decorative transitions.
+- `experiments.allocation` [prefer]: Use numerical anchors for magnitude, regime, uncertainty, cost or exceptions; leave redundant cells only in displays that actually remain available.
+- `experiments.scope` [must]: Do not assign an aggregate number to a subset. Keep reversals, null results, resource differences and uncertainty that materially limit the conclusion.
+
+
 ## Task protocol
 
 ### Super Library protocol: Experiments: claim-to-evidence protocol

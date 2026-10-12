@@ -1076,6 +1076,20 @@ The fraction or percentage of evaluation trials that satisfy a predefined task-c
 - Task success rate is computed over {number} independent trials using {completion criterion}.
 - The policy succeeds in {count}/{total} trials, corresponding to {percentage}%.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Success under the named task-completion criterion and trial denominator. Keep aggregation and reset/horizon conditions explicit or recoverable.
+- Collocations: task success rate, successful evaluation trials, success criterion
+- Not interchangeable with: classification accuracy, average return
+- Rule references: terms.consistency, sentences.attachment, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {successful}/{total} evaluation trials satisfy {completion criterion}; no classification was evaluated.
+- Misuse: The policy achieves an accuracy of {successful}/{total}.
+- Preferred: The policy succeeds in {successful}/{total} evaluation trials under {completion criterion}.
+- Why: Preserves the task event and denominator rather than changing the metric to accuracy. The benchmark's formal metric name takes precedence when different.
+
 **Verify in primary sources:**
 
 - `zhao2023act` — [Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware](https://roboticsproceedings.org/rss19/p016.html) (RSS 2023)

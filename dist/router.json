@@ -329,14 +329,14 @@
   },
   "context_bytes": {
     "agent_index": 5430,
-    "average_card": 2308,
-    "core": 10879,
+    "average_card": 2329,
+    "core": 12143,
     "guide_index": 3943,
-    "largest_card": 3436,
+    "largest_card": 4003,
     "largest_catalog": 16902,
     "largest_evidence_map": 6436,
     "largest_guide": 11927,
-    "largest_task_route": 17990,
+    "largest_task_route": 20488,
     "legacy_compact": 58174
   },
   "contract_version": "4.0",

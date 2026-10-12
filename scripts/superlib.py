@@ -26,6 +26,9 @@ if __package__:
     from .promotion import decision_links_by_source, validate_decision_semantics
     from .source_health import health_summary, verify_sources
     from .writing_eval import CHECK_REGISTRY, evaluate_response
+    from .writing_spec import (
+        compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
+    )
 else:
     from professional_benchmark import (
         ProfessionalBenchmarkError,
@@ -37,6 +40,9 @@ else:
     from promotion import decision_links_by_source, validate_decision_semantics
     from source_health import health_summary, verify_sources
     from writing_eval import CHECK_REGISTRY, evaluate_response
+    from writing_spec import (
+        compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
+    )
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,6 +58,8 @@ TOPICS_PATH = LIBRARY / "topics.json"
 COLLECTIONS_PATH = LIBRARY / "collections.json"
 CORPUS_REPORT_PATH = LIBRARY / "corpus_report.json"
 WRITING_GUIDES_PATH = LIBRARY / "writing_guides.json"
+WRITING_SPEC_PATH = LIBRARY / "writing_spec.json"
+WRITING_SPEC_SCHEMA_PATH = ROOT / "schemas" / "writing-spec.schema.json"
 TASK_ROUTES_PATH = LIBRARY / "task_routes.json"
 TABLE_TEMPLATES_PATH = LIBRARY / "table_templates.json"
 COVERAGE_POLICY_PATH = LIBRARY / "coverage_policy.json"
@@ -176,6 +184,21 @@ def load_corpus() -> Tuple[Dict[str, Any], List[Dict[str, Any]], List[Dict[str, 
 def load_writing_guides() -> Tuple[Dict[str, Any], Dict[str, Any]]:
     """Load the canonical section protocols and their calibration study."""
     return read_json(WRITING_GUIDES_PATH), read_json(SECTION_STUDY_PATH)
+
+
+def validate_writing_spec(taxonomy: Dict[str, Any], entries: Sequence[Dict[str, Any]]) -> List[str]:
+    try:
+        config = read_json(WRITING_SPEC_PATH)
+        errors = schema_validation_errors(config, read_json(WRITING_SPEC_SCHEMA_PATH))
+    except CorpusError as exc:
+        return [str(exc)]
+    if errors:
+        return [f"writing spec: schema: {error}" for error in errors]
+    for field, text in iter_strings(config):
+        if any(ord(char) < 32 for char in text) or UNSAFE_MARKUP_RE.search(text):
+            errors.append(f"writing spec: unsafe markup or control character in {field}")
+    errors.extend(reference_errors(config, entries, taxonomy["sections"]))
+    return errors
 
 
 def load_task_routes() -> Dict[str, Any]:
@@ -1289,7 +1312,7 @@ def validate_corpus(
         "provenance",
         "quality",
     }
-    entry_allowed = entry_required | {"attestations", "_origin"}
+    entry_allowed = entry_required | {"attestations", "lexical_profile", "_origin"}
     source_required = {
         "id",
         "title",
@@ -1789,6 +1812,7 @@ def validate_corpus(
             if len(selected_ids) > 24:
                 errors.append(f"{location}: keep the universal core at 24 records or fewer")
 
+    errors.extend(validate_writing_spec(taxonomy, entries))
     errors.extend(validate_writing_guides(taxonomy, sources, entries))
     errors.extend(validate_task_routes(taxonomy, entries))
     errors.extend(validate_table_templates())
@@ -2024,6 +2048,8 @@ def markdown_entry(entry: Dict[str, Any], sources_by_id: Dict[str, Dict[str, Any
         "",
     ]
     lines.extend(f"- {example}" for example in entry["examples"])
+    if entry.get("lexical_profile"):
+        lines.append(render_lexical_profile(entry["lexical_profile"]))
     if entry.get("attestations"):
         lines.extend(["", "**Usage attestations:**", ""])
         for attestation in entry["attestations"]:
@@ -2054,6 +2080,36 @@ def cmd_validate(_: argparse.Namespace) -> int:
         print(f"Validation failed with {len(errors)} error(s).", file=sys.stderr)
         return 1
     print(f"Valid: {len(entries)} entries, {len(sources)} sources.")
+    return 0
+
+
+def cmd_spec(args: argparse.Namespace) -> int:
+    try:
+        taxonomy, _, entries = load_corpus()
+    except CorpusError as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 1
+    errors = validate_writing_spec(taxonomy, entries)
+    if errors:
+        print("ERROR: " + "; ".join(errors), file=sys.stderr)
+        return 1
+    profiles = ["core", *taxonomy["sections"]]
+    if args.list:
+        output = (json.dumps(profiles) if args.format == "json"
+                  else "Writing specification profiles: " + ", ".join(profiles))
+    else:
+        section = args.profile or "core"
+        if section not in profiles:
+            print(f"ERROR: unknown writing specification profile: {section}", file=sys.stderr)
+            return 2
+        config = read_json(WRITING_SPEC_PATH)
+        output = (json.dumps({"id": config["id"], "notice": config["notice"],
+                              "rules": select_rules(config, [section])}, ensure_ascii=False, indent=2)
+                  if args.format == "json" else render_spec(config, [section], full=True).rstrip())
+    if len(output) + 1 > args.max_chars:
+        print("ERROR: complete writing specification exceeds --max-chars", file=sys.stderr)
+        return 2
+    print(output)
     return 0
 
 
@@ -2941,6 +2997,7 @@ def render_task_route(
         "  null results, and failure boundaries that affect the claim.",
         "",
     ]
+    lines.extend([render_spec(read_json(WRITING_SPEC_PATH), [route["section"]]), ""])
     guide_id = route.get("guide_id")
     if guide_id:
         guide_text = render_writing_guide(
@@ -3940,9 +3997,8 @@ def render_core(
         "7. Use `state-of-the-art` and statistical-significance language only when the",
         "   required comparison or inferential evidence is present.",
         "",
-        "## Essential records",
-        "",
     ]
+    lines.extend([render_spec(read_json(WRITING_SPEC_PATH)), "## Essential records", ""])
     for entry in selected:
         lines.extend(
             [
@@ -4377,6 +4433,9 @@ def cmd_bundle(args: argparse.Namespace) -> int:
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in entries}
     selected_guide = writing_guides_by_id().get(args.guide) if args.guide else None
+    spec_sections = args.section or ([selected_guide["section"]] if selected_guide else [])
+    spec_config = read_json(WRITING_SPEC_PATH)
+    selected_spec = compact_spec(spec_config, spec_sections)
     guide_block = ""
     if selected_guide:
         guide_domain = args.domain[0] if len(args.domain) == 1 else None
@@ -4452,6 +4511,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         items: Sequence[Tuple[str, int, Dict[str, Any]]],
     ) -> str:
         lines = list(header)
+        lines.extend([render_spec(spec_config, spec_sections).rstrip(), ""])
         if guide_block:
             lines.extend(guide_block.rstrip().splitlines())
             lines.append("")
@@ -4483,6 +4543,7 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         payload = {
             "corpus_version": taxonomy["corpus_version"],
             "max_chars": args.max_chars,
+            "writing_spec": selected_spec,
             "guide": selected_guide,
             "retrieved_ids": [entry["id"] for _, _, entry in items],
             "entries": [
@@ -4705,6 +4766,18 @@ def cmd_build(_: argparse.Namespace) -> int:
     universal_core_path.write_text(
         render_core(taxonomy, sources, published_entries), encoding="utf-8"
     )
+    specs_dir = DIST_DIR / "specs"
+    specs_dir.mkdir(parents=True, exist_ok=True)
+    spec_config = read_json(WRITING_SPEC_PATH)
+    for section in ["core", *taxonomy["sections"]]:
+        (specs_dir / f"{section}.md").write_text(render_spec(spec_config, [section], full=True), encoding="utf-8")
+    (specs_dir / "index.md").write_text(
+        "# AI writing specification profiles\n\nOptional inspection, not an extra default read. "
+        "Bundles and routes already carry relevant summaries.\n\n" +
+        "\n".join(f"- [{section}]({section}.md)" for section in ["core", *taxonomy["sections"]]) + "\n",
+        encoding="utf-8",
+    )
+    prune_generated_tree(specs_dir, {"index.md", *(f"{s}.md" for s in ["core", *taxonomy["sections"]])})
     guide_index_path = guides_dir / "index.md"
     guide_index_path.write_text(
         render_guide_index(taxonomy, guide_config["guides"]), encoding="utf-8"
@@ -5083,6 +5156,12 @@ def cmd_build(_: argparse.Namespace) -> int:
     }
     for name, source_path in skill_snapshot_paths.items():
         shutil.copyfile(source_path, SKILL_REFERENCES_DIR / name)
+    skill_specs_dir = SKILL_REFERENCES_DIR / "specs"
+    skill_specs_dir.mkdir(parents=True, exist_ok=True)
+    for source_path in specs_dir.glob("*.md"):
+        shutil.copyfile(source_path, skill_specs_dir / source_path.name)
+    prune_generated_tree(skill_specs_dir, {p.name for p in specs_dir.glob("*.md")})
+    shutil.copyfile(ROOT / "scripts" / "writing_spec.py", SKILL_DIR / "scripts" / "writing_spec.py")
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
     skill_guides_dir.mkdir(parents=True, exist_ok=True)
     for generated_path in guides_dir.glob("*.md"):
@@ -5133,6 +5212,7 @@ def cmd_build(_: argparse.Namespace) -> int:
         "library/coverage_policy.json",
         "library/promotion_decisions.jsonl",
         "library/writing_guides.json",
+        "library/writing_spec.json",
         "library/task_routes.json",
         "library/table_templates.json",
         "library/studies/section_writing_2026-08.json",
@@ -5594,6 +5674,13 @@ def build_parser() -> argparse.ArgumentParser:
         "--format", choices=["markdown", "json"], default="markdown"
     )
     bundle_parser.set_defaults(func=cmd_bundle)
+
+    spec_parser = subparsers.add_parser("spec", help="inspect one AI writing specification profile")
+    spec_parser.add_argument("profile", nargs="?")
+    spec_parser.add_argument("--list", action="store_true")
+    spec_parser.add_argument("--format", choices=["markdown", "json"], default="markdown")
+    spec_parser.add_argument("--max-chars", type=int, default=12000)
+    spec_parser.set_defaults(func=cmd_spec)
 
     guide_parser = subparsers.add_parser(
         "guide", help="show or list task-specific section and table protocols"

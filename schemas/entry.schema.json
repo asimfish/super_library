@@ -21,6 +21,96 @@
     "quality"
   ],
   "properties": {
+    "lexical_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "part_of_speech",
+        "scope",
+        "collocations",
+        "not_equivalent_to",
+        "rule_ids",
+        "contrasts"
+      ],
+      "properties": {
+        "part_of_speech": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 100
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 600
+        },
+        "collocations": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 160
+          }
+        },
+        "not_equivalent_to": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 160
+          }
+        },
+        "rule_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z_]+\\.[a-z-]+$"
+          }
+        },
+        "contrasts": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "facts",
+              "before",
+              "after",
+              "reason"
+            ],
+            "properties": {
+              "facts": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 600
+              },
+              "before": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 600
+              },
+              "after": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 600
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 600
+              }
+            }
+          }
+        }
+      }
+    },
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9]+(?:[._-][a-z0-9]+)+$"

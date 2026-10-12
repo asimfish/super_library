@@ -22,6 +22,20 @@ The amount of environment interaction or training data required to reach a speci
 - We evaluate sample efficiency by comparing {metric} after {matched number} environment steps.
 - The method reaches {performance threshold} using {data amount}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Performance relative to a named data or environment-interaction budget; not elapsed computation time.
+- Collocations: evaluate sample efficiency, matched interaction budget, learning curves
+- Not interchangeable with: wall-clock efficiency, inference latency
+- Rule references: terms.consistency, claims.calibration, sentences.attachment
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} reaches {threshold} with fewer {sample units} than {baseline}; no timing was measured.
+- Misuse: {method} runs faster than {baseline}.
+- Preferred: {method} reaches {threshold} using fewer {sample units} than {baseline}.
+- Why: Reports the measured sample comparison, not an unmeasured compute-speed claim. Different sample units are not interchangeable.
+
 **Verify in primary sources:**
 
 - `haarnoja2018sac` — [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://proceedings.mlr.press/v80/haarnoja18b.html) (ICML 2018)

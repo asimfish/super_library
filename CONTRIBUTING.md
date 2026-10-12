@@ -10,6 +10,13 @@ in `library/task_routes.json`; LaTeX asset metadata lives in
 `library/table_templates.json`; full-paper calibration metadata lives in
 `library/studies/`. Do not add extracted paper prose to any of them.
 
+General AI language/evidence rules live in `library/writing_spec.json`; do not
+duplicate them into every guide. Optional `lexical_profile` metadata belongs on
+the existing concept record, not a second dictionary. Its contrast pairs must
+use the same stated hypothetical facts, explain the edit, and preserve adverse
+results and evidence scope. Profiles are contextual guidance, not a global
+approved/unapproved vocabulary. Check rule references and native context budgets.
+
 ## Acceptance checklist
 
 - The expression is genuinely useful for AI research writing, not merely ornate.

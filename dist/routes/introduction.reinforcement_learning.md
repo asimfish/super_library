@@ -18,6 +18,19 @@ Do not load the core, catalogs, guide, or cards again for this task.
 - State evidence before interpretation and retain exceptions, trade-offs,
   null results, and failure boundaries that affect the claim.
 
+## AI writing specification
+
+AI-paper adaptation, not STE compliance. Rules do not supply facts. Hard constraints need semantic review; preferences allow technically justified exceptions. No universal word whitelist or sentence-length ceiling.
+
+- `facts.preserve` [must]: Preserve facts, numbers, notation, negation, uncertainty and citation scope; never fill an unsupported template slot.
+- `terms.consistency` [must]: Use a stable term for each defined concept; retain domain terminology and distinguish related but non-equivalent metrics or components.
+- `claims.calibration` [must]: Bind significance, causality, generalization and ranking to their required evidence; hedging does not license an unsupported mechanism.
+- `sentences.direct` [prefer]: Give each sentence a clear main claim. Prefer direct verbs; retain passive voice, tense and technical noun phrases when they preserve the intended focus.
+- `sentences.attachment` [must]: Place each condition, unit, denominator and uncertainty next to the quantity or claim it qualifies; make pronouns and list mappings unambiguous.
+- `paragraphs.focus` [prefer]: Organize a paragraph around one question or finding. Connect sentences through the same subject or a real comparison, not decorative transitions.
+- `introduction.gap` [prefer]: Connect the task need to a verified limitation and the supplied contribution; do not manufacture a field-wide gap or announce experiments not provided.
+
+
 ## Task protocol
 
 ### Super Library protocol: Introduction: limitation–insight–evidence alignment
@@ -250,6 +263,20 @@ The amount of environment interaction or training data required to reach a speci
 
 - We evaluate sample efficiency by comparing {metric} after {matched number} environment steps.
 - The method reaches {performance threshold} using {data amount}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: Performance relative to a named data or environment-interaction budget; not elapsed computation time.
+- Collocations: evaluate sample efficiency, matched interaction budget, learning curves
+- Not interchangeable with: wall-clock efficiency, inference latency
+- Rule references: terms.consistency, claims.calibration, sentences.attachment
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} reaches {threshold} with fewer {sample units} than {baseline}; no timing was measured.
+- Misuse: {method} runs faster than {baseline}.
+- Preferred: {method} reaches {threshold} using fewer {sample units} than {baseline}.
+- Why: Reports the measured sample comparison, not an unmeasured compute-speed claim. Different sample units are not interchangeable.
 
 **Verify in primary sources:**
 

@@ -9,6 +9,8 @@ import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
+from writing_spec import render_lexical_profile
+
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
 INDEX_PATH = SKILL_DIR / "references" / "index.json"
@@ -152,6 +154,8 @@ def compact_entry(
         "",
         f"**Pattern:** {entry['examples'][0]}",
     ]
+    if entry.get("lexical_profile"):
+        lines.append(render_lexical_profile(entry["lexical_profile"]))
     if entry["source_ids"]:
         links = ", ".join(
             f"[{source_id}]({sources_by_id[source_id]['url']})"

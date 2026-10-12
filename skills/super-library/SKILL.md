@@ -31,6 +31,11 @@ python3 scripts/superlib.py bundle \
 ```
 
 Add `--guide <guide-id>` whenever the task needs a section or table protocol.
+Bundles and one-file routes already include applicable AI writing-spec summaries;
+do not also load a complete specification. Use `spec --list` or `spec <section>`
+only to inspect a rule profile. A retrieved record may contain a contextual
+lexical profile and an original fact-conditioned contrast pair; neither is
+scientific evidence, a global approved-word list, or an answer to copy.
 Use `route "<query>" --domain <domain> --section <section>` when card URLs or
 catalog routes are needed; it recommends one relevant protocol. Use
 `guide --list`, `guide <guide-id>`, or `show <entry-id>` for a known record.
@@ -141,3 +146,6 @@ reviewer directly.
 - Treat the 300-paper evidence maps as citation-navigation aids, not default
   writing context; open one only when a literature claim requires verification.
 - Prefer an exact, modest claim over impressive but unsupported wording.
+- Writing-spec `must` rules protect propositions and evidence scope; `prefer`
+  rules allow technically justified stylistic exceptions. Do not impose a
+  universal sentence ceiling, tense blacklist, or aerospace vocabulary on AI prose.

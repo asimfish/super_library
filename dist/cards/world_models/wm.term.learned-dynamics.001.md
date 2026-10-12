@@ -21,6 +21,20 @@ A model fitted from data to predict state or latent-state transitions under acti
 
 - The learned dynamics model predicts {next representation} from {current representation} and {action}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: The learned state or latent-state transition component. Distinguish this component from the broader system when the manuscript does so.
+- Collocations: learn a dynamics model, latent dynamics model, predict transitions
+- Not interchangeable with: dynamic model, observation decoder
+- Rule references: terms.consistency, sentences.direct
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {component} predicts {next state} from {current state} and {action}.
+- Misuse: The dynamic model predicts {next state} from {current state} and {action}.
+- Preferred: The learned dynamics model predicts {next state} from {current state} and {action}.
+- Why: Uses the field term for environment dynamics while preserving the exact prediction proposition. 'Dynamic' is not globally banned; it means something else.
+
 **Verify in primary sources:**
 
 - `hafner2019planet` — [Learning Latent Dynamics for Planning from Pixels](https://proceedings.mlr.press/v97/hafner19a.html) (ICML 2019)

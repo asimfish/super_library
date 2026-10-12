@@ -1659,6 +1659,20 @@ An effectiveness claim is informative only when it names the intervention, compa
 - Across {tasks}, {method} improves {metric} over {baselines} under a matched {budget}.
 - The ablation supports the contribution of {component} to {measured outcome} in {setting}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: result-reporting construction
+- Scope: A measured outcome under the supplied comparison and evaluation setting; a generic effectiveness claim is not additional evidence.
+- Collocations: improves task success, reduces prediction error, at matched data budgets
+- Not interchangeable with: universal superiority, causal mechanism proof
+- Rule references: claims.calibration, paragraphs.focus, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} improves {metric} relative to {baseline} in {evaluated setting}; other settings were not evaluated.
+- Misuse: These results prove the universal effectiveness and superiority of our method.
+- Preferred: {method} improves {metric} relative to {baseline} in {evaluated setting}.
+- Why: Names the observed comparison and scope instead of adding an unsupported effectiveness summary. Retain any supplied adverse setting or uncertainty.
+
 ### name the generalization axis and held-out unit
 
 `general.usage-note.generalization-axis.001` · usage_note · general, embodied_ai, robot_learning · abstract, introduction, experiments, limitations, conclusion, rebuttal, translation
@@ -1819,6 +1833,20 @@ Statistical significance refers to an inferential test or interval criterion, wh
 
 - {method} yields a {value}-point improvement, but the difference is not statistically significant under {test}.
 - The improvement is substantial relative to {reference scale}, with an effect size of {value}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: adjective phrase / magnitude descriptor
+- Scope: Statistically significant requires supplied inferential evidence; a magnitude descriptor requires an explicit scale. Neither is an automatic synonym for a higher mean.
+- Collocations: statistically significant difference, effect magnitude, reported mean
+- Not interchangeable with: larger point estimate, substantial effect
+- Rule references: claims.calibration, facts.preserve
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} has a higher reported mean on {metric}; no inferential analysis was supplied.
+- Misuse: {method} significantly improves {metric}.
+- Preferred: {method} has a higher reported mean on {metric}; statistical significance was not assessed.
+- Why: Disambiguates magnitude from inference. This is not a ban on 'significant' when the required statistical evidence exists.
 
 ### state-of-the-art performance on {benchmark} under {protocol}
 

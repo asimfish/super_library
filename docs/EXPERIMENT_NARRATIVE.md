@@ -1,5 +1,10 @@
 # Experiment narrative revision: scope and evidence
 
+This is the historical acceptance snapshot for narrative revision `f8503cf`
+(2026-10-09). The subsequent AI writing-spec revision changes guide sizes and
+test totals; its current design and verification boundary are recorded in
+[AI_WRITING_SPEC.md](AI_WRITING_SPEC.md). Historical paired runs remain frozen.
+
 The 2026-10-09 revision addresses result prose that reads like a numerical
 laundry list. It changes the existing experiment guides and two normalized
 records, not the corpus architecture or paper-coverage target. A paragraph-level

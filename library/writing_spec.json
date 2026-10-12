@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "id": "ai-research-writing",
+  "reviewed_at": "2026-10-12",
+  "relationship": "independent_synthesis",
+  "notice": "AI-paper adaptation, not STE compliance. Rules do not supply facts. Hard constraints need semantic review; preferences allow technically justified exceptions. No universal word whitelist or sentence-length ceiling.",
+  "rules": [
+    {
+      "id": "facts.preserve", "label": "Preserve the proposition", "level": "must", "sections": ["core"],
+      "summary": "Preserve facts, numbers, notation, negation, uncertainty and citation scope; never fill an unsupported template slot.",
+      "rationale": "Clearer wording is not permission to strengthen or invent the scientific proposition.",
+      "check": "Manual comparison with the supplied facts; wording lint cannot establish fidelity."
+    },
+    {
+      "id": "terms.consistency", "label": "Stable terms, explicit senses", "level": "must", "sections": ["core"],
+      "summary": "Use a stable term for each defined concept; retain domain terminology and distinguish related but non-equivalent metrics or components.",
+      "rationale": "Stylistic synonym variation can silently change the measured quantity or model component. A term may have multiple field senses; define the manuscript's scope rather than imposing one globally.",
+      "check": "Manual terminology and symbol ledger; resolve legitimate aliases explicitly."
+    },
+    {
+      "id": "claims.calibration", "label": "Match words to evidence", "level": "must", "sections": ["core"],
+      "summary": "Bind significance, causality, generalization and ranking to their required evidence; hedging does not license an unsupported mechanism.",
+      "rationale": "A polished sentence can still inflate what the evaluation establishes.",
+      "check": "Manual evidence audit; a lexical warning alone cannot determine claim validity.",
+      "contrast": {
+        "facts": "{method} has a larger reported mean on {metric}; no inferential test was supplied.",
+        "before": "{method} achieves a statistically significant improvement on {metric}.",
+        "after": "{method} has a higher reported mean on {metric}; statistical significance was not assessed.",
+        "reason": "Retains the comparison without inventing statistical evidence. Original placeholders are not measurements."
+      }
+    },
+    {
+      "id": "sentences.direct", "label": "Direct subject and predicate", "level": "prefer", "sections": ["core"],
+      "summary": "Give each sentence a clear main claim. Prefer direct verbs; retain passive voice, tense and technical noun phrases when they preserve the intended focus.",
+      "rationale": "The goal is readable dependency structure, not minimum word count. Formal terms are not automatically wrong.",
+      "check": "Manual reading for subject, predicate and information load; do not auto-rewrite long sentences."
+    },
+    {
+      "id": "sentences.attachment", "label": "Attach conditions to claims", "level": "must", "sections": ["core"],
+      "summary": "Place each condition, unit, denominator and uncertainty next to the quantity or claim it qualifies; make pronouns and list mappings unambiguous.",
+      "rationale": "Numbers and descriptions can share a sentence when their relation is explicit. Splitting must not detach a qualification.",
+      "check": "Manual quantity-to-condition mapping, including absolute versus relative change."
+    },
+    {
+      "id": "paragraphs.focus", "label": "One empirical or argumentative point", "level": "prefer", "sections": ["core"],
+      "summary": "Organize a paragraph around one question or finding. Connect sentences through the same subject or a real comparison, not decorative transitions.",
+      "rationale": "Short correct sentences still form a laundry list if they do not advance an argument. No fixed sentence count is prescribed.",
+      "check": "Manual identification of the paragraph's point and the contribution of each sentence."
+    },
+    {
+      "id": "experiments.allocation", "label": "Give numbers a role", "level": "prefer", "sections": ["experiments"],
+      "summary": "Use numerical anchors for magnitude, regime, uncertainty, cost or exceptions; leave redundant cells only in displays that actually remain available.",
+      "rationale": "Standalone prose, exact translations and all-value requests retain all required quantities. Fewer numbers is not a quality criterion.",
+      "check": "Manual evidence-location audit across setup, captions, retained tables and prose."
+    },
+    {
+      "id": "experiments.scope", "label": "Keep scope and adverse cases", "level": "must", "sections": ["experiments"],
+      "summary": "Do not assign an aggregate number to a subset. Keep reversals, null results, resource differences and uncertainty that materially limit the conclusion.",
+      "rationale": "A favorable average must not conceal a conditional failure. The section protocol owns detailed reporting requirements.",
+      "check": "Manual comparison against all relevant rows and evaluation conditions."
+    },
+    {
+      "id": "introduction.gap", "label": "Concrete gap, bounded contribution", "level": "prefer", "sections": ["introduction", "abstract"],
+      "summary": "Connect the task need to a verified limitation and the supplied contribution; do not manufacture a field-wide gap or announce experiments not provided.",
+      "rationale": "The existing section guide determines the order; this rule constrains what can fill it.",
+      "check": "Manual verification of limitation and contribution scope."
+    },
+    {
+      "id": "related_work.axes", "label": "Compare on named axes", "level": "must", "sections": ["related_work"],
+      "summary": "Organize literature by explicit assumptions, supervision, data, representation or deployment axes; verify each definition and comparison in primary papers.",
+      "rationale": "Language records navigate papers but are not evidence for a literature claim.",
+      "check": "Manual primary-source and citation-coverage review."
+    },
+    {
+      "id": "translation.fidelity", "label": "Proposition before English realization", "level": "must", "sections": ["translation"],
+      "summary": "Reconstruct the scientific proposition before selecting English expressions; preserve every required quantity, qualification and citation attachment.",
+      "rationale": "A more fluent translation must not gain claims or lose constraints.",
+      "check": "Manual bilingual proposition alignment."
+    },
+    {
+      "id": "rebuttal.answer", "label": "Answer without unsupported concession", "level": "must", "sections": ["rebuttal"],
+      "summary": "Answer the concern directly; acknowledge only established problems and promise only supplied revisions, supported analyses or authorized commitments.",
+      "rationale": "A polite response must not invent a manuscript defect, completed experiment or author commitment.",
+      "check": "Manual concern-to-answer and change-to-evidence mapping."
+    }
+  ]
+}

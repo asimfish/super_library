@@ -2608,13 +2608,39 @@
         "compare"
       ],
       "kind": "term",
+      "lexical_profile": {
+        "collocations": [
+          "task success rate",
+          "successful evaluation trials",
+          "success criterion"
+        ],
+        "contrasts": [
+          {
+            "after": "The policy succeeds in {successful}/{total} evaluation trials under {completion criterion}.",
+            "before": "The policy achieves an accuracy of {successful}/{total}.",
+            "facts": "{successful}/{total} evaluation trials satisfy {completion criterion}; no classification was evaluated.",
+            "reason": "Preserves the task event and denominator rather than changing the metric to accuracy. The benchmark's formal metric name takes precedence when different."
+          }
+        ],
+        "not_equivalent_to": [
+          "classification accuracy",
+          "average return"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "terms.consistency",
+          "sentences.attachment",
+          "experiments.scope"
+        ],
+        "scope": "Success under the named task-completion criterion and trial denominator. Keep aggregation and reset/horizon conditions explicit or recoverable."
+      },
       "meaning": "The fraction or percentage of evaluation trials that satisfy a predefined task-completion criterion.",
       "provenance": {
         "note": "Field-standard evaluation terminology indexed from manipulation and VLA papers.",
         "type": "terminology"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -6782,13 +6808,39 @@
         "scope"
       ],
       "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "improves task success",
+          "reduces prediction error",
+          "at matched data budgets"
+        ],
+        "contrasts": [
+          {
+            "after": "{method} improves {metric} relative to {baseline} in {evaluated setting}.",
+            "before": "These results prove the universal effectiveness and superiority of our method.",
+            "facts": "{method} improves {metric} relative to {baseline} in {evaluated setting}; other settings were not evaluated.",
+            "reason": "Names the observed comparison and scope instead of adding an unsupported effectiveness summary. Retain any supplied adverse setting or uncertainty."
+          }
+        ],
+        "not_equivalent_to": [
+          "universal superiority",
+          "causal mechanism proof"
+        ],
+        "part_of_speech": "result-reporting construction",
+        "rule_ids": [
+          "claims.calibration",
+          "paragraphs.focus",
+          "experiments.scope"
+        ],
+        "scope": "A measured outcome under the supplied comparison and evaluation setting; a generic effectiveness claim is not additional evidence."
+      },
       "meaning": "An effectiveness claim is informative only when it names the intervention, comparison, metric, and evaluated setting.",
       "provenance": {
         "note": "Original usage guidance authored for this repository.",
         "type": "original_pattern"
       },
       "quality": {
-        "last_reviewed": "2026-07-30",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -7175,13 +7227,38 @@
         "clarify"
       ],
       "kind": "usage_note",
+      "lexical_profile": {
+        "collocations": [
+          "statistically significant difference",
+          "effect magnitude",
+          "reported mean"
+        ],
+        "contrasts": [
+          {
+            "after": "{method} has a higher reported mean on {metric}; statistical significance was not assessed.",
+            "before": "{method} significantly improves {metric}.",
+            "facts": "{method} has a higher reported mean on {metric}; no inferential analysis was supplied.",
+            "reason": "Disambiguates magnitude from inference. This is not a ban on 'significant' when the required statistical evidence exists."
+          }
+        ],
+        "not_equivalent_to": [
+          "larger point estimate",
+          "substantial effect"
+        ],
+        "part_of_speech": "adjective phrase / magnitude descriptor",
+        "rule_ids": [
+          "claims.calibration",
+          "facts.preserve"
+        ],
+        "scope": "Statistically significant requires supplied inferential evidence; a magnitude descriptor requires an explicit scale. Neither is an automatic synonym for a higher mean."
+      },
       "meaning": "Statistical significance refers to an inferential test or interval criterion, whereas substantial, marked, or large describes effect magnitude and requires a stated scale.",
       "provenance": {
         "note": "Original usage guidance authored for this repository.",
         "type": "original_pattern"
       },
       "quality": {
-        "last_reviewed": "2026-07-29",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -10158,13 +10235,39 @@
         "quantify"
       ],
       "kind": "term",
+      "lexical_profile": {
+        "collocations": [
+          "evaluate sample efficiency",
+          "matched interaction budget",
+          "learning curves"
+        ],
+        "contrasts": [
+          {
+            "after": "{method} reaches {threshold} using fewer {sample units} than {baseline}.",
+            "before": "{method} runs faster than {baseline}.",
+            "facts": "{method} reaches {threshold} with fewer {sample units} than {baseline}; no timing was measured.",
+            "reason": "Reports the measured sample comparison, not an unmeasured compute-speed claim. Different sample units are not interchangeable."
+          }
+        ],
+        "not_equivalent_to": [
+          "wall-clock efficiency",
+          "inference latency"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "terms.consistency",
+          "claims.calibration",
+          "sentences.attachment"
+        ],
+        "scope": "Performance relative to a named data or environment-interaction budget; not elapsed computation time."
+      },
       "meaning": "The amount of environment interaction or training data required to reach a specified level of performance.",
       "provenance": {
         "note": "Canonical term indexed from linked primary papers; examples are original.",
         "type": "terminology"
       },
       "quality": {
-        "last_reviewed": "2026-07-29",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -11825,13 +11928,38 @@
         "scope"
       ],
       "kind": "definition",
+      "lexical_profile": {
+        "collocations": [
+          "learn a world model",
+          "action-conditioned world model",
+          "plan with a world model"
+        ],
+        "contrasts": [
+          {
+            "after": "Here, world model refers to {predictive components} used for {downstream role}.",
+            "before": "A world model always reconstructs pixels.",
+            "facts": "The manuscript specifies {predictive components} and {downstream role}; reconstruction is not specified.",
+            "reason": "Defines this manuscript's operational sense without inventing an architectural requirement. Use only when those components and role are supplied."
+          }
+        ],
+        "not_equivalent_to": [
+          "any visually realistic video generator",
+          "the transition component alone in every paper"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "terms.consistency",
+          "claims.calibration"
+        ],
+        "scope": "An umbrella term with community-dependent scope. Define the predictive components, conditioning and supplied downstream use; do not impose a decoder or fixed architecture."
+      },
       "meaning": "A learned predictive model of how an environment evolves, typically conditioned on the agent's actions and used to support prediction, planning, or policy learning.",
       "provenance": {
         "note": "Independent synthesis of linked primary sources; no source sentence copied.",
         "type": "paraphrased_synthesis"
       },
       "quality": {
-        "last_reviewed": "2026-07-29",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -12400,13 +12528,38 @@
         "describe"
       ],
       "kind": "term",
+      "lexical_profile": {
+        "collocations": [
+          "learn a dynamics model",
+          "latent dynamics model",
+          "predict transitions"
+        ],
+        "contrasts": [
+          {
+            "after": "The learned dynamics model predicts {next state} from {current state} and {action}.",
+            "before": "The dynamic model predicts {next state} from {current state} and {action}.",
+            "facts": "{component} predicts {next state} from {current state} and {action}.",
+            "reason": "Uses the field term for environment dynamics while preserving the exact prediction proposition. 'Dynamic' is not globally banned; it means something else."
+          }
+        ],
+        "not_equivalent_to": [
+          "dynamic model",
+          "observation decoder"
+        ],
+        "part_of_speech": "noun phrase",
+        "rule_ids": [
+          "terms.consistency",
+          "sentences.direct"
+        ],
+        "scope": "The learned state or latent-state transition component. Distinguish this component from the broader system when the manuscript does so."
+      },
       "meaning": "A model fitted from data to predict state or latent-state transitions under actions.",
       "provenance": {
         "note": "Canonical term indexed from linked primary papers; examples are original.",
         "type": "terminology"
       },
       "quality": {
-        "last_reviewed": "2026-07-29",
+        "last_reviewed": "2026-10-12",
         "status": "reviewed",
         "tier": "gold"
       },
@@ -28913,9 +29066,9 @@
         "moves": [
           {
             "checks": [
-              "Keep a compact internal ledger of claims, values, uncertainty, comparability, exceptions, and locations. Distinguish preservation across the deliverable from repetition in each paragraph; do not print the ledger unless asked.",
-              "Setup defines the shared protocol; captions make displays interpretable; tables retain the full results; analysis explains the comparison that matters. Never refer to an absent table to justify omission.",
-              "For standalone passages, translation, explicit all-value requests, or missing displays, retain all required quantities and qualifiers. Split dense material across sentences or paragraphs rather than dropping facts."
+              "Keep an internal ledger of claims, values, uncertainty, comparability, exceptions and final locations; print it only if requested.",
+              "Setup defines protocols; captions interpret displays; tables retain results; analysis develops findings. Never cite an absent table to justify omission.",
+              "For standalone passages, translations, all-value requests or missing displays, retain all required quantities and qualifiers; split dense prose without dropping facts."
             ],
             "id": "evidence-allocation",
             "label": "Plan evidence placement internally",
@@ -28923,10 +29076,10 @@
           },
           {
             "checks": [
-              "Open with the finding that answers the research question, or briefly establish the question if needed. Name the comparison axis and attach the relevant display pointer; a question heading is optional.",
-              "Select numerical anchors for magnitude, a regime change, uncertainty, a cost, or an exception. Use natural units and distinguish absolute from relative change; do not narrate every row, duplicate endpoints and derived gains without purpose, or impose a fixed number quota.",
-              "Keep every number bound to the exact scope and denominator the material assigns it: never reattach an aggregate figure to a subset of tasks or a subset figure to the aggregate.",
-              "Describe the supported pattern across settings, including its extent. Compare the strongest relevant matched baseline, not an easier comparator or only the largest gain. Preserve important reversals and null outcomes in the prose."
+              "Start with the supported finding or brief research question, naming the comparison axis and display. A question heading is optional.",
+              "Anchor magnitude, regimes, uncertainty, costs or exceptions in natural units. Distinguish absolute from relative change; avoid redundant endpoints, row recitation and numeric quotas.",
+              "Keep each number attached to its exact scope and denominator; never assign an aggregate figure to a task subset or a subset figure to the aggregate.",
+              "Compare the strongest relevant matched baseline. Describe the cross-setting extent, not only the largest gain; retain reversals and null outcomes."
             ],
             "id": "evidence",
             "label": "State one supported finding and select its evidence",
@@ -28934,9 +29087,9 @@
           },
           {
             "checks": [
-              "Add an explanation only when supplied analysis supports it. A result paragraph may end at a bounded empirical conclusion; do not append a generic mechanism sentence to sound persuasive.",
-              "Use 'is consistent with' or 'suggests' for an explicitly supported but not identified mechanism. Hedging does not license an invented explanation.",
-              "Name alternative explanations such as scale, data, tuning, or compute when they remain uncontrolled.",
+              "Explain only with supplied supporting analysis. A bounded empirical conclusion is enough; no generic mechanism sentence is required.",
+              "Use 'suggests' or 'is consistent with' only for a supported, unidentified mechanism. Hedging does not license an invented explanation.",
+              "Name uncontrolled alternatives: scale, data, tuning or compute.",
               "Do not equate lack of statistical significance with equivalence."
             ],
             "id": "interpretation",
@@ -28955,16 +29108,16 @@
           },
           {
             "checks": [
-              "Order paragraphs by the empirical question: overall outcome, where it changes, then a diagnostic or trade-off when actually evaluated. Each paragraph advances the argument rather than re-announcing a display.",
-              "Reuse the technical subject and comparison axis to connect sentences. Use however, whereas, or under only for a real contrast; avoid repeated result summaries and decorative transitions.",
-              "Treat template sequences as choices, not a mandatory sentence count. Merge compatible moves, vary openings naturally, and omit unsupported moves rather than inventing a bridge, test, mechanism, or revision."
+              "Order paragraphs by the empirical question: outcome, changed regime, then an existing diagnostic or trade-off. Each advances the argument.",
+              "Retain the technical subject and comparison axis. Use contrast words for actual contrasts, not decorative transitions or repeated summaries.",
+              "Templates are choices, not a sentence quota. Merge compatible moves; omit unsupported bridges, tests, mechanisms and revisions."
             ],
             "id": "cohesion",
             "label": "Connect the argument without exposing the scaffold",
             "required": true
           }
         ],
-        "purpose": "Organize verified results into a finding-led argument: select quantitative evidence, connect comparisons, and preserve claim-changing exceptions without reciting a table or inventing an explanation.",
+        "purpose": "Build a finding-led argument from verified comparisons, selective numerical anchors and material exceptions; no table recitation or invented explanation.",
         "related_entry_ids": [
           "general.usage-note.result-narrative.001",
           "general.usage-note.result-display-allocation.001",
@@ -28980,10 +29133,10 @@
             "id": "result-paragraph",
             "name": "Main result paragraph",
             "sequence": [
-              "Supported finding or brief question, with the relevant comparison and display pointer.",
-              "Decisive quantitative contrast or cross-setting trend; use the retained display for full coverage.",
-              "Claim-changing exception, uncertainty, or cost placed beside the conclusion it qualifies.",
-              "Bounded empirical answer; add mechanism interpretation only if separately supported."
+              "Supported finding or brief question, comparison axis and display pointer.",
+              "Decisive contrast or trend; full coverage stays in the retained display.",
+              "Material exception, uncertainty or cost beside the claim it qualifies.",
+              "Bounded answer; mechanism only if separately supported."
             ],
             "when": "A table or figure answers one primary research question."
           },
@@ -28991,11 +29144,11 @@
             "id": "ablation-paragraph",
             "name": "Ablation paragraph",
             "sequence": [
-              "Component question and matched comparison, with a full-model reference recoverable from prose or the retained display.",
-              "The contrast that distinguishes the design alternatives, not one sentence for every variant.",
-              "Magnitude relative to reported uncertainty; preserve an unfavorable or null effect.",
-              "Interaction or non-additivity if modules are coupled.",
-              "Narrow conclusion about contribution, not universal necessity."
+              "Component question, matched contrast and recoverable full-model reference.",
+              "Contrast that distinguishes alternatives, not a sentence for each variant.",
+              "Effect against reported uncertainty, including adverse or null outcomes.",
+              "Interactions or non-additivity if components are coupled.",
+              "Contribution in this setting, not universal necessity."
             ],
             "when": "Variants test components, losses, data sources, or design choices."
           },
@@ -29003,9 +29156,9 @@
             "id": "regime-paragraph",
             "name": "Regime-dependent or null result",
             "sequence": [
-              "Name where the advantage holds and where it does not, with the shared display pointer.",
-              "Select the contrast or uncertainty that makes this boundary visible.",
-              "Limit the conclusion to the tested regime; no detectable difference is not proof of equivalence."
+              "Where the advantage holds and fails, with a shared display pointer.",
+              "Contrast or uncertainty that establishes the boundary.",
+              "Tested-regime conclusion; no detectable difference is not equivalence."
             ],
             "when": "A favorable aggregate conceals a reversal, saturation, or no detectable advantage."
           },
@@ -29013,9 +29166,9 @@
             "id": "diagnostic-chain",
             "name": "Outcome followed by a diagnostic",
             "sequence": [
-              "Summarize the outcome and the unresolved empirical question it leaves.",
-              "Introduce the existing diagnostic and the variable it changes or measures.",
-              "Use its decisive evidence to refine, not merely repeat, the earlier conclusion; retain alternative explanations."
+              "Outcome and the empirical question it leaves unresolved.",
+              "Existing diagnostic and its changed or measured variable.",
+              "Evidence that refines the earlier conclusion, with remaining alternatives."
             ],
             "when": "Separate experiments actually investigate a question raised by the main result."
           },
@@ -29035,8 +29188,8 @@
         "use_when": "Writing main-result, ablation, robustness, efficiency, or failure-analysis paragraphs after displays are finalized.",
         "verification": [
           "Every adjective such as consistent, substantial, stable, or efficient is tied to a visible statistic or named condition.",
-          "Each paragraph has an identifiable empirical point; deleting a numerical anchor would remove evidence for magnitude, regime, uncertainty, cost, or a material exception. A necessary standalone value remains even when it is not an anchor.",
-          "The prose does not repeat every cell of a retained display. All required quantities remain recoverable at their promised locations, and omitted cells cannot reverse or materially weaken the prose claim.",
+          "Each paragraph has one empirical point. Numerical anchors support magnitude, regimes, uncertainty, costs or exceptions; required standalone values still remain.",
+          "Full required values remain at their promised locations. Omitted display cells cannot reverse or materially weaken the prose claim.",
           "Shared protocol details are recoverable in setup or captions; no standalone excerpt silently depends on them.",
           "Interpretations preserve uncertainty and do not exceed the intervention or control structure.",
           "Negative and anomalous results are not silently omitted from the described trend."

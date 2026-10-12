@@ -22,6 +22,20 @@ An effectiveness claim is informative only when it names the intervention, compa
 - Across {tasks}, {method} improves {metric} over {baselines} under a matched {budget}.
 - The ablation supports the contribution of {component} to {measured outcome} in {setting}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: result-reporting construction
+- Scope: A measured outcome under the supplied comparison and evaluation setting; a generic effectiveness claim is not additional evidence.
+- Collocations: improves task success, reduces prediction error, at matched data budgets
+- Not interchangeable with: universal superiority, causal mechanism proof
+- Rule references: claims.calibration, paragraphs.focus, experiments.scope
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} improves {metric} relative to {baseline} in {evaluated setting}; other settings were not evaluated.
+- Misuse: These results prove the universal effectiveness and superiority of our method.
+- Preferred: {method} improves {metric} relative to {baseline} in {evaluated setting}.
+- Why: Names the observed comparison and scope instead of adding an unsupported effectiveness summary. Retain any supplied adverse setting or uncertainty.
+
 Catalog routes:
 - [domain: general](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/domains/general.md)
 - [section: abstract](https://raw.githubusercontent.com/asimfish/super_library/v0.4.0/dist/catalogs/sections/abstract.md)

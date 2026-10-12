@@ -20,6 +20,7 @@ library/
 ├── core_ids.json         universal high-risk records
 ├── compact_ids.json      legacy single-file selection
 ├── writing_guides.json   bounded section and table protocols
+├── writing_spec.json     stable AI language/evidence rules; must / prefer
 ├── task_routes.json      bounded task/domain fast-path bundles
 ├── table_templates.json  reviewed LaTeX table-asset registry
 ├── studies/*.json        aggregate/paragraph calibration audits; no paper prose
@@ -29,6 +30,33 @@ library/
 Schemas and business rules validate the canonical layer. Generated files are
 never authoritative. `schemas/catalog.schema.json` and `schemas/router.schema.json`
 also validate the selective indexes during every build.
+
+## AI writing specification and semantic dictionary
+
+![Architecture and verification boundaries](assets/ai-writing-architecture.svg)
+
+The independent STE-inspired design is recorded in [ADR-006](adr/ADR-006-ai-writing-spec-and-semantic-dictionary.md)
+and [the source/adaptation note](AI_WRITING_SPEC.md). General rules have a single
+canonical registry. Section guides still own section narration and tables;
+existing entries still own terms. Optional `lexical_profile` fields supply sense,
+part of speech, collocations, confusables, rule references and original
+fact-conditioned contrast pairs. Six entries have this new profile; no duplicate
+dictionary or new default retrieval tier is introduced.
+
+`scripts/writing_spec.py` is a pure selection/rendering boundary with no network
+or model calls. Bundles, one-file routes and the fallback core receive applicable
+compact summaries automatically. Complete rule rationales and examples live in
+optional generated `dist/specs/` views, mirrored in the skill. `spec <section>`
+inspects one complete profile under a hard character budget; `show` and portable
+lookup reveal one contextual term record. All added bundle text counts against
+the existing Markdown/JSON budget. `must` means evidence-preserving obligation,
+not machine-certified correctness; manual scientific review remains required.
+
+The repository SVG is a versioned engineering diagram; an external Canvas can
+explain its nodes interactively without becoming another corpus owner. Neither
+diagram beauty, build checks nor limited wording lint proves writing efficacy.
+The paired blind evaluation boundary and the negative historical findings remain
+unchanged. Reviewed feedback is a maintainer process, not automatic learning.
 
 ## Progressive disclosure
 

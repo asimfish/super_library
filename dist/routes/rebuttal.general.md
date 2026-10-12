@@ -18,6 +18,19 @@ Do not load the core, catalogs, guide, or cards again for this task.
 - State evidence before interpretation and retain exceptions, trade-offs,
   null results, and failure boundaries that affect the claim.
 
+## AI writing specification
+
+AI-paper adaptation, not STE compliance. Rules do not supply facts. Hard constraints need semantic review; preferences allow technically justified exceptions. No universal word whitelist or sentence-length ceiling.
+
+- `facts.preserve` [must]: Preserve facts, numbers, notation, negation, uncertainty and citation scope; never fill an unsupported template slot.
+- `terms.consistency` [must]: Use a stable term for each defined concept; retain domain terminology and distinguish related but non-equivalent metrics or components.
+- `claims.calibration` [must]: Bind significance, causality, generalization and ranking to their required evidence; hedging does not license an unsupported mechanism.
+- `sentences.direct` [prefer]: Give each sentence a clear main claim. Prefer direct verbs; retain passive voice, tense and technical noun phrases when they preserve the intended focus.
+- `sentences.attachment` [must]: Place each condition, unit, denominator and uncertainty next to the quantity or claim it qualifies; make pronouns and list mappings unambiguous.
+- `paragraphs.focus` [prefer]: Organize a paragraph around one question or finding. Connect sentences through the same subject or a real comparison, not decorative transitions.
+- `rebuttal.answer` [must]: Answer the concern directly; acknowledge only established problems and promise only supplied revisions, supported analyses or authorized commitments.
+
+
 ## Task protocol
 
 ### Super Library protocol: Rebuttal: answer–evidence–revision with fixed evidence
@@ -213,6 +226,20 @@ Statistical significance refers to an inferential test or interval criterion, wh
 
 - {method} yields a {value}-point improvement, but the difference is not statistically significant under {test}.
 - The improvement is substantial relative to {reference scale}, with an effect size of {value}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: adjective phrase / magnitude descriptor
+- Scope: Statistically significant requires supplied inferential evidence; a magnitude descriptor requires an explicit scale. Neither is an automatic synonym for a higher mean.
+- Collocations: statistically significant difference, effect magnitude, reported mean
+- Not interchangeable with: larger point estimate, substantial effect
+- Rule references: claims.calibration, facts.preserve
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {method} has a higher reported mean on {metric}; no inferential analysis was supplied.
+- Misuse: {method} significantly improves {metric}.
+- Preferred: {method} has a higher reported mean on {metric}; statistical significance was not assessed.
+- Why: Disambiguates magnitude from inference. This is not a ban on 'significant' when the required statistical evidence exists.
 
 ## Exit check
 

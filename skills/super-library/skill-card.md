@@ -55,6 +55,10 @@ organization without manuscript writing.
 - **Meaning drift:** preserve notation, quantities, negation, uncertainty,
   comparison scope, and citation placement, then run the limited lint and manual
   scientific checks.
+- **Over-restrictive or example-driven rewriting:** contextual lexical profiles
+  are not global word approval. Rule summaries do not ban tenses or impose sentence
+  ceilings. Contrast examples bind only to their declared hypothetical facts.
+  The shared pure renderer adds no network, credential or external-effect capability.
 - **Numerical laundry lists or selective omission:** distinguish complete
   evidence in retained displays from repetition in analysis; preserve material
   exceptions and all standalone/translation-required values. No numeric quota

@@ -18,6 +18,19 @@ Do not load the core, catalogs, guide, or cards again for this task.
 - State evidence before interpretation and retain exceptions, trade-offs,
   null results, and failure boundaries that affect the claim.
 
+## AI writing specification
+
+AI-paper adaptation, not STE compliance. Rules do not supply facts. Hard constraints need semantic review; preferences allow technically justified exceptions. No universal word whitelist or sentence-length ceiling.
+
+- `facts.preserve` [must]: Preserve facts, numbers, notation, negation, uncertainty and citation scope; never fill an unsupported template slot.
+- `terms.consistency` [must]: Use a stable term for each defined concept; retain domain terminology and distinguish related but non-equivalent metrics or components.
+- `claims.calibration` [must]: Bind significance, causality, generalization and ranking to their required evidence; hedging does not license an unsupported mechanism.
+- `sentences.direct` [prefer]: Give each sentence a clear main claim. Prefer direct verbs; retain passive voice, tense and technical noun phrases when they preserve the intended focus.
+- `sentences.attachment` [must]: Place each condition, unit, denominator and uncertainty next to the quantity or claim it qualifies; make pronouns and list mappings unambiguous.
+- `paragraphs.focus` [prefer]: Organize a paragraph around one question or finding. Connect sentences through the same subject or a real comparison, not decorative transitions.
+- `introduction.gap` [prefer]: Connect the task need to a verified limitation and the supplied contribution; do not manufacture a field-wide gap or announce experiments not provided.
+
+
 ## Task protocol
 
 ### Super Library protocol: Abstract: claim-aligned empirical summary
@@ -215,6 +228,20 @@ A learned predictive model of how an environment evolves, typically conditioned 
 
 - We use a world model to predict {future latent states or observations} conditioned on {current state and action sequence}.
 - Here, world model refers to {learned transition components} used for {planning or policy optimization}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: An umbrella term with community-dependent scope. Define the predictive components, conditioning and supplied downstream use; do not impose a decoder or fixed architecture.
+- Collocations: learn a world model, action-conditioned world model, plan with a world model
+- Not interchangeable with: any visually realistic video generator, the transition component alone in every paper
+- Rule references: terms.consistency, claims.calibration
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: The manuscript specifies {predictive components} and {downstream role}; reconstruction is not specified.
+- Misuse: A world model always reconstructs pixels.
+- Preferred: Here, world model refers to {predictive components} used for {downstream role}.
+- Why: Defines this manuscript's operational sense without inventing an architectural requirement. Use only when those components and role are supplied.
 
 **Verify in primary sources:**
 

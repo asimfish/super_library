@@ -459,6 +459,20 @@ A learned predictive model of how an environment evolves, typically conditioned 
 - We use a world model to predict {future latent states or observations} conditioned on {current state and action sequence}.
 - Here, world model refers to {learned transition components} used for {planning or policy optimization}.
 
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: An umbrella term with community-dependent scope. Define the predictive components, conditioning and supplied downstream use; do not impose a decoder or fixed architecture.
+- Collocations: learn a world model, action-conditioned world model, plan with a world model
+- Not interchangeable with: any visually realistic video generator, the transition component alone in every paper
+- Rule references: terms.consistency, claims.calibration
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: The manuscript specifies {predictive components} and {downstream role}; reconstruction is not specified.
+- Misuse: A world model always reconstructs pixels.
+- Preferred: Here, world model refers to {predictive components} used for {downstream role}.
+- Why: Defines this manuscript's operational sense without inventing an architectural requirement. Use only when those components and role are supplied.
+
 **Verify in primary sources:**
 
 - `ha2018worldmodels` — [Recurrent World Models Facilitate Policy Evolution](https://papers.nips.cc/paper/2018/hash/2de5d16682c3c35007e4e92982f1a2ba-Abstract.html) (NeurIPS 2018)
@@ -778,6 +792,20 @@ A model fitted from data to predict state or latent-state transitions under acti
 **Patterns:**
 
 - The learned dynamics model predicts {next representation} from {current representation} and {action}.
+
+**Contextual usage profile (not a universal word whitelist):**
+
+- Part of speech: noun phrase
+- Scope: The learned state or latent-state transition component. Distinguish this component from the broader system when the manuscript does so.
+- Collocations: learn a dynamics model, latent dynamics model, predict transitions
+- Not interchangeable with: dynamic model, observation decoder
+- Rule references: terms.consistency, sentences.direct
+
+Original conditional contrast; do not import its facts into a draft:
+- Given: {component} predicts {next state} from {current state} and {action}.
+- Misuse: The dynamic model predicts {next state} from {current state} and {action}.
+- Preferred: The learned dynamics model predicts {next state} from {current state} and {action}.
+- Why: Uses the field term for environment dynamics while preserving the exact prediction proposition. 'Dynamic' is not globally banned; it means something else.
 
 **Verify in primary sources:**
 
