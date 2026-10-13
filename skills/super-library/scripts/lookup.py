@@ -11,6 +11,7 @@ from typing import Any, Dict, Iterable, List, Sequence, Tuple
 
 from writing_spec import render_lexical_profile
 from retrieval import exact_positive_match
+import writing_context
 
 
 SKILL_DIR = Path(__file__).resolve().parents[1]
@@ -207,6 +208,7 @@ def main() -> int:
     parser.add_argument("--kind", action="append", default=[])
     parser.add_argument("--topic", action="append", default=[])
     parser.add_argument("--limit", type=int, default=6)
+    parser.add_argument("--view", choices=["reference", "drafting"], default="reference")
     parser.add_argument(
         "--format", choices=["markdown", "ids", "json"], default="markdown"
     )
@@ -245,11 +247,18 @@ def main() -> int:
     if args.format == "ids":
         print("\n".join(entry["id"] for entry in selected))
     elif args.format == "json":
-        print(json.dumps(selected, ensure_ascii=False, indent=2))
+        payload = ({"context_view": "drafting", "projection_notice": writing_context.NOTICE,
+                    "entries": [writing_context.project_entry(e) for e in selected]}
+                   if args.view == "drafting" else selected)
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
         print(
             "\n\n".join(
-                compact_entry(entry, sources_by_id) for entry in selected
+                (writing_context.NOTICE + "\n\n" + writing_context.render_entry(
+                    writing_context.project_entry(entry),
+                    [writing_context.project_source(sources_by_id[s]) for s in entry["source_ids"]]
+                ) if args.view == "drafting" else compact_entry(entry, sources_by_id))
+                for entry in selected
             )
         )
     return 0

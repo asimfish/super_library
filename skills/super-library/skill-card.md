@@ -62,6 +62,10 @@ organization without manuscript writing.
   Positive-match precedence reads only expressions and positive collocations,
   not contrast text or confusables. The shared matcher performs no I/O and cannot
   bypass the caller's domain/topic filters; it is not a semantic validator.
+  Opt-in drafting projections retain meaning, use/avoid constraints, source
+  navigation and selected protocol checks but omit teaching contrasts and
+  template menus. They are explicitly labeled incomplete; full reference
+  inspection remains available. The shared projection module adds no capabilities.
 - **Numerical laundry lists or selective omission:** distinguish complete
   evidence in retained displays from repetition in analysis; preserve material
   exceptions and all standalone/translation-required values. No numeric quota

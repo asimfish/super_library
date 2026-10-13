@@ -1,5 +1,17 @@
 # Provenance of the narrative revision
 
+## Drafting projection revision, 2026-10-13
+
+Independent implementation based on repository commit
+`1c2f4a80823a9b65ea663854f84243ae96bff5ce`; no third-party code or skill imported.
+`scripts/writing_context.py` derives an explicitly incomplete runtime projection
+from the same canonical records. Full reference views, source links and teaching
+contrasts remain available for inspection. No new network, model, credential,
+global installation or publication capability is added. Local projections retain
+all selected guide checks and evidence boundaries. A same-family, unexposed-control
+LLM diagnostic informs design but does not replace the pinned formal benchmark or
+qualified human review. Historical evaluation conditions and gates are unchanged.
+
 ## Retrieval-feedback revision, 2026-10-12
 
 Based on repository commit `9890df2863c51b09bed9635b5938affe44fbb109`.

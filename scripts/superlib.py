@@ -30,6 +30,7 @@ if __package__:
         compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
     )
     from .retrieval import exact_positive_match, explicitly_scoped_general
+    from . import writing_context
 else:
     from professional_benchmark import (
         ProfessionalBenchmarkError,
@@ -45,6 +46,7 @@ else:
         compact_spec, reference_errors, render_lexical_profile, render_spec, select_rules,
     )
     from retrieval import exact_positive_match, explicitly_scoped_general
+    import writing_context
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -4438,15 +4440,18 @@ def cmd_bundle(args: argparse.Namespace) -> int:
     sources_by_id = {source["id"]: source for source in sources}
     entries_by_id = {entry["id"]: entry for entry in entries}
     selected_guide = writing_guides_by_id().get(args.guide) if args.guide else None
+    drafting = args.view == "drafting"
+    runtime_guide = (writing_context.project_guide(selected_guide, args.domain)
+                     if drafting and selected_guide else selected_guide)
     spec_sections = args.section or ([selected_guide["section"]] if selected_guide else [])
     spec_config = read_json(WRITING_SPEC_PATH)
     selected_spec = compact_spec(spec_config, spec_sections)
     guide_block = ""
     if selected_guide:
         guide_domain = args.domain[0] if len(args.domain) == 1 else None
-        guide_block = render_writing_guide(
+        guide_block = (writing_context.render_guide(runtime_guide) if drafting else render_writing_guide(
             taxonomy, selected_guide, entries_by_id, domain=guide_domain
-        ).replace("# Super Library protocol:", "## Task-specific protocol:", 1)
+        ).replace("# Super Library protocol:", "## Task-specific protocol:", 1))
     selected_with_pass: List[Tuple[str, int, Dict[str, Any]]] = []
     if not args.guide_only and args.rhetoric_query.strip():
         rhetoric = rank_entries(
@@ -4516,6 +4521,8 @@ def cmd_bundle(args: argparse.Namespace) -> int:
         items: Sequence[Tuple[str, int, Dict[str, Any]]],
     ) -> str:
         lines = list(header)
+        if drafting:
+            lines.extend([writing_context.NOTICE, ""])
         lines.extend([render_spec(spec_config, spec_sections).rstrip(), ""])
         if guide_block:
             lines.extend(guide_block.rstrip().splitlines())
@@ -4536,7 +4543,10 @@ def cmd_bundle(args: argparse.Namespace) -> int:
                 [
                     f"## {retrieval_pass} · score {score}",
                     "",
-                    markdown_entry(entry, sources_by_id),
+                    (writing_context.render_entry(
+                        writing_context.project_entry(entry),
+                        [writing_context.project_source(sources_by_id[s]) for s in entry["source_ids"]]
+                    ) if drafting else markdown_entry(entry, sources_by_id)),
                     "",
                 ]
             )
@@ -4549,26 +4559,29 @@ def cmd_bundle(args: argparse.Namespace) -> int:
             "corpus_version": taxonomy["corpus_version"],
             "max_chars": args.max_chars,
             "writing_spec": selected_spec,
-            "guide": selected_guide,
+            "guide": runtime_guide,
             "retrieved_ids": [entry["id"] for _, _, entry in items],
             "entries": [
                 {
                     "retrieval_pass": retrieval_pass,
                     "score": score,
-                    **public_record(entry),
+                    **(writing_context.project_entry(entry) if drafting else public_record(entry)),
                     "sources": [
-                        public_record(sources_by_id[source_id])
+                        (writing_context.project_source(sources_by_id[source_id])
+                         if drafting else public_record(sources_by_id[source_id]))
                         for source_id in entry["source_ids"]
                     ],
                 }
                 for retrieval_pass, score, entry in items
             ],
         }
+        if drafting:
+            payload.update(context_view="drafting", projection_notice=writing_context.NOTICE)
         return json.dumps(payload, ensure_ascii=False, indent=2)
 
     if len(render_bundle([])) + 1 > args.max_chars:
         print(
-            "The complete protocol exceeds the requested context budget. "
+            "The complete selected protocol view exceeds the requested context budget. "
             "Increase --max-chars or select a smaller protocol.",
             file=sys.stderr,
         )
@@ -5168,6 +5181,7 @@ def cmd_build(_: argparse.Namespace) -> int:
     prune_generated_tree(skill_specs_dir, {p.name for p in specs_dir.glob("*.md")})
     shutil.copyfile(ROOT / "scripts" / "writing_spec.py", SKILL_DIR / "scripts" / "writing_spec.py")
     shutil.copyfile(ROOT / "scripts" / "retrieval.py", SKILL_DIR / "scripts" / "retrieval.py")
+    shutil.copyfile(ROOT / "scripts" / "writing_context.py", SKILL_DIR / "scripts" / "writing_context.py")
     skill_guides_dir = SKILL_REFERENCES_DIR / "guides"
     skill_guides_dir.mkdir(parents=True, exist_ok=True)
     for generated_path in guides_dir.glob("*.md"):
@@ -5647,6 +5661,8 @@ def build_parser() -> argparse.ArgumentParser:
         "bundle", help="emit a bounded two-pass context bundle for one writing task"
     )
     bundle_parser.add_argument("--rhetoric-query", default="")
+    bundle_parser.add_argument("--view", choices=["reference", "drafting"], default="reference",
+                               help="complete reference (default) or explicit drafting projection")
     bundle_parser.add_argument("--technical-query", default="")
     add_multi_filter(bundle_parser, "domain", taxonomy["domains"], "technical domain")
     add_multi_filter(bundle_parser, "section", taxonomy["sections"], "writing section")
