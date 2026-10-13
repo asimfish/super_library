@@ -158,6 +158,25 @@ bootstrap uncertainty, and agreement. See
 
 ## Local retrieval
 
+### Reference and drafting are views, not separate corpora
+
+[ADR-008](adr/ADR-008-reference-versus-drafting-context.md) adds opt-in
+`bundle --view drafting` and portable `lookup.py --view drafting`.
+The default `reference` view remains complete and compatible. The drafting
+view is explicitly labeled a projection; it retains meaning, use/avoid
+constraints, provenance type, source navigation and all selected guide
+inputs/moves/checks/verification. Only applicable domain overlays enter it.
+Template menus, navigation metadata and negative teaching contrasts stay in
+reference inspection rather than being repeated in the writing prompt.
+
+`scripts/writing_context.py` owns this pure projection boundary and is mirrored
+verbatim in the portable skill. It neither ranks records nor infers task facts.
+Selection precedes projection, then serialization determines budget admission.
+Both views use the same character budget; inspect `show` or `guide` for complete
+records. A drafting output must not be described as a complete canonical card.
+Generated one-file routes remain reference views; no second default route tree
+or global installation is introduced.
+
 Local Agents should avoid Markdown traversal:
 
 ```bash

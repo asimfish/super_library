@@ -6,7 +6,9 @@
 <rect width="1800" height="1120" fill="#ffffff"/>
 <text x="50" y="58" class="heading">Super Library / AI research writing</text>
 <text x="50" y="95" class="body">Writing specification + contextual dictionary + section protocols + inspectable evidence boundaries</text>
-<text x="50" y="132" class="small">Engineering snapshot: 2026-10-12 · independent STE-inspired design · not STE compliance or an effectiveness certificate</text>
+<text x="50" y="132" class="small">Engineering snapshot: 2026-10-13 · independent STE-inspired design · not STE compliance or an effectiveness certificate</text>
+<path d="M1695 1017 H1740 V163 H527 V205" fill="none" stroke="#886c3d" stroke-width="2" stroke-dasharray="3 5" marker-end="url(#arrow)"/>
+<text x="1070" y="156" class="tiny">Diagnostic feedback: maintainer review, never automatic promotion</text>
 <text x="50" y="179" class="section">A / Offline curation and build</text>
 <g data-path="library/sources.jsonl"><rect x="50" y="205" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="68" y="241" class="node">Primary papers</text><text x="68" y="280" class="small">sources.jsonl + verified papers</text><text x="68" y="311" class="tiny">Evidence stays outside language context</text></g>
 <g data-path="library/promotion_decisions.jsonl"><rect x="385" y="205" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="403" y="241" class="node">Maintainer curation</text><text x="403" y="280" class="small">studies + promotion decisions</text><text x="403" y="311" class="tiny">Read, synthesize, deduplicate, review</text></g>
@@ -20,7 +22,7 @@
 <text x="50" y="414" class="section">B / Runtime writing path</text>
 <g data-path="AGENTS.md"><rect x="50" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="68" y="506" class="node">Author task + facts</text><text x="68" y="545" class="small">domain / section / intent / evidence</text><text x="68" y="576" class="tiny">Required quantities and known limits</text></g>
 <g data-path="scripts/retrieval.py"><rect x="385" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="403" y="506" class="node">Select context</text><text x="403" y="545" class="small">route or two-pass retrieval</text><text x="403" y="576" class="tiny">Positive collocations; controlled filters</text></g>
-<g data-path="scripts/writing_spec.py"><rect x="720" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="738" y="506" class="node">Bounded bundle</text><text x="738" y="545" class="small">compact rules + selected records</text><text x="738" y="576" class="tiny">Full serialized output &lt;= max-chars</text></g>
+<g data-path="scripts/writing_context.py"><rect x="720" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="738" y="506" class="node">Bounded bundle</text><text x="738" y="545" class="small">reference OR drafting projection</text><text x="738" y="576" class="tiny">Full serialized output &lt;= max-chars</text></g>
 <g data-path="skills/super-library/SKILL.md"><rect x="1055" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="1073" y="506" class="node">Agent composition</text><text x="1073" y="545" class="small">original prose from supplied facts</text><text x="1073" y="576" class="tiny">Examples are conditional, not evidence</text></g>
 <g data-path="scripts/superlib.py"><rect x="1390" y="470" width="285" height="140" fill="#f5f7fa" stroke="#8492a6"/><text x="1408" y="506" class="node">Output review</text><text x="1408" y="545" class="small">limited lint + semantic review</text><text x="1408" y="576" class="tiny">Claims, numbers, citations, scope</text></g>
 <path d="M 335 540 L 385 540" fill="none" stroke="#58677b" stroke-width="2"  marker-end="url(#arrow)"/>
@@ -44,7 +46,7 @@
 <text x="630" y="758" class="mono">library/entries/*.jsonl</text>
 <text x="630" y="795" class="body">278 entries; 14 enriched profiles</text>
 <text x="630" y="831" class="body">Sense / part of speech / collocations / scope</text>
-<text x="630" y="867" class="body">Same facts: misuse / preferred / reason</text>
+<text x="630" y="867" class="body">Reference: contrasts; drafting: use / scope</text>
 <text x="630" y="903" class="small">Success rate is not automatically accuracy or return</text>
 <rect x="1210" y="686" width="465" height="238" fill="#f5f7fa" stroke="#8492a6"/>
 <text x="1230" y="723" class="node">Section protocols</text>
@@ -55,6 +57,6 @@
 <text x="1230" y="903" class="small">Unsupported moves are omitted, never filled</text>
 <text x="50" y="976" class="section">D / Three distinct checks</text>
 <text x="50" y="1017" class="body">Build / CI: artifact and budget contracts   |   Output review: semantic correctness   |   Paired blind evaluation: writing benefit</text>
-<text x="50" y="1056" class="small">Evaluation findings return to maintainer review as reviewed changes, not automatic learning. No fresh efficacy result is claimed.</text>
+<text x="50" y="1056" class="small">Diagnostic blind LLM feedback is maintainer evidence, not automatic learning. No fresh efficacy result is claimed.</text>
 <text x="50" y="1091" class="tiny">Solid arrows: implemented data/control path. Dashed arrow: required external evidence step, not an automated correctness guarantee.</text>
 </svg>

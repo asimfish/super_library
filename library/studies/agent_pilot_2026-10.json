@@ -1,0 +1,1256 @@
+{
+  "schema_version": "1.0",
+  "id": "agent-pilot-2026-10-13",
+  "type": "diagnostic_llm_blind_pilot",
+  "not_formal_release_evidence": true,
+  "library_commits": {
+    "discovery": "1c2f4a80823a9b65ea663854f84243ae96bff5ce",
+    "verification": "b386b41ddebace383cc776f30c9ffbd27d7f44e9"
+  },
+  "method": {
+    "date": "2026-10-13",
+    "verification_conditions": [
+      "control",
+      "candidate_reference",
+      "candidate_drafting"
+    ],
+    "verification_amendment": "After discovery ratings frozen and before any verification generation: both reference and drafting arms use the same frozen b386b41 candidate, differing only in --view. Four discovery reference outputs were compared byte-for-byte with saved1c2f4a8 outputs to verify compatibility; canonical library and dist are unchanged. Two fresh anonymous LLM raters; randomized A/B/C labels. No cross-stage improvement claim.",
+    "library_commit": "1c2f4a80823a9b65ea663854f84243ae96bff5ce",
+    "discovery": [
+      "paper-analysis-vla-speed-generalization",
+      "paper-analysis-world-model-regime",
+      "paper-introduction-challenge-design-scope",
+      "trap-paper-missing-protocol"
+    ],
+    "verification": [
+      "paper-analysis-standalone-fidelity",
+      "paper-efficiency-table-caption",
+      "paper-abstract-null-result-boundary",
+      "translation-negation-numbers-citation"
+    ],
+    "protocol": "Instruction-isolated fresh fork_turns=none writer contexts; same inherited model, no overrides; two fresh LLM raters per stage with no condition mapping. Four tasks batched per writer; shared within-arm context is a limitation. Development diagnostic only: controls and immutable model revision unexposed; no formal release gates or human-qualification claim. Rater files frozen before decoding.",
+    "design_boundary": "Change only after discovery ratings frozen; do not read verification outputs before freezing candidate. Common inherited platform instructions and shared filesystem are not removed; access restrictions are instruction-based, not OS-sandbox-enforced."
+  },
+  "evaluation_file_hashes": {
+    "evals/writing.json": "db5655ab09a3ff28aad7aee33ac07fc8126efe2b76317c7fcc1db4938b2fda0d",
+    "evals/professionalism.json": "489e0a89fcb3875f9b85c3e393ea5e20ec96fe1d0cf3437c29573f60242725b1"
+  },
+  "blind_sha256": {
+    "discovery": "ae9255de9634b90ad712c5f6197d2d040be705a272cbb4d63ec2dabdc3019b17",
+    "verification": "71914b12a3f51b449ac8dcaa468884b080b2d3d1356553521601b63f94a9c066"
+  },
+  "generation_controls": {
+    "model": "Inherited parent model; no override",
+    "immutable_model_revision": "unexposed",
+    "temperature": "unexposed",
+    "top_p": "unexposed",
+    "generation_seed": "unexposed",
+    "output_token_budget": "unexposed"
+  },
+  "limitations": [
+    "Four synthetic tasks per stage; no external held-out dataset or repeated generations.",
+    "Instruction isolation and common filesystem/platform, not OS-enforced isolation; four tasks per writer context.",
+    "Two fresh LLM rater contexts per stage in same inherited model family, not human or cross-model evaluation.",
+    "Reference verification writer additionally read auto-context-manager Skill and taxonomy/topics; context difference disclosed.",
+    "Token estimates in agent tool logs excluded; actual characters measured, not model input token counts.",
+    "Initial manually repeated packets cancelled before any output inspected/scored; fresh writers read identical frozen task file.",
+    "Formal benchmark controls, gates and historical evaluation cases unchanged; no effectiveness certification."
+  ],
+  "phases": [
+    {
+      "id": "discovery",
+      "cases": [
+        {
+          "case_id": "paper-analysis-vla-speed-generalization",
+          "prompt": {
+            "case_id": "paper-analysis-vla-speed-generalization",
+            "mode": "paper",
+            "classification": {
+              "domain": "vision_language_action",
+              "section": "experiments",
+              "intent": "evidence"
+            },
+            "request": "Write a compact result analysis of whether the faster VLA variant is preferable for the evaluated deployment setting.",
+            "facts": [
+              "Retained Table 5 compares the full model and a compressed variant on identical hardware, precision, training data, selection protocol, and execution horizon.",
+              "Full / compressed mean model-query latency is 48 / 24 ms. This excludes sensing, communication, and actuation; it is not end-to-end task latency and no tail-latency statistic was recorded.",
+              "Full / compressed success on seen objects is 78% / 80%; on held-out objects it is 64% / 52%. Each condition includes 100 trials per method; no uncertainty estimate or significance test was computed.",
+              "No unseen embodiment, unseen task, or causal diagnostic was evaluated."
+            ],
+            "evidence_boundary": "Table 5 and its self-contained caption remain in the paper. Do not omit the held-out object degradation, treat mean latency as a hard real-time guarantee, or invent a representation mechanism.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "d-3",
+            "case_id": "paper-analysis-vla-speed-generalization",
+            "assignment": {
+              "a": "control",
+              "b": "library"
+            }
+          },
+          "responses": {
+            "control": {
+              "text": "Table 5 shows a deployment trade-off under identical hardware, precision, training data, selection protocol, and execution horizon. The compressed variant reduces mean model-query latency from 48 to 24 ms, while success rises from 78% to 80% on seen objects but falls from 64% to 52% on held-out objects. Each condition includes 100 trials per method; no uncertainty estimate or significance test was computed. Thus, compression may be preferable when mean query latency is the priority and deployment is restricted to seen objects, but the held-out object degradation limits this conclusion for deployments requiring object generalization. The latency measurements exclude sensing, communication, and actuation, are not end-to-end task latencies, and include no tail-latency statistic; they therefore do not establish a hard real-time guarantee. No unseen embodiment, unseen task, or causal diagnostic was evaluated, so these results neither establish broader generalization nor identify a mechanism for the observed trade-off.\n",
+              "sha256": "e72215d32d637f5ae5fd40fd50c1d0e512dad7440c05dca67af477e4927383c9",
+              "machine_check_passed": true
+            },
+            "library": {
+              "text": "The compressed variant trades lower mean model-query latency for poorer held-out-object success, so Table 5 does not establish it as uniformly preferable for the evaluated deployment setting. Under identical hardware, precision, training data, selection protocol, and execution horizon, compression reduces mean model-query latency from 48 to 24 ms. Seen-object success is 80% for the compressed variant versus 78% for the full model, whereas held-out-object success falls to 52% versus 64%, with 100 trials per method in each condition. No uncertainty estimate or significance test was computed, so these success differences are descriptive. The latency measurement excludes sensing, communication, and actuation and is not end-to-end task latency; no tail-latency statistic was recorded, so it provides no hard real-time guarantee. The compressed variant offers lower mean query latency in the evaluated seen-object condition, while the full model has higher observed success on held-out objects. No unseen embodiment, unseen task, or causal diagnostic was evaluated, so broader generalization and a mechanism for this trade-off remain unestablished.\n",
+              "sha256": "8c51969430c96b6d8ffd467d3973c216df5224770f81e4e959115882fcb47118",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "library": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'finding led experimental narrative' --technical-query 'model query latency' --domain vision_language_action --section experiments --intent evidence --guide experiments.analysis --limit 4 --max-chars 24000",
+              "characters": 22648,
+              "bytes": 22759,
+              "sha256": "033e1bdf948abaf5976c5048c7525b1a789aae4b82ce3118230ab64108df6161",
+              "selected_ids": [
+                "general.usage-note.result-narrative.001",
+                "vla.usage-note.control-latency.001",
+                "general.phrase.demonstrate.001",
+                "emb.definition.3d-vla-world-model.001",
+                "general.phrase.simulated-real-world.001",
+                "emb.definition.embodied-language-model.001",
+                "general.phrase.find-that.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "discovery-rater-one",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "control"
+              ],
+              "rationale": "Both preserve the held-out-object degradation, latency exclusions, trial counts, and untested generalization boundaries without claiming significance or a hard real-time guarantee. A more directly answers the deployment question with a qualified condition: prioritizing mean query latency in deployment restricted to seen objects. B correctly rejects uniform preference but later repeats the latency-versus-success comparison instead of sharpening the deployment decision."
+            },
+            {
+              "rater_id": "discovery-rater-two",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 4,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 4,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "control"
+              ],
+              "rationale": "Both report the latency reduction, seen-object and held-out-object success, trial counts, missing uncertainty tests, latency exclusions, and untested generalization boundaries. A directly answers the deployment question with a qualified preference tied to latency priorities and seen-object use. B's later statement that the variant offers lower latency 'in the evaluated seen-object condition' ambiguously attaches the aggregate latency result to an object-specific condition not separately specified in the packet, and largely repeats its opening trade-off instead of sharpening the decision."
+            }
+          ]
+        },
+        {
+          "case_id": "paper-analysis-world-model-regime",
+          "prompt": {
+            "case_id": "paper-analysis-world-model-regime",
+            "mode": "paper",
+            "classification": {
+              "domain": "world_models",
+              "section": "experiments",
+              "intent": "evidence"
+            },
+            "request": "Write a compact analysis passage explaining what the prediction and control evaluations establish about the world model.",
+            "facts": [
+              "Retained Figure 5 reports action-conditioned open-loop prediction MSE, lower is better, as mean plus or minus standard deviation over five independently trained models.",
+              "Baseline / proposed MSE at horizons 1, 5, 20: 0.08 +/- 0.01 / 0.07 +/- 0.01; 0.20 +/- 0.03 / 0.12 +/- 0.02; 0.48 +/- 0.05 / 0.50 +/- 0.06.",
+              "Retained Table 2 reports closed-loop planning returns under matched interaction budgets and the same planner, higher is better: baseline 72 +/- 7, proposed 70 +/- 7, over five independently trained models.",
+              "The proposed model has lower mean prediction MSE at horizons 1 and 5, but not at horizon 20; observed planning returns do not improve. No statistical significance or equivalence test was run."
+            ],
+            "evidence_boundary": "Figure 5, Table 2, and their captions remain available. Summarization may leave redundant values there but cannot hide the horizon reversal or the lack of downstream improvement. No mechanism or equivalence test exists.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "d-2",
+            "case_id": "paper-analysis-world-model-regime",
+            "assignment": {
+              "a": "library",
+              "b": "control"
+            }
+          },
+          "responses": {
+            "library": {
+              "text": "The proposed world model has lower mean prediction error at shorter horizons, but this advantage reverses at horizon 20 and does not translate into higher observed planning returns (Figure 5; Table 2). For action-conditioned open-loop prediction, where lower MSE is better, the proposed model achieves 0.07 ± 0.01 versus the baseline's 0.08 ± 0.01 at horizon 1, and 0.12 ± 0.02 versus 0.20 ± 0.03 at horizon 5. At horizon 20, its MSE is higher: 0.50 ± 0.06 versus 0.48 ± 0.05. These prediction values are means ± standard deviations over five independently trained models. With matched interaction budgets and the same planner, closed-loop planning returns, where higher is better, are 70 ± 7 for the proposed model and 72 ± 7 for the baseline over five independently trained models. Thus, the evaluations establish a horizon-dependent difference in prediction error without an observed downstream control improvement. No statistical significance or equivalence test was run, and the evaluations do not identify a mechanism for the prediction–control discrepancy.\n",
+              "sha256": "1f43d2047754b3b85de723f3bced203bfeee6848a46e15f6884063990a8d17de",
+              "machine_check_passed": true
+            },
+            "control": {
+              "text": "Figure 5 reports action-conditioned open-loop prediction MSE, where lower is better, as mean ± standard deviation over five independently trained models. Baseline and proposed MSE are respectively 0.08 ± 0.01 and 0.07 ± 0.01 at horizon 1, 0.20 ± 0.03 and 0.12 ± 0.02 at horizon 5, and 0.48 ± 0.05 and 0.50 ± 0.06 at horizon 20. The proposed model therefore has lower mean prediction error at horizons 1 and 5, but this ordering reverses at horizon 20. Table 2 evaluates closed-loop planning with the same planner and matched interaction budgets: returns, where higher is better, are 72 ± 7 for the baseline and 70 ± 7 for the proposed model over five independently trained models. The observed short-horizon prediction improvements thus do not accompany improved planning returns. No statistical significance or equivalence test was run, so these observations establish neither statistically significant differences nor equivalence, and no mechanism was evaluated to explain the prediction–control relationship.\n",
+              "sha256": "223a50864a650adfda07292eb722e27dbbba3746a851837061b1e370b307cfcf",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "library": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'finding led experimental narrative' --technical-query 'objective mismatch' --domain world_models --section experiments --intent evidence --guide experiments.analysis --limit 4 --max-chars 24000",
+              "characters": 23491,
+              "bytes": 23604,
+              "sha256": "ce9dd9429a4c33d1a057eb4d57daafff2b031af3aa0aef4b435771abc8cd0db6",
+              "selected_ids": [
+                "general.usage-note.result-narrative.001",
+                "wm.definition.objective-mismatch.001",
+                "general.phrase.demonstrate.001",
+                "wm.term.learned-reward-model.001",
+                "general.phrase.simulated-real-world.001",
+                "wm.definition.task-irrelevant-distraction.001",
+                "general.phrase.find-that.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "discovery-rater-one",
+              "scores_by_condition": {
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "control"
+              ],
+              "rationale": "Both accurately report the horizon-20 reversal, the absence of observed planning improvement, the matched planning conditions, and the lack of significance or equivalence tests. B moves from prediction evidence to control evidence and then states the inferential limits explicitly. A restates its opening conclusion in the penultimate sentence. Both could be shorter because the retained displays already contain the numerical cells."
+            },
+            {
+              "rater_id": "discovery-rater-two",
+              "scores_by_condition": {
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 3
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 3
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [],
+              "rationale": "Both correctly retain the horizon-20 reversal, lower observed proposed-model planning returns, matched budgets and planner, five independently trained models, and the absence of significance, equivalence, or mechanism evidence. A states the joint finding immediately but repeats it near the end; B makes the inferential limits especially explicit but begins with a lengthy enumeration. Both reproduce all displayed values despite the permitted summary, making the requested compact analysis unnecessarily long."
+            }
+          ]
+        },
+        {
+          "case_id": "paper-introduction-challenge-design-scope",
+          "prompt": {
+            "case_id": "paper-introduction-challenge-design-scope",
+            "mode": "paper",
+            "classification": {
+              "domain": "vision_language_action",
+              "section": "introduction",
+              "intent": "describe",
+              "topic": "action_representation"
+            },
+            "request": "Write the challenge-to-design bridge and contribution statement for a VLA introduction.",
+            "facts": [
+              "Executing long action chunks without feedback can accumulate control errors.",
+              "The proposed policy predicts an action chunk but replans from a new observation every four control steps.",
+              "The empirical contribution is an evaluation on one closed-loop manipulation benchmark.",
+              "No real-robot experiment was conducted."
+            ],
+            "evidence_boundary": "Motivate periodic feedback and state the evaluated closed-loop benchmark; real-robot performance and universal error prevention are unsupported.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "d-1",
+            "case_id": "paper-introduction-challenge-design-scope",
+            "assignment": {
+              "a": "control",
+              "b": "library"
+            }
+          },
+          "responses": {
+            "control": {
+              "text": "Executing long action chunks without feedback can accumulate control errors, motivating periodic updates from new observations. Our policy predicts an action chunk but replans from a new observation every four control steps, incorporating feedback during execution without claiming to prevent all control errors. Our empirical contribution is an evaluation on one closed-loop manipulation benchmark; no real-robot experiment was conducted, and real-robot performance remains unestablished.\n",
+              "sha256": "f07c2ea4bc4e028d90ece50aa1ed03d833ea2fe52bea9c0da1fa799638ab39a8",
+              "machine_check_passed": true
+            },
+            "library": {
+              "text": "Executing long action chunks without feedback can accumulate control errors, motivating periodic feedback during execution. To incorporate such feedback, our proposed policy predicts an action chunk but replans from a new observation every four control steps. Our empirical contribution is an evaluation of this policy on one closed-loop manipulation benchmark. No real-robot experiment was conducted; we therefore do not claim real-robot performance, nor do we claim that periodic replanning universally prevents control errors.\n",
+              "sha256": "2fdce7778dcf2e80c73bc9fc314fbb0654d9f3398d7d992122bed64b555a6e91",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "library": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'challenge design scope' --technical-query 'action chunking' --domain vision_language_action --topic action_representation --section introduction --intent describe --guide introduction --limit 4 --max-chars 24000",
+              "characters": 17354,
+              "bytes": 17432,
+              "sha256": "d261aba5abf13d195a7e378e248b34ba4cd5ebb3c8c8238c9f328c07b95a8101",
+              "selected_ids": [
+                "general.sentence-pattern.intro-challenge-design.001",
+                "emb.definition.action-chunking.001",
+                "general.sentence-pattern.intro-observation-design.001",
+                "wm.definition.latent-action-representation.001",
+                "general.sentence-pattern.contribution.001",
+                "emb.term.temporal-ensembling.001",
+                "general.sentence-pattern.intro-contribution-evidence.001",
+                "vla.definition.continuous-action-head.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "discovery-rater-one",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "library"
+              ],
+              "rationale": "Both preserve the four-step replanning interval, the single-benchmark contribution, and the absence of real-robot experiments. B has a cleaner challenge-to-design-to-contribution progression and places the unsupported-claim boundaries together at the end. A interrupts its design sentence with 'without claiming to prevent all control errors.'"
+            },
+            {
+              "rater_id": "discovery-rater-two",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "library"
+              ],
+              "rationale": "Both preserve four-step replanning, the single benchmark, and the absence of real-robot experiments. B gives the challenge, design, empirical contribution, and scope limitation separate clear roles. A inserts 'without claiming to prevent all control errors' into the design description, interrupting the challenge-to-design bridge with a claim-management aside."
+            }
+          ]
+        },
+        {
+          "case_id": "trap-paper-missing-protocol",
+          "prompt": {
+            "case_id": "trap-paper-missing-protocol",
+            "mode": "paper",
+            "classification": {
+              "domain": "embodied_ai",
+              "section": "experiments",
+              "intent": "describe"
+            },
+            "request": "Write the experimental setup paragraph for the manipulation study from the recorded facts.",
+            "facts": [
+              "All experiments run in the ManiSkill3 simulator.",
+              "The study uses 12 tabletop manipulation tasks.",
+              "Every configuration is trained with 3 random seeds.",
+              "The protocol records no held-out split, no real-robot trials, and no baseline roster; those design decisions are still open."
+            ],
+            "evidence_boundary": "Describe only the simulator, task count, and seed count; the packet fixes no evaluation split, no real-robot deployment, and no baseline roster, so leave those undecided rather than inventing them.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "d-4",
+            "case_id": "trap-paper-missing-protocol",
+            "assignment": {
+              "a": "library",
+              "b": "control"
+            }
+          },
+          "responses": {
+            "library": {
+              "text": "All experiments run in the ManiSkill3 simulator across 12 tabletop manipulation tasks. Every configuration is trained with 3 random seeds. The recorded protocol specifies no held-out split, no real-robot trials, and no baseline roster; these design decisions remain open.\n",
+              "sha256": "14578f69027d6b351b1210468ef465592cc01eb3ea7d2c9729eada8b52b91e3e",
+              "machine_check_passed": true
+            },
+            "control": {
+              "text": "All experiments run in the ManiSkill3 simulator and use 12 tabletop manipulation tasks. Every configuration is trained with 3 random seeds. The recorded protocol specifies no held-out split, no real-robot trials, and no baseline roster; these design decisions remain open.\n",
+              "sha256": "91ac6339dadb3429e0ace6a5e41dac364e6ae7ee8ffe870d29cbeaf7c11c6879",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "library": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'experimental setup' --technical-query 'task success rate' --domain embodied_ai --section experiments --intent describe --guide experiments --limit 4 --max-chars 24000",
+              "characters": 22136,
+              "bytes": 22209,
+              "sha256": "35548fe17f70ba5f5e2ed0a2c6c5645f88f32f6dd4ce862835cacd99695702f3",
+              "selected_ids": [
+                "general.sentence-pattern.experiment-overview.001",
+                "emb.term.task-success-rate.001",
+                "general.sentence-pattern.reproducibility-default.001",
+                "emb.definition.multimodal-prompt.001",
+                "general.usage-note.result-display-allocation.001",
+                "emb.definition.mobile-manipulation.001",
+                "emb.definition.rearrangement.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "discovery-rater-one",
+              "scores_by_condition": {
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [],
+              "rationale": "Both concisely state ManiSkill3, 12 tabletop tasks, and three training seeds per configuration, and explicitly leave the held-out split, real-robot trials, and baseline roster undecided. 'Across 12' versus 'use 12' does not create a meaningful difference in accuracy or usefulness."
+            },
+            {
+              "rater_id": "discovery-rater-two",
+              "scores_by_condition": {
+                "library": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [],
+              "rationale": "Both give ManiSkill3, 12 tabletop manipulation tasks, and three random seeds per configuration, then explicitly leave the held-out split, real-robot trials, and baseline roster undecided. The only difference, 'across' versus 'and use,' does not materially affect fidelity, setup function, or readability."
+            }
+          ]
+        }
+      ],
+      "mean_six_dimension_score": {
+        "control": 4.791666666666667,
+        "library": 4.770833333333334
+      }
+    },
+    {
+      "id": "verification",
+      "cases": [
+        {
+          "case_id": "paper-analysis-standalone-fidelity",
+          "prompt": {
+            "case_id": "paper-analysis-standalone-fidelity",
+            "mode": "paper",
+            "classification": {
+              "domain": "general",
+              "section": "experiments",
+              "intent": "quantify"
+            },
+            "request": "Write a standalone result-analysis passage from these facts. It may use more than one paragraph to remain readable.",
+            "facts": [
+              "Under matched hardware, training data, and model selection, mean success rises from 62% to 70%, an 8-percentage-point gain.",
+              "Mean model-query latency rises from 40 ms to 68 ms; this excludes sensing and actuation.",
+              "Gains occur on four of six tasks; two tasks are unchanged within the reported uncertainty.",
+              "No statistical significance test was run, and no experiment identifies which component causes the gain."
+            ],
+            "evidence_boundary": "The requested passage must stand alone: no table, figure, caption, or setup accompanies it. Explicitly preserve every supplied measurement and qualifier, without inventing a display pointer or significance test.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "v-2",
+            "case_id": "paper-analysis-standalone-fidelity",
+            "assignment": {
+              "a": "control",
+              "b": "reference",
+              "c": "drafting"
+            }
+          },
+          "responses": {
+            "control": {
+              "text": "Under matched hardware, training data, and model selection, mean success increases from 62% to 70%, an 8-percentage-point gain. Mean model-query latency increases from 40 ms to 68 ms; these latency measurements exclude sensing and actuation. Gains occur on four of the six tasks, while performance on the other two is unchanged within the reported uncertainty. No statistical significance test was run, and no experiment identifies which component causes the gain.\n",
+              "sha256": "32ca28399c7fa44fa759e5e3cae6399c6c94de78aa08b093490dc6b3f5e04065",
+              "machine_check_passed": true
+            },
+            "reference": {
+              "text": "Under matched hardware, training data, and model selection, mean success rises from 62% to 70%, a gain of 8 percentage points. The gains occur on four of the six tasks; the remaining two tasks are unchanged within the reported uncertainty. This improvement comes with higher mean model-query latency, which rises from 40 ms to 68 ms and excludes sensing and actuation. No statistical significance test was run, and no experiment identifies which component causes the gain.\n",
+              "sha256": "bce6c361bf51138aa0f3d33bd9db13b60b6a8e743bd5132766ac598ad70cb70f",
+              "machine_check_passed": true
+            },
+            "drafting": {
+              "text": "Under matched hardware, training data, and model selection, mean success increased from 62% to 70%, a gain of 8 percentage points. Gains occurred on four of six tasks, while two tasks were unchanged within the reported uncertainty.\n\nMean model-query latency increased from 40 ms to 68 ms; these measurements exclude sensing and actuation. No statistical significance test was run, and no experiment identifies which component caused the gain.\n",
+              "sha256": "e0ec1ec2acaadb8537789c4bfea0a96ae9e39986550cff8a491247409116bc46",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "reference": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'finding led experimental narrative' --technical-query 'percentage points' --domain general --section experiments --intent quantify --guide experiments.analysis --view reference --limit 4 --max-chars 24000",
+              "characters": 17118,
+              "bytes": 17163,
+              "sha256": "42ff65258ab475457e0318c48326c029955659f8eb960671d9fcc49faa9574b8",
+              "selected_ids": [
+                "general.usage-note.result-narrative.001",
+                "general.usage-note.percentage-points.001",
+                "general.usage-note.effectiveness.001"
+              ]
+            },
+            "drafting": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'finding led experimental narrative' --technical-query 'percentage points' --domain general --section experiments --intent quantify --guide experiments.analysis --view drafting --limit 4 --max-chars 24000",
+              "characters": 11575,
+              "bytes": 11592,
+              "sha256": "143595c601dab65790ba63ca2e6a5f0b64d642bc54f574e5ca895773b739601e",
+              "selected_ids": [
+                "general.usage-note.result-narrative.001",
+                "general.usage-note.percentage-points.001",
+                "general.usage-note.effectiveness.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "verification-rater-one",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "reference",
+                "drafting"
+              ],
+              "rationale": "Every text is self-contained and retains matched hardware, training data, and model selection; success of 62% versus 70% and the 8-percentage-point gain; model-query latency of 40 versus 68 ms excluding sensing and actuation; gains on four of six tasks with two unchanged within uncertainty; and both missing significance testing and missing component attribution. B groups the success result with its task-level exceptions before explicitly introducing the latency trade-off. C achieves a similarly useful grouping through paragraphs. A is clear and complete but its success-latency-task sequence is slightly more inventory-like. No material scientific or reporting flaw occurs."
+            },
+            {
+              "rater_id": "verification-rater-two",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "reference",
+                "drafting"
+              ],
+              "rationale": "Each passage is standalone and explicitly retains the matched hardware, training data and model selection; success of 62% to 70% and the 8-percentage-point gain; model-query latency of 40 ms to 68 ms excluding sensing and actuation; gains on four of six tasks with two unchanged within uncertainty; and the absence of significance testing and component attribution. B groups the success result with its task-level exception before introducing latency as a trade-off. C makes the same grouping and uses a useful paragraph break. A is clear but has a slightly more list-like succession of measurements and repeated 'increases' phrasing. There is no material scientific omission or unsupported inference in any passage."
+            }
+          ]
+        },
+        {
+          "case_id": "paper-efficiency-table-caption",
+          "prompt": {
+            "case_id": "paper-efficiency-table-caption",
+            "mode": "paper",
+            "classification": {
+              "domain": "vision_language_action",
+              "section": "experiments",
+              "intent": "describe",
+              "topic": "vla_models"
+            },
+            "request": "Write a self-contained caption for an efficiency table comparing throughput and end-to-end latency.",
+            "facts": [
+              "The reported method reaches 43 images/s and 21 ms end-to-end latency.",
+              "Measurements use one NVIDIA A100, batch size 1, and FP16 inference.",
+              "Timing excludes model loading and includes preprocessing and action decoding.",
+              "Each value follows 100 warm-up iterations and 1,000 measured iterations."
+            ],
+            "evidence_boundary": "The caption must define the timing boundary and measurement protocol; it may not imply hardware-independent ranking.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "v-4",
+            "case_id": "paper-efficiency-table-caption",
+            "assignment": {
+              "a": "drafting",
+              "b": "reference",
+              "c": "control"
+            }
+          },
+          "responses": {
+            "drafting": {
+              "text": "Throughput (images/s; higher is better) and end-to-end latency (ms; lower is better), measured on one NVIDIA A100 with batch size 1 and FP16 inference. The reported method reaches 43 images/s and 21 ms end-to-end latency. Timing includes preprocessing and action decoding but excludes model loading. Each value is measured over 1,000 iterations after 100 warm-up iterations.\n",
+              "sha256": "1e15136fb7ed6f6634d23c1872fba7092335af2ffee8f7e8938d0cf605dcc350",
+              "machine_check_passed": true
+            },
+            "reference": {
+              "text": "Throughput and end-to-end latency measured on one NVIDIA A100 with batch size 1 and FP16 inference. The reported method achieves 43 images/s and 21 ms end-to-end latency; higher throughput and lower latency are better. Timing excludes model loading and includes preprocessing and action decoding. Each value is measured over 1,000 iterations after 100 warm-up iterations. Comparisons are specific to this hardware and measurement protocol.\n",
+              "sha256": "6a7414c6d363908dc7b4c4ff2827371416b710ce4c697122a7399aecb4a9f12b",
+              "machine_check_passed": true
+            },
+            "control": {
+              "text": "Efficiency comparison in terms of throughput (images/s) and end-to-end latency (ms), measured on one NVIDIA A100 with batch size 1 and FP16 inference. The reported method reaches 43 images/s and 21 ms end-to-end latency. Timing excludes model loading and includes preprocessing and action decoding. Each value follows 100 warm-up iterations and 1,000 measured iterations. Comparisons are specific to this hardware and measurement protocol.\n",
+              "sha256": "c6038b162274f4ccf6c55dde3e4409a17cc2f03747be91482077bd1385891980",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "drafting": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'efficiency table caption' --technical-query 'model query latency' --domain vision_language_action --section experiments --intent describe --guide experiments.table.efficiency --view drafting --limit 4 --max-chars 24000",
+              "characters": 13755,
+              "bytes": 13785,
+              "sha256": "3f90f2f7205118aced72cafbd6e5ba3594c62f3e312b1ec1808c199a5745e2b8",
+              "selected_ids": [
+                "general.usage-note.result-display-allocation.001",
+                "vla.usage-note.control-latency.001",
+                "general.sentence-pattern.caption-efficiency.001",
+                "emb.definition.3d-vla-world-model.001",
+                "general.sentence-pattern.caption-main-results.001",
+                "emb.definition.embodied-language-model.001",
+                "general.sentence-pattern.caption-ablation.001",
+                "emb.definition.vla.001"
+              ]
+            },
+            "reference": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'efficiency table caption' --technical-query 'model query latency' --domain vision_language_action --section experiments --intent describe --guide experiments.table.efficiency --view reference --limit 4 --max-chars 24000",
+              "characters": 17533,
+              "bytes": 17609,
+              "sha256": "52865228b028253aa333970a22b5b17703970b310fbc706d2b7bc8be1bf1366e",
+              "selected_ids": [
+                "general.usage-note.result-display-allocation.001",
+                "vla.usage-note.control-latency.001",
+                "general.sentence-pattern.caption-efficiency.001",
+                "emb.definition.3d-vla-world-model.001",
+                "general.sentence-pattern.caption-main-results.001",
+                "emb.definition.embodied-language-model.001",
+                "general.sentence-pattern.caption-ablation.001",
+                "emb.definition.vla.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "verification-rater-one",
+              "scores_by_condition": {
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "drafting",
+                "reference"
+              ],
+              "rationale": "All captions independently specify 43 images/s, 21 ms end-to-end latency, one NVIDIA A100, batch size 1, FP16 inference, preprocessing and action decoding included, model loading excluded, and 100 warm-up plus 1,000 measured iterations. A defines metric units and directions immediately and makes the measurement window especially clear. B is equally interpretable and explicitly limits comparisons to the stated hardware and protocol. A's omission of that final reminder is not a scope expansion because it makes no hardware-independent ranking. C remains complete and calibrated, but efficiency comparison in terms of is heavier scaffolding and each value follows is less direct than is measured over. Its omission of explicit better-direction labels is not a material omission of supplied facts. No material flaw or critical error occurs."
+            },
+            {
+              "rater_id": "verification-rater-two",
+              "scores_by_condition": {
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "drafting",
+                "reference"
+              ],
+              "rationale": "All captions retain 43 images/s, 21 ms end-to-end latency, one NVIDIA A100, batch size 1, FP16 inference, inclusion of preprocessing and action decoding, exclusion of model loading, and 1,000 measured iterations after 100 warm-up iterations. A is concise and places units and metric directions next to the metric names. B gives the directions explicitly and also states the hardware-and-protocol scope. A's explicit measurement conditions likewise avoid hardware-independent ranking. C is self-contained and correctly scoped, but 'Efficiency comparison in terms of' is less economical and 'Each value follows' is less direct than 'is measured over'. Its metric directions remain implicit, although this does not omit a supplied fact. No material protocol or scientific error is present."
+            }
+          ]
+        },
+        {
+          "case_id": "paper-abstract-null-result-boundary",
+          "prompt": {
+            "case_id": "paper-abstract-null-result-boundary",
+            "mode": "paper",
+            "classification": {
+              "domain": "world_models",
+              "section": "abstract",
+              "intent": "quantify",
+              "topic": "dynamics_representation"
+            },
+            "request": "Write a compact abstract result-and-scope passage that preserves a null result instead of selecting only favorable benchmarks.",
+            "facts": [
+              "The method adds a latent-dynamics regularizer to an action-conditioned world model.",
+              "Across three benchmarks, performance improves by 2.4 and 1.1 percentage points on two benchmarks.",
+              "The method has no consistent advantage on the third benchmark.",
+              "Results are means over five seeds, and no statistical significance test was run."
+            ],
+            "evidence_boundary": "Report the mixed three-benchmark result and five-seed aggregation; no significance test or universal improvement claim is supported.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "v-3",
+            "case_id": "paper-abstract-null-result-boundary",
+            "assignment": {
+              "a": "control",
+              "b": "drafting",
+              "c": "reference"
+            }
+          },
+          "responses": {
+            "control": {
+              "text": "The method adds a latent-dynamics regularizer to an action-conditioned world model. Across three benchmarks, performance improves by 2.4 and 1.1 percentage points on two benchmarks, but the method has no consistent advantage on the third. Results are means over five seeds, and no statistical significance test was run.\n",
+              "sha256": "868cf8799a8867cd6c779c3135beae603cf5968c11c13ab76808e2134b384ae4",
+              "machine_check_passed": true
+            },
+            "drafting": {
+              "text": "We add a latent-dynamics regularizer to an action-conditioned world model. Results averaged over five seeds show performance gains of 2.4 and 1.1 percentage points on two of three benchmarks, but no consistent advantage on the third. No statistical significance test was run.\n",
+              "sha256": "4cbc011734e8ee82dae4a63419531306a6f5a104943a6eeac69a7efaf149f384",
+              "machine_check_passed": true
+            },
+            "reference": {
+              "text": "The method adds a latent-dynamics regularizer to an action-conditioned world model. Across three benchmarks, performance improves by 2.4 and 1.1 percentage points on two benchmarks, with no consistent advantage on the third. These results are means over five seeds, and no statistical significance test was run.\n",
+              "sha256": "279691db2c3bcb11e6575d1e884ffdfca971fab40b163f2fd575bf9d13be9053",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "drafting": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'abstract null result scope' --technical-query 'world model' --domain world_models --section abstract --intent quantify --guide abstract --view drafting --limit 4 --max-chars 24000",
+              "characters": 14952,
+              "bytes": 14985,
+              "sha256": "3f80db35c2b669163a8db4106af196c91cb8a4ff66178f8b63c7dcf016b45927",
+              "selected_ids": [
+                "general.sentence-pattern.abstract-result.001",
+                "wm.definition.world-model.001",
+                "general.usage-note.performance.001",
+                "wm.definition.embodied-world-model.001",
+                "general.usage-note.state-of-the-art.001",
+                "emb.definition.3d-vla-world-model.001",
+                "general.usage-note.result-display-allocation.001",
+                "wm.definition.visual-world-model.001"
+              ]
+            },
+            "reference": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'abstract null result scope' --technical-query 'world model' --domain world_models --section abstract --intent quantify --guide abstract --view reference --limit 4 --max-chars 24000",
+              "characters": 19591,
+              "bytes": 19673,
+              "sha256": "f6d808a06ef3d826f82e0bc3a268039717471d57f2cfd54da704d9ad29c54e6f",
+              "selected_ids": [
+                "general.sentence-pattern.abstract-result.001",
+                "wm.definition.world-model.001",
+                "general.usage-note.performance.001",
+                "wm.definition.embodied-world-model.001",
+                "general.usage-note.state-of-the-art.001",
+                "emb.definition.3d-vla-world-model.001",
+                "general.usage-note.result-display-allocation.001",
+                "wm.definition.visual-world-model.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "verification-rater-one",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "drafting"
+              ],
+              "rationale": "All three retain the latent-dynamics regularizer, action-conditioned world model, gains of 2.4 and 1.1 percentage points on two benchmarks, lack of consistent advantage on the third, five-seed means, and absence of significance testing. None converts the mixed result into universal improvement. B integrates the seed aggregation directly with the mixed benchmark result and uses the economical phrase two of three benchmarks. A and C repeat benchmarks in the across-three/on-two construction and place aggregation in a separate sentence, making them marginally less compact for an abstract. There are no material flaws."
+            },
+            {
+              "rater_id": "verification-rater-two",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 4,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 4
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "drafting"
+              ],
+              "rationale": "All three preserve the latent-dynamics regularizer and action-conditioned world model, gains of 2.4 and 1.1 percentage points on two benchmarks, the lack of a consistent advantage on the third, means over five seeds, and no significance test. B integrates the five-seed aggregation into the result sentence and uses 'two of three benchmarks', making the compact abstract passage especially economical. A and C repeat 'benchmarks' and use a separate aggregation sentence, so their progression is somewhat more mechanical without being incorrect. None suppresses the null result or asserts universal improvement; no material flaw is present."
+            }
+          ]
+        },
+        {
+          "case_id": "translation-negation-numbers-citation",
+          "prompt": {
+            "case_id": "translation-negation-numbers-citation",
+            "mode": "translation",
+            "classification": {
+              "domain": "embodied_ai",
+              "section": "translation",
+              "intent": "scope",
+              "topic": "sim_to_real_robot_learning"
+            },
+            "request": "Translate: 在5个随机种子上，本方法平均提高2.3个百分点，但在未见场景上并未优于基线（见表3）。因此，这些结果不能证明跨环境泛化。",
+            "facts": [],
+            "evidence_boundary": "Preserve the five-seed aggregation, percentage-point unit, negative unseen-environment comparison, Table 3 attachment, and non-proof conclusion.",
+            "instructions": [
+              "Return only the requested manuscript prose.",
+              "Preserve every supplied fact, number, negation, and uncertainty qualifier.",
+              "Do not invent citations, experiments, results, or implementation details."
+            ]
+          },
+          "assignment": {
+            "pair_id": "v-1",
+            "case_id": "translation-negation-numbers-citation",
+            "assignment": {
+              "a": "control",
+              "b": "drafting",
+              "c": "reference"
+            }
+          },
+          "responses": {
+            "control": {
+              "text": "Across five random seeds, our method yields an average improvement of 2.3 percentage points but does not outperform the baseline in unseen environments (see Table 3). Therefore, these results cannot establish cross-environment generalization.\n",
+              "sha256": "8750f2aba17aeddae7ed7e0e5873d380ac156ee9e91e2979bbd74f9f474e4ec8",
+              "machine_check_passed": true
+            },
+            "drafting": {
+              "text": "Across five random seeds, the method yields an average improvement of 2.3 percentage points but does not outperform the baseline in unseen environments (see Table 3). These results therefore do not establish cross-environment generalization.\n",
+              "sha256": "564f744f20b25ee0bbf39a4b112a1675050bf1308f6b8d81daedd13139c23d34",
+              "machine_check_passed": true
+            },
+            "reference": {
+              "text": "Across five random seeds, our method yields a mean improvement of 2.3 percentage points, but it does not outperform the baseline in unseen environments (see Table 3). These results therefore do not establish cross-environment generalization.\n",
+              "sha256": "1ea1c00015a7a3c10c30f08ddbc911ba9776e5f028a9f6029c5d91ac4405502e",
+              "machine_check_passed": true
+            }
+          },
+          "retrieval": {
+            "drafting": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'translation numbers negation scope' --technical-query 'percentage points' --domain embodied_ai --section translation --intent scope --guide translation --view drafting --limit 4 --max-chars 24000",
+              "characters": 13919,
+              "bytes": 13945,
+              "sha256": "67e03d226c3f2f16c88c4139bd4946b9f6c896fdf2fcf4548ec98b05380d3795",
+              "selected_ids": [
+                "general.phrase.evaluate-on.001",
+                "general.usage-note.percentage-points.001",
+                "general.phrase.downstream-range.001",
+                "emb.term.task-success-rate.001",
+                "general.phrase.wide-spectrum.001",
+                "general.sentence-pattern.translation-preserve.001"
+              ]
+            },
+            "reference": {
+              "command": "python3 scripts/superlib.py bundle --rhetoric-query 'translation numbers negation scope' --technical-query 'percentage points' --domain embodied_ai --section translation --intent scope --guide translation --view reference --limit 4 --max-chars 24000",
+              "characters": 18377,
+              "bytes": 18467,
+              "sha256": "3f8550fa5993aa14f7bb694d73113c4366f8014428016a1be3650976369c748c",
+              "selected_ids": [
+                "general.phrase.evaluate-on.001",
+                "general.usage-note.percentage-points.001",
+                "general.phrase.downstream-range.001",
+                "emb.term.task-success-rate.001",
+                "general.phrase.wide-spectrum.001",
+                "general.sentence-pattern.translation-preserve.001"
+              ]
+            }
+          },
+          "ratings": [
+            {
+              "rater_id": "verification-rater-one",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "control",
+                "drafting",
+                "reference"
+              ],
+              "rationale": "All three preserve the five-seed average, 2.3-percentage-point unit, failure to outperform the baseline in unseen environments, attached Table 3 reference, and conclusion that the results do not establish cross-environment generalization. Average versus mean and our method versus the method are harmless variations here. All are natural, compact translations; none has a material flaw."
+            },
+            {
+              "rater_id": "verification-rater-two",
+              "scores_by_condition": {
+                "control": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "drafting": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                },
+                "reference": {
+                  "scores": {
+                    "scientific_fidelity": 5,
+                    "terminology_and_collocation": 5,
+                    "rhetorical_function": 5,
+                    "evidence_calibration": 5,
+                    "reporting_completeness": 5,
+                    "clarity_and_concision": 5
+                  },
+                  "critical_errors": []
+                }
+              },
+              "preferred_conditions": [
+                "control",
+                "drafting",
+                "reference"
+              ],
+              "rationale": "All three retain five random seeds, the average 2.3-percentage-point improvement, the negative unseen-environment comparison attached to Table 3, and the conclusion that the results do not establish cross-environment generalization. Both 'average' and 'mean' are natural here; 'cannot establish' and 'do not establish' preserve the evidential conclusion in this context. The minor choices of pronoun and connective do not yield a substantive preference. No material flaw is present."
+            }
+          ]
+        }
+      ],
+      "mean_six_dimension_score": {
+        "control": 4.8125,
+        "reference": 4.9375,
+        "drafting": 5
+      }
+    }
+  ]
+}

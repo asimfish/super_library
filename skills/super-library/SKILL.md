@@ -31,6 +31,13 @@ python3 scripts/superlib.py bundle \
 ```
 
 Add `--guide <guide-id>` whenever the task needs a section or table protocol.
+For an opt-in smaller composition view, add `--view drafting`. It retains
+meaning, use/avoid constraints, source navigation and selected protocol checks,
+but omits teaching contrasts, extra examples and template menus. It is labeled
+an incomplete projection, not a complete reference card. The default reference
+view and `show`/`guide` keep full inspection available; do not load both views
+for routine drafting. This option has diagnostic evidence, not a demonstrated
+general writing benefit.
 Bundles and one-file routes already include applicable AI writing-spec summaries;
 do not also load a complete specification. Use `spec --list` or `spec <section>`
 only to inspect a rule profile. A retrieved record may contain a contextual
@@ -60,6 +67,8 @@ python3 scripts/lookup.py "<technical concept or Chinese term>" \
 Omit `--kind` for a mix of terms and definitions. Use `--id <entry-id>` to load
 one known record. On the fallback path, for a structured section, rebuttal, or
 translation task, read `references/guides/index.md`, then exactly one matching guide.
+Standalone lookup also accepts `--view drafting` for a labeled term projection;
+it remains record-count bounded, not the full checkout's character-budget bundle.
 The guide contains links to sentence-card IDs; retrieve only the cards needed for
 the current prose.
 For a table task, copy exactly one matching file from `assets/tables/`; do not

@@ -66,6 +66,14 @@ prediction/control records are enriched rather than duplicated. See
 [the probe results and remaining efficacy gap](docs/FEEDBACK_ITERATION.md).
 Use the feature-branch checkout; the old pinned `v0.4.0` links are not updated.
 
+An opt-in `bundle --view drafting` separates compact composition context from
+complete reference inspection. It preserves semantic and evidence constraints
+without loading teaching contrasts or alternative template menus. The default
+reference view, generated cards and one-file routes remain unchanged.
+See [usage and compatibility](docs/DRAFTING_VIEW.md) and
+[the diagnostic blind pilot](docs/BLIND_PILOT_2026-10.md). This is not a new
+dictionary or a proven general prose-quality improvement.
+
 Super Library gives the agent exactly that: one reviewed **record** per
 concept, and a **bounded lookup path** so the right records reach the context
 window without flooding it.
@@ -171,7 +179,7 @@ flowchart LR
     B --> A["routes · protocols<br/>catalogs · cards"]
 ```
 
-A fourth, supporting decision: **infrastructure has explicit checks.** 104 tests, 42
+A fourth, supporting decision: **infrastructure has explicit checks.** 112 tests, 42
 deterministic retrieval evals, a 47-case blind writing suite, a bounded
 source-health check over all canonical URLs, and a same-model paired
 professionalism benchmark (blind A/B with anchored human rubrics — the harness
@@ -328,7 +336,7 @@ docs/                       # architecture, data model, writing-guide research
 | Full-paper structural samples | 80 (twenty per domain, detectors stated in the study method) |
 | Paragraph-level narrative calibration | 12 passages from 7 existing sources; no additional coverage count |
 | Blind writing suite | 47 cases across paper, rebuttal, peer-review, translation |
-| Gates | 104 tests · 42 retrieval evals · byte budgets · zero-drift builds |
+| Gates | 112 tests · 42 retrieval evals · byte budgets · zero-drift builds |
 
 <details>
 <summary><b>Full scope statements</b> — what these numbers do and do not claim</summary>
