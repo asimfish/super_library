@@ -156,6 +156,15 @@ and combines deterministic invariants with anchored human ratings, paired effect
 bootstrap uncertainty, and agreement. See
 [`ADR-005`](adr/ADR-005-blind-paired-professionalism-benchmark.md).
 
+The public-table transfer diagnostic has a separate source-fact boundary:
+published PDF → selected cells and protocol notes → independent source check →
+identical frozen task bytes → isolated writing → anonymous ratings → key reveal.
+Source URLs, PDF hashes and table locators are maintained separately from the
+language bundle; no author analysis paragraph or preferred answer is supplied.
+The raw study stays outside default retrieval. It audits extraction fidelity and
+selected writing behavior, not source-paper measurements or user-manuscript
+effectiveness. See [ADR-009](adr/ADR-009-separate-source-facts-from-style-validation.md).
+
 ## Local retrieval
 
 ### Reference and drafting are views, not separate corpora

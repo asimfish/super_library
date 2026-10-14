@@ -74,6 +74,14 @@ See [usage and compatibility](docs/DRAFTING_VIEW.md) and
 [the diagnostic blind pilot](docs/BLIND_PILOT_2026-10.md). This is not a new
 dictionary or a proven general prose-quality improvement.
 
+The [published-table transfer diagnostic](docs/PUBLIC_TABLE_TRANSFER_2026-10.md)
+adds four real-data tasks from RSS/ICML/CVPR, independent source checks, unedited
+paired outputs and anonymous LLM assessments. Primary preferences were 5 library,
+2 baseline and 1 tie, but the score difference was only 0.0208 and the initial
+layout was not counterbalanced. A separate complementary-layout check and all
+adverse judgments are retained; this is not user-manuscript or formal efficacy
+validation. Runtime, corpus counts, default view and old release are unchanged.
+
 Super Library gives the agent exactly that: one reviewed **record** per
 concept, and a **bounded lookup path** so the right records reach the context
 window without flooding it.

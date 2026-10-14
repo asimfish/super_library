@@ -61,3 +61,9 @@ remain unexposed: this is a diagnostic LLM study, not a formal release gate or
 independent human review. Keep all adverse cases. Do not set a new default solely
 from this pilot; revisit on preservation failures or later pinned cross-model
 and human evidence.
+
+Execution clarification, 2026-10-14: the recorded verification used reference
+and drafting from the same frozen candidate `b386b41`, not different runtime
+commits. Four saved old reference bundles matched the candidate reference output
+byte-for-byte. The diagnostic report records this implementation of the original
+three-arm plan; the default reference contract remained unchanged.
