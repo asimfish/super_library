@@ -21,6 +21,8 @@ library/
 ├── compact_ids.json      legacy single-file selection
 ├── writing_guides.json   bounded section and table protocols
 ├── writing_spec.json     stable AI language/evidence rules; must / prefer
+├── argument_frames.json  compact original argument structures; references existing owners
+├── team_workflow.json    role contracts, retrieval/output budgets and revision bounds
 ├── task_routes.json      bounded task/domain fast-path bundles
 ├── table_templates.json  reviewed LaTeX table-asset registry
 ├── studies/*.json        aggregate/paragraph calibration audits; no paper prose
@@ -166,6 +168,35 @@ selected writing behavior, not source-paper measurements or user-manuscript
 effectiveness. See [ADR-009](adr/ADR-009-separate-source-facts-from-style-validation.md).
 
 ## Local retrieval
+
+### Agent cooperation and argument retrieval
+
+[ADR-010](adr/ADR-010-argument-frames-and-agent-cooperation.md) adds two separate
+boundaries. `scripts/argument_frames.py` derives compact function and
+evidence-relation indexes from one canonical frame registry; the `frames` command
+returns only selected complete structures. Frames carry existing entry IDs,
+guide locators and study locators, with explicit original-synthesis provenance.
+They do not replace term records or imply new source-paper verification.
+
+`scripts/team_workflow.py` owns durable local task state and staged artifact
+validation. `team init` freezes one existing bounded drafting bundle, selected
+frames, task facts and workflow config. The host owns actual agent dispatch;
+`team next` is a packet interface, not a model call. See
+[the architecture diagram and complete host contract](TEAM_WORKFLOW.md).
+
+Evidence reader → argument planner → writer → two independent reviewers is the
+dependency graph. Reviewer packets omit peer judgments. One coordinator submits
+artifacts and advances rounds under a local file lock. Required evidence and
+claim maps, input hashes, complete review coverage and bounded revisions guard
+the export transition. The writer retains original facts in addition to its
+plan. Evidence review and narrative review remain semantic judgments; valid
+references alone do not prove scientific support.
+
+The canonical language corpus and existing routes stay unchanged. The portable
+skill explains the full-checkout capability and falls back explicitly when it is
+unavailable. Role packet budgets count serialized characters, not actual model
+tokens; independent calls can cost more despite smaller per-role context.
+Process evidence and prose-effectiveness evidence remain separate.
 
 ### Reference and drafting are views, not separate corpora
 

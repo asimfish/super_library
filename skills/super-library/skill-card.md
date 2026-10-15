@@ -28,8 +28,14 @@ organization without manuscript writing.
   bibliography.
 - **Writes:** requested prose or a user-authorized local draft; copies one LaTeX
   table asset only when explicitly requested.
+  The opt-in full-checkout team coordinator also creates a local run directory
+  containing supplied facts, retrieval contexts, stage artifacts and revision
+  history. Store private runs outside version control.
 - **Executes:** bounded local lookup, route selection, table-asset copying, and
   wording/BibTeX-key lint through the bundled Python scripts.
+  In a complete checkout, local `team` commands validate and persist stage
+  artifacts. The host can dispatch independent agents within the authorized
+  manuscript task; the CLI makes no model calls and requires no provider key.
 - **Network:** none for ordinary retrieval; official primary-paper pages may be
   opened when a definition, literature claim, comparison, or citation must be
   verified.
@@ -52,6 +58,13 @@ organization without manuscript writing.
   skill contract.
 - **Context bloat:** prefer one matching route and stop; otherwise load one core,
   at most one protocol, and only a few selected records.
+  Team initialization selects one bundle and at most two argument frames;
+  role packets have separate serialized character caps. These caps are not
+  model-token or total-cost measurements.
+- **Review independence and persistence:** separate actors, exact input hashes,
+  complete claim/evidence references, bounded revisions and current-round reviews
+  are required before export. Actor IDs are host attestations, not authentication.
+  Local files are accessible to the host; packet isolation is not an OS sandbox.
 - **Meaning drift:** preserve notation, quantities, negation, uncertainty,
   comparison scope, and citation placement, then run the limited lint and manual
   scientific checks.

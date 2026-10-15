@@ -82,6 +82,37 @@ layout was not counterbalanced. A separate complementary-layout check and all
 adverse judgments are retained; this is not user-manuscript or formal efficacy
 validation. Runtime, corpus counts, default view and old release are unchanged.
 
+### Cooperative writing with argument structures
+
+The feature checkout now adds a local multi-agent writing coordinator. A host
+agent dispatches evidence reading, argument planning, writing, and separate
+evidence/narrative reviewers. Each stage receives its own bounded packet. The
+coordinator keeps artifacts and revision history and permits export only after
+both current reviews pass. It makes no model API calls itself.
+
+Compact original argument frames are indexed by section, intent, evidence
+relation and experiment type. They reference existing terms, guides and audit
+records; they do not duplicate paper paragraphs or add new verified papers.
+Initialization retrieves one language bundle and at most two frames. The writer
+also receives the complete author fact packet so planning cannot hide exceptions.
+
+```bash
+python3 scripts/superlib.py frames --section experiments --intent contrast \
+  --relation tradeoff --experiment-type efficiency
+python3 scripts/superlib.py team init \
+  --task examples/team/experiment-task.json --run-dir /tmp/superlib-my-writing-run
+python3 scripts/superlib.py team next --run-dir /tmp/superlib-my-writing-run \
+  --role evidence_reader
+```
+
+See [the role diagram and host dispatch contract](docs/TEAM_WORKFLOW.md),
+[architecture decision](docs/adr/ADR-010-argument-frames-and-agent-cooperation.md),
+and [implementation verification](docs/TEAM_VALIDATION_2026-10.md).
+This workflow targets argument organization as well as wording. Process checks
+and two live development runs do not establish that multi-agent prose is consistently better;
+new balanced blind comparisons are still required. The pinned old release and
+standalone skill do not contain the executable coordinator.
+
 Super Library gives the agent exactly that: one reviewed **record** per
 concept, and a **bounded lookup path** so the right records reach the context
 window without flooding it.

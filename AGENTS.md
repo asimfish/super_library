@@ -55,6 +55,13 @@ literature claim needs source verification.
 
 ## Writing constraints
 
+For substantial section drafting or an explicitly requested multi-agent writing
+task, use `docs/TEAM_WORKFLOW.md` and the full-checkout `superlib.py team` commands.
+The host dispatches isolated workers from `team next` packets; initialization
+performs the bounded retrieval above once. The coordinator alone submits artifacts
+and advances rounds. Keep evidence and narrative reviews independent, and do not
+claim the CLI itself invokes models or that a passing review proves effectiveness.
+
 - Preserve the author's technical meaning, uncertainty, notation, and claim scope.
 - Prefer field-standard terms in `expression`; heed every `avoid` note.
 - Treat every `example` as an original reusable pattern, not as a quotation.

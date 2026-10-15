@@ -10,6 +10,16 @@
   ],
   "activation_cases": [
     {
+      "id": "positive-writing-team",
+      "prompt": "Use $super-library with separate planning, writing, evidence-review and narrative-review agents to draft the experiment analysis from my supplied table.",
+      "should_activate": true
+    },
+    {
+      "id": "negative-multi-agent-runtime-only",
+      "prompt": "Implement a multi-agent job queue and test its crash recovery; do not draft academic manuscript prose.",
+      "should_activate": false
+    },
+    {
       "id": "positive-explicit",
       "prompt": "Use $super-library to revise the experiments section of my world-model paper and make the table caption and result analysis conform to top AI-conference writing conventions.",
       "should_activate": true

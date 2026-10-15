@@ -1,5 +1,29 @@
 # Provenance of the narrative revision
 
+## Argument structures and agent cooperation, 2026-10-15
+
+Independently designed from the four high-level lessons reviewed in IdeaScientist:
+structured argument units, functional retrieval, intermediate plans, and distinct
+evaluation responsibilities. Reviewed repository
+https://github.com/jiarui-liu/IdeaScientist at full commit
+`82a98a08772eab08d11fd097445afa4a8eaaa5b3`, especially
+`ideascientist/vault/fields.py`, `ideascientist/harness/roles.py` and
+`ideascientist/evaluation/novelty_aspects.py`. Its code license is CC BY-NC 4.0;
+no code, role prompt, generated annotation, paper text or dataset is imported.
+The new implementation and compact structures are independently authored here.
+
+The existing Super Library skill remains the composition owner. An optional
+full-checkout coordinator adds local task/artifact persistence and a host-mediated
+multi-agent workflow. It performs no network requests, arbitrary command execution,
+credential access, provider installation or model API calls. Host role sessions
+must follow the task's authority and supplied access boundaries. The portable
+skill does not include the coordinator; the fallback is explicit.
+
+Structure provenance points to existing reviewed language records, protocols and
+study locators. This is a normalization pass, not another primary-paper audit or
+an expanded 300-paper collection. Process and live-flow checks do not establish
+writing-quality gains. Historical mixed blind results remain preserved.
+
 ## Drafting projection revision, 2026-10-13
 
 Independent implementation based on repository commit
