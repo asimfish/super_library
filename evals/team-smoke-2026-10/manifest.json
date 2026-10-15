@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Host-agent workflow development smoke, not an efficacy benchmark",
+  "date": "2026-10-15",
+  "task": "examples/team/experiment-task.json",
+  "source_audit": "library/studies/public_table_transfer_2026-10.json: source_verification.tasks[T01]",
+  "held_out": false,
+  "blind_comparison": false,
+  "source_reverified_this_run": false,
+  "host": "Codex native independent child sessions; fork_turns=none",
+  "model_version_and_sampling": "not exposed or pinned; not reproducible formal generation controls",
+  "writer_extra_context": "Existing super-library SKILL.md only; bounded language bundle supplied by team packet, no extra route/bundle",
+  "reviewer_access": "Only assigned role packet; no peer judgment or prior candidate output",
+  "coordinator_edits_to_accepted_artifacts": false,
+  "revision_note": "Both complete runs passed both role reviews in round 1. Maintainer identified narrative weakness after initial pass, revised generic role instructions, and started a new run. This is post-hoc development; no quality improvement inference.",
+  "packet_measurement": "Characters in complete serialized packets including newline; excludes host system/skill prompts, model output, internal reasoning and actual model-token billing.",
+  "runs": [
+    {
+      "name": "initial",
+      "frozen_sha256": "8aec29389e3a9921b5eac77de6fb54b1857ba0711832356f9c1938f0d05d7de7",
+      "state_sha256": "68c468bf37ce99ed604b5394633fc70c466c2943d8fef1e57cc75ae1d76cda8f",
+      "actors": {
+        "argument_planner": "team_live_planner",
+        "evidence_reader": "team_live_reader",
+        "evidence_reviewer": "team_live_fact_review",
+        "narrative_reviewer": "team_live_narrative_review",
+        "writer": "team_live_writer"
+      },
+      "packet_chars": {
+        "evidence_reader": 5200,
+        "argument_planner": 10496,
+        "writer": 24607,
+        "evidence_reviewer": 12988,
+        "narrative_reviewer": 15242
+      },
+      "text_words_whitespace": 105
+    },
+    {
+      "name": "refined",
+      "frozen_sha256": "b543ee596fc98f9d215633b4a0916a323eca0b10e5bc1e10147b9f83711296a3",
+      "state_sha256": "534c1abb43135748077c4b4fe5fde27233f6fbb7b0bb24b387366b820e0a7543",
+      "actors": {
+        "argument_planner": "team_refined_planner",
+        "evidence_reader": "team_refined_reader",
+        "evidence_reviewer": "team_refined_fact_review",
+        "narrative_reviewer": "team_refined_narrative_review",
+        "writer": "team_refined_writer"
+      },
+      "packet_chars": {
+        "evidence_reader": 5200,
+        "argument_planner": 10601,
+        "writer": 25307,
+        "evidence_reviewer": 12955,
+        "narrative_reviewer": 15514
+      },
+      "text_words_whitespace": 104
+    }
+  ]
+}

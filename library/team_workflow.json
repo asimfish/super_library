@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "max_revision_rounds": 2,
+  "retrieval": {
+    "language_max_chars": 16000,
+    "frame_max_chars": 6000,
+    "entry_limit": 2,
+    "frame_limit": 2
+  },
+  "packet_max_chars": {
+    "evidence_reader": 24000,
+    "argument_planner": 36000,
+    "writer": 48000,
+    "evidence_reviewer": 48000,
+    "narrative_reviewer": 48000
+  },
+  "output_max_chars": {
+    "evidence_reader": 10000,
+    "argument_planner": 14000,
+    "writer": 20000,
+    "evidence_reviewer": 14000,
+    "narrative_reviewer": 14000
+  },
+  "bounds": {
+    "max_task_chars": 16000,
+    "max_evidence": 64,
+    "max_evidence_chars": 4096,
+    "max_constraints": 32,
+    "max_field_chars": 4096,
+    "max_claims": 64,
+    "max_moves": 64,
+    "max_claim_map": 128,
+    "max_items": 128
+  }
+}

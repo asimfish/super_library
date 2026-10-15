@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Bounded original argument frames referencing canonical language owners",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "notice", "audit", "relations", "experiment_types", "frames"],
+  "properties": {
+    "schema_version": {"type": "string", "enum": ["1.0"]},
+    "notice": {"type": "string", "minLength": 40, "maxLength": 800},
+    "audit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "new_primary_paper_audit", "note"],
+      "properties": {
+        "status": {"type": "string", "enum": ["existing_library_navigation_only"]},
+        "new_primary_paper_audit": {"type": "boolean", "enum": [false]},
+        "note": {"type": "string", "minLength": 40, "maxLength": 800}
+      }
+    },
+    "relations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}},
+    "experiment_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}},
+    "frames": {
+      "type": "array", "minItems": 1, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "sections", "intents", "relations", "experiment_types", "question", "evidence_requirements", "moves", "boundary", "entry_ids", "guide_refs", "study_refs", "provenance"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^argument\\.[a-z][a-z0-9-]*$"},
+          "sections": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "intents": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "relations": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "experiment_types": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "question": {"type": "string", "minLength": 10, "maxLength": 300},
+          "evidence_requirements": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 10, "maxLength": 500}},
+          "moves": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 10, "maxLength": 500}},
+          "boundary": {"type": "string", "minLength": 20, "maxLength": 700},
+          "entry_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "guide_refs": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {
+              "type": "object", "additionalProperties": false, "required": ["id", "locator"],
+              "properties": {
+                "id": {"type": "string", "minLength": 1},
+                "locator": {"type": "string", "pattern": "^/moves/[0-9]+$"}
+              }
+            }
+          },
+          "study_refs": {
+            "type": "array", "minItems": 1, "uniqueItems": true,
+            "items": {
+              "type": "object", "additionalProperties": false, "required": ["path", "locator"],
+              "properties": {
+                "path": {"type": "string", "pattern": "^library/studies/[a-z0-9_-]+\\.json$"},
+                "locator": {"type": "string", "pattern": "^/(annotations|observations|limitations)/[0-9]+(?:/[a-z_]+)?$"}
+              }
+            }
+          },
+          "provenance": {"type": "string", "enum": ["original_synthesis"]}
+        }
+      }
+    }
+  }
+}

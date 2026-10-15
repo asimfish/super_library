@@ -1,0 +1,64 @@
+{
+  "task_id": "public-table-team-smoke-20261015",
+  "request": "Write one 100–140-word experimental analysis paragraph accompanying retained Table T01. Explain the efficiency–success tradeoff and its failure boundary. The table and setup remain available, so select decisive numerical anchors without reciting every cell. Return original manuscript prose, not drafting advice.",
+  "domain": "vision_language_action",
+  "topic": "action_representation",
+  "section": "experiments",
+  "intent": "contrast",
+  "guide": "experiments.analysis",
+  "rhetoric_query": "finding led analysis efficiency success tradeoff material exception",
+  "technical_query": "action chunking model query latency task success rate",
+  "relation": "tradeoff",
+  "experiment_type": "efficiency",
+  "evidence": [
+    {
+      "id": "E1",
+      "text": "L1 regression: 109.7 generated actions/s, 0.0729 seconds per 8-action chunk, 90.7% LIBERO-Long success; denoising step count is not applicable.",
+      "locator": "RSS 2025 OpenVLA-OFT, Table II, PDF page 6; audited frozen task T01 in library/studies/public_table_transfer_2026-10.json",
+      "kind": "verified_source",
+      "required": true
+    },
+    {
+      "id": "E2",
+      "text": "Diffusion with 50 inference steps: 4.2 generated actions/s, 1.907 seconds per chunk, 91.1% success.",
+      "locator": "RSS 2025 OpenVLA-OFT, Table II, PDF page 6; audited frozen task T01",
+      "kind": "verified_source",
+      "required": true
+    },
+    {
+      "id": "E3",
+      "text": "Diffusion with 10 inference steps: 19.3 generated actions/s, 0.4145 seconds per chunk, 91.0% success.",
+      "locator": "RSS 2025 OpenVLA-OFT, Table II, PDF page 6; audited frozen task T01",
+      "kind": "verified_source",
+      "required": true
+    },
+    {
+      "id": "E4",
+      "text": "Diffusion with one inference step: 109.4 generated actions/s, 0.0731 seconds per chunk, 0.0% success.",
+      "locator": "RSS 2025 OpenVLA-OFT, Table II, PDF page 6; audited frozen task T01",
+      "kind": "verified_source",
+      "required": true
+    },
+    {
+      "id": "E5",
+      "text": "All variants use parallel decoding and 8-timestep action chunks. Diffusion training uses 50 denoising steps; inference uses DDIM. Inference statistics average 100 queries on an NVIDIA A100 with one 224×224 image and a task command per query, producing 7-dimensional actions. Success aggregates 500 episodes (10 tasks × 50). Checkpoints are tested every 50K training steps and best performance is selected per run.",
+      "locator": "OpenVLA-OFT Sections V-A/V-B and Table II; retained setup in frozen task T01",
+      "kind": "verified_source",
+      "required": false
+    },
+    {
+      "id": "E6",
+      "text": "These are generation statistics, not end-to-end closed-loop robot-control rates. Per-cell uncertainty and independent training-run counts are not supplied in the retained task. No significance or causal-mechanism claim is supported.",
+      "locator": "Frozen T01 evidence boundary; public_table_transfer_2026-10.json source verification",
+      "kind": "author_fact",
+      "required": true
+    }
+  ],
+  "constraints": [
+    "This is a public-fixture workflow demonstration using a previously examined task, not a new blinded efficacy test.",
+    "Do not import facts from language examples or argument frames.",
+    "Keep the one-step failure and distinguish generated-action throughput from actual closed-loop control.",
+    "Do not print internal evidence IDs, workflow names, this packet, reviewer advice or checklists in the manuscript.",
+    "Use no citations or mechanisms beyond the supplied retained table; do not say statistical equivalence or significance."
+  ]
+}

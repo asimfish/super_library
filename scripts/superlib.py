@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import argparse
 import collections
+import contextlib
 import datetime as dt
 import hashlib
+import io
 import json
 import os
 import re
@@ -1818,6 +1820,17 @@ def validate_corpus(
 
     errors.extend(validate_writing_spec(taxonomy, entries))
     errors.extend(validate_writing_guides(taxonomy, sources, entries))
+    if __package__:
+        from .argument_frames import validate_frames
+        from .team_workflow import load_config
+    else:
+        from argument_frames import validate_frames
+        from team_workflow import load_config
+    errors.extend(validate_frames(ROOT))
+    try:
+        load_config(ROOT)
+    except (ValueError, OSError) as exc:
+        errors.append(f"team workflow config: {exc}")
     errors.extend(validate_task_routes(taxonomy, entries))
     errors.extend(validate_table_templates())
     errors.extend(validate_retrieval_evals(taxonomy, entries))
@@ -5561,6 +5574,87 @@ def normalize_filters(
         setattr(args, attr, normalized)
 
 
+def cmd_frames(args: argparse.Namespace) -> int:
+    """Retrieve compact argument structures without changing language bundles."""
+    if __package__:
+        from . import argument_frames
+    else:
+        import argument_frames
+    try:
+        if args.list:
+            registry = argument_frames.load_frames(ROOT)
+            payload = {"schema_version": registry["schema_version"],
+                       "notice": registry["notice"],
+                       "relations": registry["relations"],
+                       "experiment_types": registry["experiment_types"],
+                       "frames": [{key: frame[key] for key in
+                                   ("id", "sections", "intents", "relations", "experiment_types")}
+                                  for frame in registry["frames"]]}
+        else:
+            if len(args.section) != 1 or len(args.intent) != 1:
+                raise ValueError("frames requires exactly one --section and --intent")
+            payload = argument_frames.select_frames(
+                ROOT, section=args.section[0], intent=args.intent[0],
+                relation=args.relation, experiment_type=args.experiment_type,
+                limit=args.limit, max_chars=args.max_chars)
+        rendered = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+        if len(rendered) > args.max_chars:
+            raise ValueError("frame output exceeds --max-chars; no partial frame emitted")
+        print(rendered, end="")
+        return 0
+    except (ValueError, OSError, KeyError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
+def cmd_team(args: argparse.Namespace) -> int:
+    """Coordinate artifacts; the host dispatches actual isolated agent sessions."""
+    if __package__:
+        from . import argument_frames, team_workflow
+    else:
+        import argument_frames
+        import team_workflow
+    try:
+        run_dir = Path(args.run_dir)
+        if args.team_command == "init":
+            task = team_workflow.read_input(Path(args.task))
+            team_workflow.validate_task(ROOT, task)
+            config = team_workflow.load_config(ROOT)
+            retrieval = config["retrieval"]
+            bundle_args = argparse.Namespace(
+                rhetoric_query=task["rhetoric_query"], technical_query=task["technical_query"],
+                domain=[task["domain"]], section=[task["section"]], intent=[task["intent"]],
+                topic=[task["topic"]] if task.get("topic") else [], guide=task["guide"],
+                guide_only=False, view="drafting", format="markdown",
+                limit=retrieval["entry_limit"], max_chars=retrieval["language_max_chars"])
+            output = io.StringIO()
+            with contextlib.redirect_stdout(output):
+                result = cmd_bundle(bundle_args)
+            if result:
+                raise ValueError("language retrieval failed; run was not initialized")
+            frames = argument_frames.select_frames(
+                ROOT, section=task["section"], intent=task["intent"],
+                relation=task["relation"], experiment_type=task["experiment_type"],
+                limit=retrieval["frame_limit"], max_chars=retrieval["frame_max_chars"])
+            payload = team_workflow.initialize(ROOT, run_dir, task, output.getvalue(), frames)
+        elif args.team_command == "status":
+            payload = team_workflow.status(run_dir)
+        elif args.team_command == "next":
+            payload = team_workflow.packet(run_dir, args.role)
+        elif args.team_command == "submit":
+            payload = team_workflow.submit(run_dir, team_workflow.read_input(Path(args.artifact)))
+        elif args.team_command == "revise":
+            payload = team_workflow.revise(run_dir)
+        else:
+            print(team_workflow.export(run_dir), end="")
+            return 0
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+    except (ValueError, OSError, KeyError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
+        return 2
+
+
 def build_parser() -> argparse.ArgumentParser:
     taxonomy = read_json(TAXONOMY_PATH)
     guide_ids = [
@@ -5581,6 +5675,31 @@ def build_parser() -> argparse.ArgumentParser:
 
     validate_parser = subparsers.add_parser("validate", help="validate corpus records")
     validate_parser.set_defaults(func=cmd_validate)
+
+    frames_parser = subparsers.add_parser("frames", help="retrieve bounded argument structures")
+    frames_parser.add_argument("--list", action="store_true")
+    add_multi_filter(frames_parser, "section", taxonomy["sections"], "writing section")
+    add_multi_filter(frames_parser, "intent", taxonomy["intents"], "communicative intent")
+    frames_parser.add_argument("--relation", default="")
+    frames_parser.add_argument("--experiment-type", default="")
+    frames_parser.add_argument("--limit", type=int, default=2)
+    frames_parser.add_argument("--max-chars", type=int, default=6000)
+    frames_parser.set_defaults(func=cmd_frames)
+
+    team_parser = subparsers.add_parser("team", help="coordinate a resumable multi-agent writing run")
+    team_commands = team_parser.add_subparsers(dest="team_command", required=True)
+    for command in ("init", "status", "next", "submit", "revise", "export"):
+        command_parser = team_commands.add_parser(command)
+        command_parser.add_argument("--run-dir", required=True)
+        if command == "init":
+            command_parser.add_argument("--task", required=True)
+        elif command == "next":
+            command_parser.add_argument("--role", required=True,
+                choices=("evidence_reader", "argument_planner", "writer",
+                         "evidence_reviewer", "narrative_reviewer"))
+        elif command == "submit":
+            command_parser.add_argument("--artifact", required=True)
+        command_parser.set_defaults(func=cmd_team)
 
     search_parser = subparsers.add_parser("search", help="retrieve relevant entries")
     search_parser.add_argument(
